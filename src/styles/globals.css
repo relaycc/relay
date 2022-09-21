@@ -1,3 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+  .data-row {
+    @apply btn btn-ghost w-full border-none rounded-md bg-white flex flex-row flex-justify-between items-center;
+  }
+}

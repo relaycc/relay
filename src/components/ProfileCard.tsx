@@ -1,75 +1,27 @@
-import { MotionConfig } from "framer-motion";
-import { FunctionComponent } from "react";
-import { IconChat } from "./IconChat";
-import { IconLinkOut } from "./IconLinkOut";
+import React, { ReactNode } from "react";
 import { motion } from "framer-motion";
 
-export interface ProfileCardProps {
-  topLeftImgUrl: string | JSX.Element;
-  topRightImgUrl: string;
-  topRightImgOnClick: () => unknown;
-  primaryButtonText: string;
-  primaryButtonOnClick: () => unknown;
-  onClickLinkOut: () => unknown;
-  dataCard?: JSX.Element;
-}
+export const MOTION_VARIANTS = {
+  fadeIn: {
+    initial: { opacity: 0 },
+    hover: { opacity: 1, transition: { duration: 0.5 } },
+  },
+  fadeOut: {
+    initial: { opacity: 1 },
+    hover: { opacity: 0, transition: { duration: 0.5 } },
+  },
+};
 
-export const ProfileCard: FunctionComponent<ProfileCardProps> = ({
-  topLeftImgUrl,
-  topRightImgOnClick,
-  topRightImgUrl,
-  primaryButtonOnClick,
-  primaryButtonText,
-  onClickLinkOut,
-  dataCard,
-}) => {
+export const ProfileCard = ({ children }: { children?: ReactNode }) => {
   return (
     <motion.div
-      initial={{ opacity: 0 }}
+      initial="initial"
+      whileHover="hover"
       animate={{ opacity: 1 }}
       transition={{ duration: 0.75 }}
-      className="w-80 flex flex-col shadow-lg hover:shadow-xl rounded-md bg-accent gap-4 p-4"
+      className="w-[21rem] h-[26rem] flex flex-col shadow-lg hover:shadow-xl rounded-md bg-blue-100 gap-4 p-4 border-[3px] border-black"
     >
-      <div className="flex flex-row justify-between">
-        <button className="flex justify-center items-center p-0 btn btn-ghost w-28 h-28 rounded-md border-none outline-none">
-          {typeof topLeftImgUrl === "string" && (
-            /* eslint-disable-next-line */
-            <img className="rounded-md" src={topLeftImgUrl} alt="pfp" />
-          )}
-          {typeof topLeftImgUrl === "string" || topLeftImgUrl}
-        </button>
-        <button
-          onClick={topRightImgOnClick}
-          className="flex justify-center items-center p-0 btn btn-ghost btn-white-100 bg-white w-[5rem] h-[5rem] rounded-md"
-        >
-          {/* eslint-disable-next-line */}
-          <img
-            className="h-[4rem] w-[4rem]"
-            onClick={topRightImgOnClick}
-            src={topRightImgUrl}
-            alt="logo"
-          />
-        </button>
-      </div>
-      {dataCard || <div className="h-40 w-full bg-white rounded-md" />}
-      <button
-        onClick={onClickLinkOut}
-        className="btn btn-ghost w-full border-none rounded-md bg-white"
-      >
-        <div className="flex flex-row items-center flex-grow justify-between">
-          {primaryButtonText}
-          <IconLinkOut onClick={() => null} />
-        </div>
-      </button>
-      <button
-        onClick={primaryButtonOnClick}
-        className="btn btn-ghost w-full border-none rounded-md bg-white"
-      >
-        <div className="flex flex-row flex-grow justify-start">
-          Send a Message
-        </div>
-        <IconChat />
-      </button>
+      {children}
     </motion.div>
   );
 };

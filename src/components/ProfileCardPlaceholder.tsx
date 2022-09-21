@@ -1,7 +1,6 @@
-import React, { FunctionComponent } from "react";
-import { IconChat } from "./IconChat";
-import { IconLinkOut } from "./IconLinkOut";
-import { MotionConfig, motion, AnimationProps } from "framer-motion";
+import React, { FunctionComponent, useEffect, useState } from "react";
+import { MotionConfig, motion } from "framer-motion";
+import { ProfileCard } from "./ProfileCard";
 
 export interface ProfileCardPlaceholderProps {
   topRightImgUrl: string;
@@ -13,13 +12,16 @@ export const ProfileCardPlaceholder: FunctionComponent<
   ProfileCardPlaceholderProps
 > = ({ topRightImgUrl, shouldPulse, invert }) => {
   const animate = { opacity: 1 };
+  const [random1, setRandom1] = useState(0);
+  const [random2, setRandom2] = useState(0);
+
+  useEffect(() => {
+    setRandom1(Math.random());
+    setRandom2(Math.random());
+  }, []);
+
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.75 }}
-      className="w-80 flex flex-col shadow-lg hover:shadow-xl rounded-md bg-gray-200 gap-4 p-4"
-    >
+    <ProfileCard>
       <MotionConfig
         transition={
           shouldPulse
@@ -36,7 +38,7 @@ export const ProfileCardPlaceholder: FunctionComponent<
           <motion.div
             initial={{ opacity: 0 }}
             animate={animate}
-            className="flex justify-center items-center p-0 bg-gray-300 w-28 h-28 rounded-md border-none outline-none"
+            className="flex justify-center items-center p-0 bg-gray-300 w-40 h-[5rem] rounded-md border-none outline-none"
           />
           <motion.button
             initial={{ opacity: 0 }}
@@ -54,23 +56,48 @@ export const ProfileCardPlaceholder: FunctionComponent<
           </motion.button>
         </div>
 
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={animate}
-          className="h-40 w-ful bg-gray-300 rounded-md"
-        />
+        {random1 < 0.5 ? (
+          <>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={animate}
+              className="flex justify-end w-full border-none rounded-md bg-gray-300 h-12"
+            />
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={animate}
+              className="flex justify-end w-full border-none rounded-md bg-gray-300 h-12"
+            />
+          </>
+        ) : (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={animate}
+            className="flex justify-end w-full border-none rounded-md bg-gray-300 h-28"
+          />
+        )}
 
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={animate}
-          className="flex justify-end w-full border-none rounded-md bg-gray-300 h-12"
-        />
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={animate}
-          className="flex justify-end w-full border-none rounded-md bg-gray-300 h-12"
-        />
+        {random2 < 0.5 ? (
+          <>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={animate}
+              className="flex justify-end w-full border-none rounded-md bg-gray-300 h-12"
+            />
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={animate}
+              className="flex justify-end w-full border-none rounded-md bg-gray-300 h-12"
+            />
+          </>
+        ) : (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={animate}
+            className="flex justify-end w-full border-none rounded-md bg-gray-300 h-28"
+          />
+        )}
       </MotionConfig>
-    </motion.div>
+    </ProfileCard>
   );
 };

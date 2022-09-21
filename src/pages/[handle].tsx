@@ -2,12 +2,12 @@ import type { NextPage } from "next";
 import {
   ProfileCardEns,
   ProfileCardPlaceholder,
-  ProfileCardConnect,
+  ProfileCardRelay,
   ProfileCardLens,
   ProfileCardEtherscan,
+  Page,
 } from "components";
 import {
-  Window,
   useEnsAddress,
   useLensAddress,
   isLensName,
@@ -44,99 +44,88 @@ const Home: NextPage = () => {
   if (address === undefined) {
     if (ensAddress.status === "fetching" || lensAddress.status === "fetching") {
       return (
-        <main
-          data-theme="retro"
-          className="w-screen h-screen flex flex-row justify-center overflow-scroll bg-blue-200"
-        >
-          <div className="container mx-auto flex flex-col align-center flex-grow">
-            <ul className="flex flex-row basis-1/4 flex-wrap gap-8 p-8">
-              <ProfileCardConnect />
-              <>
-                <ProfileCardPlaceholder
-                  shouldPulse={true}
-                  topRightImgUrl="/ENS.svg"
-                />
-                <ProfileCardPlaceholder
-                  shouldPulse={true}
-                  topRightImgUrl="/LENS LOGO_ copy_Minimal.svg"
-                />
-                <ProfileCardPlaceholder
-                  shouldPulse={true}
-                  topRightImgUrl="/etherscan-logo-circle.svg"
-                />
-                <ProfileCardPlaceholder
-                  shouldPulse={true}
-                  topRightImgUrl="/sound.svg"
-                />
-                <ProfileCardPlaceholder
-                  shouldPulse={true}
-                  topRightImgUrl="/opensea.svg"
-                />
-                <ProfileCardPlaceholder
-                  shouldPulse={true}
-                  topRightImgUrl="/gitcoin.svg"
-                />
-                <ProfileCardPlaceholder
-                  shouldPulse={true}
-                  topRightImgUrl="/sound.svg"
-                />
-                <ProfileCardPlaceholder
-                  shouldPulse={true}
-                  topRightImgUrl="/disco.svg"
-                  invert={true}
-                />
-              </>
-            </ul>
-          </div>
-        </main>
+        <Page>
+          <ProfileCardPlaceholder
+            shouldPulse={true}
+            topRightImgUrl="/ENS.svg"
+          />
+          <ProfileCardPlaceholder
+            shouldPulse={true}
+            topRightImgUrl="/LENS LOGO_ copy_Minimal.svg"
+          />
+          <ProfileCardPlaceholder
+            shouldPulse={true}
+            topRightImgUrl="/etherscan-logo-circle.svg"
+          />
+          <ProfileCardPlaceholder
+            shouldPulse={true}
+            topRightImgUrl="/Relay.png"
+          />
+          <ProfileCardPlaceholder
+            shouldPulse={true}
+            topRightImgUrl="/sound.svg"
+          />
+          <ProfileCardPlaceholder
+            shouldPulse={true}
+            topRightImgUrl="/opensea.svg"
+          />
+          <ProfileCardPlaceholder
+            shouldPulse={true}
+            topRightImgUrl="/gitcoin.svg"
+          />
+          <ProfileCardPlaceholder
+            shouldPulse={true}
+            topRightImgUrl="/sound.svg"
+          />
+          <ProfileCardPlaceholder
+            shouldPulse={true}
+            topRightImgUrl="/disco.svg"
+            invert={true}
+          />
+        </Page>
       );
     } else {
       return (
-        <main
-          data-theme="retro"
-          className="w-screen h-screen flex flex-row justify-center overflow-scroll bg-blue-200"
-        >
-          <div className="container mx-auto flex flex-col align-center flex-grow">
-            <ul className="flex flex-row basis-1/4 flex-wrap gap-8 p-8">
-              <ProfileCardConnect />
-              <>
-                <ProfileCardPlaceholder topRightImgUrl="/ENS.svg" />
-                <ProfileCardPlaceholder topRightImgUrl="/LENS LOGO_ copy_Minimal.svg" />
-                <ProfileCardPlaceholder topRightImgUrl="/etherscan-logo-circle.svg" />
-                <ProfileCardPlaceholder topRightImgUrl="/sound.svg" />
-                <ProfileCardPlaceholder topRightImgUrl="/opensea.svg" />
-                <ProfileCardPlaceholder topRightImgUrl="/gitcoin.svg" />
-                <ProfileCardPlaceholder topRightImgUrl="/sound.svg" />
-                <ProfileCardPlaceholder
-                  topRightImgUrl="/disco.svg"
-                  invert={true}
-                />
-              </>
-            </ul>
-          </div>
-        </main>
+        <Page>
+          <ProfileCardPlaceholder topRightImgUrl="/ENS.svg" />
+          <ProfileCardPlaceholder topRightImgUrl="/LENS LOGO_ copy_Minimal.svg" />
+          <ProfileCardPlaceholder topRightImgUrl="/etherscan-logo-circle.svg" />
+          <ProfileCardPlaceholder
+            shouldPulse={true}
+            topRightImgUrl="/Relay.png"
+          />
+          <ProfileCardPlaceholder topRightImgUrl="/sound.svg" />
+          <ProfileCardPlaceholder topRightImgUrl="/opensea.svg" />
+          <ProfileCardPlaceholder topRightImgUrl="/gitcoin.svg" />
+          <ProfileCardPlaceholder topRightImgUrl="/sound.svg" />
+          <ProfileCardPlaceholder topRightImgUrl="/disco.svg" invert={true} />
+        </Page>
       );
     }
   } else {
     return (
-      <main
-        data-theme="retro"
-        className="w-screen h-screen flex flex-row justify-center overflow-scroll bg-blue-200"
-      >
-        <Window />
-        <div className="container mx-auto flex flex-col align-center flex-grow">
-          <ul className="flex flex-row basis-1/4 flex-wrap gap-8 p-8">
-            <ProfileCardConnect />
-            <ProfileCardEns address={address} />
-            <ProfileCardLens address={address} />
-            <ProfileCardEtherscan address={address} />
-            <ProfileCardPlaceholder topRightImgUrl="/opensea.svg" />
-            <ProfileCardPlaceholder topRightImgUrl="/gitcoin.svg" />
-            <ProfileCardPlaceholder topRightImgUrl="/sound.svg" />
-            <ProfileCardPlaceholder topRightImgUrl="/disco.svg" invert={true} />
-          </ul>
-        </div>
-      </main>
+      <Page>
+        <ProfileCardEns address={address} />
+        <ProfileCardLens address={address} />
+        <ProfileCardEtherscan address={address} />
+        <ProfileCardPlaceholder topRightImgUrl="/Relay.png" />
+        <ProfileCardPlaceholder topRightImgUrl="/opensea.svg" />
+        <ProfileCardPlaceholder topRightImgUrl="/gitcoin.svg" />
+        <ProfileCardPlaceholder topRightImgUrl="/sound.svg" />
+        <ProfileCardPlaceholder topRightImgUrl="/disco.svg" invert={true} />
+        <ProfileCardPlaceholder
+          topRightImgUrl="https://www.showkarma.xyz/_next/image?url=%2Fimages%2Fkarma-letter-space.png&w=64&q=75"
+          invert={true}
+        />
+        <ProfileCardPlaceholder topRightImgUrl="https://cyberconnect.me/_next/image?url=%2Fassets%2Fgrains.svg&w=32&q=75" />
+        <ProfileCardPlaceholder topRightImgUrl="https://www.farcaster.xyz/img/logo_48.png" />
+        <ProfileCardPlaceholder
+          topRightImgUrl="https://101.xyz/images/101.svg"
+          invert={true}
+        />
+        <ProfileCardPlaceholder topRightImgUrl="https://mirror-media.imgix.net/publication-images/d3Cl6F0DzzwYWTDxFMLal.png?h=75&w=75" />
+        <ProfileCardPlaceholder topRightImgUrl="/dotbit.svg" />
+      </Page>
     );
   }
 };

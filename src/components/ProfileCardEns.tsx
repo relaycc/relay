@@ -4,15 +4,37 @@ import {
   useEnsName,
   useEnsAvatar,
   isEthAddress,
+  useOwnedNfts,
+  OwnedNFTsResponse,
+  useEnsAddress,
+  isEnsName,
 } from "@relaycc/receiver";
-import { ProfileCard } from "./ProfileCard";
+import { MOTION_VARIANTS } from "./ProfileCard";
+import { ProfileCardAction } from "./ProfileCardAction";
 import { ProfileCardPlaceholder } from "./ProfileCardPlaceholder";
-import Blockies from "react-blockies";
+import { ProfileCardHeader } from "./ProfileCardHeader";
+import { ProfileCardDataRow } from "./ProfileCardDataRow";
+import { motion } from "framer-motion";
 
-export const ProfileCardEns = ({ address }: { address: string | null }) => {
-  const launch = useLaunch();
-  const ensName = useEnsName({ handle: address });
+export const ProfileCardEns = ({ handle }: { handle?: string | null }) => {
+  const [showProfilePicture, setShowProfilePicture] = useState(true);
+  const ensAddress = useEnsAddress({
+    handle: isEnsName(handle) ? handle : undefined,
+  });
+  const address = isEthAddress(handle)
+    ? handle
+    : isEthAddress(ensAddress.address)
+    ? ensAddress.address
+    : undefined;
+  const ensName = useEnsName({
+    handle: address,
+  });
   const ensAvatar = useEnsAvatar({ handle: address });
+  const ownedNfts = useOwnedNfts({
+    handle,
+    // ENS Contract Address
+    contractAddress: "0x57f1887a8BF19b14fC0dF6Fd9B2acc9Af147eA85",
+  });
   const [isFetching, setIsFetching] = useState(true);
   // All this does is make the component show as loading for 1.5 seconds, even
   // if it's not. Sometimes this makes for a better UX.
@@ -20,16 +42,24 @@ export const ProfileCardEns = ({ address }: { address: string | null }) => {
     setTimeout(() => setIsFetching(false), 1500);
   }, []);
 
+  useEffect(() => {
+    setShowProfilePicture(ensAvatar.avatar !== undefined);
+  }, [ensAvatar.avatar]);
+
   if (!isEthAddress(address)) {
     return (
       <ProfileCardPlaceholder
         key="not an address"
-        shouldPulse={true}
+        shouldPulse={false}
         topRightImgUrl={"/ENS.svg"}
       />
     );
   } else {
-    if (isFetching) {
+    if (
+      isFetching ||
+      ensAvatar.status === "fetching" ||
+      ensName.status === "fetching"
+    ) {
       return (
         <ProfileCardPlaceholder
           key="isFetching"
@@ -38,60 +68,78 @@ export const ProfileCardEns = ({ address }: { address: string | null }) => {
         />
       );
     } else {
-      if (ensName.status === "fetching" || ensAvatar.status === "fetching") {
+      if (ensName.name === undefined || ownedNfts.ownedNfts === undefined) {
         return (
           <ProfileCardPlaceholder
-            key="ens hooks fetching"
-            shouldPulse={true}
+            key="no ens name"
+            shouldPulse={false}
             topRightImgUrl={"/ENS.svg"}
           />
         );
       } else {
-        if (ensName.name === undefined) {
-          return (
-            <ProfileCardPlaceholder
-              key="no ens name"
-              shouldPulse={false}
-              topRightImgUrl={"/ENS.svg"}
-            />
-          );
-        } else {
-          return (
-            <ProfileCard
-              topLeftImgUrl={
-                typeof ensAvatar.avatar === "string" ? (
-                  ensAvatar.avatar
-                ) : (
-                  <Blockies
-                    seed={address.toLocaleLowerCase()}
-                    size={22}
-                    scale={5}
-                    className="rounded-md"
+        return (
+          <ProfileCardAction>
+            <ProfileCardHeader text="ens">
+              <button className="relative group flex justify-center items-center p-0 bg-white w-[5rem] h-[5rem] rounded-md">
+                {/* eslint-disable-next-line */}
+                <motion.img
+                  variants={showProfilePicture ? MOTION_VARIANTS.fadeOut : {}}
+                  src={"/ENS.svg"}
+                  alt="ENS Logo"
+                  className="absolute h-[5rem] w-[5rem] rounded-md"
+                />
+                {/* eslint-disable-next-line */}
+                {showProfilePicture && (
+                  <motion.img
+                    onError={() => {
+                      setShowProfilePicture(false);
+                    }}
+                    variants={MOTION_VARIANTS.fadeIn}
+                    src={ensAvatar.avatar}
+                    alt="ENS Avatar"
+                    className="absolute h-[5rem] w-[5rem] rounded-md"
                   />
-                )
-              }
-              onClickLinkOut={() => {
-                window.open(
-                  "https://app.ens.domains/name/" + address + "details",
-                  "_newtab"
-                );
-              }}
-              topRightImgUrl={"/ENS.svg"}
-              topRightImgOnClick={() => {
-                window.open("https://ens.domains", "_newtab");
-              }}
-              primaryButtonText={
-                typeof ensName.name === "string"
-                  ? ensName.name
-                  : "No ENS Name Found"
-              }
-              primaryButtonOnClick={() => {
-                launch(address);
-              }}
-            />
-          );
-        }
+                )}
+              </button>
+            </ProfileCardHeader>
+            <ProfileCardDataRow>{ensName.name}</ProfileCardDataRow>
+            <ProfileCardDataRow>
+              {getNumEnsNames(ownedNfts.ownedNfts)} Aliases
+            </ProfileCardDataRow>
+            <ProfileCardDataRow>
+              {`Last updated ${getLastUpdated(
+                ensName.name,
+                ownedNfts.ownedNfts
+              )?.toLocaleDateString()}`}
+            </ProfileCardDataRow>
+          </ProfileCardAction>
+        );
       }
+    }
+  }
+};
+
+const getNumEnsNames = (ownedNfts: OwnedNFTsResponse): number => {
+  return ownedNfts.ownedNfts.filter((data) => {
+    return (
+      data.contract.address.toLowerCase() ===
+      "0x57f1887a8BF19b14fC0dF6Fd9B2acc9Af147eA85".toLowerCase()
+    );
+  }).length;
+};
+
+const getLastUpdated = (
+  ensName: string,
+  ownedNfts: OwnedNFTsResponse
+): Date | null => {
+  const nft = ownedNfts.ownedNfts.find((nft) => nft.title === ensName);
+  if (nft === undefined) {
+    return null;
+  } else {
+    try {
+      return new Date(nft.timeLastUpdated);
+    } catch {
+      return null;
     }
   }
 };
