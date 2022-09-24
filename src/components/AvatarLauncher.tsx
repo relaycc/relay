@@ -20,7 +20,7 @@ export const AvatarLauncher = () => {
       initial={{ opacity: isOpen ? 1 : 0 }}
       animate={{ opacity: isOpen ? 0 : 1 }}
       onClick={() => launch(handle)}
-      className={`w-28 h-28 rounded-full fixed right-8 bottom-8 overflow-hidden ${
+      className={`hidden md:block w-28 h-28 rounded-full fixed right-8 bottom-8 overflow-hidden ${
         isOpen ? "opacity-0" : "opacity-100 cursor-pointer"
       } shadow-xl hover:shadow-2xl`}
     />

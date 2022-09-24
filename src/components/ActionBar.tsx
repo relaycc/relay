@@ -6,11 +6,11 @@ import {
 } from "@relaycc/receiver";
 import { useState } from "react";
 import { useRouter } from "next/router";
-import { IconSearch } from "./IconSearch";
-import { IconSwap } from "./IconSwap";
-import { IconWallet } from "./IconWallet";
-import { IconNetwork } from "./IconNetwork";
-import { IconChat } from "./IconChat";
+import { IconSearch } from "./icons/IconSearch";
+import { IconSwap } from "./icons/IconSwap";
+import { IconWallet } from "./icons/IconWallet";
+import { IconNetwork } from "./icons/IconNetwork";
+import { IconChat } from "./icons/IconChat";
 import {
   useAccountModal,
   useChainModal,

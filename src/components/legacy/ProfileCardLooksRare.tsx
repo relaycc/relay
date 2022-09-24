@@ -6,12 +6,12 @@ import {
   isEnsName,
 } from "@relaycc/receiver";
 import { useEffect, useState } from "react";
-import { ProfileCard } from "./ProfileCard";
-import { ProfileCardPlaceholder } from "./ProfileCardPlaceholder";
-import { ProfileCardDataRow } from "./ProfileCardDataRow";
-import { ProfileCardHeader } from "./ProfileCardHeader";
+import { ProfileCard } from "../ProfileCard";
+import { ProfileCardLoading } from "../ProfileCardLoading";
+import { ProfileCardDataRow } from "../ProfileCardDataRow";
+import { ProfileCardHeader } from "../ProfileCardHeader";
 
-export const ProfileCardMintKudos = ({
+export const ProfileCardLooksRare = ({
   handle,
 }: {
   handle?: string | null;
@@ -31,15 +31,15 @@ export const ProfileCardMintKudos = ({
     ? lensAddress.address
     : undefined;
 
-  const title = "Mint Kudos";
-  const logo = "/mintkudos.png";
-  const onClickLink = () => window.open("https://mintkudos.xyz/", "_newtab");
+  const title = "LooksRare";
+  const logo = "/looksrare.svg";
+  const onClickLink = () => window.open("https://looksrare.org/", "_newtab");
   const onClickLinkOut = () => {
     if (isEthAddress(address)) {
-      window.open("https://mintkudos.xyz/profile/" + address, "_newtab");
+      window.open("https://looksrare.org/accounts/" + address, "_newtab");
     }
   };
-  const display = "View on Mazury";
+  const display = "View on LooksRare";
 
   // All this does is make the component show as loading for 1.5 seconds, even
   // if it's not. Sometimes this makes for a better UX.
@@ -49,7 +49,7 @@ export const ProfileCardMintKudos = ({
 
   if (!isEthAddress(address)) {
     return (
-      <ProfileCardPlaceholder
+      <ProfileCardLoading
         // TODO(achilles@relay.cc) Without this key then both this branch of the
         // conditional and the next branch of the conditional render the same
         // component and the "shouldPulse" behavior doesn't change. I.e. the
@@ -62,7 +62,7 @@ export const ProfileCardMintKudos = ({
   } else {
     if (isFetching) {
       return (
-        <ProfileCardPlaceholder
+        <ProfileCardLoading
           key={"2"}
           shouldPulse={true}
           topRightImgUrl={logo}
@@ -71,7 +71,7 @@ export const ProfileCardMintKudos = ({
     } else {
       if (address === undefined) {
         return (
-          <ProfileCardPlaceholder
+          <ProfileCardLoading
             key={"3"}
             shouldPulse={false}
             topRightImgUrl={logo}

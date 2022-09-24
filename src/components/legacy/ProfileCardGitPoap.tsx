@@ -6,12 +6,12 @@ import {
   isEnsName,
 } from "@relaycc/receiver";
 import { useEffect, useState } from "react";
-import { ProfileCard } from "./ProfileCard";
-import { ProfileCardPlaceholder } from "./ProfileCardPlaceholder";
-import { ProfileCardDataRow } from "./ProfileCardDataRow";
-import { ProfileCardHeader } from "./ProfileCardHeader";
+import { ProfileCard } from "../ProfileCard";
+import { ProfileCardLoading } from "../ProfileCardLoading";
+import { ProfileCardDataRow } from "../ProfileCardDataRow";
+import { ProfileCardHeader } from "../ProfileCardHeader";
 
-export const ProfileCardPoH = ({ handle }: { handle?: string | null }) => {
+export const ProfileCardGitPoap = ({ handle }: { handle?: string | null }) => {
   const [isFetching, setIsFetching] = useState(true);
   const ensAddress = useEnsAddress({
     handle: isEnsName(handle) ? handle : undefined,
@@ -27,19 +27,16 @@ export const ProfileCardPoH = ({ handle }: { handle?: string | null }) => {
     ? lensAddress.address
     : undefined;
 
-  const title = "Proof Of Humanity";
-  const logo = "/PoH.svg";
+  const title = "Git POAP";
+  const logo = "/GitPoap.svg";
   const onClickLink = () =>
-    window.open("https://app.proofofhumanity.id", "_newtab");
+    window.open("https://www.gitpoap.io" + address, "_newtab");
   const onClickLinkOut = () => {
     if (isEthAddress(address)) {
-      window.open(
-        "https://app.proofofhumanity.id/profile/" + address,
-        "_newtab"
-      );
+      window.open("https://www.gitpoap.io/p/" + address, "_newtab");
     }
   };
-  const display = "View on Proof of Humanity";
+  const display = "View on Git POAP";
 
   // All this does is make the component show as loading for 1.5 seconds, even
   // if it's not. Sometimes this makes for a better UX.
@@ -49,7 +46,7 @@ export const ProfileCardPoH = ({ handle }: { handle?: string | null }) => {
 
   if (!isEthAddress(address)) {
     return (
-      <ProfileCardPlaceholder
+      <ProfileCardLoading
         // TODO(achilles@relay.cc) Without this key then both this branch of the
         // conditional and the next branch of the conditional render the same
         // component and the "shouldPulse" behavior doesn't change. I.e. the
@@ -62,7 +59,7 @@ export const ProfileCardPoH = ({ handle }: { handle?: string | null }) => {
   } else {
     if (isFetching) {
       return (
-        <ProfileCardPlaceholder
+        <ProfileCardLoading
           key={"2"}
           shouldPulse={true}
           topRightImgUrl={logo}
@@ -71,7 +68,7 @@ export const ProfileCardPoH = ({ handle }: { handle?: string | null }) => {
     } else {
       if (address === undefined) {
         return (
-          <ProfileCardPlaceholder
+          <ProfileCardLoading
             key={"3"}
             shouldPulse={false}
             topRightImgUrl={logo}

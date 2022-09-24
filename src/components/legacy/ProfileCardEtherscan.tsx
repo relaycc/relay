@@ -10,13 +10,13 @@ import {
   isLensName,
   isEthAddress,
 } from "@relaycc/receiver";
-import { MOTION_VARIANTS } from "./ProfileCard";
-import { ProfileCardAction } from "./ProfileCardAction";
-import { ProfileCardHeader } from "./ProfileCardHeader";
+import { ProfileCard } from "../ProfileCard";
+import { ProfileCardHeader } from "../ProfileCardHeader";
 import Blockies from "react-blockies";
-import { ProfileCardPlaceholder } from "./ProfileCardPlaceholder";
-import { ProfileCardDataRow } from "./ProfileCardDataRow";
-import { IconCopy } from "./IconCopy";
+import { ProfileCardLoading } from "../ProfileCardLoading";
+import { ProfileCardDataRow } from "../ProfileCardDataRow";
+import { IconCopy } from "../icons/IconCopy";
+import { IconLinkOut } from "../icons/IconLinkOut";
 import { motion } from "framer-motion";
 
 export const ProfileCardEtherscan = ({
@@ -53,7 +53,7 @@ export const ProfileCardEtherscan = ({
 
   if (!isEthAddress(address)) {
     return (
-      <ProfileCardPlaceholder
+      <ProfileCardLoading
         shouldPulse={false}
         topRightImgUrl="/etherscan-logo-circle.svg"
       />
@@ -65,19 +65,19 @@ export const ProfileCardEtherscan = ({
       transCount.status === "fetching"
     ) {
       return (
-        <ProfileCardPlaceholder
+        <ProfileCardLoading
           shouldPulse={true}
           topRightImgUrl="/etherscan-logo-circle.svg"
         />
       );
     } else {
       return (
-        <ProfileCardAction>
+        <ProfileCard>
           <ProfileCardHeader text={"etherscan"}>
             <button className="relative group flex justify-center items-center p-0 bg-white w-[5rem] h-[5rem] rounded-md">
               {/* eslint-disable-next-line */}
               <motion.img
-                variants={showProfilePicture ? MOTION_VARIANTS.fadeOut : {}}
+                // variants={showProfilePicture ? MOTION_VARIANTS.fadeOut : {}}
                 src="/etherscan-logo-circle.svg"
                 alt="Etherscan Logo"
                 className="absolute h-[5rem] w-[5rem] rounded-md p-2"
@@ -85,12 +85,12 @@ export const ProfileCardEtherscan = ({
               {/* eslint-disable-next-line */}
               {showProfilePicture && (
                 <motion.div
-                  variants={MOTION_VARIANTS.fadeIn}
+                  // variants={MOTION_VARIANTS.fadeIn}
                   className="absolute h-[5rem] w-[5rem] rounded-md"
                 >
                   <Blockies
                     seed={address.toLocaleLowerCase()}
-                    size={16}
+                    size={14}
                     scale={5}
                     className="rounded-md"
                   />
@@ -110,7 +110,11 @@ export const ProfileCardEtherscan = ({
           <ProfileCardDataRow>
             {String(Number(ethBalance.balance) * 10e-19).slice(0, 7) + " ETH"}
           </ProfileCardDataRow>
-        </ProfileCardAction>
+          <ProfileCardDataRow className="mt-auto bg-secondary">
+            View on Etherscan
+            <IconLinkOut />
+          </ProfileCardDataRow>
+        </ProfileCard>
       );
     }
   }

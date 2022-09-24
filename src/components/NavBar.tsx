@@ -6,10 +6,10 @@ import {
 } from "@relaycc/receiver";
 import { useState } from "react";
 import { useRouter } from "next/router";
-import { IconSearch } from "./IconSearch";
-import { IconSwap } from "./IconSwap";
-import { IconWallet } from "./IconWallet";
-import { IconNetwork } from "./IconNetwork";
+import { IconSearch } from "./icons/IconSearch";
+import { IconSwap } from "./icons/IconSwap";
+import { IconWallet } from "./icons/IconWallet";
+import { IconNetwork } from "./icons/IconNetwork";
 import {
   useAccountModal,
   useChainModal,
@@ -29,9 +29,15 @@ export const NavBar = () => {
   const router = useRouter();
 
   return (
-    <nav className="flex flex-row justify-between items-center mb-8">
+    <nav className="flex flex-col-reverse md:flex-row xs:items-center gap-4 mb-8">
+      {/* eslint-disable-next-line */}
+      {/* <img
+        src={"/Relay.png"}
+        alt="Relay Logo"
+        className="hidden lg:block invisibleh-[4rem] w-[4rem] rounded-full mr-auto"
+      /> */}
       <form
-        className="relative w-96 mr-auto"
+        className="relative w-full md:w-[336px]"
         onSubmit={(e) => {
           e.preventDefault();
           if (isLensName(input) || isEnsName(input) || isEthAddress(input)) {
@@ -59,10 +65,10 @@ export const NavBar = () => {
           <IconSearch />
         </div>
       </form>
-      <div className="flex items-center gap-4">
+      <div className="flex justify-end items-center gap-4 ml-auto">
         <button
           onClick={chainModal.openChainModal}
-          className={`btn btn-ghost bg-accent w-40 border-none rounded-md`}
+          className={`hidden sm:flex btn btn-ghost bg-accent w-40 border-none rounded-md`}
         >
           <div className="flex flex-row items-center flex-grow justify-between">
             {network.chain?.name || "No Network"}
@@ -79,7 +85,7 @@ export const NavBar = () => {
               ? accountModal.openAccountModal
               : connectModal.openConnectModal
           }
-          className={`btn btn-ghost bg-accent w-64 border-none rounded-md`}
+          className={`btn btn-ghost bg-accent w-[319px] md:w-64 border-none rounded-md`}
         >
           <div className="flex flex-row flex-grow items-center justify-between">
             {account.isConnected && typeof account.address === "string"

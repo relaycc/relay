@@ -9,11 +9,12 @@ import {
   useEnsAddress,
   isEnsName,
 } from "@relaycc/receiver";
-import { MOTION_VARIANTS } from "./ProfileCard";
-import { ProfileCardAction } from "./ProfileCardAction";
-import { ProfileCardPlaceholder } from "./ProfileCardPlaceholder";
-import { ProfileCardHeader } from "./ProfileCardHeader";
-import { ProfileCardDataRow } from "./ProfileCardDataRow";
+import { MOTION_VARIANTS } from "../ProfileCard";
+import { ProfileCard } from "../ProfileCard";
+import { ProfileCardLoading } from "../ProfileCardLoading";
+import { ProfileCardHeader } from "../ProfileCardHeader";
+import { ProfileCardDataRow } from "../ProfileCardDataRow";
+import { IconLinkOut } from "../icons/IconLinkOut";
 import { motion } from "framer-motion";
 
 export const ProfileCardEns = ({ handle }: { handle?: string | null }) => {
@@ -48,7 +49,7 @@ export const ProfileCardEns = ({ handle }: { handle?: string | null }) => {
 
   if (!isEthAddress(address)) {
     return (
-      <ProfileCardPlaceholder
+      <ProfileCardLoading
         key="not an address"
         shouldPulse={false}
         topRightImgUrl={"/ENS.svg"}
@@ -61,7 +62,7 @@ export const ProfileCardEns = ({ handle }: { handle?: string | null }) => {
       ensName.status === "fetching"
     ) {
       return (
-        <ProfileCardPlaceholder
+        <ProfileCardLoading
           key="isFetching"
           shouldPulse={true}
           topRightImgUrl={"/ENS.svg"}
@@ -70,7 +71,7 @@ export const ProfileCardEns = ({ handle }: { handle?: string | null }) => {
     } else {
       if (ensName.name === undefined || ownedNfts.ownedNfts === undefined) {
         return (
-          <ProfileCardPlaceholder
+          <ProfileCardLoading
             key="no ens name"
             shouldPulse={false}
             topRightImgUrl={"/ENS.svg"}
@@ -78,7 +79,7 @@ export const ProfileCardEns = ({ handle }: { handle?: string | null }) => {
         );
       } else {
         return (
-          <ProfileCardAction>
+          <ProfileCard>
             <ProfileCardHeader text="ens">
               <button className="relative group flex justify-center items-center p-0 bg-white w-[5rem] h-[5rem] rounded-md">
                 {/* eslint-disable-next-line */}
@@ -112,7 +113,11 @@ export const ProfileCardEns = ({ handle }: { handle?: string | null }) => {
                 ownedNfts.ownedNfts
               )?.toLocaleDateString()}`}
             </ProfileCardDataRow>
-          </ProfileCardAction>
+            <ProfileCardDataRow className="mt-auto bg-secondary">
+              View on ENS
+              <IconLinkOut />
+            </ProfileCardDataRow>
+          </ProfileCard>
         );
       }
     }

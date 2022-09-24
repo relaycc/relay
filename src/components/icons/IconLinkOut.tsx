@@ -1,13 +1,19 @@
-export const IconLinkOut = ({ onClick }: { onClick?: () => unknown }) => {
+export const IconLinkOut = ({
+  onClick,
+  className,
+}: {
+  className?: string;
+  onClick?: () => unknown;
+}) => {
   return (
     <svg
       onClick={onClick}
       xmlns="http://www.w3.org/2000/svg"
       fill="none"
       viewBox="0 0 24 24"
-      strokeWidth={1.5}
+      strokeWidth={2}
       stroke="currentColor"
-      className="w-6 h-6"
+      className={className || "h-6 w-6"}
     >
       <path
         strokeLinecap="round"

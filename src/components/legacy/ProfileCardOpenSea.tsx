@@ -6,16 +6,13 @@ import {
   isEnsName,
 } from "@relaycc/receiver";
 import { useEffect, useState } from "react";
-import { ProfileCard } from "./ProfileCard";
-import { ProfileCardPlaceholder } from "./ProfileCardPlaceholder";
-import { ProfileCardDataRow } from "./ProfileCardDataRow";
-import { ProfileCardHeader } from "./ProfileCardHeader";
+import { ProfileCard } from "../ProfileCard";
+import { ProfileCardLoading } from "../ProfileCardLoading";
+import { ProfileCardDataRow } from "../ProfileCardDataRow";
+import { ProfileCardHeader } from "../ProfileCardHeader";
+import { IconLinkOut } from "../icons/IconLinkOut";
 
-export const ProfileCardLooksRare = ({
-  handle,
-}: {
-  handle?: string | null;
-}) => {
+export const ProfileCardOpenSea = ({ handle }: { handle?: string | null }) => {
   const [isFetching, setIsFetching] = useState(true);
   const ensAddress = useEnsAddress({
     handle: isEnsName(handle) ? handle : undefined,
@@ -31,15 +28,15 @@ export const ProfileCardLooksRare = ({
     ? lensAddress.address
     : undefined;
 
-  const title = "LooksRare";
-  const logo = "/looksrare.svg";
-  const onClickLink = () => window.open("https://looksrare.org/", "_newtab");
+  const title = "OpenSea";
+  const logo = "/OpenSea.svg";
+  const onClickLink = () => window.open("https://opensea.io", "_newtab");
   const onClickLinkOut = () => {
     if (isEthAddress(address)) {
-      window.open("https://looksrare.org/accounts/" + address, "_newtab");
+      window.open("https://opensea.io/" + address, "_newtab");
     }
   };
-  const display = "View on LooksRare";
+  const display = "View on OpenSea";
 
   // All this does is make the component show as loading for 1.5 seconds, even
   // if it's not. Sometimes this makes for a better UX.
@@ -49,7 +46,7 @@ export const ProfileCardLooksRare = ({
 
   if (!isEthAddress(address)) {
     return (
-      <ProfileCardPlaceholder
+      <ProfileCardLoading
         // TODO(achilles@relay.cc) Without this key then both this branch of the
         // conditional and the next branch of the conditional render the same
         // component and the "shouldPulse" behavior doesn't change. I.e. the
@@ -62,7 +59,7 @@ export const ProfileCardLooksRare = ({
   } else {
     if (isFetching) {
       return (
-        <ProfileCardPlaceholder
+        <ProfileCardLoading
           key={"2"}
           shouldPulse={true}
           topRightImgUrl={logo}
@@ -71,7 +68,7 @@ export const ProfileCardLooksRare = ({
     } else {
       if (address === undefined) {
         return (
-          <ProfileCardPlaceholder
+          <ProfileCardLoading
             key={"3"}
             shouldPulse={false}
             topRightImgUrl={logo}
@@ -83,18 +80,19 @@ export const ProfileCardLooksRare = ({
             <ProfileCardHeader text={title}>
               <button
                 onClick={onClickLink}
-                className="relative group flex justify-center items-center p-0 bg-white w-[5rem] h-[5rem] min-w-[5rem] rounded-md"
+                className="relative group flex justify-center items-center p-0 bg-white w-[5rem] h-[5rem] rounded-md"
               >
                 {/* eslint-disable-next-line */}
                 <img
                   src={logo}
                   alt={title + " Logo"}
-                  className="absolute h-[5rem] w-[5rem] min-w-[5rem] rounded-md p-2"
+                  className="absolute h-[5rem] w-[5rem] rounded-md p-2"
                 />
               </button>
             </ProfileCardHeader>
-            <ProfileCardDataRow onClick={onClickLinkOut} className="mt-auto">
-              {display}
+            <ProfileCardDataRow className="mt-auto bg-secondary">
+              View on OpenSea
+              <IconLinkOut />
             </ProfileCardDataRow>
           </ProfileCard>
         );

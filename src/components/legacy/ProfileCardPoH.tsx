@@ -6,12 +6,12 @@ import {
   isEnsName,
 } from "@relaycc/receiver";
 import { useEffect, useState } from "react";
-import { ProfileCard } from "./ProfileCard";
-import { ProfileCardPlaceholder } from "./ProfileCardPlaceholder";
-import { ProfileCardDataRow } from "./ProfileCardDataRow";
-import { ProfileCardHeader } from "./ProfileCardHeader";
+import { ProfileCard } from "../ProfileCard";
+import { ProfileCardLoading } from "../ProfileCardLoading";
+import { ProfileCardDataRow } from "../ProfileCardDataRow";
+import { ProfileCardHeader } from "../ProfileCardHeader";
 
-export const ProfileCardSnapshot = ({ handle }: { handle?: string | null }) => {
+export const ProfileCardPoH = ({ handle }: { handle?: string | null }) => {
   const [isFetching, setIsFetching] = useState(true);
   const ensAddress = useEnsAddress({
     handle: isEnsName(handle) ? handle : undefined,
@@ -27,15 +27,19 @@ export const ProfileCardSnapshot = ({ handle }: { handle?: string | null }) => {
     ? lensAddress.address
     : undefined;
 
-  const title = "Snapshot";
-  const logo = "/snapshot.svg";
-  const onClickLink = () => window.open("https://snapshot.org", "_newtab");
+  const title = "Proof Of Humanity";
+  const logo = "/PoH.svg";
+  const onClickLink = () =>
+    window.open("https://app.proofofhumanity.id", "_newtab");
   const onClickLinkOut = () => {
     if (isEthAddress(address)) {
-      window.open("https://snapshot.org/#/profile/" + address, "_newtab");
+      window.open(
+        "https://app.proofofhumanity.id/profile/" + address,
+        "_newtab"
+      );
     }
   };
-  const display = "View on Snapshot";
+  const display = "View on Proof of Humanity";
 
   // All this does is make the component show as loading for 1.5 seconds, even
   // if it's not. Sometimes this makes for a better UX.
@@ -45,7 +49,7 @@ export const ProfileCardSnapshot = ({ handle }: { handle?: string | null }) => {
 
   if (!isEthAddress(address)) {
     return (
-      <ProfileCardPlaceholder
+      <ProfileCardLoading
         // TODO(achilles@relay.cc) Without this key then both this branch of the
         // conditional and the next branch of the conditional render the same
         // component and the "shouldPulse" behavior doesn't change. I.e. the
@@ -58,7 +62,7 @@ export const ProfileCardSnapshot = ({ handle }: { handle?: string | null }) => {
   } else {
     if (isFetching) {
       return (
-        <ProfileCardPlaceholder
+        <ProfileCardLoading
           key={"2"}
           shouldPulse={true}
           topRightImgUrl={logo}
@@ -67,7 +71,7 @@ export const ProfileCardSnapshot = ({ handle }: { handle?: string | null }) => {
     } else {
       if (address === undefined) {
         return (
-          <ProfileCardPlaceholder
+          <ProfileCardLoading
             key={"3"}
             shouldPulse={false}
             topRightImgUrl={logo}

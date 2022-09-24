@@ -6,11 +6,11 @@ import {
   isEnsName,
 } from "@relaycc/receiver";
 import { useEffect, useState } from "react";
-import { ProfileCard } from "./ProfileCard";
-import { ProfileCardPlaceholder } from "./ProfileCardPlaceholder";
-import { ProfileCardDataRow } from "./ProfileCardDataRow";
-import { ProfileCardHeader } from "./ProfileCardHeader";
-import { IconLinkOut } from "./IconLinkOut";
+import { ProfileCard } from "../ProfileCard";
+import { ProfileCardLoading } from "../ProfileCardLoading";
+import { ProfileCardDataRow } from "../ProfileCardDataRow";
+import { ProfileCardHeader } from "../ProfileCardHeader";
+import { IconLinkOut } from "../icons/IconLinkOut";
 
 export const ProfileCardSound = ({ handle }: { handle?: string | null }) => {
   const [isFetching, setIsFetching] = useState(true);
@@ -47,7 +47,7 @@ export const ProfileCardSound = ({ handle }: { handle?: string | null }) => {
 
   if (!isEthAddress(address)) {
     return (
-      <ProfileCardPlaceholder
+      <ProfileCardLoading
         // TODO(achilles@relay.cc) Without this key then both this branch of the
         // conditional and the next branch of the conditional render the same
         // component and the "shouldPulse" behavior doesn't change. I.e. the
@@ -60,7 +60,7 @@ export const ProfileCardSound = ({ handle }: { handle?: string | null }) => {
   } else {
     if (isFetching) {
       return (
-        <ProfileCardPlaceholder
+        <ProfileCardLoading
           key={"2"}
           shouldPulse={true}
           topRightImgUrl={logo}

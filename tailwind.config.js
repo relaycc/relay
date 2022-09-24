@@ -4,12 +4,12 @@ module.exports = {
   theme: {
     extend: {},
     screens: {
-      xs: "400px",
-      sm: "768px",
-      md: "1136px",
-      lg: "1504px",
-      xl: "1872px",
-      "2xl": "2240px",
+      xs: "375px",
+      sm: "588px",
+      md: "868px",
+      lg: "1148px",
+      xl: "1428px",
+      xxl: "1708px",
     },
   },
   plugins: [require("@tailwindcss/typography"), require("daisyui")],

@@ -2,15 +2,17 @@ import React, { FunctionComponent, useEffect, useState } from "react";
 import { MotionConfig, motion } from "framer-motion";
 import { ProfileCard } from "./ProfileCard";
 
-export interface ProfileCardPlaceholderProps {
+export interface ProfileCardLoadingProps {
   topRightImgUrl: string;
   shouldPulse?: boolean;
   invert?: boolean;
 }
 
-export const ProfileCardPlaceholder: FunctionComponent<
-  ProfileCardPlaceholderProps
-> = ({ topRightImgUrl, shouldPulse, invert }) => {
+export const ProfileCardLoading: FunctionComponent<ProfileCardLoadingProps> = ({
+  topRightImgUrl,
+  shouldPulse,
+  invert,
+}) => {
   const animate = { opacity: 1 };
   const [random1, setRandom1] = useState(0);
   const [random2, setRandom2] = useState(0);

@@ -7,14 +7,16 @@ import {
   gatewayFromIpfs,
   isEthAddress,
   useLensAddress,
+  getLensterUrl,
 } from "@relaycc/receiver";
 import { useEffect, useState } from "react";
-import { ProfileCardAction } from "./ProfileCardAction";
-import { ProfileCardPlaceholder } from "./ProfileCardPlaceholder";
-import { ProfileCardDataRow } from "./ProfileCardDataRow";
-import { ProfileCardHeader } from "./ProfileCardHeader";
+import { ProfileCard } from "../ProfileCard";
+import { ProfileCardLoading } from "../ProfileCardLoading";
+import { ProfileCardDataRow } from "../ProfileCardDataRow";
+import { ProfileCardHeader } from "../ProfileCardHeader";
 import { motion } from "framer-motion";
-import { MOTION_VARIANTS } from "./ProfileCard";
+import { MOTION_VARIANTS } from "../ProfileCard";
+import { IconLinkOut } from "../icons/IconLinkOut";
 
 export const ProfileCardLens = ({ handle }: { handle?: string | null }) => {
   const [showProfilePicture, setShowProfilePicture] = useState(true);
@@ -53,7 +55,7 @@ export const ProfileCardLens = ({ handle }: { handle?: string | null }) => {
 
   if (!isEthAddress(address)) {
     return (
-      <ProfileCardPlaceholder
+      <ProfileCardLoading
         // TODO(achilles@relay.cc) Without this key then both this branch of the
         // conditional and the next branch of the conditional render the same
         // component and the "shouldPulse" behavior doesn't change. I.e. the
@@ -66,7 +68,7 @@ export const ProfileCardLens = ({ handle }: { handle?: string | null }) => {
   } else {
     if (isFetching || lensProfiles.status === "fetching") {
       return (
-        <ProfileCardPlaceholder
+        <ProfileCardLoading
           key={"2"}
           shouldPulse={true}
           topRightImgUrl={"/LENS LOGO_ copy_Minimal.svg"}
@@ -75,7 +77,7 @@ export const ProfileCardLens = ({ handle }: { handle?: string | null }) => {
     } else {
       if (displayProfile === undefined) {
         return (
-          <ProfileCardPlaceholder
+          <ProfileCardLoading
             key={"2"}
             shouldPulse={false}
             topRightImgUrl={"/LENS LOGO_ copy_Minimal.svg"}
@@ -83,7 +85,7 @@ export const ProfileCardLens = ({ handle }: { handle?: string | null }) => {
         );
       } else {
         return (
-          <ProfileCardAction>
+          <ProfileCard>
             <ProfileCardHeader text="lens.xyz">
               <button className="relative group flex justify-center items-center p-0 bg-white w-[5rem] h-[5rem] rounded-md">
                 {/* eslint-disable-next-line */}
@@ -107,14 +109,14 @@ export const ProfileCardLens = ({ handle }: { handle?: string | null }) => {
                 )}
               </button>
             </ProfileCardHeader>
-            <ProfileCardDataRow>{displayProfile.handle}</ProfileCardDataRow>
-            <ProfileCardDataRow>
-              {displayProfile.stats.totalFollowers} Followers
+            <ProfileCardDataRow className="mt-auto">
+              Send a Message
             </ProfileCardDataRow>
-            <ProfileCardDataRow>
-              {displayProfile.stats.totalFollowing} Following
+            <ProfileCardDataRow className="bg-secondary">
+              View on Lens
+              <IconLinkOut />
             </ProfileCardDataRow>
-          </ProfileCardAction>
+          </ProfileCard>
         );
       }
     }

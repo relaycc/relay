@@ -1,18 +1,14 @@
 import { useState, useEffect } from "react";
 import {
-  useLaunch,
   useEnsName,
-  useEnsAvatar,
   isEthAddress,
-  useOwnedNfts,
-  OwnedNFTsResponse,
   useEnsAddress,
   isEnsName,
 } from "@relaycc/receiver";
-import { ProfileCard } from "./ProfileCard";
-import { ProfileCardPlaceholder } from "./ProfileCardPlaceholder";
-import { ProfileCardHeader } from "./ProfileCardHeader";
-import { ProfileCardDataRow } from "./ProfileCardDataRow";
+import { ProfileCard } from "../ProfileCard";
+import { ProfileCardLoading } from "../ProfileCardLoading";
+import { ProfileCardHeader } from "../ProfileCardHeader";
+import { ProfileCardDataRow } from "../ProfileCardDataRow";
 
 export const ProfileCard101 = ({ handle }: { handle?: string | null }) => {
   const ensAddress = useEnsAddress({
@@ -35,7 +31,7 @@ export const ProfileCard101 = ({ handle }: { handle?: string | null }) => {
 
   if (!isEthAddress(address)) {
     return (
-      <ProfileCardPlaceholder
+      <ProfileCardLoading
         key="not an address"
         shouldPulse={false}
         topRightImgUrl={"/101.svg"}
@@ -44,7 +40,7 @@ export const ProfileCard101 = ({ handle }: { handle?: string | null }) => {
   } else {
     if (isFetching || ensName.status === "fetching") {
       return (
-        <ProfileCardPlaceholder
+        <ProfileCardLoading
           key="isFetching"
           shouldPulse={true}
           topRightImgUrl={"/101.svg"}
@@ -53,7 +49,7 @@ export const ProfileCard101 = ({ handle }: { handle?: string | null }) => {
     } else {
       if (ensName.name === undefined) {
         return (
-          <ProfileCardPlaceholder
+          <ProfileCardLoading
             key="no ens name"
             shouldPulse={false}
             topRightImgUrl={"/101.svg"}
