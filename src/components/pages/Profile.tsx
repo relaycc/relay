@@ -150,7 +150,7 @@ export const Profile = ({ handle }: { handle?: string | null }) => {
               "https://app.poap.xyz/scan/" + address
             )}
             onClickSendMessage={onClickSendMessage()}
-            linkOutText={"View on FAIL"}
+            linkOutText={"View on POAP"}
           />
         }
       />
@@ -614,9 +614,9 @@ export const Profile = ({ handle }: { handle?: string | null }) => {
         fadeIn={
           <AppCard
             onClickLogo={openInNewTab("https://gitcoin.co")}
-            title="FAIL"
+            title="Gitcoin"
             logo="/gitcoin.svg"
-            logoAlt="FAIL"
+            logoAlt="Gitcoin Logo"
             onClickLinkOut={openInNewTab("https://gitcoin.co")}
             onClickSendMessage={onClickSendMessage()}
             linkOutText={"View on Gitcoin"}
