@@ -17,7 +17,7 @@ import {
 } from "@rainbow-me/rainbowkit";
 import { useAccount, useNetwork } from "wagmi";
 
-export const NavBar = () => {
+export const NavBarConversations = () => {
   const [input, setInput] = useState<string | null>(null);
   const [inputIsError, setInputIsError] = useState(false);
   const connectModal = useConnectModal();
@@ -35,7 +35,12 @@ export const NavBar = () => {
         onSubmit={(e) => {
           e.preventDefault();
           if (isLensName(input) || isEnsName(input) || isEthAddress(input)) {
-            router.push("/u/" + input);
+            console.log(router.pathname);
+            if (router.pathname === "/conversations") {
+              launch(input);
+            } else {
+              router.push("/u/" + input);
+            }
             setInput(null);
           } else {
             setInputIsError(true);
