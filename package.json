@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@rainbow-me/rainbowkit": "^0.6.0",
-    "@relaycc/receiver": "^0.1.55",
+    "@relaycc/receiver": "^0.1.56",
     "encoding": "^0.1.13",
     "ethers": "^5.7.1",
     "framer-motion": "^7.3.5",
