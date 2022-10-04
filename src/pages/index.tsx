@@ -1,10 +1,8 @@
 import type { NextPage } from "next";
-import { Profile } from "components";
-import { useAccount } from "wagmi";
+import { Conversations } from "components/pages/Conversations";
 
 const Home: NextPage = () => {
-  const account = useAccount();
-  return <Profile handle={account.address} />;
+  return <Conversations />;
 };
 
 export default Home;
