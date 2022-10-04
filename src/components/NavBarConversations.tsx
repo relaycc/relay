@@ -20,6 +20,7 @@ import { Twitter } from "./icons/Twitter";
 import { Discord } from "./icons/Discord";
 import { Mirror } from "./icons/Mirror";
 import { IconSearch } from "./icons/IconSearch";
+import Link from "next/link";
 
 export const NavBarConversations = () => {
   const [input, setInput] = useState<string | null>(null);
@@ -35,20 +36,36 @@ export const NavBarConversations = () => {
   return (
     <nav className="xl:flex grid grid-cols-2  gap-4 mb-8">
       <ul className="flex items-center gap-x-2 xl:order-1 order-2">
-        <li>
-          <Twitter />
+        <li className="cursor-pointer">
+          <Link passHref href="https://twitter.com/relay_eth">
+            <a target="_blank">
+              <Twitter />
+            </a>
+          </Link>
         </li>
-        <li>
-          <Github />
+        <li className="cursor-pointer">
+          <Link passHref href="https://github.com/relaycc">
+            <a target="_blank">
+              <Github />
+            </a>
+          </Link>
         </li>
-        <li>
-          <Discord />
+        <li className="cursor-pointer">
+          <Link passHref href="https://discord.com/invite/DTMKf63ZSf">
+            <a target="_blank">
+              <Discord />
+            </a>
+          </Link>
         </li>
-        <li>
-          <Mirror />
+        <li className="cursor-pointer">
+          <Link passHref href="https://mirror.xyz/relaycc.eth">
+            <a target="_blank">
+              <Mirror />
+            </a>
+          </Link>
         </li>
       </ul>
-      <div className="w-full flex justify-end order-1 xs:col-span-2"> 
+      <div className="w-full flex justify-end order-1 xs:col-span-2">
         <form
           className="relative xl:w-3/4 w-full"
           onSubmit={(e) => {
