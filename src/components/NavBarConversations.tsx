@@ -6,7 +6,6 @@ import {
 } from "@relaycc/receiver";
 import { useState } from "react";
 import { useRouter } from "next/router";
-import { IconSearch } from "./icons/IconSearch";
 import { IconSwap } from "./icons/IconSwap";
 import { IconWallet } from "./icons/IconWallet";
 import { IconNetwork } from "./icons/IconNetwork";
@@ -16,6 +15,10 @@ import {
   useConnectModal,
 } from "@rainbow-me/rainbowkit";
 import { useAccount, useNetwork } from "wagmi";
+import { Github } from "./icons/Github";
+import { Twitter } from "./icons/Twitter";
+import { Discord } from "./icons/Discord";
+import { Mirror } from "./icons/Mirror";
 
 export const NavBarConversations = () => {
   const [input, setInput] = useState<string | null>(null);
@@ -30,8 +33,22 @@ export const NavBarConversations = () => {
 
   return (
     <nav className="flex flex-col-reverse md:flex-row xs:items-center gap-4 mb-8">
+      <ul className="flex items-end gap-x-2">
+        <li>
+          <Twitter />
+        </li>
+        <li>
+          <Github />
+        </li>
+        <li>
+          <Discord />
+        </li>
+        <li>
+          <Mirror />
+        </li>
+      </ul>
       <form
-        className="relative w-full md:w-[336px]"
+        className="relative w-full"
         onSubmit={(e) => {
           e.preventDefault();
           if (isLensName(input) || isEnsName(input) || isEthAddress(input)) {
@@ -60,9 +77,6 @@ export const NavBarConversations = () => {
           }}
           value={input || ""}
         />
-        <div className="absolute right-[16px] top-0 h-full flex flex-col justify-center">
-          <IconSearch />
-        </div>
       </form>
       <div className="flex justify-end items-center gap-4 ml-auto">
         <button
