@@ -40,7 +40,7 @@ export const Conversations: FunctionComponent = () => {
               {seeds.map((seed) => {
                 return (
                   <div key={seed} className="opacity-25">
-                    <ContactCard address={seed} />
+                    <ContactCard display="Connect Wallet" address={seed} />
                   </div>
                 );
               })}
@@ -54,7 +54,7 @@ export const Conversations: FunctionComponent = () => {
                 {seeds.map((seed) => {
                   return (
                     <div key={seed} className="opacity-25">
-                      <ContactCard address={seed} />
+                      <ContactCard address={seed} display="Sign In" />
                     </div>
                   );
                 })}

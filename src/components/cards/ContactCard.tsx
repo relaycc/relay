@@ -13,7 +13,8 @@ import { useRouter } from "next/router";
 
 export const ContactCard: FunctionComponent<{
   address: string;
-}> = ({ address }) => {
+  display?: string;
+}> = ({ address, display }) => {
   const router = useRouter();
   const launch = useLaunch();
   const ensAvatar = useEnsAvatar({
@@ -56,7 +57,9 @@ export const ContactCard: FunctionComponent<{
         className="border-none bg-none mt-auto text-2xl font-bold flex flex-grow justify-center items-center min-h-18"
         onClick={() => launch(address)}
       >
-        {isEnsName(ensName.name)
+        {typeof display === "string"
+          ? display
+          : isEnsName(ensName.name)
           ? ensName.name
           : address.slice(0, 6) + "..." + address.slice(-4)}
       </button>
