@@ -35,7 +35,7 @@ export const NavBar = () => {
 
   return (
     <nav className="xl:flex grid grid-cols-2 gap-4 mb-8">
-      <ul className="flex items-center gap-x-2 xl:order-1 order-2">
+      <ul className="flex items-center gap-x-2 xl:order-1 order-1">
         <li className="cursor-pointer">
           <Link passHref href="https://twitter.com/relay_eth">
             <a target="_blank">
@@ -65,8 +65,7 @@ export const NavBar = () => {
           </Link>
         </li>
       </ul>
-
-      <div className="w-full flex justify-end order-1 col-span-2">
+      <div className="w-full flex justify-end order-3 col-span-2">
         <form
           className="relative xl:w-3/4 w-full"
           onSubmit={(e) => {
@@ -97,8 +96,7 @@ export const NavBar = () => {
           </div>
         </form>
       </div>
-
-      <div className="flex justify-end items-center gap-4 ml-auto xl:order-3 order-3 md:w-auto xs:w-full">
+      <div className="flex justify-end items-center gap-4 ml-auto xl:order-3 order-2 md:w-auto xs:w-full">
         <button
           onClick={chainModal.openChainModal}
           className={`hidden sm:flex btn btn-ghost bg-accent w-40 border-none rounded-md`}
