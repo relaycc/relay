@@ -16,6 +16,11 @@ import {
   useConnectModal,
 } from "@rainbow-me/rainbowkit";
 import { useAccount, useNetwork } from "wagmi";
+import { Github } from "./icons/Github";
+import { Twitter } from "./icons/Twitter";
+import { Discord } from "./icons/Discord";
+import { Mirror } from "./icons/Mirror";
+import Link from "next/link";
 
 export const NavBar = () => {
   const [input, setInput] = useState<string | null>(null);
@@ -29,37 +34,71 @@ export const NavBar = () => {
   const router = useRouter();
 
   return (
-    <nav className="flex flex-col-reverse md:flex-row xs:items-center gap-4 mb-8">
-      <form
-        className="relative w-full md:w-[336px]"
-        onSubmit={(e) => {
-          e.preventDefault();
-          if (isLensName(input) || isEnsName(input) || isEthAddress(input)) {
-            router.push("/u/" + input);
-            setInput(null);
-          } else {
-            setInputIsError(true);
-          }
-        }}
-      >
-        <input
-          type="text"
-          placeholder="Enter ENS, Lens, or ETH Address"
-          className={`focus:outline-none border-[3px] border-black bg-gray-100 h-12 p-5 rounded-lg w-full pr-12 ${
-            inputIsError && "focus:border-2 focus:border-red-200"
-          }`}
-          onChange={(e) => {
+    <nav className="xl:flex grid grid-cols-2 gap-4 mb-8">
+      <ul className="flex items-center gap-x-2 xl:order-1 order-2">
+        <li className="cursor-pointer">
+          <Link passHref href="https://twitter.com/relay_eth">
+            <a target="_blank">
+              <Twitter />
+            </a>
+          </Link>
+        </li>
+        <li className="cursor-pointer">
+          <Link passHref href="https://github.com/relaycc">
+            <a target="_blank">
+              <Github />
+            </a>
+          </Link>
+        </li>
+        <li className="cursor-pointer">
+          <Link passHref href="https://discord.com/invite/DTMKf63ZSf">
+            <a target="_blank">
+              <Discord />
+            </a>
+          </Link>
+        </li>
+        <li className="cursor-pointer">
+          <Link passHref href="https://mirror.xyz/relaycc.eth">
+            <a target="_blank">
+              <Mirror />
+            </a>
+          </Link>
+        </li>
+      </ul>
+
+      <div className="w-full flex justify-end order-1 col-span-2">
+        <form
+          className="relative xl:w-3/4 w-full"
+          onSubmit={(e) => {
             e.preventDefault();
-            setInputIsError(false);
-            setInput(e.target.value);
+            if (isLensName(input) || isEnsName(input) || isEthAddress(input)) {
+              router.push("/u/" + input);
+              setInput(null);
+            } else {
+              setInputIsError(true);
+            }
           }}
-          value={input || ""}
-        />
-        <div className="absolute right-[16px] top-0 h-full flex flex-col justify-center">
-          <IconSearch />
-        </div>
-      </form>
-      <div className="flex justify-end items-center gap-4 ml-auto">
+        >
+          <input
+            type="text"
+            placeholder="Enter ENS, Lens, or ETH Address"
+            className={`focus:outline-none border-[3px] border-black bg-gray-100 h-12 p-5 rounded-lg w-full pr-12 ${
+              inputIsError && "focus:border-2 focus:border-red-200"
+            }`}
+            onChange={(e) => {
+              e.preventDefault();
+              setInputIsError(false);
+              setInput(e.target.value);
+            }}
+            value={input || ""}
+          />
+          <div className="absolute right-[16px] top-0 h-full flex flex-col justify-center">
+            <IconSearch />
+          </div>
+        </form>
+      </div>
+
+      <div className="flex justify-end items-center gap-4 ml-auto xl:order-3 order-3 md:w-auto xs:w-full">
         <button
           onClick={chainModal.openChainModal}
           className={`hidden sm:flex btn btn-ghost bg-accent w-40 border-none rounded-md`}
@@ -79,7 +118,7 @@ export const NavBar = () => {
               ? accountModal.openAccountModal
               : connectModal.openConnectModal
           }
-          className={`btn btn-ghost bg-accent w-[319px] md:w-64 border-none rounded-md`}
+          className={`btn btn-ghost bg-accent lg:w-[319px] border-none rounded-md`}
         >
           <div className="flex flex-row flex-grow items-center justify-between">
             {account.isConnected && typeof account.address === "string"

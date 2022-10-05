@@ -35,7 +35,6 @@ export const NavBarConversations = () => {
 
   return (
     <nav className="xl:flex grid grid-cols-2 gap-4 mb-8">
-
       <ul className="flex items-center gap-x-2 xl:order-1 order-2">
         <li className="cursor-pointer">
           <Link passHref href="https://twitter.com/relay_eth">
