@@ -484,6 +484,22 @@ export const Profile = ({ handle }: { handle?: string | null }) => {
         }
       />
       <HoverToggle
+        fadeOut={<LogoCard title="Giveth" logo={"/giveth.png"} />}
+        fadeIn={
+          <AppCard
+            onClickLogo={openInNewTab("https://giveth.io")}
+            title="Giveth"
+            logo="/giveth.png"
+            logoAlt="Giveth Logo"
+            onClickLinkOut={linkOutIfEthAddress(
+              "https://giveth.io/user/" + address
+            )}
+            onClickSendMessage={onClickSendMessage()}
+            linkOutText={"View on Giveth"}
+          />
+        }
+      />
+      <HoverToggle
         fadeOut={<LogoCard title="nimi" logo={"/nimi.png"} />}
         fadeIn={
           <AppCard
