@@ -45,7 +45,7 @@ export const Profile = ({ handle }: { handle?: string | null }) => {
 
   const openInNewTab = (url: string) => {
     return () => {
-      window.open(url, "_newtab");
+      window.open(url, "_blank", "noopener,noreferrer");
     };
   };
   const onClickSendMessage = () => {
