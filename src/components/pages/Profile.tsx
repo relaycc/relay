@@ -171,7 +171,7 @@ export const Profile = ({ handle }: { handle?: string | null }) => {
             logo="/etherscan.svg"
             logoAlt="Etherscan Logo"
             onClickLinkOut={linkOutIfEthAddress(
-              "https://etherscan.io/" + address
+              "https://etherscan.io/address/" + address
             )}
             onClickLogo={openInNewTab("https://etherscan.io")}
             onClickSendMessage={onClickSendMessage()}
@@ -336,7 +336,7 @@ export const Profile = ({ handle }: { handle?: string | null }) => {
             logo="/looksrare.svg"
             logoAlt="LooksRare Logo"
             onClickLinkOut={linkOutIfEthAddress(
-              "https://looksrare.org/" + address
+              "https://looksrare.org/accounts/" + address
             )}
             onClickSendMessage={onClickSendMessage()}
             linkOutText={"View on LooksRare"}
