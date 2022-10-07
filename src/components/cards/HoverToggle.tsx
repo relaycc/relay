@@ -22,32 +22,37 @@ export const HoverToggle: FunctionComponent<HoverToggleProps> = ({
   const [showLogo, setShowLogo] = useState<boolean>(true);
 
   return (
-    <motion.div
-      onHoverStart={() => setShowLogo(false)}
-      onHoverEnd={() => setShowLogo(true)}
-      className="relative min-w-max"
-      whileHover="hover"
-    >
-      <motion.div
-        initial={VARIANTS.hide}
-        variants={{ hover: VARIANTS.show }}
-        exit={{ opacity: 0 }}
-      >
-        {fadeIn}
-      </motion.div>
-      <AnimatePresence>
-        {showLogo && (
+    <>
+      <div className="md:hidden">{fadeIn}</div>
+      <div className="hidden md:block">
+        <motion.div
+          onHoverStart={() => setShowLogo(false)}
+          onHoverEnd={() => setShowLogo(true)}
+          className="relative min-w-max"
+          whileHover="hover"
+        >
           <motion.div
             initial={VARIANTS.hide}
-            animate={VARIANTS.show}
-            variants={{ hover: VARIANTS.hide }}
+            variants={{ hover: VARIANTS.show }}
             exit={{ opacity: 0 }}
-            className="absolute left-0 top-0"
           >
-            {fadeOut}
+            {fadeIn}
           </motion.div>
-        )}
-      </AnimatePresence>
-    </motion.div>
+          <AnimatePresence>
+            {showLogo && (
+              <motion.div
+                initial={VARIANTS.hide}
+                animate={VARIANTS.show}
+                variants={{ hover: VARIANTS.hide }}
+                exit={{ opacity: 0 }}
+                className="absolute left-0 top-0"
+              >
+                {fadeOut}
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </motion.div>
+      </div>
+    </>
   );
 };
