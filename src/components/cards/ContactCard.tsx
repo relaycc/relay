@@ -25,10 +25,10 @@ export const ContactCard: FunctionComponent<{
   });
 
   const pfp = (() => {
-    if (ensAvatar.avatar === undefined) {
+    if (ensAvatar.data === null || ensAvatar.data === undefined) {
       return (
         <Blockies
-          className={ensAvatar.status === "fetching" ? "opacity-25" : ""}
+          className={ensAvatar.isLoading ? "opacity-25" : ""}
           seed={address.toLocaleLowerCase()}
           size={14}
           scale={19}
@@ -37,7 +37,11 @@ export const ContactCard: FunctionComponent<{
     } else {
       return (
         /* eslint-disable-next-line */
-        <img className="h-[19rem] w-[19rem]" alt="PFP" src={ensAvatar.avatar} />
+        <img
+          className="h-[19rem] w-[19rem]"
+          alt="PFP"
+          src={ensAvatar.data || undefined}
+        />
       );
     }
   })();
@@ -59,8 +63,8 @@ export const ContactCard: FunctionComponent<{
       >
         {typeof display === "string"
           ? display
-          : isEnsName(ensName.name)
-          ? ensName.name
+          : isEnsName(ensName.data)
+          ? ensName.data
           : address.slice(0, 6) + "..." + address.slice(-4)}
       </button>
     </Card>

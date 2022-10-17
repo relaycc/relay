@@ -9,39 +9,39 @@ import {
   getMostFollowedProfile,
   getFirstProfile,
   isLensName,
+  useLensProfile,
   useLaunch,
   getLensterUrl,
   useEnsAddress,
-  useLensAddress,
 } from "@relaycc/receiver";
 
 export const Profile = ({ handle }: { handle?: string | null }) => {
   const launch = useLaunch();
   const ensAddress = useEnsAddress({
-    handle: isEnsName(handle) ? handle : null,
+    handle,
   });
-  const lensAddress = useLensAddress({
-    handle: isLensName(handle) ? handle : null,
+  const lensProfile = useLensProfile({
+    handle,
   });
   const address = isEthAddress(handle)
     ? handle
-    : isEthAddress(ensAddress.address)
-    ? ensAddress.address
-    : isEthAddress(lensAddress.address)
-    ? lensAddress.address
+    : isEthAddress(ensAddress.data)
+    ? ensAddress.data
+    : isEthAddress(lensProfile.data?.ownedBy)
+    ? lensProfile.data?.ownedBy
     : undefined;
   const lensProfiles = useLensProfiles({
-    address: isEthAddress(address) ? address : null,
+    handle,
   });
   const ensName = useEnsName({
     handle: isEthAddress(address) ? address : null,
   });
-  const lensProfile =
-    lensProfiles.profiles === undefined
+  const preferredLensProfile =
+    lensProfiles.data?.profiles === undefined
       ? undefined
-      : getDefaultProfile(lensProfiles.profiles) ||
-        getMostFollowedProfile(lensProfiles.profiles) ||
-        getFirstProfile(lensProfiles.profiles);
+      : getDefaultProfile(lensProfiles.data) ||
+        getMostFollowedProfile(lensProfiles.data) ||
+        getFirstProfile(lensProfiles.data);
 
   const openInNewTab = (url: string) => {
     return () => {
@@ -93,7 +93,7 @@ export const Profile = ({ handle }: { handle?: string | null }) => {
       <HoverToggle
         fadeOut={
           <LogoCard
-            title={isEnsName(ensName.name) ? ensName.name : "ENS"}
+            title={isEnsName(ensName.data) ? ensName.data : "ENS"}
             logo={"/ENS.svg"}
             logoClassName={"scale-150 pt-4"}
           />
@@ -104,8 +104,8 @@ export const Profile = ({ handle }: { handle?: string | null }) => {
             logo="/ENS.svg"
             logoAlt="ENS Logo"
             onClickLinkOut={
-              isEnsName(ensName.name)
-                ? openInNewTab("https://app.ens.domains/name/" + ensName.name)
+              isEnsName(ensName.data)
+                ? openInNewTab("https://app.ens.domains/name/" + ensName.data)
                 : undefined
             }
             onClickLogo={openInNewTab("https://ens.domains")}
@@ -118,7 +118,11 @@ export const Profile = ({ handle }: { handle?: string | null }) => {
       <HoverToggle
         fadeOut={
           <LogoCard
-            title={lensProfile === undefined ? "Lens" : lensProfile.handle}
+            title={
+              preferredLensProfile === undefined
+                ? "Lens"
+                : preferredLensProfile.handle
+            }
             logo={"/lens.svg"}
           />
         }
@@ -128,9 +132,9 @@ export const Profile = ({ handle }: { handle?: string | null }) => {
             logo="/lens.svg"
             logoAlt="Lens Logo"
             onClickLinkOut={
-              lensProfile === undefined
+              preferredLensProfile === undefined
                 ? undefined
-                : openInNewTab(getLensterUrl(lensProfile))
+                : openInNewTab(getLensterUrl(preferredLensProfile))
             }
             onClickSendMessage={onClickSendMessage()}
             onClickLogo={openInNewTab("https://lens.xyz")}
@@ -204,7 +208,7 @@ export const Profile = ({ handle }: { handle?: string | null }) => {
             logo="/lenster.svg"
             logoAlt="Lenster Logo"
             onClickLinkOut={
-              isEthAddress(lensAddress.address)
+              isEthAddress(lensProfile.data?.ownedBy)
                 ? openInNewTab("https://lenster.xyz/u/" + handle)
                 : undefined
             }
@@ -222,7 +226,7 @@ export const Profile = ({ handle }: { handle?: string | null }) => {
             logo="/lenstube.svg"
             logoAlt="Lenstube Logo"
             onClickLinkOut={
-              isEthAddress(lensAddress.address)
+              isEthAddress(lensProfile.data?.ownedBy)
                 ? openInNewTab("https://lenstube.xyz/" + handle)
                 : undefined
             }
@@ -358,8 +362,8 @@ export const Profile = ({ handle }: { handle?: string | null }) => {
             logo="/101.svg"
             logoAlt="101 Logo"
             onClickLinkOut={
-              isEnsName(ensName.name)
-                ? openInNewTab("https://101.xyz/u/" + ensName.name)
+              isEnsName(ensName.data)
+                ? openInNewTab("https://101.xyz/u/" + ensName.data)
                 : undefined
             }
             onClickSendMessage={onClickSendMessage()}
@@ -508,8 +512,8 @@ export const Profile = ({ handle }: { handle?: string | null }) => {
             logo="/nimi.png"
             logoAlt="Nimi Logo"
             onClickLinkOut={
-              isEnsName(ensName.name)
-                ? openInNewTab(`https://${ensName.name}.limo`)
+              isEnsName(ensName.data)
+                ? openInNewTab(`https://${ensName.data}.limo`)
                 : undefined
             }
             onClickSendMessage={onClickSendMessage()}
