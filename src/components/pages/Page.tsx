@@ -1,4 +1,4 @@
-import { Intercom, useSetWallet, Window } from "@relaycc/receiver";
+import { Intercom, useWallet, Window } from "@relaycc/receiver";
 import React, { FunctionComponent, ReactNode, useEffect } from "react";
 import { NavBar } from "../NavBar";
 import { useSigner } from "wagmi";
@@ -8,7 +8,7 @@ export const Page: FunctionComponent<{
   navBar?: ReactNode;
 }> = ({ children, navBar }) => {
   const { data: signer } = useSigner();
-  const setWallet = useSetWallet();
+  const [, setWallet] = useWallet();
 
   useEffect(() => {
     setWallet(signer || null);

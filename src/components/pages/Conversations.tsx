@@ -1,34 +1,81 @@
-import { FunctionComponent, useEffect } from "react";
+import { FunctionComponent, useEffect, useMemo } from "react";
 import { ContactCard, Page, LoadingCard, ConnectCard } from "components";
 import { Intercom, Window, useLaunch } from "@relaycc/receiver";
 import { motion } from "framer-motion";
 import {
-  useRelay,
-  useSetWallet,
-  byMostRecentMessage,
-  pickPeerAddress,
+  useWallet,
+  useConversations,
+  usePinnedAddresses,
+  useConversationsPreviews,
+  useClient,
 } from "@relaycc/receiver";
+import { Message } from "@relaycc/xmtp-js";
 import { useSigner } from "wagmi";
 import { NavBarConversations } from "../NavBarConversations";
+import { useDevShortcut } from "hooks/useDevShortcut";
 
-export const Conversations: FunctionComponent = () => {
+export interface Conversation {
+  peerAddress: string;
+  messages: Message[];
+}
+
+export const Conversations = () => {
+  const pinnedAddresses = usePinnedAddresses();
+  const conversations = useConversations();
+  const pinnedPreviews = useConversationsPreviews(pinnedAddresses.data || []);
+  const listedPreviews = useConversationsPreviews(
+    conversations.data ? conversations.data.map((c) => c.peerAddress) : []
+  );
+  const pinnedIsLoading =
+    pinnedAddresses.isLoading ||
+    Boolean(pinnedPreviews.find((pq) => pq.isLoading));
+  const isLoading =
+    conversations.isLoading ||
+    Boolean(listedPreviews.find((lq) => lq.isLoading));
+
+  const conversationsProps: Conversation[] = useMemo(() => {
+    const dataToProcess = (() => {
+      if (isLoading === false) {
+        return listedPreviews;
+      } else if (pinnedIsLoading === false) {
+        return pinnedPreviews;
+      } else {
+        return [];
+      }
+    })();
+
+    return dataToProcess
+      .filter((cp) => cp.data && cp.data.messages.length > 0)
+      .map((cp) => cp.data)
+      .sort((a, b) => {
+        if (a === undefined) return 1;
+        if (b === undefined) return -1;
+        if (a.messages[0] === undefined) return 1;
+        if (b.messages[0] === undefined) return -1;
+        if (a.messages[0].sent === undefined) return 1;
+        if (b.messages[0].sent === undefined) return 1;
+        return a.messages[0].sent.getTime() < b.messages[0].sent.getTime()
+          ? 1
+          : -1;
+      }) as Conversation[];
+  }, [isLoading, pinnedIsLoading, pinnedPreviews, listedPreviews]);
+
+  return (
+    <ConversationsView
+      isLoading={isLoading && (pinnedIsLoading || pinnedPreviews.length === 0)}
+      isLoadingMore={isLoading && !pinnedIsLoading}
+      conversations={conversationsProps}
+    />
+  );
+};
+
+export const ConversationsView: FunctionComponent<{
+  isLoading: boolean;
+  isLoadingMore: boolean;
+  conversations: Conversation[];
+}> = ({ isLoading, isLoadingMore, conversations }) => {
   const { data: signer } = useSigner();
-  const dispatch = useRelay((state) => state.dispatch);
-  const conversations = useRelay((state) => state.channels.conversationList);
-  const client = useRelay((state) => state.client);
-  const setWallet = useSetWallet();
-
-  useEffect(() => {
-    if (signer) {
-      setWallet(signer);
-    }
-  }, [signer, setWallet]);
-
-  useEffect(() => {
-    if (client !== null) {
-      dispatch({ id: "load conversation list" });
-    }
-  }, [dispatch, client]);
+  const [, { data: client }] = useClient();
 
   return (
     <Page navBar={<NavBarConversations />}>
@@ -47,7 +94,7 @@ export const Conversations: FunctionComponent = () => {
             </>
           );
         } else {
-          if (client === null) {
+          if (client === null || client === undefined) {
             return (
               <>
                 <ConnectCard />
@@ -61,7 +108,7 @@ export const Conversations: FunctionComponent = () => {
               </>
             );
           } else {
-            if (conversations === undefined) {
+            if (isLoading) {
               return seeds.map((seed) => {
                 return (
                   <LoadingCard
@@ -72,23 +119,18 @@ export const Conversations: FunctionComponent = () => {
                 );
               });
             } else {
-              return byMostRecentMessage(conversations)
-                .map((m) => m)
-                .reverse()
-                .map((m, i) => {
-                  return (
-                    <motion.div
-                      key={pickPeerAddress(client.address, m)}
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      transition={{ delay: 0.1 * i }}
-                    >
-                      <ContactCard
-                        address={pickPeerAddress(client.address, m)}
-                      />
-                    </motion.div>
-                  );
-                });
+              return conversations.map((m, i) => {
+                return (
+                  <motion.div
+                    key={m.peerAddress}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 0.1 * i }}
+                  >
+                    <ContactCard address={m.peerAddress} />
+                  </motion.div>
+                );
+              });
             }
           }
         }
