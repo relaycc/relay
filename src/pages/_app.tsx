@@ -14,18 +14,13 @@ const alchemyKey = "kmMb00nhQ0SWModX6lJLjXy_pVtiQnjx";
 const { chains, provider } = configureChains(
   [
     chain.mainnet,
-    chain.ropsten,
-    chain.rinkeby,
     chain.goerli,
-    chain.kovan,
     chain.sepolia,
     chain.optimism,
     chain.optimismGoerli,
-    chain.optimismKovan,
     chain.polygon,
     chain.polygonMumbai,
     chain.arbitrum,
-    chain.arbitrumRinkeby,
   ],
   [alchemyProvider({ apiKey: alchemyKey }), publicProvider()]
 );
