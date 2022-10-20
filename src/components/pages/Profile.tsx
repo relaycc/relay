@@ -743,6 +743,20 @@ export const Profile = ({ handle }: { handle?: string | null }) => {
           />
         }
       />
+      <HoverToggle
+        fadeOut={<LogoCard title="Otterspace" logo={"/otterspace.png"} />}
+        fadeIn={
+          <AppCard
+            onClickLogo={openInNewTab("https://www.otterspace.xyz/")}
+            title="Otterspace"
+            logo="/otterspace.png"
+            logoAlt="Otterspace Logo"
+            onClickLinkOut={openInNewTab("https://www.otterspace.xyz/")}
+            onClickSendMessage={onClickSendMessage()}
+            linkOutText={"View on Otterspace"}
+          />
+        }
+      />
     </Page>
   );
 };
