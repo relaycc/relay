@@ -373,27 +373,6 @@ export const Profile = ({ handle }: { handle?: string | null }) => {
         }
       />
       <HoverToggle
-        fadeOut={
-          <LogoCard
-            title="Disco"
-            logo={"/disco.svg"}
-            logoClassName={"scale-110 invert"}
-          />
-        }
-        fadeIn={
-          <AppCard
-            onClickLogo={openInNewTab("https://disco.xyz")}
-            title="Disco"
-            logo="/disco.svg"
-            logoAlt="Disco Logo"
-            onClickLinkOut={openInNewTab("https://disco.xyz/")}
-            onClickSendMessage={onClickSendMessage()}
-            linkOutText={"View on Disco"}
-            logoClassName="invert"
-          />
-        }
-      />
-      <HoverToggle
         fadeOut={<LogoCard title="boardroom" logo={"/boardroom.png"} />}
         fadeIn={
           <AppCard
@@ -612,6 +591,43 @@ export const Profile = ({ handle }: { handle?: string | null }) => {
             onClickLinkOut={openInNewTab("https://philand.xyz")}
             onClickSendMessage={onClickSendMessage()}
             linkOutText={"View on Philand"}
+          />
+        }
+      />
+      <HoverToggle
+        fadeOut={
+          <LogoCard
+            title="Disco"
+            logo={"/disco.svg"}
+            logoClassName={"scale-110 invert"}
+          />
+        }
+        fadeIn={
+          <AppCard
+            onClickLogo={openInNewTab("https://disco.xyz")}
+            title="Disco"
+            logo="/disco.svg"
+            logoAlt="Disco Logo"
+            onClickLinkOut={openInNewTab("https://disco.xyz/")}
+            onClickSendMessage={onClickSendMessage()}
+            linkOutText={"View on Disco"}
+            logoClassName="invert"
+          />
+        }
+      />
+      <HoverToggle
+        fadeOut={<LogoCard title="PolygonId" logo={"/polygonid.svg"} />}
+        fadeIn={
+          <AppCard
+            onClickLogo={openInNewTab("https://polygon.technology/polygon-id/")}
+            title="PolygonId"
+            logo="/polygonid.svg"
+            logoAlt="Polydon Id Logo"
+            onClickLinkOut={openInNewTab(
+              "https://polygon.technology/polygon-id/"
+            )}
+            onClickSendMessage={onClickSendMessage()}
+            linkOutText={"View on PolygonID"}
           />
         }
       />
