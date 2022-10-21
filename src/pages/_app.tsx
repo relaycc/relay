@@ -4,6 +4,7 @@ import { alchemyProvider } from "wagmi/providers/alchemy";
 import { publicProvider } from "wagmi/providers/public";
 import { WagmiConfig, configureChains, createClient, chain } from "wagmi";
 import { RainbowKitProvider, getDefaultWallets } from "@rainbow-me/rainbowkit";
+import Head from "next/head";
 // TODO(achilles@relay.cc) For some reason rainbowkit css import wasn't working,
 // remove this hack soon.
 import "../styles/rainbowkit.css";
@@ -14,18 +15,13 @@ const alchemyKey = "kmMb00nhQ0SWModX6lJLjXy_pVtiQnjx";
 const { chains, provider } = configureChains(
   [
     chain.mainnet,
-    chain.ropsten,
-    chain.rinkeby,
     chain.goerli,
-    chain.kovan,
     chain.sepolia,
     chain.optimism,
     chain.optimismGoerli,
-    chain.optimismKovan,
     chain.polygon,
     chain.polygonMumbai,
     chain.arbitrum,
-    chain.arbitrumRinkeby,
   ],
   [alchemyProvider({ apiKey: alchemyKey }), publicProvider()]
 );
@@ -43,13 +39,18 @@ const wagmiClient = createClient({
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <WagmiConfig client={wagmiClient}>
-      <RainbowKitProvider chains={chains}>
-        <Receiver>
-          <Component {...pageProps} />
-        </Receiver>
-      </RainbowKitProvider>
-    </WagmiConfig>
+    <>
+      <Head>
+        <title>Relay</title>
+      </Head>
+      <WagmiConfig client={wagmiClient}>
+        <RainbowKitProvider chains={chains}>
+          <Receiver>
+            <Component {...pageProps} />
+          </Receiver>
+        </RainbowKitProvider>
+      </WagmiConfig>
+    </>
   );
 }
 
