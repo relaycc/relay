@@ -616,18 +616,18 @@ export const Profile = ({ handle }: { handle?: string | null }) => {
         }
       />
       <HoverToggle
-        fadeOut={<LogoCard title="PolygonId" logo={"/polygonid.svg"} />}
+        fadeOut={<LogoCard title="Polygon ID" logo={"/polygonid.svg"} />}
         fadeIn={
           <AppCard
             onClickLogo={openInNewTab("https://polygon.technology/polygon-id/")}
-            title="PolygonId"
+            title="Polygon ID"
             logo="/polygonid.svg"
-            logoAlt="Polydon Id Logo"
+            logoAlt="Polydon ID Logo"
             onClickLinkOut={openInNewTab(
               "https://polygon.technology/polygon-id/"
             )}
             onClickSendMessage={onClickSendMessage()}
-            linkOutText={"View on PolygonID"}
+            linkOutText={"View on Polygon ID"}
           />
         }
       />
