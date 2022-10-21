@@ -622,7 +622,7 @@ export const Profile = ({ handle }: { handle?: string | null }) => {
             onClickLogo={openInNewTab("https://polygon.technology/polygon-id/")}
             title="Polygon ID"
             logo="/polygonid.svg"
-            logoAlt="Polydon ID Logo"
+            logoAlt="Polygon ID Logo"
             onClickLinkOut={openInNewTab(
               "https://polygon.technology/polygon-id/"
             )}
