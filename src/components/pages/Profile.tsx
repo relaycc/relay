@@ -8,7 +8,6 @@ import {
   getDefaultProfile,
   getMostFollowedProfile,
   getFirstProfile,
-  isLensName,
   useLensProfile,
   useLaunch,
   getLensterUrl,
@@ -31,14 +30,14 @@ export const Profile = ({ handle }: { handle?: string | null }) => {
     ? lensProfile.data?.ownedBy
     : undefined;
   const lensProfiles = useLensProfiles({
-    handle,
+    handle: address,
   });
   const ensName = useEnsName({
     handle: isEthAddress(address) ? address : null,
   });
   const preferredLensProfile =
     lensProfiles.data?.profiles === undefined
-      ? undefined
+      ? lensProfile.data || undefined
       : getDefaultProfile(lensProfiles.data) ||
         getMostFollowedProfile(lensProfiles.data) ||
         getFirstProfile(lensProfiles.data);
@@ -208,9 +207,9 @@ export const Profile = ({ handle }: { handle?: string | null }) => {
             logo="/lenster.svg"
             logoAlt="Lenster Logo"
             onClickLinkOut={
-              isEthAddress(lensProfile.data?.ownedBy)
-                ? openInNewTab("https://lenster.xyz/u/" + handle)
-                : undefined
+              preferredLensProfile === undefined
+                ? undefined
+                : openInNewTab(getLensterUrl(preferredLensProfile))
             }
             onClickSendMessage={onClickSendMessage()}
             linkOutText={"View on Lenster"}
