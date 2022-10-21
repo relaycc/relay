@@ -12,6 +12,7 @@ import {
   useLaunch,
   getLensterUrl,
   useEnsAddress,
+  isLensName,
 } from "@relaycc/receiver";
 
 export const Profile = ({ handle }: { handle?: string | null }) => {
@@ -225,8 +226,10 @@ export const Profile = ({ handle }: { handle?: string | null }) => {
             logo="/lenstube.svg"
             logoAlt="Lenstube Logo"
             onClickLinkOut={
-              isEthAddress(lensProfile.data?.ownedBy)
-                ? openInNewTab("https://lenstube.xyz/" + handle)
+              isLensName(preferredLensProfile?.handle)
+                ? openInNewTab(
+                    "https://lenstube.xyz/" + preferredLensProfile?.handle
+                  )
                 : undefined
             }
             onClickSendMessage={onClickSendMessage()}
