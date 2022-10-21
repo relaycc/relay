@@ -6,6 +6,7 @@ import Head from "next/head";
 const Home: NextPage = () => {
   const router = useRouter();
   const handle = router.query.handle as string;
+
   return (
     <>
       <Head>
