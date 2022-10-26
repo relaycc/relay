@@ -1,4 +1,5 @@
 import "styles/globals.css";
+import React, { useState, useEffect } from "react";
 import type { AppProps } from "next/app";
 import { alchemyProvider } from "wagmi/providers/alchemy";
 import { publicProvider } from "wagmi/providers/public";
@@ -9,6 +10,7 @@ import Head from "next/head";
 // remove this hack soon.
 import "../styles/rainbowkit.css";
 import { Receiver } from "@relaycc/receiver";
+import { XmtpWorkerClient } from "@relaycc/xmtp-worker";
 
 const alchemyKey = "kmMb00nhQ0SWModX6lJLjXy_pVtiQnjx";
 
@@ -38,6 +40,16 @@ const wagmiClient = createClient({
 });
 
 function MyApp({ Component, pageProps }: AppProps) {
+  const [client, setClient] = useState<XmtpWorkerClient | null>(null);
+
+  useEffect(() => {
+    setClient(
+      new XmtpWorkerClient(
+        new Worker(new URL("../utils/XmtpWorker.js", import.meta.url))
+      )
+    );
+  }, []);
+
   return (
     <>
       <Head>
@@ -45,7 +57,11 @@ function MyApp({ Component, pageProps }: AppProps) {
       </Head>
       <WagmiConfig client={wagmiClient}>
         <RainbowKitProvider chains={chains}>
-          <Receiver>
+          <Receiver
+            config={
+              client === null ? null : { xmtp: { network: "dev", client } }
+            }
+          >
             <Component {...pageProps} />
           </Receiver>
         </RainbowKitProvider>
