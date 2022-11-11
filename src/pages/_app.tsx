@@ -54,6 +54,7 @@ function MyApp({ Component, pageProps }: AppProps) {
     <>
       <Head>
         <title>Relay</title>
+        <meta name="desctiption" content="Relay is the web3 crossroads. Decentralized, secure, and private identity and messaging." />
       </Head>
       <WagmiConfig client={wagmiClient}>
         <RainbowKitProvider chains={chains}>
