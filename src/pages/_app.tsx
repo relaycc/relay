@@ -11,6 +11,7 @@ import Head from "next/head";
 import "../styles/rainbowkit.css";
 import { Receiver } from "@relaycc/receiver";
 import { XmtpWorkerClient } from "@relaycc/xmtp-worker";
+import Script from "next/script";
 
 const alchemyKey = "kmMb00nhQ0SWModX6lJLjXy_pVtiQnjx";
 
@@ -55,6 +56,12 @@ function MyApp({ Component, pageProps }: AppProps) {
       <Head>
         <title>Relay</title>
       </Head>
+      <Script
+        defer
+        id="plausible"
+        data-domain="relay.cc"
+        src="https://plausible.io/js/plausible.js"
+      />
       <WagmiConfig client={wagmiClient}>
         <RainbowKitProvider chains={chains}>
           <Receiver
