@@ -86,7 +86,7 @@ export const lens = [
   {
     name: "YUP",
     url: "https://app.yup.io/",
-    logo: "/yup.jpeg",
+    logo: "/Yup.jpeg",
     handle: "yup_io.lens",
   },
   {
