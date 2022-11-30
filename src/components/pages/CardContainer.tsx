@@ -106,6 +106,10 @@ export const ConversationsView: FunctionComponent<{
     } else return;
   };
 
+  const handleAddressSearch = (e: string) => {
+    setAddressToMessage(e);
+  };
+
   const account = useAccount();
 
   const ensAddress = useEnsAddress({
@@ -142,7 +146,7 @@ export const ConversationsView: FunctionComponent<{
     <Page
       setCategory={setCategory}
       category={category}
-      navBar={<NavBarConversations />}
+      navBar={<NavBarConversations handleAddressSearch={handleAddressSearch} />}
     >
       {(() => {
         if (signer === null || signer === undefined) {

@@ -18,7 +18,13 @@ import { useAccount, useNetwork } from "wagmi";
 import { IconSearch } from "./icons/IconSearch";
 import Image from "next/image";
 
-export const NavBarConversations = () => {
+interface NavbarConversationsProps {
+  handleAddressSearch: (e: string) => unknown;
+}
+
+export const NavBarConversations = ({
+  handleAddressSearch,
+}: NavbarConversationsProps) => {
   const [input, setInput] = useState<string | null>(null);
   const [inputIsError, setInputIsError] = useState(false);
   const connectModal = useConnectModal();
@@ -48,6 +54,7 @@ export const NavBarConversations = () => {
             if (isLensName(input) || isEnsName(input) || isEthAddress(input)) {
               router.push("/u/" + input);
               launch(input);
+              handleAddressSearch(input);
               setInput(null);
             } else {
               setInputIsError(true);
