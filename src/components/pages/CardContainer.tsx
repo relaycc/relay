@@ -98,6 +98,21 @@ export const ConversationsView: FunctionComponent<{
   const [category, setCategory] = useState(popular);
   const router = useRouter();
   const [addressToMessage, setAddressToMessage] = useState("seanwbren.eth");
+  const launch = useLaunch();
+
+  const onClickSendMessage = () => {
+    if (isEthAddress(addressToMessage)) {
+      console.log('clicked')
+      console.log(addressToMessage)
+      return () => launch(addressToMessage);
+    } else {
+      console.log(addressToMessage)
+
+      console.log('clicked2')
+
+      undefined;
+    }
+  };
 
   const account = useAccount();
 
@@ -172,19 +187,12 @@ export const ConversationsView: FunctionComponent<{
                       logo={seed.logo}
                       url={seed.url}
                       logoAlt="ENS Logo"
-                      onClickLinkOut={
-                        isEnsName(ensName.data)
-                          ? openInNewTab(
-                              "https://app.ens.domains/name/" + ensName.data
-                            )
-                          : undefined
-                      }
                       onClickLogo={openInNewTab(seed.url)}
                       logoClassName="scale-125"
                       linkOutText={seed.name}
                       handle={seed.handle}
-                      useLaunch={useLaunch}
                       setAddressToMessage={setAddressToMessage}
+                      onClickSendMessage={onClickSendMessage}
                     />
                     {/* }
                     /> */}
@@ -236,7 +244,7 @@ export const ConversationsView: FunctionComponent<{
                         logoClassName="scale-125"
                         handle={seed.handle}
                         setAddressToMessage={setAddressToMessage}
-                        useLaunch={useLaunch}
+                        onClickSendMessage={onClickSendMessage()}
                       />
                       {/* }
                       /> */}
@@ -298,7 +306,7 @@ export const ConversationsView: FunctionComponent<{
                           logoClassName="scale-125"
                           linkOutText={seed.name}
                           setAddressToMessage={setAddressToMessage}
-                          useLaunch={useLaunch}
+                          onClickSendMessage={onClickSendMessage()}
                         />
                         {/* }
                         /> */}

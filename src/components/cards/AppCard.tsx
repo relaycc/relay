@@ -19,7 +19,6 @@ export const AppCard: FunctionComponent<{
   linkOutText: string;
   handle: string;
   setAddressToMessage: any;
-  useLaunch: any;
 }> = ({
   title,
   logo,
@@ -31,7 +30,6 @@ export const AppCard: FunctionComponent<{
   linkOutText,
   handle,
   url,
-  useLaunch,
   setAddressToMessage,
 }) => {
   return (
@@ -55,7 +53,7 @@ export const AppCard: FunctionComponent<{
       <div className={"flex mt-auto justify-between gap-3"}>
         <DataRow
           className={`${"bg-secondary"}`}
-          onClick={useLaunch()}
+          onClick={onClickSendMessage}
           handle={handle}
           setAddressToMessage={setAddressToMessage}
           useLaunch={useLaunch}

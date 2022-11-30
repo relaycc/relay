@@ -1,10 +1,11 @@
 import React, { FunctionComponent, ReactNode } from "react";
+import { useLaunch } from "@relaycc/receiver";
 
 export interface DataRowProps {
   children?: ReactNode;
   onClick?: (() => unknown) | undefined;
   className?: string;
-  setAddressToMessage: any;
+  setAddressToMessage: (e: string) => any;
   handle: string;
   useLaunch: () => unknown;
 }
@@ -15,15 +16,15 @@ export const DataRow: FunctionComponent<DataRowProps> = ({
   className,
   setAddressToMessage,
   handle,
-  useLaunch,
 }) => {
 
-  const launch = useLaunch()
+const launch = useLaunch()
+
   const handleClick = () => {
     onClick;
     setAddressToMessage(handle);
-    launch
     console.log(handle);
+    launch(handle)
   };
   return (
     <button
