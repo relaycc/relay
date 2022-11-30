@@ -32,7 +32,7 @@ export const lens = [
   {
     name: "Lensfrens",
     url: "https://www.lensfrens.xyz/",
-    logo: "/lens.svg",
+    logo: '/lensgreen.jpeg',
     handle: "lensfrens.lens",
   },
   {
@@ -50,7 +50,7 @@ export const lens = [
   {
     name: "Lensta",
     url: "https://www.lensta.xyz/",
-    logo: "/lens.svg",
+    logo: '/lensgreen.jpeg',
     handle: "",
   },
   {
@@ -80,7 +80,7 @@ export const lens = [
   {
     name: "Superfun",
     url: "https://lens.superfun.social/",
-    logo: "/lens.svg",
+    logo: '/lensgreen.jpeg',
     handle: "superfun.lens",
   },
   {
@@ -92,7 +92,7 @@ export const lens = [
   {
     name: "Lens Garden",
     url: "https://lensgarden.xyz/",
-    logo: "/lens.svg",
+    logo: '/lensgreen.jpeg',
     handle: "",
   },
   {
@@ -110,19 +110,19 @@ export const lens = [
   {
     name: "Lens Analytics",
     url: "https://www.lensanalytics.xyz/",
-    logo: "/lens.svg",
+    logo: '/lensgreen.jpeg',
     handle: "",
   },
   {
     name: "Stats Lens",
     url: "https://stats.lens.xyz/",
-    logo: "/lens.svg",
+    logo: '/lensgreen.jpeg',
     handle: "",
   },
   {
     name: "Sepana",
     url: "https://lens.sepana.io/",
-    logo: "/lens.svg",
+    logo: '/lensgreen.jpeg',
     handle: "sepana.lens",
   },
   {
@@ -134,13 +134,13 @@ export const lens = [
   {
     name: "Leaderboard",
     url: "https://leaderboard.withlens.app/",
-    logo: "/lens.svg",
+    logo: '/lensgreen.jpeg',
     handle: "",
   },
   {
     name: "Lens Share",
     url: "https://lens-share.apoorv.xyz/",
-    logo: "/lens.svg",
+    logo: '/lensgreen.jpeg',
     handle: "",
   },
   {
@@ -152,7 +152,7 @@ export const lens = [
   {
     name: "Reflect",
     url: "https://reflect.withlens.app/",
-    logo: "/lens.svg",
+    logo: '/lensgreen.jpeg',
   },
   {
     name: "Cultivator",
@@ -191,7 +191,7 @@ export const lens = [
   {
     name: "Embed",
     url: "https://embed.withlens.app/",
-    logo: "/lens.svg",
+    logo: '/lensgreen.jpeg',
     handle: "embed.lens",
   },
   {
@@ -209,7 +209,7 @@ export const lens = [
   {
     name: "LensAI",
     url: "https://thegallerydao.vercel.app/login",
-    logo: "/lens.svg",
+    logo: '/lensgreen.jpeg',
     handle: "artofficialintelligence.lens",
   },
   {
@@ -227,7 +227,7 @@ export const lens = [
   {
     name: "Garden",
     url: "https://garden.withlens.app/",
-    logo: "/lens.svg",
+    logo: '/lensgreen.jpeg',
     handle: "",
   },
   {

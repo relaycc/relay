@@ -216,44 +216,33 @@ export const ConversationsView: FunctionComponent<{
               </>
             );
           } else {
-            if (isLoading) {
-              return seeds.map((seed) => {
-                return (
-                  <LoadingCard
-                    key={seed}
-                    shouldPulse={true}
-                    topRightImgUrl={"/Relay.png"}
-                  />
-                );
-              });
-            } else
-              return (
-                <>
-                  {category.map((seed, index) => {
-                    return (
-                      <motion.div
-                        key={index}
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ delay: 0.1 * index }}
-                      >
-                        <AppCard
-                          title={seed.name}
-                          logo={seed.logo}
-                          url={seed.url}
-                          handle={seed.handle}
-                          logoAlt="ENS Logo"
-                          onClickLogo={openInNewTab(seed.url)}
-                          logoClassName="scale-125"
-                          linkOutText={seed.name}
-                          setAddressToMessage={setAddressToMessage}
-                          onClickSendMessage={onClickSendMessage()}
-                        />
-                      </motion.div>
-                    );
-                  })}
-                </>
-              );
+            return (
+              <>
+                {category.map((seed, index) => {
+                  return (
+                    <motion.div
+                      key={index}
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      transition={{ delay: 0.1 * index }}
+                    >
+                      <AppCard
+                        title={seed.name}
+                        logo={seed.logo}
+                        url={seed.url}
+                        handle={seed.handle}
+                        logoAlt="ENS Logo"
+                        onClickLogo={openInNewTab(seed.url)}
+                        logoClassName="scale-125"
+                        linkOutText={seed.name}
+                        setAddressToMessage={setAddressToMessage}
+                        onClickSendMessage={onClickSendMessage()}
+                      />
+                    </motion.div>
+                  );
+                })}
+              </>
+            );
           }
         }
       })()}
