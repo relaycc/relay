@@ -15,12 +15,8 @@ import {
   useConnectModal,
 } from "@rainbow-me/rainbowkit";
 import { useAccount, useNetwork } from "wagmi";
-import { Github } from "./icons/Github";
-import { Twitter } from "./icons/Twitter";
-import { Discord } from "./icons/Discord";
-import { Mirror } from "./icons/Mirror";
 import { IconSearch } from "./icons/IconSearch";
-import Link from "next/link";
+import Image from "next/image";
 
 export const NavBarConversations = () => {
   const [input, setInput] = useState<string | null>(null);
@@ -34,37 +30,15 @@ export const NavBarConversations = () => {
   const router = useRouter();
 
   return (
-    <nav className="xl:flex grid grid-cols-2 gap-4 mb-8">
-      <ul className="flex items-center gap-x-2 xl:order-1 order-1">
-        <li className="cursor-pointer">
-          <Link passHref href="https://twitter.com/relay_eth">
-            <a target="_blank">
-              <Twitter />
-            </a>
-          </Link>
-        </li>
-        <li className="cursor-pointer">
-          <Link passHref href="https://github.com/relaycc">
-            <a target="_blank">
-              <Github />
-            </a>
-          </Link>
-        </li>
-        <li className="cursor-pointer">
-          <Link passHref href="https://discord.com/invite/DTMKf63ZSf">
-            <a target="_blank">
-              <Discord />
-            </a>
-          </Link>
-        </li>
-        <li className="cursor-pointer">
-          <Link passHref href="https://mirror.xyz/relaycc.eth">
-            <a target="_blank">
-              <Mirror />
-            </a>
-          </Link>
-        </li>
-      </ul>
+    <nav className="xl:flex items-end grid grid-cols-2 gap-4 mb-6">
+      <div className="ml-[-10px] mb-[-26px] min-w-[85px] min-h-[85px]">
+        <Image
+          src={"/relaytransparent.png"}
+          alt={"Relay"}
+          width={85}
+          height={85}
+        />
+      </div>
 
       <div className="w-full flex justify-end order-3 col-span-2">
         <form

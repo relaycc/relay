@@ -35,37 +35,6 @@ export const NavBar = () => {
 
   return (
     <nav className="xl:flex grid grid-cols-2 gap-4 mb-8">
-      <ul className="flex items-center gap-x-2 xl:order-1 order-1 bg-red-500">
-        <li className="cursor-pointer">
-          <Link passHref href="https://twitter.com/relay_eth">
-            <a target="_blank">
-              <Twitter />
-            </a>
-          </Link>
-        </li>
-        <li className="cursor-pointer">
-          <Link passHref href="https://github.com/relaycc">
-            <a target="_blank">
-              <Github />
-            </a>
-          </Link>
-        </li>
-        <li className="cursor-pointer">
-          <Link passHref href="https://discord.com/invite/DTMKf63ZSf">
-            <a target="_blank">
-              <Discord />
-            </a>
-          </Link>
-        </li>
-        <li className="cursor-pointer">
-          <Link passHref href="https://mirror.xyz/relaycc.eth">
-            <a target="_blank">
-              <Mirror />
-            </a>
-          </Link>
-        </li>
-
-      </ul>
       <div className="w-full flex justify-end order-3 col-span-2">
         <form
           className="relative xl:w-3/4 w-full"

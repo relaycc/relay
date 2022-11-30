@@ -17,15 +17,14 @@ export const DataRow: FunctionComponent<DataRowProps> = ({
   setAddressToMessage,
   handle,
 }) => {
-
-const launch = useLaunch()
+  const launch = useLaunch();
 
   const handleClick = () => {
     onClick;
     setAddressToMessage(handle);
-    console.log(handle);
-    launch(handle)
+    launch(handle);
   };
+
   return (
     <button
       onClick={handleClick}

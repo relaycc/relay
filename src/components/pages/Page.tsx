@@ -42,7 +42,7 @@ export const Page: FunctionComponent<{
               onClick={() => {
                 setCategory(popular);
               }}
-              className={`cursor-pointer text-lg ${
+              className={`cursor-pointer text-xl ${
                 category === popular && "underline text-blue-800"
               }`}
             >
@@ -52,8 +52,8 @@ export const Page: FunctionComponent<{
               onClick={() => {
                 setCategory(lens);
               }}
-              className={`cursor-pointer text-lg ${
-                category === lens && 'underline text-blue-800'
+              className={`cursor-pointer text-xl ${
+                category === lens && "underline text-blue-800"
               }`}
             >
               Lens
@@ -62,8 +62,8 @@ export const Page: FunctionComponent<{
               onClick={() => {
                 setCategory(identity);
               }}
-              className={`cursor-pointer text-lg ${
-                category === identity && 'underline text-blue-800'
+              className={`cursor-pointer text-xl ${
+                category === identity && "underline text-blue-800"
               }`}
             >
               Identity
@@ -72,8 +72,8 @@ export const Page: FunctionComponent<{
               onClick={() => {
                 setCategory(music);
               }}
-              className={`cursor-pointer text-lg ${
-                category === music && 'underline text-blue-800'
+              className={`cursor-pointer text-xl ${
+                category === music && "underline text-blue-800"
               }`}
             >
               Music
@@ -82,8 +82,8 @@ export const Page: FunctionComponent<{
               onClick={() => {
                 setCategory(impactdaos);
               }}
-              className={`cursor-pointer text-lg ${
-                category === impactdaos && 'underline text-blue-800'
+              className={`cursor-pointer text-xl ${
+                category === impactdaos && "underline text-blue-800"
               }`}
             >
               ImpactDAOs
@@ -92,8 +92,8 @@ export const Page: FunctionComponent<{
               onClick={() => {
                 setCategory(defi);
               }}
-              className={`cursor-pointer text-lg ${
-                category === defi && 'underline text-blue-800'
+              className={`cursor-pointer text-xl ${
+                category === defi && "underline text-blue-800"
               }`}
             >
               DeFi
@@ -103,7 +103,7 @@ export const Page: FunctionComponent<{
         <ul className="flex flex-row justify-center sm:justify-start flex-wrap gap-8">
           {children}
         </ul>
-      <Footer />
+        <Footer />
       </div>
       <Intercom>
         <Window />

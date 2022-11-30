@@ -102,16 +102,8 @@ export const ConversationsView: FunctionComponent<{
 
   const onClickSendMessage = () => {
     if (isEthAddress(addressToMessage)) {
-      console.log('clicked')
-      console.log(addressToMessage)
       return () => launch(addressToMessage);
-    } else {
-      console.log(addressToMessage)
-
-      console.log('clicked2')
-
-      undefined;
-    }
+    } else return;
   };
 
   const account = useAccount();
@@ -156,9 +148,6 @@ export const ConversationsView: FunctionComponent<{
         if (signer === null || signer === undefined) {
           return (
             <>
-              {/* <ConnectCard /> */}
-              {/* <div>First</div> */}
-              {/* <button onClick={() => console.log(handle)}>click me</button>  */}
               {category.map((seed, index) => {
                 return (
                   <motion.div
@@ -167,21 +156,6 @@ export const ConversationsView: FunctionComponent<{
                     animate={{ opacity: 1 }}
                     transition={{ delay: 0.05 * index }}
                   >
-                    {/* <HoverToggle
-                      fadeOut={
-                        <LogoCard
-                          title={
-                            seed.name === "ENS" && handle
-                              ? handle
-                              : seed.name === "Lens" && lensProfile.data
-                              ? lensProfile.data
-                              : seed.name
-                          }
-                          logo={seed.logo}
-                          logoClassName={"scale-150 pt-4"}
-                        />
-                      } */}
-                    {/* fadeIn={ */}
                     <AppCard
                       title={seed.name}
                       logo={seed.logo}
@@ -205,11 +179,6 @@ export const ConversationsView: FunctionComponent<{
           if (client === null || client === undefined) {
             return (
               <>
-                {/* <button onClick={() => console.log(category[3].logo)}>
-                  Click me
-                </button>
-                <div>Second</div> */}
-                {/* <ConnectCard /> */}
                 {category.map((seed, index) => {
                   return (
                     <motion.div
@@ -218,15 +187,6 @@ export const ConversationsView: FunctionComponent<{
                       animate={{ opacity: 1 }}
                       transition={{ delay: 0.1 * index }}
                     >
-                      {/* <HoverToggle
-                        fadeOut={
-                          <LogoCard
-                            title={seed.name}
-                            logo={seed.logo}
-                            logoClassName={"scale-150 pt-4"}
-                          />
-                        } */}
-                      {/* fadeIn={ */}
                       <AppCard
                         title={seed.name}
                         logo={seed.logo}
@@ -244,10 +204,8 @@ export const ConversationsView: FunctionComponent<{
                         logoClassName="scale-125"
                         handle={seed.handle}
                         setAddressToMessage={setAddressToMessage}
-                        onClickSendMessage={onClickSendMessage()}
+                        onClickSendMessage={onClickSendMessage}
                       />
-                      {/* }
-                      /> */}
                     </motion.div>
                   );
                 })}
@@ -267,10 +225,6 @@ export const ConversationsView: FunctionComponent<{
             } else
               return (
                 <>
-                  {/* <div>Third</div>
-                <button onClick={() => console.log(lensProfile.data)}>
-                    {ensName.data} click me
-                  </button> */}
                   {category.map((seed, index) => {
                     return (
                       <motion.div
@@ -279,37 +233,18 @@ export const ConversationsView: FunctionComponent<{
                         animate={{ opacity: 1 }}
                         transition={{ delay: 0.1 * index }}
                       >
-                        {/* <HoverToggle
-                          fadeOut={
-                            <LogoCard
-                              title={seed.name}
-                              logo={seed.logo}
-                              logoClassName={"scale-150 pt-4"}
-                            />
-                          }
-                          fadeIn={ */}
                         <AppCard
                           title={seed.name}
                           logo={seed.logo}
                           url={seed.url}
                           handle={seed.handle}
                           logoAlt="ENS Logo"
-                          // onClickLinkOut={
-                          //   isEnsName(ensName.data)
-                          //     ? openInNewTab(
-                          //         "https://app.ens.domains/name/" +
-                          //           ensName.data
-                          //       )
-                          //     : undefined
-                          // }
                           onClickLogo={openInNewTab(seed.url)}
                           logoClassName="scale-125"
                           linkOutText={seed.name}
                           setAddressToMessage={setAddressToMessage}
                           onClickSendMessage={onClickSendMessage()}
                         />
-                        {/* }
-                        /> */}
                       </motion.div>
                     );
                   })}

@@ -3,12 +3,10 @@ import React, { FunctionComponent, ReactNode } from "react";
 export interface HeaderProps {
   children?: ReactNode;
   text?: string;
-  onClick?: () => unknown;
   textClassName?: string;
 }
 
 export const Header: FunctionComponent<HeaderProps> = ({
-  onClick,
   text,
   children,
   textClassName,
