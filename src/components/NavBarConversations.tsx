@@ -47,6 +47,7 @@ export const NavBarConversations = () => {
             e.preventDefault();
             if (isLensName(input) || isEnsName(input) || isEthAddress(input)) {
               router.push("/u/" + input);
+              launch(input);
               setInput(null);
             } else {
               setInputIsError(true);
