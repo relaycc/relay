@@ -1,7 +1,8 @@
 import type { NextPage } from "next";
-import { Profile } from "components";
+import { CardContainer, Profile } from "components";
 import { useRouter } from "next/router";
 import Head from "next/head";
+import { useState } from 'react'
 
 const Home: NextPage = () => {
   const router = useRouter();
@@ -12,7 +13,8 @@ const Home: NextPage = () => {
       <Head>
         <title>{handle}</title>
       </Head>
-      <Profile handle={handle}></Profile>
+      <CardContainer handle={handle} ></CardContainer>
+      {/* <Profile /> */}
     </>
   );
 };

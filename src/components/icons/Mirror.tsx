@@ -9,7 +9,7 @@ export function Mirror() {
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
     xmlnsXlink="http://www.w3.org/1999/xlink"
-    style={{ marginLeft: "4px", marginTop: "4px" }}
+    style={{ marginTop: "4px" }}
   >
     <mask
       id="mask0_144_4"

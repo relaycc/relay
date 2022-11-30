@@ -1,8 +1,8 @@
 import type { NextPage } from "next";
-import { Conversations } from "components/pages/Conversations";
+import { CardContainer } from "components/pages/CardContainer";
 
 const Home: NextPage = () => {
-  return <Conversations />;
+  return <CardContainer />;
 };
 
 export default Home;

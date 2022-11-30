@@ -35,7 +35,7 @@ export const NavBar = () => {
 
   return (
     <nav className="xl:flex grid grid-cols-2 gap-4 mb-8">
-      <ul className="flex items-center gap-x-2 xl:order-1 order-1">
+      <ul className="flex items-center gap-x-2 xl:order-1 order-1 bg-red-500">
         <li className="cursor-pointer">
           <Link passHref href="https://twitter.com/relay_eth">
             <a target="_blank">
@@ -64,6 +64,7 @@ export const NavBar = () => {
             </a>
           </Link>
         </li>
+
       </ul>
       <div className="w-full flex justify-end order-3 col-span-2">
         <form
