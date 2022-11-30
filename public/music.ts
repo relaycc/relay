@@ -78,12 +78,6 @@ export const music = [
     handle: "",
   },
   {
-    name: "Audius",
-    url: "https://audius.co/",
-    logo: "/audius.png",
-    handle: "",
-  },
-  {
     name: "Future Tape",
     url: "https://futuretape.xyz/",
     logo: "/futuretape.jpeg",
