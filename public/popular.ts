@@ -20,7 +20,7 @@ export const popular = [
   {
     name: "Lens",
     url: "https://lens.xyz",
-    logo: "/lens.svg",
+    logo: "/lensgreen.jpeg",
     handle: "",
   },
   {
