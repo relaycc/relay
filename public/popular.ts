@@ -2,7 +2,7 @@ export const popular = [
   {
     name: "ENS",
     url: "https://ens.domains/",
-    logo: "/Ens.svg",
+    logo: "/ENS.svg",
     handle: "",
   },
   {
