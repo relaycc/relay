@@ -7,7 +7,7 @@ export interface DataRowProps {
   className?: string;
   setAddressToMessage: (e: string) => any;
   handle: string;
-  useLaunch: () => unknown;
+  useLaunch?: () => unknown;
 }
 
 export const DataRow: FunctionComponent<DataRowProps> = ({
