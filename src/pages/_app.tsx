@@ -59,7 +59,9 @@ function MyApp({ Component, pageProps }: AppProps) {
         <RainbowKitProvider chains={chains}>
           <Receiver
             config={
-              client === null ? null : { xmtp: { network: "dev", client } }
+              client === null
+                ? null
+                : { xmtp: { network: "production", client } }
             }
           >
             <Component {...pageProps} />

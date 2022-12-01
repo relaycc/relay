@@ -94,7 +94,7 @@ export const ConversationsView: FunctionComponent<{
   handle: any;
 }> = ({ isLoading, isLoadingMore, conversations, handle }) => {
   const { data: signer } = useSigner();
-  const [, { data: client }] = useClient();
+  const { data: client } = useClient();
   const [category, setCategory] = useState(popular);
   const router = useRouter();
   const [addressToMessage, setAddressToMessage] = useState("seanwbren.eth");

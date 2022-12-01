@@ -1,4 +1,4 @@
-import { Intercom, useWallet, Window } from "@relaycc/receiver";
+import { Intercom, SignerWallet, useWallet, Window } from "@relaycc/receiver";
 import React, {
   FunctionComponent,
   ReactNode,
@@ -26,7 +26,15 @@ export const Page: FunctionComponent<{
   const [, setWallet] = useWallet();
 
   useEffect(() => {
-    setWallet(signer || null);
+    setWallet(
+      (() => {
+        if (signer === null || signer === undefined) {
+          return null;
+        } else {
+          return { id: "signer wallet", wallet: signer };
+        }
+      })()
+    );
   }, [setWallet, signer]);
 
   return (

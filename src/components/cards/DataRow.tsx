@@ -1,5 +1,10 @@
 import React, { FunctionComponent, ReactNode } from "react";
-import { useLaunch } from "@relaycc/receiver";
+import {
+  useLaunch,
+  isLensName,
+  isEnsName,
+  isEthAddress,
+} from "@relaycc/receiver";
 
 export interface DataRowProps {
   children?: ReactNode;
@@ -22,7 +27,11 @@ export const DataRow: FunctionComponent<DataRowProps> = ({
   const handleClick = () => {
     onClick;
     setAddressToMessage(handle);
-    launch(handle);
+    if (isEthAddress(handle) || isEnsName(handle) || isLensName(handle)) {
+      launch(handle);
+    } else {
+      launch({ id: "no project", handle });
+    }
   };
 
   return (
