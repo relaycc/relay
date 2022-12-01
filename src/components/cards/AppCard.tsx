@@ -3,6 +3,9 @@ import { Header } from "./Header";
 import { FunctionComponent } from "react";
 import { DataRow } from "./DataRow";
 import { IconChat, IconLinkOut } from "components/icons";
+import Link from "next/link";
+import Image from "next/image";
+import { useLaunch } from "@relaycc/receiver";
 
 export const AppCard: FunctionComponent<{
   logo: string;
@@ -11,8 +14,11 @@ export const AppCard: FunctionComponent<{
   onClickLinkOut?: () => unknown;
   onClickSendMessage?: () => unknown;
   onClickLogo: () => unknown;
-  linkOutText: string;
   logoClassName?: string;
+  url: string;
+  linkOutText: string;
+  handle: string;
+  setAddressToMessage: any;
 }> = ({
   title,
   logo,
@@ -20,42 +26,54 @@ export const AppCard: FunctionComponent<{
   logoClassName,
   onClickLinkOut,
   onClickSendMessage,
-  linkOutText,
   onClickLogo,
+  linkOutText,
+  handle,
+  url,
+  setAddressToMessage,
 }) => {
   return (
     <Card>
-      <Header text={title}>
-        <button
-          onClick={onClickLogo}
-          className="btn btn-ghost flex justify-center items-center p-2 bg-white w-[5rem] h-[5rem] rounded-md"
-        >
-          {/* eslint-disable-next-line */}
-          <img
+      <Header>
+        <div className="flex justify-center items-center mt-6 p-2 bg-white h-[8rem] max-w-[14rem] rounded-md">
+          <Image
+            className="rounded-md"
             src={logo}
-            alt={logoAlt}
-            className={`h-[4rem] w-[4rem] ${logoClassName}`}
+            alt={title}
+            width={128}
+            height={128}
           />
-        </button>
+        </div>
       </Header>
-      <DataRow
-        className={`mt-auto ${
-          onClickSendMessage === undefined ? "btn-disabled" : "bg-secondary"
-        }`}
-        onClick={onClickSendMessage}
+      <span
+        className={"mt-2 text-3xl flex text-center items-center justify-center"}
       >
-        Send a Message
-        <IconChat />
-      </DataRow>
-      <DataRow
-        className={`${
-          onClickLinkOut === undefined ? "btn-disabled" : "bg-secondary"
-        }`}
-        onClick={onClickLinkOut}
-      >
-        {linkOutText}
-        <IconLinkOut />
-      </DataRow>
+        {title}
+      </span>
+      <div className={"flex mt-auto justify-between gap-3"}>
+        <DataRow
+          className={`${"bg-secondary"}`}
+          onClick={onClickSendMessage}
+          handle={handle}
+          setAddressToMessage={setAddressToMessage}
+          useLaunch={useLaunch}
+        >
+          Message
+          <IconChat />
+        </DataRow>
+        <Link href={url} passHref>
+          <a
+            className="mt-auto flex justify-end w-max self-end"
+            target="_blank"
+          >
+            <button
+              className={`btn btn-ghost p-0 pl-4 pr-4 mt-auto rounded-md border-[3px] border-black bg-secondary flex flex-row justify-center`}
+            >
+              <IconLinkOut />
+            </button>
+          </a>
+        </Link>
+      </div>
     </Card>
   );
 };

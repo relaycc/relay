@@ -9,7 +9,7 @@ import Head from "next/head";
 // TODO(achilles@relay.cc) For some reason rainbowkit css import wasn't working,
 // remove this hack soon.
 import "../styles/rainbowkit.css";
-import { Receiver } from "@relaycc/receiver";
+import { Receiver, Intercom, Window, Launcher } from "@relaycc/receiver";
 import { XmtpWorkerClient } from "@relaycc/xmtp-worker";
 
 const alchemyKey = "kmMb00nhQ0SWModX6lJLjXy_pVtiQnjx";
@@ -59,7 +59,9 @@ function MyApp({ Component, pageProps }: AppProps) {
         <RainbowKitProvider chains={chains}>
           <Receiver
             config={
-              client === null ? null : { xmtp: { network: "dev", client } }
+              client === null
+                ? null
+                : { xmtp: { network: "production", client } }
             }
           >
             <Component {...pageProps} />

@@ -12,7 +12,7 @@ import { motion } from "framer-motion";
 import { useRouter } from "next/router";
 
 export const ContactCard: FunctionComponent<{
-  address: string;
+  address: string | undefined;
   display?: string;
 }> = ({ address, display }) => {
   const router = useRouter();
@@ -29,7 +29,7 @@ export const ContactCard: FunctionComponent<{
       return (
         <Blockies
           className={ensAvatar.isLoading ? "opacity-25" : ""}
-          seed={address.toLocaleLowerCase()}
+          seed={address!.toLocaleLowerCase()}
           size={14}
           scale={19}
         />
@@ -65,7 +65,7 @@ export const ContactCard: FunctionComponent<{
           ? display
           : isEnsName(ensName.data)
           ? ensName.data
-          : address.slice(0, 6) + "..." + address.slice(-4)}
+          : address!.slice(0, 6) + "..." + address!.slice(-4)}
       </button>
     </Card>
   );

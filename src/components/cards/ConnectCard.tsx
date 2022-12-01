@@ -15,34 +15,36 @@ export const ConnectCard: FunctionComponent = () => {
   const isConnected = Boolean(signer);
 
   return (
-    <Card>
-      <Header text="Relay">
-        <button
-          onClick={() => router.push("/")}
-          className="btn btn-ghost flex justify-center items-center p-2 bg-white w-[5rem] h-[5rem] rounded-md"
-        >
-          {/* eslint-disable-next-line */}
-          <img
-            src={"/Relay.png"}
-            alt={"Relay Logo"}
-            className={`h-[4rem] w-[4rem]`}
-          />
-        </button>
-      </Header>
-      <DataRow
-        className={`mt-auto ${isConnected ? "btn-disabled" : "bg-secondary"}`}
-        onClick={
-          connect.openConnectModal ? connect.openConnectModal : undefined
-        }
-      >
-        Connect a Wallet
-      </DataRow>
-      <DataRow
-        className={`${!isConnected ? "btn-disabled" : "bg-secondary"}`}
-        onClick={!isConnected ? undefined : launch}
-      >
-        Sign In To XMTP
-      </DataRow>
-    </Card>
+    <></>
+    // <Card>
+    //   <Header text="Relay">
+    //     <button
+    //       onClick={() => router.push("/")}
+    //       className="btn btn-ghost flex justify-center items-center p-2 bg-white w-[5rem] h-[5rem] rounded-md"
+    //     >
+    //       {/* eslint-disable-next-line */}
+    //       <img
+    //         src={"/Relay.png"}
+    //         alt={"Relay Logo"}
+    //         className={`h-[4rem] w-[4rem]`}
+    //       />
+    //     </button>
+    //   </Header>
+    //   <DataRow
+    //     className={`mt-auto ${isConnected ? "btn-disabled" : "bg-secondary"}`}
+    //     onClick={
+    //       connect.openConnectModal ? connect.openConnectModal : undefined
+    //     }
+    //     handle={''}
+    //   >
+    //     Connect a Wallet
+    //   </DataRow>
+    //   <DataRow
+    //     className={`${!isConnected ? "btn-disabled" : "bg-secondary"}`}
+    //     onClick={!isConnected ? undefined : launch}
+    //   >
+    //     Sign In To XMTP
+    //   </DataRow>
+    // </Card>
   );
 };

@@ -2,9 +2,9 @@ import { FunctionComponent } from "react";
 import { Card } from "./Card";
 
 export interface LogoCardProps {
-  logo: string;
+  logo: any;
   handle?: string | null;
-  title: string;
+  title: any;
   logoWrapperClassName?: string;
   logoClassName?: string;
 }
@@ -27,13 +27,12 @@ export const LogoCard: FunctionComponent<LogoCardProps> = ({
           {/* eslint-disable-next-line */}
           <img
             src={logo}
-            alt={title}
+            alt={title || 'not here'}
             className={`${logoClassName} rounded-md w-[8rem]`}
           />
         </div>
-
-        <h2 className="bg-secondary border-[3px] overflow-hidden  border-black rounded-md m-0 mt-auto uppercase h-12 font-bold flex flex-row w-full justify-center items-center">
-          {handle || title}
+        <h2 className="bg-secondary border-[3px] overflow-hidden border-black rounded-md m-0 mt-auto uppercase h-12 font-bold flex flex-row w-full justify-center items-center">
+          {title}
         </h2>
       </div>
     </Card>
