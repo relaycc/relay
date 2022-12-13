@@ -18,7 +18,7 @@ export const zk = [
   {
     name: "Semaphore",
     url: "https://semaphore.appliedzkp.org/",
-    logo: "/semaphore.jpeg",
+    logo: "/semaphore.svg",
     handle: "",
     description:
       "Prove membership of a group and send signals such as votes or endorsements without revealing your original identity.",
@@ -66,7 +66,7 @@ export const zk = [
   {
     name: "Interep",
     url: "https://interep.link/",
-    logo: "/interep.png",
+    logo: "/interep.jpeg",
     handle: "",
     description:
       "Authenticate members as unique humans without collecting any identifying information.",
@@ -143,7 +143,7 @@ export const zk = [
   {
     name: "Otter Cash",
     url: "https://otter.cash/",
-    logo: "/ottercash.jpeg",
+    logo: "/ottercash.svg",
     handle: "",
     description: "Lets you anonymize your SOL.",
   },
@@ -164,7 +164,7 @@ export const zk = [
   {
     name: "Zcash",
     url: "https://z.cash/",
-    logo: "zcash.jpeg",
+    logo: "/zcash.jpeg",
     handle: "",
     description: "Private financial transactions using zkSNARK.",
   },

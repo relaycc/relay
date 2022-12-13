@@ -159,7 +159,7 @@ export const dao = [
   {
     name: "PleasrDAO",
     url: "https://pleasr.org/",
-    logo: "/pleasrdao.jpeg",
+    logo: "/pleasrdao.png",
     handle: "",
     description: "A cartel of $PEEPS who aim to plz.",
   },
@@ -202,8 +202,8 @@ export const dao = [
       "Massive online coordination game about finding the most optimal ways to play life.",
   },
   {
-    name: "https://www.forefront.market/",
-    url: "",
+    name: "Forefront",
+    url: "https://www.forefront.market/",
     logo: "/forefront.jpeg",
     handle: "",
     description:
@@ -243,7 +243,7 @@ export const dao = [
   {
     name: "HoneyDAO",
     url: "https://www.honeydao.com/",
-    logo: "/honeydao.png",
+    logo: "/honeydao.jpeg",
     handle: "",
     description:
       "Collective of DeFi influencers, seasoned investors, crypto developers and founders collaboratively working towards improving DeFi.",

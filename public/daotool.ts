@@ -1,4 +1,4 @@
-export const daotol = [
+export const daotool = [
   {
     name: "Opolis",
     url: "https://opolis.co/",
@@ -23,7 +23,7 @@ export const daotol = [
   {
     name: "Collab.Land",
     url: "https://www.collab.land/",
-    logo: "/collabland.jpeg",
+    logo: "/collabland.png",
     handle: "",
     description: "Discord bot that manages token-gated channels and roles.",
   },
