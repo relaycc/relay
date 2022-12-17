@@ -9,7 +9,7 @@ export const lens = [
     name: "Phaver",
     url: "https://phaver.com/",
     logo: "/phaver.jpeg",
-    handle: "pharver.lens",
+    handle: "phaver.lens",
   },
   {
     name: "Orb",
