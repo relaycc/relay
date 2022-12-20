@@ -7,7 +7,7 @@ import Link from "next/link";
 
 export const Footer = () => {
   return (
-    <footer className="w-full flex justify-between mt-12 pt-10 border-t-2 border-blue-700">
+    <footer className="sm:w-full flex justify-between flex-col sm:items-start gap-[25px] md:flex-row md:gap-0 mt-12 pt-10 border-t-2 border-blue-700">
       <div>
         <ul className="flex gap-3">
           <Link href={"https://twitter.com/relay_eth"} passHref>
