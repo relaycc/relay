@@ -11,7 +11,7 @@ export const lens = [
     name: "Phaver",
     url: "https://phaver.com/",
     logo: "/phaver.jpeg",
-    handle: "pharver.lens",
+    handle: "phaver.lens",
     description: "Mobile first Lens UI, share-to-earn",
   },
   {
