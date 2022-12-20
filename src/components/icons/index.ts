@@ -9,3 +9,4 @@ export * from "./IconSettings";
 export * from "./IconSwap";
 export * from "./IconUser";
 export * from "./IconWallet";
+export * from "./Info";

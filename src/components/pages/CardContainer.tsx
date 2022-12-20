@@ -164,6 +164,7 @@ export const ConversationsView: FunctionComponent<{
                       title={seed.name}
                       logo={seed.logo}
                       url={seed.url}
+                      description={seed.description}
                       logoAlt="ENS Logo"
                       onClickLogo={openInNewTab(seed.url)}
                       logoClassName="scale-125"
@@ -192,6 +193,7 @@ export const ConversationsView: FunctionComponent<{
                       transition={{ delay: 0.1 * index }}
                     >
                       <AppCard
+                        description={seed.description}
                         title={seed.name}
                         logo={seed.logo}
                         url={seed.url}
@@ -227,6 +229,7 @@ export const ConversationsView: FunctionComponent<{
                       transition={{ delay: 0.1 * index }}
                     >
                       <AppCard
+                        description={seed.description}
                         title={seed.name}
                         logo={seed.logo}
                         url={seed.url}

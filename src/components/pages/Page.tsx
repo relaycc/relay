@@ -14,6 +14,10 @@ import { identity } from "../../../public/identity";
 import { music } from "../../../public/music";
 import { impactdaos } from "../../../public/impactdaos";
 import { defi } from "../../../public/defi";
+import { dao } from '../../../public/dao'
+import { zk } from '../../../public/zk'
+import { daotool } from '../../../public/daotool'
+import { infrastructure } from '../../../public/infrastructure'
 import { Footer } from "components/Footer";
 
 export const Page: FunctionComponent<{
@@ -68,6 +72,16 @@ export const Page: FunctionComponent<{
             </li>
             <li
               onClick={() => {
+                setCategory(music);
+              }}
+              className={`cursor-pointer text-xl ${
+                category === music && "underline text-blue-800"
+              }`}
+            >
+              Music
+            </li>
+            <li
+              onClick={() => {
                 setCategory(identity);
               }}
               className={`cursor-pointer text-xl ${
@@ -78,13 +92,33 @@ export const Page: FunctionComponent<{
             </li>
             <li
               onClick={() => {
-                setCategory(music);
+                setCategory(dao);
               }}
               className={`cursor-pointer text-xl ${
-                category === music && "underline text-blue-800"
+                category === dao && "underline text-blue-800"
               }`}
             >
-              Music
+              DAO
+            </li>
+            <li
+              onClick={() => {
+                setCategory(defi);
+              }}
+              className={`cursor-pointer text-xl ${
+                category === defi && "underline text-blue-800"
+              }`}
+            >
+              DeFi
+            </li>
+            <li
+              onClick={() => {
+                setCategory(zk);
+              }}
+              className={`cursor-pointer text-xl ${
+                category === zk && "underline text-blue-800"
+              }`}
+            >
+              ZK
             </li>
             <li
               onClick={() => {
@@ -98,13 +132,23 @@ export const Page: FunctionComponent<{
             </li>
             <li
               onClick={() => {
-                setCategory(defi);
+                setCategory(daotool);
               }}
-              className={`cursor-pointer text-xl ${
-                category === defi && "underline text-blue-800"
+              className={`cursor-pointer text-xl whitespace-nowrap ${
+                category === daotool && "underline text-blue-800"
               }`}
             >
-              DeFi
+              DAO Tool
+            </li>
+            <li
+              onClick={() => {
+                setCategory(infrastructure);
+              }}
+              className={`cursor-pointer text-xl ${
+                category === infrastructure && "underline text-blue-800"
+              }`}
+            >
+              Infrastructure
             </li>
           </ul>
         </nav>
