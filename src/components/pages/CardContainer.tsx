@@ -155,10 +155,10 @@ export const ConversationsView: FunctionComponent<{
               {category.map((seed, index) => {
                 return (
                   <motion.div
-                    key={index}
+                    key={seed.name + category + index}
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
-                    transition={{ delay: 0.05 * index }}
+                    transition={{ delay: 0.025 * index }}
                   >
                     <AppCard
                       title={seed.name}
@@ -187,10 +187,10 @@ export const ConversationsView: FunctionComponent<{
                 {category.map((seed, index) => {
                   return (
                     <motion.div
-                      key={index}
+                      key={seed.name + category + index}
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
-                      transition={{ delay: 0.1 * index }}
+                      transition={{ delay: 0.025 * index }}
                     >
                       <AppCard
                         description={seed.description}
@@ -223,10 +223,10 @@ export const ConversationsView: FunctionComponent<{
                 {category.map((seed, index) => {
                   return (
                     <motion.div
-                      key={index}
+                      key={seed.name + category + index}
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
-                      transition={{ delay: 0.1 * index }}
+                      transition={{ delay: 0.025 * index }}
                     >
                       <AppCard
                         description={seed.description}
