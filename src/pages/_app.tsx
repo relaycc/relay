@@ -8,9 +8,9 @@ import { RainbowKitProvider, getDefaultWallets } from "@rainbow-me/rainbowkit";
 import Head from "next/head";
 // TODO(achilles@relay.cc) For some reason rainbowkit css import wasn't working,
 // remove this hack soon.
-import "../styles/rainbowkit.css";
-import { Receiver, Intercom, Window, Launcher } from "@relaycc/receiver";
-import { XmtpWorkerClient } from "@relaycc/xmtp-worker";
+// import "../styles/rainbowkit.css";
+import "@rainbow-me/rainbowkit/styles.css";
+import { Provider } from "@relaycc/receiver";
 
 const alchemyKey = "kmMb00nhQ0SWModX6lJLjXy_pVtiQnjx";
 
@@ -40,14 +40,10 @@ const wagmiClient = createClient({
 });
 
 function MyApp({ Component, pageProps }: AppProps) {
-  const [client, setClient] = useState<XmtpWorkerClient | null>(null);
+  const [worker, setWorker] = useState<Worker | null>(null);
 
   useEffect(() => {
-    setClient(
-      new XmtpWorkerClient(
-        new Worker(new URL("../utils/XmtpWorker.js", import.meta.url))
-      )
-    );
+    setWorker(new Worker("/XmtpWorker.js"));
   }, []);
 
   return (
@@ -57,15 +53,17 @@ function MyApp({ Component, pageProps }: AppProps) {
       </Head>
       <WagmiConfig client={wagmiClient}>
         <RainbowKitProvider chains={chains}>
-          <Receiver
-            config={
-              client === null
-                ? null
-                : { xmtp: { network: "production", client } }
+          {(() => {
+            if (worker === null) {
+              return null;
+            } else {
+              return (
+                <Provider config={{ worker: worker as Worker }}>
+                  <Component {...pageProps} />
+                </Provider>
+              );
             }
-          >
-            <Component {...pageProps} />
-          </Receiver>
+          })()}
         </RainbowKitProvider>
       </WagmiConfig>
     </>

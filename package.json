@@ -10,8 +10,8 @@
   },
   "dependencies": {
     "@rainbow-me/rainbowkit": "^0.6.0",
-    "@relaycc/receiver": "^0.1.71",
-    "@relaycc/xmtp-worker": "^0.1.9",
+    "@relaycc/receiver": "^0.1.74",
+    "@xmtp/proto": "3.4",
     "encoding": "^0.1.13",
     "ethers": "^5.7.1",
     "framer-motion": "^7.3.5",

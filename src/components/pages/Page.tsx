@@ -1,4 +1,4 @@
-import { Intercom, SignerWallet, useWallet, Window } from "@relaycc/receiver";
+import { Intercom, SignerWallet, useWallet, Receiver } from "@relaycc/receiver";
 import React, {
   FunctionComponent,
   ReactNode,
@@ -14,10 +14,10 @@ import { identity } from "../../../public/identity";
 import { music } from "../../../public/music";
 import { impactdaos } from "../../../public/impactdaos";
 import { defi } from "../../../public/defi";
-import { dao } from '../../../public/dao'
-import { zk } from '../../../public/zk'
-import { daotool } from '../../../public/daotool'
-import { infrastructure } from '../../../public/infrastructure'
+import { dao } from "../../../public/dao";
+import { zk } from "../../../public/zk";
+import { daotool } from "../../../public/daotool";
+import { infrastructure } from "../../../public/infrastructure";
 import { Footer } from "components/Footer";
 
 export const Page: FunctionComponent<{
@@ -35,7 +35,7 @@ export const Page: FunctionComponent<{
         if (signer === null || signer === undefined) {
           return null;
         } else {
-          return { id: "signer wallet", wallet: signer };
+          return signer;
         }
       })()
     );
@@ -158,7 +158,7 @@ export const Page: FunctionComponent<{
         <Footer />
       </div>
       <Intercom>
-        <Window />
+        <Receiver />
       </Intercom>
     </main>
   );

@@ -8,14 +8,10 @@ import {
   LogoCard,
   AppCard,
 } from "components";
-import { Intercom, Window, useLaunch, Launcher } from "@relaycc/receiver";
+import { Intercom, Receiver, useLaunch, Launcher } from "@relaycc/receiver";
 import { motion } from "framer-motion";
 import {
   useWallet,
-  useConversations,
-  usePinnedAddresses,
-  useConversationsPreviews,
-  useClient,
   useEnsName,
   isEnsName,
   isEthAddress,
@@ -36,65 +32,13 @@ export interface Conversation {
 import { useRouter } from "next/router";
 
 export const CardContainer = ({ handle }: { handle?: any }) => {
-  const account = useAccount();
-  const pinnedAddresses = usePinnedAddresses();
-  const conversations = useConversations();
-  const pinnedPreviews = useConversationsPreviews(pinnedAddresses.data || []);
-  const listedPreviews = useConversationsPreviews(
-    conversations.data ? conversations.data.map((c) => c.peerAddress) : []
-  );
-  const pinnedIsLoading =
-    pinnedAddresses.isLoading ||
-    Boolean(pinnedPreviews.find((pq) => pq.isLoading));
-  const isLoading =
-    conversations.isLoading ||
-    Boolean(listedPreviews.find((lq) => lq.isLoading));
-
-  const conversationsProps: Conversation[] = useMemo(() => {
-    const dataToProcess = (() => {
-      if (isLoading === false) {
-        return listedPreviews;
-      } else if (pinnedIsLoading === false) {
-        return pinnedPreviews;
-      } else {
-        return [];
-      }
-    })();
-
-    return dataToProcess
-      .filter((cp) => cp.data && cp.data.messages.length > 0)
-      .map((cp) => cp.data)
-      .sort((a, b) => {
-        if (a === undefined) return 1;
-        if (b === undefined) return -1;
-        if (a.messages[0] === undefined) return 1;
-        if (b.messages[0] === undefined) return -1;
-        if (a.messages[0].sent === undefined) return 1;
-        if (b.messages[0].sent === undefined) return 1;
-        return a.messages[0].sent.getTime() < b.messages[0].sent.getTime()
-          ? 1
-          : -1;
-      }) as Conversation[];
-  }, [isLoading, pinnedIsLoading, pinnedPreviews, listedPreviews]);
-
-  return (
-    <ConversationsView
-      isLoading={isLoading && (pinnedIsLoading || pinnedPreviews.length === 0)}
-      isLoadingMore={isLoading && !pinnedIsLoading}
-      conversations={conversationsProps}
-      handle={handle}
-    />
-  );
+  return <ConversationsView handle={handle} />;
 };
 
 export const ConversationsView: FunctionComponent<{
-  isLoading: boolean;
-  isLoadingMore: boolean;
-  conversations: Conversation[];
   handle: any;
-}> = ({ isLoading, isLoadingMore, conversations, handle }) => {
+}> = ({ handle }) => {
   const { data: signer } = useSigner();
-  const { data: client } = useClient();
   const [category, setCategory] = useState(popular);
   const router = useRouter();
   const [addressToMessage, setAddressToMessage] = useState("seanwbren.eth");
@@ -181,77 +125,39 @@ export const ConversationsView: FunctionComponent<{
             </>
           );
         } else {
-          if (client === null || client === undefined) {
-            return (
-              <>
-                {category.map((seed, index) => {
-                  return (
-                    <motion.div
-                      key={seed.name + category + index}
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      transition={{ delay: 0.025 * index }}
-                    >
-                      <AppCard
-                        description={seed.description}
-                        title={seed.name}
-                        logo={seed.logo}
-                        url={seed.url}
-                        logoAlt="ENS Logo"
-                        linkOutText={seed.name}
-                        onClickLinkOut={
-                          isEnsName(ensName.data)
-                            ? openInNewTab(
-                                "https://app.ens.domains/name/" + ensName.data
-                              )
-                            : undefined
-                        }
-                        onClickLogo={openInNewTab(seed.url)}
-                        logoClassName="scale-125"
-                        handle={seed.handle}
-                        setAddressToMessage={setAddressToMessage}
-                        onClickSendMessage={onClickSendMessage}
-                      />
-                    </motion.div>
-                  );
-                })}
-              </>
-            );
-          } else {
-            return (
-              <>
-                {category.map((seed, index) => {
-                  return (
-                    <motion.div
-                      key={seed.name + category + index}
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      transition={{ delay: 0.025 * index }}
-                    >
-                      <AppCard
-                        description={seed.description}
-                        title={seed.name}
-                        logo={seed.logo}
-                        url={seed.url}
-                        handle={seed.handle}
-                        logoAlt="ENS Logo"
-                        onClickLogo={openInNewTab(seed.url)}
-                        logoClassName="scale-125"
-                        linkOutText={seed.name}
-                        setAddressToMessage={setAddressToMessage}
-                        onClickSendMessage={onClickSendMessage()}
-                      />
-                    </motion.div>
-                  );
-                })}
-              </>
-            );
-          }
+          return (
+            <>
+              {category.map((seed, index) => {
+                return (
+                  <motion.div
+                    key={seed.name + category + index}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 0.025 * index }}
+                  >
+                    <AppCard
+                      description={seed.description}
+                      title={seed.name}
+                      logo={seed.logo}
+                      url={seed.url}
+                      handle={seed.handle}
+                      logoAlt="ENS Logo"
+                      onClickLogo={openInNewTab(seed.url)}
+                      logoClassName="scale-125"
+                      linkOutText={seed.name}
+                      setAddressToMessage={setAddressToMessage}
+                      onClickSendMessage={onClickSendMessage()}
+                    />
+                  </motion.div>
+                );
+              })}
+            </>
+          );
         }
       })()}
       <Launcher peerAddress={addressToMessage} />
       <Intercom>
-        <Window />
+        <Receiver />
       </Intercom>
     </Page>
   );
