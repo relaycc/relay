@@ -37,12 +37,12 @@ export const NavBarConversations = ({
 
   return (
     <nav className="xl:flex items-end grid grid-cols-2 gap-4 mb-6">
-      <div className="ml-[-10px] mb-[-26px] min-w-[85px] min-h-[85px]">
+      <div className="flex w-[125px] sm:w-[150px] top-[8px] relative sm:top-[18px] xl:top-[15px] xl:min-w-[10rem]">
         <Image
-          src={"/relaytransparent.png"}
+          src={'/relaylogo.svg'}
           alt={"Relay"}
-          width={85}
-          height={85}
+          width={150}
+          height={70}
         />
       </div>
 
