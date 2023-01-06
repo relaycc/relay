@@ -52,7 +52,6 @@ export const NavBarConversations = ({
           onSubmit={(e) => {
             e.preventDefault();
             if (isLensName(input) || isEnsName(input) || isEthAddress(input)) {
-              router.push("/u/" + input);
               launch(input);
               handleAddressSearch(input);
               setInput(null);
