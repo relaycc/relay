@@ -15,7 +15,7 @@ export const defi = [
     description: "Decentralized finance protocol that allows people to lend and borrow crypto.",
   },
   {
-    name: "AlchemymixFi",
+    name: "Alchemix",
     url: "https://alchemix.fi/",
     logo: "/alchemymixfi.jpeg",
     handle: "",
