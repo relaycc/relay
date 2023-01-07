@@ -259,6 +259,13 @@ export const defi = [
     description: "First ERC20 token backed 1:1 with Bitcoin.",
   },
   {
+    name: "El Dorado",
+    url: "https://eldorado.io/en/",
+    logo: "/eldorado.jpeg",
+    handle: "",
+    description: "Stablecoin on/off ramps for Latin America",
+  },
+  {
     name: "Yearn",
     url: "https://yearn.finance/vaults",
     logo: "/Yearn.jpeg",
