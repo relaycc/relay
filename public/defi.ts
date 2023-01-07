@@ -160,7 +160,7 @@ export const defi = [
   {
     name: "Alchemix",
     url: "https://alchemix.fi/",
-    logo: "/alchemymixfi.jpeg",
+    logo: "/alchemixfi.jpeg",
     handle: "",
     description: "Leverage a range of tokens without risk of liquidation.",
   },
@@ -267,7 +267,7 @@ export const defi = [
   },
   {
     name: "RWA.xyz",
-    url: "RWA.xyz",
+    url: "https://www.rwa.xyz/",
     logo: "/rwa.jpeg",
     handle: "",
     description: "Analytics and news on real world assets used in DeFi",

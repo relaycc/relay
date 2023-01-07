@@ -16,7 +16,7 @@ export const identity = [
   },
   {
     name: "Spruce",
-    url: "spruceid.com",
+    url: "https://www.spruceid.com",
     logo: "/spruce.png",
     handle: "",
     description:
