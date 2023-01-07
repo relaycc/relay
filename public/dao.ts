@@ -9,7 +9,7 @@ export const dao = [
   },
   {
     name: "ApeCoin DAO",
-    url: "apecoin.com",
+    url: "https://www.apecoin.com",
     logo: "/apecoindao.jpeg",
     handle: "",
     description:
@@ -25,7 +25,7 @@ export const dao = [
   },
   {
     name: "MakerDAO",
-    url: "makerdao.com",
+    url: "https://www.makerdao.com",
     logo: "/makerdao.jpeg",
     handle: "",
     description:

@@ -1,5 +1,21 @@
 export const defi = [
   {
+    name: "Uniswap",
+    url: "https://uniswap.org/",
+    logo: "/uniswap.jpeg",
+    handle: "",
+    description:
+      "Cryptocurrency exchange which uses a decentralized network protocol.",
+  },
+  {
+    name: "MakerDAO",
+    url: "https://makerdao.com/",
+    logo: "/makerdao.jpeg",
+    handle: "",
+    description:
+      "World's first unbiased currency and leading decentralized stablecoin.",
+  },
+  {
     name: "1inch Network",
     url: "https://1inch.io/",
     logo: "/1inchnetwork.jpeg",
@@ -15,11 +31,12 @@ export const defi = [
     description: "Decentralized finance protocol that allows people to lend and borrow crypto.",
   },
   {
-    name: "Alchemix",
-    url: "https://alchemix.fi/",
-    logo: "/alchemymixfi.jpeg",
+    name: "Compound",
+    url: "https://compound.finance/",
+    logo: "/compound.png",
     handle: "",
-    description: "Leverage a range of tokens without risk of liquidation.",
+    description:
+      "Algorithmic, autonomous interest rate protocol built for developers to unlock a universe of open financial applications.",
   },
   {
     name: "Aztec",
@@ -27,6 +44,13 @@ export const defi = [
     logo: "/aztec.jpeg",
     handle: "",
     description: "Programmable privacy layer for web3.",
+  },
+  {
+    name: "ElementFi",
+    url: "https://www.element.fi/",
+    logo: "/elementfi.jpeg",
+    handle: "",
+    description: "Protocol for fixed and variable yield markets.",
   },
   {
     name: "Balancer",
@@ -43,12 +67,20 @@ export const defi = [
     description: "Earn sustainable fixed income.",
   },
   {
-    name: "Compound",
-    url: "https://compound.finance/",
-    logo: "/compound.png",
+    name: "Synthetix",
+    url: "https://synthetix.io/",
+    logo: "/synthetix.png",
     handle: "",
     description:
-      "Algorithmic, autonomous interest rate protocol built for developers to unlock a universe of open financial applications.",
+      "Allows users to mint new crypto assets that mimic both real-world assets and crypto assets.",
+  },
+  {
+    name: "Rocket Pool",
+    url: "https://rocketpool.net/#header",
+    logo: "/rocketpool.jpeg",
+    handle: "",
+    description:
+      "Liquid staking token that accrues while using an increasing exchange rate, rather than rebasing.",
   },
   {
     name: "Concentrator",
@@ -86,13 +118,6 @@ export const defi = [
     handle: "",
     description:
       "Decentralized exchange platform that offers perpetual trading options.",
-  },
-  {
-    name: "ElementFi",
-    url: "https://www.element.fi/",
-    logo: "/elementfi.jpeg",
-    handle: "",
-    description: "Protocol for fixed and variable yield markets.",
   },
   {
     name: "Instadapp",
@@ -133,12 +158,11 @@ export const defi = [
     description: "Interest free borrowing built on ethereum.",
   },
   {
-    name: "MakerDAO",
-    url: "https://makerdao.com/",
-    logo: "/makerdao.jpeg",
+    name: "Alchemix",
+    url: "https://alchemix.fi/",
+    logo: "/alchemixfi.jpeg",
     handle: "",
-    description:
-      "World's first unbiased currency and leading decentralized stablecoin.",
+    description: "Leverage a range of tokens without risk of liquidation.",
   },
   {
     name: "Morpho Labs",
@@ -170,14 +194,6 @@ export const defi = [
     description: "Endpoint for swaps, transaction bundling, farming, and data.",
   },
   {
-    name: "Rocket Pool",
-    url: "https://rocketpool.net/#header",
-    logo: "/rocketpool.jpeg",
-    handle: "",
-    description:
-      "Liquid staking token that accrues while using an increasing exchange rate, rather than rebasing.",
-  },
-  {
     name: "StakeDAO",
     url: "https://stakedao.org/",
     logo: "/stakedao.jpeg",
@@ -191,14 +207,6 @@ export const defi = [
     handle: "",
     description:
       "Swap, earn, stack yields, lend, borrow, leverage all on one decentralized, community driven platform.",
-  },
-  {
-    name: "Synthetix",
-    url: "https://synthetix.io/",
-    logo: "/synthetix.png",
-    handle: "",
-    description:
-      "Allows users to mint new crypto assets that mimic both real-world assets and crypto assets.",
   },
   {
     name: "GMX",
@@ -237,19 +245,11 @@ export const defi = [
     description: "Oracle Free Volatility DEX.",
   },
   {
-    name: "Uniswap",
-    url: "https://uniswap.org/",
-    logo: "/uniswap.jpeg",
-    handle: "",
-    description:
-      "Cryptocurrency exchange which uses a decentralized network protocol.",
-  },
-  {
     name: "VelodromeFi",
     url: "https://app.velodrome.finance/",
     logo: "/velodromefi.jpeg",
     handle: "",
-    description: "Trading and liquidity marketplace on optimism.",
+    description: "Trading and liquidity marketplace on Optimism.",
   },
   {
     name: "WBTC",
@@ -267,7 +267,7 @@ export const defi = [
   },
   {
     name: "RWA.xyz",
-    url: "RWA.xyz",
+    url: "https://www.rwa.xyz/",
     logo: "/rwa.jpeg",
     handle: "",
     description: "Analytics and news on real world assets used in DeFi",
