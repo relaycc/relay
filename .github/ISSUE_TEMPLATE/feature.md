@@ -16,34 +16,23 @@ _To make it easier to review this issue, please don't delete any parts of this t
 
 # Issue Creator Fills This Out
 
-**Describe the feature.**
+## Describe the feature.
 _What do you want to happen?_
 
-**Describe the use case.**
+## Describe the use case.
 _What problem does the feature solve? Which users would this feature apply to?_
 
-**Describe alternatives you've considered.**
+## Describe alternatives you've considered.
 _A clear and concise description of any alternative solutions or features you've considered._
-
-**Additional context**
-_Add any other context or screenshots about the feature request here._
 
 # Project Managers Fill This Out
 
-**Background Information**
-_Once we've decided to implement this feature, please include all relevant background information. This should include any documents that have been created, references to critical discussions, or summaries of key details that have been decided on._
+### Background Info
 
-**Product Definition**
-_Once this feature has been added to a product definition, or a new product definition has been created for this feature, add a link to it here. Also include any notes about the product definition status._
+### Product Definition
 
-**Functional Spec**
-_Once the feature has been specified, add a link to the spec here. Also include any notes about the spec status here._
+### Functional Spec
 
-**UI Prototype**
-_Once the UI has been prototyped, add links to it here. Also include any notes about the UI prototype's status._
+### Technical Primer
 
-**Technical Primer**
-_Once a technical primer has been written, add links to it here. Also include any notes about the technical primer's status here._
-
-**Development Tracking**
-_Use a tag on every development issue that's created for this feature. Include that tag here for easy reference._
+### Development Plan
