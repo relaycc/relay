@@ -7,14 +7,14 @@ assignees: ''
 
 ---
 
-# Read This First, Put An "x" In The Boxes
-_To make it easier to review this issue, please don't delete any parts of this template._
+# Guidelines
 
-- [] This issue describes a feature we want to build. The feature has a clear purpose and use cases.
-- [] This issue is _descriptive_ and _declarative_, but not _imperative_. It describes the end goal but does not prescribe actions.
-- [] This issue is _not a duplicate_.
+* To make it easier to review this issue, please don't delete any parts of this template.
+* This issue describes a feature we want to build. The feature has a clear purpose and use cases.
+* This issue is _descriptive_ and _declarative_, but not _imperative_. It describes the end goal but does not prescribe actions.
+* This issue is _not a duplicate_.
 
-# Then Fill This Out
+# Details
 
 ### Describe the feature.
 _What do you want to happen?_
@@ -25,7 +25,8 @@ _What problem does the feature solve? Which users would this feature apply to?_
 ### Describe alternatives you've considered.
 _A clear and concise description of any alternative solutions or features you've considered._
 
-# Project Managers Fill This Out
+# Development
+_This section will be filled out by a project manager after the issue goes under development._
 
 ### Background Info
 

@@ -7,13 +7,13 @@ assignees: ''
 
 ---
 
-# Read This First, Put An "x" In The Boxes
+# Guidelines
 
-- [] This issue describes an improvement to an _existing feature_.
-- [] This issue is _descriptive_ and _declarative_, but not _imperative_. It describes the end goal but does not prescribe actions.
-- [] This issue is _not a duplicate_.
+* This issue describes an improvement to an _existing feature_.
+* This issue is _descriptive_ and _declarative_, but not _imperative_. It describes the end goal but does not prescribe actions.
+* This issue is _not a duplicate_.
 
-# Then Fill This Out
+# Details
 
 ### Describe the improvement.
 _What do you want to happen?_
@@ -24,7 +24,8 @@ _What problem does the improvement solve? Which users would this improvement app
 ### Describe alternatives you've considered.
 _A clear and concise description of any alternative solutions you've considered._
 
-# Project Manager Fills This Out
+# Development
+_This section will be filled out by a project manager after the issue goes into development._
 
 ### Background Information
 

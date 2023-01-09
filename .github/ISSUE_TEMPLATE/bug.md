@@ -7,6 +7,8 @@ assignees: ''
 
 ---
 
+# Details
+
 ### Describe the bug.
 
 ### What is the expected behavior?
@@ -23,8 +25,19 @@ assignees: ''
 
 ### Additional context (like screenshots)
 
-# Project Managers Fill This Out
+# Development
+_This section will be filled out by a project manager after the issue goes into development._
 
-### What is the root cause of this bug?
+### What was the root cause?
 
-For now, the two options are "design" and "implementation". Make sure to tag this issue with one of them before you close it.
+### Background Info
+
+### Product Definition
+
+### Functional Spec
+
+### UI Prototype
+
+### Technical Primer
+
+### Development Plan

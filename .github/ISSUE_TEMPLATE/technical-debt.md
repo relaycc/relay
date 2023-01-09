@@ -7,23 +7,26 @@ assignees: ''
 
 ---
 
-# Read This First, Put An "x" In The Boxes
+# Guidelines
 
-- [] This issue describes an improvement to _developer experience_.
-- [] This issue is _not a duplicate_.
+* This issue describes a way to _reduce the cost of development_. The cost could be in the form of development friction or infrastructure costs or anything else.
+* This issue is _not a duplicate_.
 
-# Issue Creator Fills This Out
+# Details
 
 ### Describe the problem.
-What problem will the proposed solution solve? Will (and how) will the problem get worse over time?
+_What problem will the proposed solution solve? Will (and how) will the problem get worse over time?_
 
 ### Describe the solution.
-What specifically do we need to do? What systems do we need to change? Do we need to add new systems?
+_What specifically do we need to do? What systems do we need to change? Do we need to add new systems?_
 
 ### Describe alternatives you've considered.
-A clear and concise description of any alternative solutions or features you've considered.
+_A clear and concise description of any alternative solutions or features you've considered._
 
-# Project Manager Fills This Out
+# Development
+_This section will be filled out by a project manager after the issue goes into development._
+
+### Background Info
 
 ### Proposal
 
