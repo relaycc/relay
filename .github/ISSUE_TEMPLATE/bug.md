@@ -1,5 +1,5 @@
 ---
-name: Bug report
+name: Bug
 about: Create a report to help us improve
 title: ''
 labels: bug
@@ -22,3 +22,9 @@ assignees: ''
 **Include a video of you reproducing the bug.**
 
 **Additional context (like screenshots)**
+
+# Project Managers Fill This Out
+
+**What is the root cause of this bug?**
+
+For now, the two options are "design" and "implementation". Make sure to tag this issue with one of them before you close it.
