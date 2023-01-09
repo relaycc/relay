@@ -7,6 +7,12 @@ assignees: ''
 
 ---
 
+# Read This First, Put An "x" In The Boxes
+
+- [x] This issue describes a feature we want to build. The feature has a clear purpose and use cases.
+- [x] This issue is _descriptive_ and _declarative_, but not _imperative_. It describes the end goal but does not prescribe actions.
+- [x] This issue is _not a duplicate_.
+
 # Issue Creator Fills This Out
 
 **Describe the feature.**
