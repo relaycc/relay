@@ -2,7 +2,7 @@
 name: Technical Debt
 about: Suggest an improvement to the project's implementation.
 title: ''
-labels: technical
+labels: ''
 assignees: ''
 
 ---
