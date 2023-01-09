@@ -23,6 +23,9 @@ Add any other context or screenshots about the feature request here.
 
 # Project Managers Fill This Out
 
+**Background Information**
+Once we've decided to implement this feature, please include all relevant background information. This should include any documents that have been created, references to critical discussions, or summaries of key details that have been decided on.
+
 **Product Definition**
 Once this feature has been added to a product definition, or a new product definition has been created for this feature, add a link to it here. Also include any notes about the product definition status.
 
