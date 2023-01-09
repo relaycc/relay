@@ -14,15 +14,15 @@ _To make it easier to review this issue, please don't delete any parts of this t
 - [] This issue is _descriptive_ and _declarative_, but not _imperative_. It describes the end goal but does not prescribe actions.
 - [] This issue is _not a duplicate_.
 
-# Issue Creator Fills This Out
+# Then Fill This Out
 
-## Describe the feature.
+### Describe the feature.
 _What do you want to happen?_
 
-## Describe the use case.
+### Describe the use case.
 _What problem does the feature solve? Which users would this feature apply to?_
 
-## Describe alternatives you've considered.
+### Describe alternatives you've considered.
 _A clear and concise description of any alternative solutions or features you've considered._
 
 # Project Managers Fill This Out
@@ -32,6 +32,8 @@ _A clear and concise description of any alternative solutions or features you've
 ### Product Definition
 
 ### Functional Spec
+
+### UI Prototype
 
 ### Technical Primer
 
