@@ -52,14 +52,6 @@ export const music = [
       "Experimental player for tracks on the Catalog, Sound, Nina and Zora platforms.",
   },
   {
-    name: "HITPIECE",
-    url: "https://www.hitpiece.com/",
-    logo: "/hitpiece.jpeg",
-    handle: "felton.eth",
-    description:
-      "Creates a frontier between music artists and fans through NFTs and exclusive IRL and metaverse experiences.",
-  },
-  {
     name: "SoundMint",
     url: "https://www.soundmint.xyz/",
     logo: "/soundmint.jpeg",

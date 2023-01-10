@@ -109,14 +109,6 @@ export const daotool = [
     description: "DAO creation framework.",
   },
   {
-    name: "Kickback",
-    url: "https://kickback.events/",
-    logo: "/kickback.jpeg",
-    handle: "",
-    description:
-      "Delivers higher event participation rate by asking registrants to pledge ETH.",
-  },
-  {
     name: "Rabbithole",
     url: "https://rabbithole.gg/",
     logo: "/rabbithole.jpeg",
@@ -134,7 +126,7 @@ export const daotool = [
   {
     name: "Sybil",
     url: "https://sybil.org/#/delegates/uniswap",
-    logo: "/sybil.jpeg",
+    logo: "/sybil.png",
     handle: "",
     description: "Governance tool for discovering delegates.",
   }

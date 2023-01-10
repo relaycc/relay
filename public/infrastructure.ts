@@ -49,6 +49,14 @@ export const infrastructure = [
       "Omnichain interoperability protocol.",
   },
   {
+    name: "Kickback",
+    url: "https://kickback.events/",
+    logo: "/kickback.jpeg",
+    handle: "",
+    description:
+      "Delivers higher event participation rate by asking registrants to pledge ETH.",
+  },
+  {
     name: "EtherMail",
     url: "https://ethermail.io/",
     logo: "/ethermail.jpeg",
