@@ -1,7 +1,7 @@
-/** @type {import('next').NextConfig} */
 const { withPlausibleProxy } = require("next-plausible");
 
-const nextConfig = {
+/** @type {import('next').NextConfig} */
+const nextConfig = withPlausibleProxy()({
   reactStrictMode: true,
   swcMinify: true,
   webpack: (config, { isServer }) => {
@@ -10,6 +10,6 @@ const nextConfig = {
     }
     return config;
   },
-};
+});
 
-module.exports = withPlausibleProxy(nextConfig);
+module.exports = nextConfig;

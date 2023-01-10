@@ -44,7 +44,6 @@ function MyApp({ Component, pageProps }: AppProps) {
   const [worker, setWorker] = useState<Worker | null>(null);
 
   useEffect(() => {
-    console.log("Troubleshooting logging in production!");
     setWorker(new Worker("/XmtpWorker.js"));
   }, []);
 
