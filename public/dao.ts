@@ -62,6 +62,14 @@ export const dao = [
       "CRV holders take part in the voting process of the Curve network",
   },
   {
+    name: "0x DAO",
+    url: "https://www.0x.org",
+    logo: "/0x.png",
+    handle: "",
+    description:
+      "The 0x community DAO is the collective governing voice of the 0x protocol and the ZRX token",
+  },
+  {
     name: "JokeDAO",
     url: "https://www.jokedao.io/",
     logo: "/jokedao.jpeg",
@@ -122,14 +130,6 @@ export const dao = [
     handle: "",
     description:
       "Collective of builders, products, and ecosystems governed by $BIT token holders",
-  },
-  {
-    name: "0x DAO",
-    url: "https://www.0x.org",
-    logo: "/0x.jpeg",
-    handle: "",
-    description:
-      "The 0x community DAO is the collective governing voice of the 0x protocol and the ZRX token",
   },
   {
     name: "Audius DAO",
