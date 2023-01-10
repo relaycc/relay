@@ -39,6 +39,22 @@ export const defi = [
       "Algorithmic, autonomous interest rate protocol built for developers to unlock a universe of open financial applications.",
   },
   {
+    name: "Synthetix",
+    url: "https://synthetix.io/",
+    logo: "/synthetix.png",
+    handle: "",
+    description:
+      "Allows users to mint new crypto assets that mimic both real-world assets and crypto assets.",
+  },
+  {
+    name: "0x",
+    url: "https://www.0x.org",
+    logo: "/0x.jpeg",
+    handle: "",
+    description:
+      "Trusted exchange infrastructure for the internet.",
+  },
+  {
     name: "Aztec",
     url: "https://aztec.network/",
     logo: "/aztec.jpeg",
@@ -57,7 +73,7 @@ export const defi = [
     url: "https://balancer.fi/",
     logo: "/balancer.png",
     handle: "",
-    description: "",
+    description: "Secure infrastructure for liquidity applications",
   },
   {
     name: "Barn Bridge",
@@ -65,14 +81,6 @@ export const defi = [
     logo: "/barnbridge.jpeg",
     handle: "",
     description: "Earn sustainable fixed income.",
-  },
-  {
-    name: "Synthetix",
-    url: "https://synthetix.io/",
-    logo: "/synthetix.png",
-    handle: "",
-    description:
-      "Allows users to mint new crypto assets that mimic both real-world assets and crypto assets.",
   },
   {
     name: "Rocket Pool",
@@ -220,7 +228,7 @@ export const defi = [
     url: "https://premia.finance/",
     logo: "/premia.jpeg",
     handle: "",
-    description: "Trade BTC, ETH, AVAX and more with up to 50x leverage.",
+    description: "DeFi native options protocol with market-driven pricing.",
   },
   {
     name: "Arrakis Finance",

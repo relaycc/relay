@@ -62,6 +62,14 @@ export const impactdaos = [
     description: "Helping communities earn funding",
   },
   {
+    name: "New Atlantis",
+    url: "https://newatlantis.io/",
+    logo: "/newatlantis.jpeg",
+    handle: "",
+    description:
+      "Open platform for ocean biodiversity regeneration",
+  },
+  {
     name: "40ACRES",
     url: "https://app.astrodao.com/dao/40acres.sputnik-dao.near",
     logo: "/40acres.jpeg",

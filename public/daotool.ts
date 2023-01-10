@@ -11,7 +11,7 @@ export const daotool = [
     url: "https://aragon.org/",
     logo: "/aragon.jpeg",
     handle: "",
-    description: "Build your DAO.",
+    description: "Build your DAO on open-source infrastructure with governance plugins.",
   },
   {
     name: "Charmverse",
