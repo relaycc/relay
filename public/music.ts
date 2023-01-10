@@ -52,6 +52,12 @@ export const music = [
       "Experimental player for tracks on the Catalog, Sound, Nina and Zora platforms.",
   },
   {
+    name: "Arpeggi Labs",
+    url: "https://www.arpeggi.io/",
+    logo: "/arpeggilabs.jpeg",
+    description: "Music creation platform where musicians can publish their sounds for others to create with.",
+  },
+  {
     name: "SoundMint",
     url: "https://www.soundmint.xyz/",
     logo: "/soundmint.jpeg",
@@ -257,13 +263,6 @@ export const music = [
     logo: "/asyncart.jpeg",
     description:
       "Creator platform for powerful storytelling, collaboration, and plugging into the wider ecosystem.",
-  },
-  {
-    name: "Blockparty",
-    url: "https://blockparty.co/",
-    logo: "/blockparty.svg",
-    description:
-      "Creating the tools, communities and infrastructure for the future of music.",
   },
   {
     name: "MODA",

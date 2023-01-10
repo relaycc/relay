@@ -49,7 +49,7 @@ export const defi = [
   {
     name: "0x",
     url: "https://www.0x.org",
-    logo: "/0x.jpeg",
+    logo: "/0x.png",
     handle: "",
     description:
       "Trusted exchange infrastructure for the internet.",
@@ -246,7 +246,7 @@ export const defi = [
     description: "Perpetual, oracle-free options protocol.",
   },
   {
-    name: "GammaSwap",
+    name: "Gamma Swap",
     url: "https://gammaswap.com/",
     logo: "/gammaswap.jpeg",
     handle: "",
