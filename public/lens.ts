@@ -80,6 +80,13 @@ export const lens = [
       "Decentralized social media app for iOS built on Lens Protocol.",
   },
   {
+    name: "Amnisiac",
+    url: "https://www.amnisiac.xyz/",
+    logo: "/amnisiac.png",
+    handle: "",
+    description: "Decentralized music app built on Lens protocol..",
+  },
+  {
     name: "Lenstats",
     url: "https://lenstats.xyz/",
     logo: "/LensAnalytics.png",

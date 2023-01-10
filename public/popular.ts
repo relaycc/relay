@@ -101,7 +101,7 @@ export const popular = [
   {
     name: "101.xyz",
     url: "https://101.xyz",
-    logo: "/101.svg",
+    logo: "/101.jpeg",
     handle: "",
     description:
       "The central hub for online courses that issue crypto rewards. Built for decentralized communities.",
@@ -109,7 +109,7 @@ export const popular = [
   {
     name: "Disco.xyz",
     url: "https://www.disco.xyz/",
-    logo: "/disco.svg",
+    logo: "/disco.jpeg",
     handle: "",
     description:
       "Your personal, portable, decentralized data backpack | Own yourself & control what you share.",

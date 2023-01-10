@@ -75,7 +75,7 @@ export const dao = [
     url: "https://decred.org",
     logo: "/decred.jpeg",
     handle: "",
-    description: "",
+    description: "Hybrid PoW and PoS currency with privacy and governance",
   },
   {
     name: "Compound Governance",

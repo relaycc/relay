@@ -13,13 +13,6 @@ export const music = [
     description: "A generative music NFT experience.",
   },
   {
-    name: "Beat Foundry",
-    url: "https://beatfoundry.xyz/",
-    logo: "/beatfoundry.svg",
-    description:
-      "Generative music collective and collections of on-chain music NFTs.",
-  },
-  {
     name: "NiftyTunes",
     url: "https://www.niftytunes.xyz/",
     logo: "/niftytunes.jpeg",
@@ -32,6 +25,14 @@ export const music = [
     logo: "/arpeggilabs.jpeg",
     description:
       "Music creation platform where musicians can publish their sounds for others to create with.",
+  },
+  {
+    name: "HITPIECE",
+    url: "https://www.hitpiece.com/",
+    logo: "/hitpiece.jpeg",
+    handle: "felton.eth",
+    description:
+      "Creates a frontier between music artists and fans through NFTs and exclusive IRL and metaverse experiences.",
   },
   {
     name: "SoundMint",
