@@ -76,7 +76,7 @@ export const daotool = [
     url: "https://snapshot.org/#/",
     logo: "/snapshot.jpeg",
     handle: "",
-    description:
+    description: 
       "off-chain voting platform that allows DAOs, DeFi protocols, or NFT communities to vote.",
   },
   {
