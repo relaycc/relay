@@ -11,6 +11,7 @@ import Head from "next/head";
 // import "../styles/rainbowkit.css";
 import "@rainbow-me/rainbowkit/styles.css";
 import { Provider } from "@relaycc/receiver";
+import { Provider as PlausibleProvider } from "../lib";
 
 const alchemyKey = "kmMb00nhQ0SWModX6lJLjXy_pVtiQnjx";
 
