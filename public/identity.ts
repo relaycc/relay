@@ -7,6 +7,14 @@ export const identity = [
     description: "Platform where you get paid to work on open source software.",
   },
   {
+    name: "Disco",
+    url: "https://disco.xyz/",
+    logo: "/disco.jpeg",
+    handle: "",
+    description:
+      "Disco helps you reflect your data to the world however you choose.",
+  },
+  {
     name: "Gitcoin Passport",
     url: "https://passport.gitcoin.co/",
     logo: "/gitcoinpassport.svg",
@@ -39,6 +47,14 @@ export const identity = [
       "Private access control based on self-sovereign identity designed for trust-minimised environments.",
   },
   {
+    name: "101.xyz",
+    url: "https://101.xyz",
+    logo: "/101.jpeg",
+    handle: "",
+    description:
+      "The central hub for online courses that issue crypto rewards. Built for decentralized communities.",
+  },
+  {
     name: "Orange Protocol",
     url: "https://www.orangeprotocol.io/",
     logo: "/orangeprotocol.svg",
@@ -53,6 +69,14 @@ export const identity = [
     handle: "",
     description:
       "Issues ZK badges for reputation aggregation and privacy preserving access control.",
+  },
+  {
+    name: "Myco",
+    url: "https://www.myco.space/",
+    logo: "/myco.jpeg",
+    handle: "",
+    description:
+    "The social network that you own."
   },
   {
     name: "Iron Fish",
@@ -93,12 +117,12 @@ export const identity = [
     description: "Trusted interactions with web3 services.",
   },
   {
-    name: "Disco",
-    url: "https://disco.xyz/",
-    logo: "/disco.svg",
+    name: "Praise",
+    url: "https://givepraise.xyz/",
+    logo: "/praise.jpeg",
     handle: "",
     description:
-      "Disco helps you reflect your data to the world however you choose.",
+      "Acknowledge and reward community contributions, build a culture of giving and gratitude.",
   },
   {
     name: "DegenScore",

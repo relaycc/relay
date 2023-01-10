@@ -1,51 +1,10 @@
 export const zk = [
   {
-    name: "Iden3",
-    url: "https://iden3.io/",
-    logo: "/iden3.png",
+    name: "Zcash",
+    url: "https://z.cash/",
+    logo: "/zcash.jpeg",
     handle: "",
-    description:
-      "Private access control based on self-sovereign identity, designed for decentralized and trust-minimised environments.",
-  },
-  {
-    name: "Nuggets",
-    url: "https://nuggets.life/",
-    logo: "/nuggets.jpeg",
-    handle: "",
-    description:
-      "Verified self-sovereign decentralized identity & payment platform that serves as a reusable, interoperable ID",
-  },
-  {
-    name: "Semaphore",
-    url: "https://semaphore.appliedzkp.org/",
-    logo: "/semaphore.svg",
-    handle: "",
-    description:
-      "Prove membership of a group and send signals such as votes or endorsements without revealing your original identity.",
-  },
-  {
-    name: "Notebook",
-    url: "https://www.notebooklabs.xyz/",
-    logo: "/notebooklabs.png",
-    handle: "",
-    description:
-      "Provide both anonymous proof-of-humanity and credential aggregation.",
-  },
-  {
-    name: "Holonym",
-    url: "https://www.holonym.id/",
-    logo: "/holonym.jpeg",
-    handle: "",
-    description:
-      "Bridge credentials across web applications, blockchains, and physical records.",
-  },
-  {
-    name: "Worldcoin",
-    url: "https://worldcoin.org/",
-    logo: "/worldcoin.jpeg",
-    handle: "",
-    description:
-      "A token in the palms of a billion people - anonymous proof of humanity.",
+    description: "Private financial transactions using zkSNARK.",
   },
   {
     name: "Sismo",
@@ -64,12 +23,60 @@ export const zk = [
       "Overcome the various flaws in the current KYC system, eliminate the pain points related to identity authentication.",
   },
   {
+    name: "Notebook",
+    url: "https://www.notebooklabs.xyz/",
+    logo: "/notebooklabs.png",
+    handle: "",
+    description:
+      "Provide both anonymous proof-of-humanity and credential aggregation.",
+  },
+  {
+    name: "Semaphore",
+    url: "https://semaphore.appliedzkp.org/",
+    logo: "/semaphore.svg",
+    handle: "",
+    description:
+      "Prove membership of a group and send signals such as votes or endorsements without revealing your original identity.",
+  },
+  {
+    name: "Nuggets",
+    url: "https://nuggets.life/",
+    logo: "/nuggets.jpeg",
+    handle: "",
+    description:
+      "Verified self-sovereign decentralized identity & payment platform that serves as a reusable, interoperable ID",
+  },
+  {
+    name: "Holonym",
+    url: "https://www.holonym.id/",
+    logo: "/holonym.jpeg",
+    handle: "",
+    description:
+      "Bridge credentials across web applications, blockchains, and physical records.",
+  },
+  {
+    name: "Worldcoin",
+    url: "https://worldcoin.org/",
+    logo: "/worldcoin.jpeg",
+    handle: "",
+    description:
+      "A token in the palms of a billion people - anonymous proof of humanity.",
+  },
+  {
     name: "Interep",
     url: "https://interep.link/",
     logo: "/interep.jpeg",
     handle: "",
     description:
       "Authenticate members as unique humans without collecting any identifying information.",
+  },
+  {
+    name: "Iden3",
+    url: "https://iden3.io/",
+    logo: "/iden3.png",
+    handle: "",
+    description:
+      "Private access control based on self-sovereign identity, designed for decentralized and trust-minimised environments.",
   },
   {
     name: "OutDID",
@@ -160,12 +167,5 @@ export const zk = [
     logo: "/manta.jpeg",
     handle: "",
     description: "Onchain multi-asset shielded pool using zkSNARK.",
-  },
-  {
-    name: "Zcash",
-    url: "https://z.cash/",
-    logo: "/zcash.jpeg",
-    handle: "",
-    description: "Private financial transactions using zkSNARK.",
   },
 ];
