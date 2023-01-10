@@ -2,63 +2,28 @@ export const music = [
   {
     name: "Sound",
     url: "https://www.sound.xyz/",
-    logo: "/sound.svg",
+    logo: "/sound.jpeg",
     description:
       "Premier music NFT dropsite for artists and collectors with built in marketplace.",
   },
   {
-    name: "Synthopia",
-    url: "https://synthopia.io/",
-    logo: "/synthopia.jpeg",
-    description: "A generative music NFT experience.",
+    name: "Catalog",
+    url: "https://beta.catalog.works/",
+    logo: "/catalog.jpeg",
+    description: "NFT marketplace built specifically for the music industry.",
   },
   {
-    name: "NiftyTunes",
-    url: "https://www.niftytunes.xyz/",
-    logo: "/niftytunes.jpeg",
+    name: "Zora",
+    url: "https://zora.co/",
+    logo: "/zora.jpeg",
+    description: "Decentralized Auction Protocol for NFTs on Ethereum",
+  },
+  {
+    name: "Sona",
+    url: "https://sona.stream/",
+    logo: "/sona.jpeg",
     description:
-      "Lets artists distribute their music as NFTs directly from their distributor portal.",
-  },
-  {
-    name: "Arpeggi Labs",
-    url: "https://www.arpeggi.io/",
-    logo: "/arpeggilabs.jpeg",
-    description:
-      "Music creation platform where musicians can publish their sounds for others to create with.",
-  },
-  {
-    name: "HITPIECE",
-    url: "https://www.hitpiece.com/",
-    logo: "/hitpiece.jpeg",
-    handle: "felton.eth",
-    description:
-      "Creates a frontier between music artists and fans through NFTs and exclusive IRL and metaverse experiences.",
-  },
-  {
-    name: "SoundMint",
-    url: "https://www.soundmint.xyz/",
-    logo: "/soundmint.jpeg",
-    description: "Collect a one-of-a-kind vinyl from your favorite artist.",
-  },
-  {
-    name: "AudioGlyphs",
-    url: "https://www.audioglyphs.io/",
-    logo: "/audioglyphs.jpeg",
-    description:
-      "10,000 randomly generated, infinite audio NFTs derived from on-chain Pixelglyph data.",
-  },
-  {
-    name: "0xSplits",
-    url: "https://app.0xsplits.xyz/",
-    logo: "/0xsplits.jpeg",
-    description:
-      "Audited, non-upgradeable set of contracts that efficiently split onchain income.",
-  },
-  {
-    name: "Supercollector",
-    url: "https://supercollector.xyz/",
-    logo: "/supercollector.jpeg",
-    description: "Who's collecting music NFTs.",
+      "A music platform that puts artists in control of the culture they create.",
   },
   {
     name: "Decent",
@@ -68,30 +33,16 @@ export const music = [
       "Marketplace and infrastructure that creates NFTs collateralized by musicians' royalties.",
   },
   {
-    name: "Catalog",
-    url: "https://beta.catalog.works/",
-    logo: "/catalog.jpeg",
-    description: "NFT marketplace built specifically for the music industry.",
+    name: "Spinamp",
+    url: "https://www.oohlala.xyz/",
+    logo: "/spinamp.jpeg",
+    description: "Listen and collect web3 music on mobile and web.",
   },
   {
-    name: "Async Art",
-    url: "https://async.art/",
-    logo: "/asyncart.jpeg",
-    description:
-      "NFT platform that enables artists to tokenize programmable digital art into layers.",
-  },
-  {
-    name: "Zora",
-    url: "https://zora.co/",
-    logo: "/zora.jpeg",
-    description: "Decentralized Auction Protocol for NFTs on Ethereum",
-  },
-  {
-    name: "Audius",
-    url: "https://audius.co/",
-    logo: "/audius.jpeg",
-    description:
-      "Streaming platform built for all musicians, not just those signed to labels.",
+    name: "Ooh la la",
+    url: "https://www.oohlala.xyz/",
+    logo: "/oohlala.png",
+    description: "The web3 music player/aggregator.",
   },
   {
     name: "Future Tape",
@@ -101,11 +52,93 @@ export const music = [
       "Experimental player for tracks on the Catalog, Sound, Nina and Zora platforms.",
   },
   {
+    name: "SoundMint",
+    url: "https://www.soundmint.xyz/",
+    logo: "/soundmint.jpeg",
+    description: "Collect a one-of-a-kind vinyl from your favorite artist.",
+  },
+  {
+    name: "0xSplits",
+    url: "https://app.0xsplits.xyz/",
+    logo: "/0xsplits.jpeg",
+    description:
+      "Audited, non-upgradeable set of contracts that efficiently split onchain income.",
+  },
+  {
+    name: "CreateOS",
+    url: "https://createsafe.io/",
+    logo: "/createos.jpeg",
+    description:
+      "The operating system for the new music industry.",
+  },
+  {
+    name: "NiftyTunes",
+    url: "https://www.niftytunes.xyz/",
+    logo: "/niftytunes.jpeg",
+    description:
+      "Lets artists distribute their music as NFTs directly from their distributor portal.",
+  },
+  {
+    name: "HitPiece",
+    url: "https://www.hitpiece.com/",
+    logo: "/hitpiece.jpeg",
+    handle: "felton.eth",
+    description:
+      "Creates a frontier between music artists and fans through NFTs and exclusive IRL and metaverse experiences.",
+  },
+  {
+    name: "Friends With Benefits",
+    url: "https://www.fwb.help/",
+    logo: "/friendswithbenefits.jpeg",
+    description:
+      "Worldwide group of cultural creators, thinkers, and builders who convene digitally and IRL to collaboratively shape web3's future.",
+  },
+  {
+    name: "AudioGlyphs",
+    url: "https://www.audioglyphs.io/",
+    logo: "/audioglyphs.jpeg",
+    description:
+      "10,000 randomly generated, infinite audio NFTs derived from on-chain Pixelglyph data.",
+  },
+  {
+    name: "Supercollector",
+    url: "https://supercollector.xyz/",
+    logo: "/supercollector.jpeg",
+    description: "Who's collecting music NFTs.",
+  },
+  {
+    name: "Async Art",
+    url: "https://async.art/",
+    logo: "/asyncart.jpeg",
+    description:
+      "NFT platform that enables artists to tokenize programmable digital art into layers.",
+  },
+  {
+    name: "Audius",
+    url: "https://audius.co/",
+    logo: "/audius.png",
+    description:
+      "Streaming platform built for all musicians, not just those signed to labels.",
+  },
+  {
+    name: "Songcamp",
+    url: "https://songcamp.mirror.xyz/",
+    logo: "/songcamp.jpeg",
+    description:
+      "Artist network, creative studio, release club, and web3 laboratory.",
+  },
+  {
+    name: "Reveel",
+    url: "https://www.r3vl.xyz/",
+    logo: "/reveel.jpeg",
+    description: "A Revenue Share Protocol that allows a trustless and gas-efficient way for collaborators to distribute earnings",
+  },
+  {
     name: "Anotherblock",
     url: "https://anotherblock.io/",
     logo: "/anotherblock.jpeg",
     description:
-      "Own a share of your favorite song – earn royalties alongside your favorite artist.",
+      "Own a share of your favorite song & earn royalties alongside your favorite artist.",
   },
   {
     name: "Secret Garden",
@@ -128,13 +161,6 @@ export const music = [
       "Blockchain enthusiasts who develop generative arts, mobile and web applications.",
   },
   {
-    name: "Songcamp",
-    url: "https://songcamp.mirror.xyz/",
-    logo: "/songcamp.jpeg",
-    description:
-      "Artist network, creative studio, release club, and web3 laboratory.",
-  },
-  {
     name: "BeetsDAO",
     url: "https://www.beetsdao.com/",
     logo: "/beetsdao.jpeg",
@@ -145,13 +171,6 @@ export const music = [
     url: "https://www.phlote.co/",
     logo: "/phlotedao.png",
     description: "Introducing the best new music we find everyday, to you.",
-  },
-  {
-    name: "Friends With Benefits",
-    url: "https://www.fwb.help/",
-    logo: "/friendswithbenefits.jpeg",
-    description:
-      "Worldwide group of cultural creators, thinkers, and builders who convene digitally and IRL to collaboratively shape web3's future.",
   },
   {
     name: "The Park",
@@ -191,6 +210,12 @@ export const music = [
     url: "https://vuzec.com/",
     logo: "/vuzec.png",
     description: "Fans can directly support artists, and win alongside them.",
+  },
+  {
+    name: "Synthopia",
+    url: "https://synthopia.io/",
+    logo: "/synthopia.jpeg",
+    description: "A generative music NFT experience.",
   },
   {
     name: "StemsDAO",
@@ -261,14 +286,7 @@ export const music = [
     description:
       "Mint MFTs that offer buyers a share in the revenue of a single, EP, or album.",
   },
-  {
-    name: "Audius",
-    url: "https://audius.co/feed",
-    logo: "/audiusfeed.jpeg",
-    description:
-      "Streaming platform built for all musicians, not just those signed to labels.",
-  },
-  {
+  { 
     name: "Myx",
     url: "https://www.myx.audio/",
     logo: "/mix.jpeg",
@@ -295,6 +313,13 @@ export const music = [
     logo: "/galamusic.jpeg",
     description:
       "Own songs and access unique content with your favorite artists and earn rewards for listening.",
+  },
+  {
+    name: "Ziggy Ziggy",
+    url: "https://twitter.com/ZiggyZiggyMusic",
+    logo: "/ziggy.jpeg",
+    description:
+      "The home of Web3 music discovery // Daily videos of music NFTs.",
   },
   {
     name: "iamMozart",

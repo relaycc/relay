@@ -8,14 +8,6 @@ export const dao = [
       "UNI holders own and provide active stewardship of the Uniswap protocol",
   },
   {
-    name: "ApeCoin DAO",
-    url: "https://www.apecoin.com",
-    logo: "/apecoindao.jpeg",
-    handle: "",
-    description:
-      "ApeCoin holders participate in ideas, commentary, proposal submission, and voting to promote a diverse and self-sustaining ecosystem",
-  },
-  {
     name: "Aave Governance",
     url: "https://aave.com",
     logo: "/aavename.jpeg",
@@ -32,15 +24,14 @@ export const dao = [
       "A community of MKR token holders govern the Maker Protocol, the smart contracts that power Dai",
   },
   {
-    name: "BitDAO",
-    url: "https://www.bitdao.io",
-    logo: "/bitdao.png",
+    name: "ENS DAO",
+    url: "https://ens.domains",
+    logo: "/ens.jpeg",
     handle: "",
-    description:
-      "Collective of builders, products, and ecosystems governed by $BIT token holders",
+    description: "The ENS DAO governs the ENS protocol ",
   },
   {
-    name: "Synthetix",
+    name: "Synthetix DAO",
     url: "https://synthetix.io/governance",
     logo: "/synthetix.png",
     handle: "",
@@ -48,11 +39,19 @@ export const dao = [
       "SNX stakers vote directly, or for elected committess and councils that govern the Synthetix protocol",
   },
   {
-    name: "Dash DAO",
-    url: "https://www.dash.org",
-    logo: "/dashdao.png",
+    name: "BanklessDAO",
+    url: "https://www.bankless.community/",
+    logo: "/banklessdao.jpeg",
     handle: "",
-    description: "DASH holders create proposals for the Dash blockchain",
+    description: "Media and Social DAO Onboarding 1 billion people to crypto",
+  },
+  {
+    name: "MetaCartel",
+    url: "https://www.metacartel.org/",
+    logo: "/metacartel.jpeg",
+    handle: "",
+    description:
+      "Ecosystem of creators and operators building and supporting at the forefront of web3 and DAOs.",
   },
   {
     name: "Curve DAO",
@@ -61,6 +60,13 @@ export const dao = [
     handle: "",
     description:
       "CRV holders take part in the voting process of the Curve network",
+  },
+  {
+    name: "JokeDAO",
+    url: "https://www.jokedao.io/",
+    logo: "/jokedao.jpeg",
+    handle: "",
+    description: "JokeDAO has tools for bottom-up, on-chain governance, and the DAO votes on jokes.",
   },
   {
     name: "Lido DAO",
@@ -94,13 +100,6 @@ export const dao = [
       "BAL token holders make decisions about new features and directions of where Balancer protocol should go",
   },
   {
-    name: "ENS DAO",
-    url: "https://ens.domains",
-    logo: "/ens.jpeg",
-    handle: "",
-    description: "The ENS DAO governs the ENS protocol ",
-  },
-  {
     name: "Yearn DAO",
     url: "https://yearn.finance/vaults",
     logo: "/yearndao.jpeg",
@@ -117,6 +116,14 @@ export const dao = [
       "SUSHI holders participate on building a comprehensive decentralized trading platform at SushiSwap",
   },
   {
+    name: "BitDAO",
+    url: "https://www.bitdao.io",
+    logo: "/bitdao.png",
+    handle: "",
+    description:
+      "Collective of builders, products, and ecosystems governed by $BIT token holders",
+  },
+  {
     name: "0x DAO",
     url: "https://www.0x.org",
     logo: "/0x.jpeg",
@@ -125,17 +132,9 @@ export const dao = [
       "The 0x community DAO is the collective governing voice of the 0x protocol and the ZRX token",
   },
   {
-    name: "XDAO",
-    url: "https://runonflux.io",
-    logo: "/xdao.jpeg",
-    handle: "",
-    description:
-      "FLUX engage in community governance of Flux's decentralized Web3 cloud infrastructure",
-  },
-  {
-    name: "Audius",
+    name: "Audius DAO",
     url: "https://audius.org",
-    logo: "/audius.jpeg",
+    logo: "/audius.png",
     handle: "",
     description:
       "AUDIO token holders directly shape future iterations of the Audius platform and its decentralized infrastructure",
@@ -164,6 +163,14 @@ export const dao = [
     description: "A cartel of $PEEPS who aim to plz.",
   },
   {
+    name: "ApeCoin DAO",
+    url: "https://www.apecoin.com",
+    logo: "/apecoindao.jpeg",
+    handle: "",
+    description:
+      "ApeCoin holders participate in ideas, commentary, proposal submission, and voting to promote a diverse and self-sustaining ecosystem",
+  },
+  {
     name: "Friends With Benefits",
     url: "https://www.fwb.help/",
     logo: "/friendswithbenefits.jpeg",
@@ -185,13 +192,6 @@ export const dao = [
     handle: "",
     description:
       "Supports women-led projects in the blockchain space through grants.",
-  },
-  {
-    name: "BanklessDAO",
-    url: "https://www.bankless.community/",
-    logo: "/banklessdao.jpeg",
-    handle: "",
-    description: "Media and Social DAO Onboarding 1 billion people to crypto",
   },
   {
     name: "Metafam",
@@ -218,14 +218,6 @@ export const dao = [
       "Community-built open-source ecosystem of all the DeFi tools you need.",
   },
   {
-    name: "MetaCartel",
-    url: "https://www.metacartel.org/",
-    logo: "/metacartel.jpeg",
-    handle: "",
-    description:
-      "Ecosystem of creators and operators building and supporting at the forefront of web3 and DAOs.",
-  },
-  {
     name: "DxDAO",
     url: "https://dxdao.eth.limo/",
     logo: "/dxdao.jpeg",
@@ -249,6 +241,13 @@ export const dao = [
       "Collective of DeFi influencers, seasoned investors, crypto developers and founders collaboratively working towards improving DeFi.",
   },
   {
+    name: "Dash DAO",
+    url: "https://www.dash.org",
+    logo: "/dashdao.png",
+    handle: "",
+    description: "DASH holders create proposals for the Dash blockchain",
+  },
+  {
     name: "PartyDAO",
     url: "https://www.partybid.app/",
     logo: "/partydao.jpeg",
@@ -269,5 +268,13 @@ export const dao = [
     handle: "",
     description:
       "Collection of remarkable coliving properties tied by a shared culture, community, economy, and governance.",
+  },
+  {
+    name: "XDAO",
+    url: "https://runonflux.io",
+    logo: "/xdao.jpeg",
+    handle: "",
+    description:
+      "FLUX engage in community governance of Flux's decentralized Web3 cloud infrastructure",
   },
 ];

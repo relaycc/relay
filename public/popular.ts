@@ -130,6 +130,14 @@ export const popular = [
       "Governance portal helping users discover, track, and make more informed decisions",
   },
   {
+    name: "Phi",
+    url: "https://philand.xyz",
+    logo: "/philand.svg",
+    handle: "",
+    description:
+      "Personal metaverse created from ENS domainas and on-chain activities",
+  },
+  {
     name: "Backdrop",
     url: "https://backdrop.so",
     logo: "/backdrop.svg",
@@ -211,22 +219,6 @@ export const popular = [
     handle: "",
     description:
       "Collaborative web3 credential data network helping brands engage users and developers to build",
-  },
-  {
-    name: "Phi",
-    url: "https://philand.xyz",
-    logo: "/philand.svg",
-    handle: "",
-    description:
-      "Personal metaverse created from ENS domainas and on-chain activities",
-  },
-  {
-    name: "Otterspace",
-    url: "https://www.otterspace.xyz/",
-    logo: "/otterspace.png",
-    handle: "",
-    description:
-      "Non-transferable badges to help DAOs run better and enable non-financialized governance.",
   },
   {
     name: "Unstoppable Domains",

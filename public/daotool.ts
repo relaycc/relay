@@ -1,24 +1,24 @@
 export const daotool = [
   {
+    name: "Guild",
+    url: "https://guild.xyz/",
+    logo: "/guild.jpeg",
+    handle: "",
+    description: "Platformless memberships and quests.",
+  },
+  {
+    name: "Safe",
+    url: "https://gnosis-safe.io/",
+    logo: "/safe.jpeg",
+    handle: "",
+    description: "Trusted platform to manage digital assets on Ethereum.",
+  },
+  {
     name: "Opolis",
     url: "https://opolis.co/",
     logo: "/opolis.jpeg",
     handle: "",
     description: "Digital employment cooperative for independent workers.",
-  },
-  {
-    name: "Aragon",
-    url: "https://aragon.org/",
-    logo: "/aragon.jpeg",
-    handle: "",
-    description: "Build your DAO on open-source infrastructure with governance plugins.",
-  },
-  {
-    name: "Charmverse",
-    url: "https://www.charmverse.io/",
-    logo: "/charmverse.jpeg",
-    handle: "",
-    description: "Web3 Operations Platform - tasks, docs, bounties & votes.",
   },
   {
     name: "Collab.Land",
@@ -28,11 +28,18 @@ export const daotool = [
     description: "Discord bot that manages token-gated channels and roles.",
   },
   {
-    name: "Colony",
-    url: "https://colony.io/",
-    logo: "/colony.png",
+    name: "JokeDAO",
+    url: "https://www.jokedao.io/",
+    logo: "/jokedao.jpeg",
     handle: "",
-    description: "DAO creation framework.",
+    description: "JokeDAO has tools for bottom-up, on-chain governance.",
+  },
+  {
+    name: "Charmverse",
+    url: "https://www.charmverse.io/",
+    logo: "/charmverse.jpeg",
+    handle: "",
+    description: "Web3 Operations Platform - tasks, docs, bounties & votes.",
   },
   {
     name: "Coordinape",
@@ -43,19 +50,41 @@ export const daotool = [
       "Platform for DAOs to quickly and fairly distribute resources to contributors.",
   },
   {
-    name: "Discord",
-    url: "https://discord.com/",
-    logo: "/discord.jpeg",
+    name: "Quest",
+    url: "https://quest3.xyz/",
+    logo: "/quest.jpeg",
     handle: "",
-    description: "VoIP and instant messaging social platform.",
+    description: "Marketing Tool Collection for Sustainable Web3 Project Growth",
   },
   {
-    name: "EtherMail",
-    url: "https://ethermail.io/",
-    logo: "/ethermail.jpeg",
+    name: "Tally",
+    url: "https://www.tally.xyz/",
+    logo: "/tally.jpeg",
     handle: "",
     description:
-      "Email solution setting the standard for anonymous and encrypted wallet-to-wallet communication.",
+      "Voting dashboard, aggregating data from defi protocols' governance.",
+  },
+  {
+    name: "Wonderverse",
+    url: "https://www.wonderverse.xyz/",
+    logo: "/wonderverse.png",
+    handle: "",
+    description: "Launch, grow, and scale your decentralized organization.",
+  },
+  {
+    name: "Snapshot",
+    url: "https://snapshot.org/#/",
+    logo: "/snapshot.jpeg",
+    handle: "",
+    description:
+      "off-chain voting platform that allows DAOs, DeFi protocols, or NFT communities to vote.",
+  },
+  {
+    name: "SourceCred",
+    url: "https://sourcecred.io/",
+    logo: "/sourcecred.jpeg",
+    handle: "",
+    description: "Measure and reward value creation.",
   },
   {
     name: "GovernorBeta",
@@ -71,6 +100,13 @@ export const daotool = [
     logo: "/hats.jpeg",
     handle: "",
     description: "Tokenized contributor roles for DAOs.",
+  },
+  {
+    name: "Colony",
+    url: "https://colony.io/",
+    logo: "/colony.png",
+    handle: "",
+    description: "DAO creation framework.",
   },
   {
     name: "Kickback",
@@ -89,26 +125,11 @@ export const daotool = [
       "Complete tasks, learn skills, and earn credentials that prove your knowledge.",
   },
   {
-    name: "Safe",
-    url: "https://gnosis-safe.io/",
-    logo: "/safe.jpeg",
+    name: "Aragon",
+    url: "https://aragon.org/",
+    logo: "/aragon.jpeg",
     handle: "",
-    description: "Trusted platform to manage digital assets on Ethereum.",
-  },
-  {
-    name: "Snapshot",
-    url: "https://snapshot.org/#/",
-    logo: "/snapshot.jpeg",
-    handle: "",
-    description:
-      "off-chain voting platform that allows DAOs, DeFi protocols, or NFT communities to vote.",
-  },
-  {
-    name: "SourceCred",
-    url: "https://sourcecred.io/",
-    logo: "/sourcecred.jpeg",
-    handle: "",
-    description: "Measure and reward value creation.",
+    description: "Build your DAO on open-source infrastructure with governance plugins.",
   },
   {
     name: "Sybil",
@@ -116,20 +137,5 @@ export const daotool = [
     logo: "/sybil.jpeg",
     handle: "",
     description: "Governance tool for discovering delegates.",
-  },
-  {
-    name: "Tally",
-    url: "https://www.tally.xyz/",
-    logo: "/tally.jpeg",
-    handle: "",
-    description:
-      "Voting dashboard, aggregating data from defi protocols' governance.",
-  },
-  {
-    name: "Wonderverse",
-    url: "https://www.wonderverse.xyz/",
-    logo: "/wonderverse.png",
-    handle: "",
-    description: "Launch, grow, and scale your decentralized organization.",
-  },
+  }
 ];
