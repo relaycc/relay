@@ -16,13 +16,20 @@ export const infrastructure = [
       " Plex is a no-code tool to discover, manage & engage your web3 audience via on-chain assets and actions.",
   },
   {
+    name: "Lit Protocol",
+    url: "https://litprotocol.com/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
+    logo: "/lit.jpeg",
+    handle: "",
+    description:
+      "Lit is decentralized cryptography for compute, encryption, and access control. Free the Web",
+  },
+  {
     name: "Nouns Builder",
     url: "https://nouns.build/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/nounsbuilder.jpeg",
     handle: "",
     description:
       "Nouns Builder is a tool that allows any DAO to form and govern completely onchain, in the format of Nouns DAO.",
-
   },
   {
     name: "Juicebox",
@@ -47,6 +54,14 @@ export const infrastructure = [
     handle: "",
     description:
       "Omnichain interoperability protocol.",
+  },
+  {
+    name: "Delegatable",
+    url: "https://delegatable.org/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
+    logo: "/delegatable.png",
+    handle: "",
+    description:
+      "Solidity framework for extending smart contracts with counterfactual revocable-delegation",
   },
   {
     name: "Kickback",

@@ -136,6 +136,14 @@ export const defi = [
       "Gives all DeFi users the simplest way to access the best earning DeFi strategies.",
   },
   {
+    name: "Cask",
+    url: "https://www.cask.fi/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
+    logo: "/cask.jpeg",
+    handle: "",
+    description:
+      "Cask is a decentralized protocol for money flow automation and web3 subscriptions",
+  },
+  {
     name: "JustCryptos",
     url: "https://just.network/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/justcryptos.jpeg",

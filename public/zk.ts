@@ -63,14 +63,6 @@ export const zk = [
       "A token in the palms of a billion people - anonymous proof of humanity.",
   },
   {
-    name: "Interep",
-    url: "https://interep.link/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
-    logo: "/interep.jpeg",
-    handle: "",
-    description:
-      "Authenticate members as unique humans without collecting any identifying information.",
-  },
-  {
     name: "Iden3",
     url: "https://iden3.io/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/iden3.png",
@@ -116,6 +108,14 @@ export const zk = [
     logo: "/polymer.jpeg",
     handle: "",
     description: "Enable ZK-IBC connectivity.",
+  },
+  {
+    name: "Interep",
+    url: "https://interep.link/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
+    logo: "/interep.jpeg",
+    handle: "",
+    description:
+      "Authenticate members as unique humans without collecting any identifying information.",
   },
   {
     name: "Overeality",
