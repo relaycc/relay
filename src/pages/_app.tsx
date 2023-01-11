@@ -6,11 +6,9 @@ import { publicProvider } from "wagmi/providers/public";
 import { WagmiConfig, configureChains, createClient, chain } from "wagmi";
 import { RainbowKitProvider, getDefaultWallets } from "@rainbow-me/rainbowkit";
 import Head from "next/head";
-// TODO(achilles@relay.cc) For some reason rainbowkit css import wasn't working,
-// remove this hack soon.
-// import "../styles/rainbowkit.css";
 import "@rainbow-me/rainbowkit/styles.css";
 import { Provider } from "@relaycc/receiver";
+import { Provider as PlausibleProvider } from "../lib";
 
 const alchemyKey = "kmMb00nhQ0SWModX6lJLjXy_pVtiQnjx";
 
@@ -47,7 +45,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   }, []);
 
   return (
-    <>
+    <PlausibleProvider>
       <Head>
         <title>Relay</title>
       </Head>
@@ -66,7 +64,7 @@ function MyApp({ Component, pageProps }: AppProps) {
           })()}
         </RainbowKitProvider>
       </WagmiConfig>
-    </>
+    </PlausibleProvider>
   );
 }
 
