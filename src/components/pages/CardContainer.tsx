@@ -23,7 +23,7 @@ import {
 import { Message } from "@relaycc/xmtp-js";
 import { useSigner, useAccount } from "wagmi";
 import { NavBarConversations } from "../NavBarConversations";
-import { popular } from "../../../public/popular";
+import { general } from "../../../public/general";
 import { sendRenderResult } from "next/dist/server/send-payload";
 export interface Conversation {
   peerAddress: string;
@@ -39,7 +39,7 @@ export const ConversationsView: FunctionComponent<{
   handle: any;
 }> = ({ handle }) => {
   const { data: signer } = useSigner();
-  const [category, setCategory] = useState(popular);
+  const [category, setCategory] = useState(general);
   const router = useRouter();
   const [addressToMessage, setAddressToMessage] = useState("seanwbren.eth");
   const launch = useLaunch();

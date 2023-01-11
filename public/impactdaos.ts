@@ -62,6 +62,14 @@ export const impactdaos = [
     description: "Helping communities earn funding",
   },
   {
+    name: "General Magic",
+    url: "https://www.generalmagic.io/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
+    logo: "/generalmagic.jpeg",
+    handle: "",
+    description:
+      "A group of web3 professionals supporting Impact DAO's, commons-based organizations, and public goods projects.",
+  },
+  {
     name: "New Atlantis",
     url: "https://newatlantis.io/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/newatlantis.jpeg",

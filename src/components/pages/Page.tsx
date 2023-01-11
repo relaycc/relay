@@ -8,7 +8,7 @@ import React, {
 import { NavBar } from "../NavBar";
 import { useSigner } from "wagmi";
 import { AppCard, LogoCard, HoverToggle } from "components";
-import { popular } from "../../../public/popular";
+import { general } from "../../../public/general";
 import { lens } from "../../../public/lens";
 import { identity } from "../../../public/identity";
 import { music } from "../../../public/music";
@@ -52,13 +52,13 @@ export const Page: FunctionComponent<{
           <ul className="h-14 flex items-center gap-5 overflow-x-scroll">
             <li
               onClick={() => {
-                setCategory(popular);
+                setCategory(general);
               }}
               className={`cursor-pointer text-xl ${
-                category === popular && "underline text-blue-800"
+                category === general && "underline text-blue-800"
               }`}
             >
-              Popular
+              General
             </li>
             <li
               onClick={() => {

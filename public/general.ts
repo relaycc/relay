@@ -1,4 +1,4 @@
-export const popular = [
+export const general = [
   {
     name: "ENS",
     url: "https://ens.domains/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
@@ -37,11 +37,18 @@ export const popular = [
     description: "Web3 development tools to build and scale your dApp.",
   },
   {
-    name: "Lenstube",
-    url: "https://lenstube.xyz/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
-    logo: "/lenstube.svg",
+    name: "Coinbase",
+    url: "https://coinbase.com/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
+    logo: "/coinbase.jpeg",
     handle: "",
-    description: "Web3 development tools to build and scale your dApp.",
+    description: "The most trusted crypto exchange.",
+  },
+  {
+    name: "Guild",
+    url: "https://guild.xyz/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
+    logo: "/guild.jpeg",
+    handle: "",
+    description: "Platformless memberships and quests.",
   },
   {
     name: "GitPOAP",
@@ -65,6 +72,13 @@ export const popular = [
     logo: "/alchemyuniversity.jpeg",
     handle: "",
     description: "Kickstart your Web3 career for free.",
+  },
+  {
+    name: "Lenstube",
+    url: "https://lenstube.xyz/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
+    logo: "/lenstube.svg",
+    handle: "",
+    description: "Web3 development tools to build and scale your dApp.",
   },
   {
     name: "Proof of Humanity",
@@ -136,6 +150,14 @@ export const popular = [
     handle: "",
     description:
       "Personal metaverse created from ENS domainas and on-chain activities",
+  },
+  {
+    name: "Lit Protocol",
+    url: "https://litprotocol.com/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
+    logo: "/lit.jpeg",
+    handle: "",
+    description:
+      "Lit is decentralized cryptography for compute, encryption, and access control. Free the Web",
   },
   {
     name: "Backdrop",
