@@ -1,7 +1,7 @@
 export const dao = [
   {
     name: "Uniswap",
-    url: "https://gov.uniswap.org",
+    url: "https://gov.uniswap.org/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/uniswap.jpeg",
     handle: "",
     description:
@@ -9,7 +9,7 @@ export const dao = [
   },
   {
     name: "Aave Governance",
-    url: "https://aave.com",
+    url: "https://aave.com/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/aavename.jpeg",
     handle: "",
     description:
@@ -17,7 +17,7 @@ export const dao = [
   },
   {
     name: "MakerDAO",
-    url: "https://www.makerdao.com",
+    url: "https://www.makerdao.com/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/makerdao.jpeg",
     handle: "",
     description:
@@ -25,14 +25,14 @@ export const dao = [
   },
   {
     name: "ENS DAO",
-    url: "https://ens.domains",
+    url: "https://ens.domains/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/ens.jpeg",
     handle: "",
     description: "The ENS DAO governs the ENS protocol ",
   },
   {
     name: "Synthetix DAO",
-    url: "https://synthetix.io/governance",
+    url: "https://synthetix.io/governance/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/synthetix.png",
     handle: "",
     description:
@@ -40,14 +40,14 @@ export const dao = [
   },
   {
     name: "BanklessDAO",
-    url: "https://www.bankless.community/",
+    url: "https://www.bankless.community/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/banklessdao.jpeg",
     handle: "",
     description: "Media and Social DAO Onboarding 1 billion people to crypto",
   },
   {
     name: "MetaCartel",
-    url: "https://www.metacartel.org/",
+    url: "https://www.metacartel.org/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/metacartel.jpeg",
     handle: "",
     description:
@@ -55,7 +55,7 @@ export const dao = [
   },
   {
     name: "Curve DAO",
-    url: "https://dao.curve.fi",
+    url: "https://dao.curve.fi/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/curve.jpeg",
     handle: "",
     description:
@@ -63,7 +63,7 @@ export const dao = [
   },
   {
     name: "0x DAO",
-    url: "https://www.0x.org",
+    url: "https://www.0x.org/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/0x.png",
     handle: "",
     description:
@@ -71,14 +71,14 @@ export const dao = [
   },
   {
     name: "JokeDAO",
-    url: "https://www.jokedao.io/",
+    url: "https://www.jokedao.io/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/jokedao.jpeg",
     handle: "",
     description: "JokeDAO has tools for bottom-up, on-chain governance, and the DAO votes on jokes.",
   },
   {
     name: "Lido DAO",
-    url: "https://lido.fi",
+    url: "https://lido.fi/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/lidodao.jpeg",
     handle: "",
     description:
@@ -86,14 +86,14 @@ export const dao = [
   },
   {
     name: "Decred Governance",
-    url: "https://decred.org",
+    url: "https://decred.org/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/decred.jpeg",
     handle: "",
     description: "Hybrid PoW and PoS currency with privacy and governance",
   },
   {
     name: "Compound Governance",
-    url: "https://compound.finance",
+    url: "https://compound.finance/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/compoundgovernance.png",
     handle: "",
     description:
@@ -101,7 +101,7 @@ export const dao = [
   },
   {
     name: "Balancer Governance",
-    url: "https://balancer.fi",
+    url: "https://balancer.fi/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/balancergovernance.png",
     handle: "",
     description:
@@ -109,7 +109,7 @@ export const dao = [
   },
   {
     name: "Yearn DAO",
-    url: "https://yearn.finance/vaults",
+    url: "https://yearn.finance/vaults/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/yearndao.jpeg",
     handle: "",
     description:
@@ -117,7 +117,7 @@ export const dao = [
   },
   {
     name: "Sushi Swap",
-    url: "https://www.sushi.com",
+    url: "https://www.sushi.com/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/sushi.png",
     handle: "",
     description:
@@ -125,7 +125,7 @@ export const dao = [
   },
   {
     name: "BitDAO",
-    url: "https://www.bitdao.io",
+    url: "https://www.bitdao.io/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/bitdao.png",
     handle: "",
     description:
@@ -133,7 +133,7 @@ export const dao = [
   },
   {
     name: "Audius DAO",
-    url: "https://audius.org",
+    url: "https://audius.org/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/audius.png",
     handle: "",
     description:
@@ -141,7 +141,7 @@ export const dao = [
   },
   {
     name: "SuperUMAn DAO",
-    url: "https://umaproject.org",
+    url: "https://umaproject.org/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/superumadao.jpeg",
     handle: "",
     description:
@@ -149,7 +149,7 @@ export const dao = [
   },
   {
     name: "KyberDAO",
-    url: "https://kyber.network",
+    url: "https://kyber.network/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/kyberdao.jpeg",
     handle: "",
     description:
@@ -157,14 +157,14 @@ export const dao = [
   },
   {
     name: "PleasrDAO",
-    url: "https://pleasr.org/",
+    url: "https://pleasr.org/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/pleasrdao.png",
     handle: "",
     description: "A cartel of $PEEPS who aim to plz.",
   },
   {
     name: "ApeCoin DAO",
-    url: "https://www.apecoin.com",
+    url: "https://www.apecoin.com/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/apecoindao.jpeg",
     handle: "",
     description:
@@ -172,7 +172,7 @@ export const dao = [
   },
   {
     name: "Friends With Benefits",
-    url: "https://www.fwb.help/",
+    url: "https://www.fwb.help/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/friendswithbenefits.jpeg",
     handle: "",
     description:
@@ -180,14 +180,14 @@ export const dao = [
   },
   {
     name: "Seed Club",
-    url: "https://www.seedclub.xyz/",
+    url: "https://www.seedclub.xyz/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/seedclub.jpeg",
     handle: "",
     description: "Network for DAO Builders & Operators",
   },
   {
     name: "MetaGammaDelta",
-    url: "https://metagammadelta.com/",
+    url: "https://metagammadelta.com/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/metagammadelta.jpeg",
     handle: "",
     description:
@@ -195,7 +195,7 @@ export const dao = [
   },
   {
     name: "Metafam",
-    url: "https://metagame.wtf/",
+    url: "https://metagame.wtf/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/metafam.jpeg",
     handle: "",
     description:
@@ -203,7 +203,7 @@ export const dao = [
   },
   {
     name: "Forefront",
-    url: "https://www.forefront.market/",
+    url: "https://www.forefront.market/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/forefront.jpeg",
     handle: "",
     description:
@@ -211,7 +211,7 @@ export const dao = [
   },
   {
     name: "Sushi",
-    url: "https://forum.sushi.com/",
+    url: "https://forum.sushi.com/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/sushi.png",
     handle: "",
     description:
@@ -219,14 +219,14 @@ export const dao = [
   },
   {
     name: "DxDAO",
-    url: "https://dxdao.eth.limo/",
+    url: "https://dxdao.eth.limo/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/dxdao.jpeg",
     handle: "",
     description: "Develops, governs, and grows DeFi products.",
   },
   {
     name: "BitDAO",
-    url: "https://www.bitdao.io/",
+    url: "https://www.bitdao.io/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/bitdao.png",
     handle: "",
     description:
@@ -234,7 +234,7 @@ export const dao = [
   },
   {
     name: "HoneyDAO",
-    url: "https://www.honeydao.com/",
+    url: "https://www.honeydao.com/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/honeydao.jpeg",
     handle: "",
     description:
@@ -242,28 +242,28 @@ export const dao = [
   },
   {
     name: "Dash DAO",
-    url: "https://www.dash.org",
+    url: "https://www.dash.org/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/dashdao.png",
     handle: "",
     description: "DASH holders create proposals for the Dash blockchain",
   },
   {
     name: "PartyDAO",
-    url: "https://www.partybid.app/",
+    url: "https://www.partybid.app/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/partydao.jpeg",
     handle: "",
     description: "Build multiplayer crypto software.",
   },
   {
     name: "FingerprintsDAO",
-    url: "https://fingerprintsdao.xyz/",
+    url: "https://fingerprintsdao.xyz/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/fingerprintdao.jpeg",
     handle: "",
     description: "The hub for blockchain art.",
   },
   {
     name: "CabinDAO",
-    url: "https://www.cabin.city/",
+    url: "https://www.cabin.city/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/cabindao.jpeg",
     handle: "",
     description:
@@ -271,7 +271,7 @@ export const dao = [
   },
   {
     name: "XDAO",
-    url: "https://runonflux.io",
+    url: "https://runonflux.io/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/xdao.jpeg",
     handle: "",
     description:

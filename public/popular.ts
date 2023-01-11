@@ -1,21 +1,21 @@
 export const popular = [
   {
     name: "ENS",
-    url: "https://ens.domains/",
+    url: "https://ens.domains/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/ENS.svg",
     handle: "",
     description: "Your Ethereum username for all web3",
   },
   {
     name: "POAP",
-    url: "https://poap.gallery",
+    url: "https://poap.gallery/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/poap.svg",
     handle: "",
     description: "Collect badges to prove participation and record experiences",
   },
   {
     name: "Opensea",
-    url: "https://opensea.io/",
+    url: "https://opensea.io/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/opensea.svg",
     handle: "",
     description:
@@ -23,7 +23,7 @@ export const popular = [
   },
   {
     name: "Lens",
-    url: "https://lens.xyz",
+    url: "https://lens.xyz/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/lensgreen.jpeg",
     handle: "",
     description:
@@ -31,21 +31,21 @@ export const popular = [
   },
   {
     name: "Alchemy",
-    url: "https://www.alchemy.com/",
+    url: "https://www.alchemy.com/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/alchemy.png",
     handle: "",
     description: "Web3 development tools to build and scale your dApp.",
   },
   {
     name: "Lenstube",
-    url: "https://lenstube.xyz/",
+    url: "https://lenstube.xyz/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/lenstube.svg",
     handle: "",
     description: "Web3 development tools to build and scale your dApp.",
   },
   {
     name: "GitPOAP",
-    url: "https://gitpoap.io",
+    url: "https://gitpoap.io/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/gitpoap.svg",
     handle: "",
     description:
@@ -53,7 +53,7 @@ export const popular = [
   },
   {
     name: "Snapshot",
-    url: "https://snapshot.org",
+    url: "https://snapshot.org/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/snapshot.svg",
     handle: "",
     description:
@@ -61,14 +61,14 @@ export const popular = [
   },
   {
     name: "Alchemy University",
-    url: "https://university.alchemy.com/",
+    url: "https://university.alchemy.com/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/alchemyuniversity.jpeg",
     handle: "",
     description: "Kickstart your Web3 career for free.",
   },
   {
     name: "Proof of Humanity",
-    url: "https://app.proofofhumanity.id",
+    url: "https://app.proofofhumanity.id/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/poh.svg",
     handle: "",
     description:
@@ -76,7 +76,7 @@ export const popular = [
   },
   {
     name: "Showtime",
-    url: "https://showtime.xyz",
+    url: "https://showtime.xyz/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/showtime.png",
     handle: "",
     description:
@@ -84,7 +84,7 @@ export const popular = [
   },
   {
     name: "DeepDAO",
-    url: "https://deepdao.io/",
+    url: "https://deepdao.io/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/deepdao.png",
     handle: "",
     description:
@@ -92,7 +92,7 @@ export const popular = [
   },
   {
     name: "LooksRare",
-    url: "https://101.xyz",
+    url: "https://looksrare.org/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/looksrare.svg",
     handle: "",
     description:
@@ -100,7 +100,7 @@ export const popular = [
   },
   {
     name: "101.xyz",
-    url: "https://101.xyz",
+    url: "https://101.xyz/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/101.jpeg",
     handle: "",
     description:
@@ -108,7 +108,7 @@ export const popular = [
   },
   {
     name: "Disco.xyz",
-    url: "https://www.disco.xyz/",
+    url: "https://www.disco.xyz/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/disco.jpeg",
     handle: "",
     description:
@@ -116,14 +116,14 @@ export const popular = [
   },
   {
     name: "Blur",
-    url: "https://blur.io",
-    logo: "/blur.png",
+    url: "https://blur.io/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
+    logo: "/blur.jpeg",
     handle: "",
     description: "The fastest NFT marketplace for pro traders.",
   },
   {
     name: "Boardroom",
-    url: "https://boardroom.io",
+    url: "https://boardroom.io/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/boardroom.png",
     handle: "",
     description:
@@ -131,7 +131,7 @@ export const popular = [
   },
   {
     name: "Phi",
-    url: "https://philand.xyz",
+    url: "https://philand.xyz/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/philand.svg",
     handle: "",
     description:
@@ -139,14 +139,14 @@ export const popular = [
   },
   {
     name: "Backdrop",
-    url: "https://backdrop.so",
+    url: "https://backdrop.so/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/backdrop.svg",
     handle: "",
     description: "Dive into leading tokenized projects and DAOs across web3",
   },
   {
     name: "Farcaster",
-    url: "https://www.farcaster.network/",
+    url: "https://www.farcaster.network/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/farcaster.png",
     handle: "",
     description:
@@ -154,14 +154,14 @@ export const popular = [
   },
   {
     name: "Mazury",
-    url: "https://mazury.xyz/",
+    url: "https://mazury.xyz/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/mazury.jpg",
     handle: "",
     description: "Talent platform to build your web3 professional presence",
   },
   {
     name: "Karma",
-    url: "https://showkarma.xyz",
+    url: "https://showkarma.xyz/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/karma.png",
     handle: "",
     description:
@@ -169,7 +169,7 @@ export const popular = [
   },
   {
     name: "Rarible",
-    url: "https://rarible.com",
+    url: "https://rarible.com/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/rarible.svg",
     handle: "",
     description:
@@ -177,14 +177,14 @@ export const popular = [
   },
   {
     name: "Nimi",
-    url: "https://nimi.eth.limo/",
+    url: "https://nimi.eth.limo/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/nimi.png",
     handle: "",
     description: "Your personal web3 front page",
   },
   {
     name: "MintKudos",
-    url: "https://mintkudos.xyz/",
+    url: "https://mintkudos.xyz/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/mintkudos.png",
     handle: "",
     description:
@@ -192,39 +192,39 @@ export const popular = [
   },
   {
     name: "Orbis",
-    url: "https://orbis.club",
+    url: "https://orbis.club/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/orbis.png",
     handle: "",
     description: "Fully-decentralized multi-chain web3 social protocol ",
   },
   {
     name: "Layer 3",
-    url: "https://beta.layer3.xyz",
+    url: "https://beta.layer3.xyz/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/layer3.png",
     handle: "",
     description:
       "Permissionless platform curating unique interactive experiences to explore the magic of web3",
   },
   {
+    name: "Unstoppable Domains",
+    url: "https://unstoppabledomains.com/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
+    logo: "/unstoppabledomains.jpeg",
+    handle: "",
+    description: "Own your identity in the digital world.",
+  },
+  {
     name: "Oohlala",
-    url: "https://www.oohlala.xyz",
+    url: "https://www.oohlala.xyz/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/oohlala.png",
     handle: "",
     description: "web3 music player/aggregator",
   },
   {
     name: "Galxe",
-    url: "https://galxe.com",
+    url: "https://galxe.com/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/galxe.svg",
     handle: "",
     description:
       "Collaborative web3 credential data network helping brands engage users and developers to build",
-  },
-  {
-    name: "Unstoppable Domains",
-    url: "https://unstoppabledomains.com/",
-    logo: "/unstoppabledomains.jpeg",
-    handle: "",
-    description: "Own your identity in the digital world.",
   },
 ];

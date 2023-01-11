@@ -1,7 +1,7 @@
 export const infrastructure = [
   {
     name: "Gelato",
-    url: "https://www.gelato.network/",
+    url: "https://www.gelato.network/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/gelato.jpeg",
     handle: "",
     description:
@@ -9,7 +9,7 @@ export const infrastructure = [
   },
   {
     name: "Plex",
-    url: "https://www.plexlabs.io/",
+    url: "https://www.plexlabs.io/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/plex.jpeg",
     handle: "",
     description:
@@ -17,7 +17,7 @@ export const infrastructure = [
   },
   {
     name: "Nouns Builder",
-    url: "https://nouns.build/",
+    url: "https://nouns.build/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/nounsbuilder.jpeg",
     handle: "",
     description:
@@ -26,7 +26,7 @@ export const infrastructure = [
   },
   {
     name: "Juicebox",
-    url: "https://juicebox.money/",
+    url: "https://juicebox.money/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/juicebox.jpeg",
     handle: "",
     description:
@@ -34,7 +34,7 @@ export const infrastructure = [
   },
   {
     name: "delegate.cash",
-    url: "https://delegate.cash/",
+    url: "https://delegate.cash/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/delegatecash.png",
     handle: "",
     description:
@@ -42,7 +42,7 @@ export const infrastructure = [
   },
   {
     name: "LayerZero",
-    url: "https://layerzero.network/",
+    url: "https://layerzero.network/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/layerzero.jpeg",
     handle: "",
     description:
@@ -50,7 +50,7 @@ export const infrastructure = [
   },
   {
     name: "Kickback",
-    url: "https://kickback.events/",
+    url: "https://kickback.events/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/kickback.jpeg",
     handle: "",
     description:
@@ -58,7 +58,7 @@ export const infrastructure = [
   },
   {
     name: "EtherMail",
-    url: "https://ethermail.io/",
+    url: "https://ethermail.io/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/ethermail.jpeg",
     handle: "",
     description:
