@@ -36,13 +36,12 @@ export const NavBarConversations = ({
   const router = useRouter();
 
   return (
-    <nav className="xl:flex items-end grid grid-cols-2 gap-4 mb-6">
-      <div className="flex w-[125px] sm:w-[150px] top-[8px] relative sm:top-[18px] xl:top-[15px] xl:min-w-[10rem]">
+    <nav className="xl:flex items-end grid grid-cols-2 gap-4 mb-6 mt-5">
+      <div className="sm:w-[164px] min-h-[47px] w-[125px] xl:min-w-[174px] relative top-[4px] md:top-[3px]">
         <Image
           src={'/relaylogo.svg'}
           alt={"Relay"}
-          width={150}
-          height={70}
+          layout="fill"
         />
       </div>
 
