@@ -1,14 +1,14 @@
 export const identity = [
   {
     name: "Gitcoin",
-    url: "https://gitcoin.co",
+    url: "https://gitcoin.co/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/gitcoin.svg",
     handle: "",
     description: "Platform where you get paid to work on open source software.",
   },
   {
     name: "Disco",
-    url: "https://disco.xyz/",
+    url: "https://disco.xyz/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/disco.jpeg",
     handle: "",
     description:
@@ -16,7 +16,7 @@ export const identity = [
   },
   {
     name: "Gitcoin Passport",
-    url: "https://passport.gitcoin.co/",
+    url: "https://passport.gitcoin.co/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/gitcoinpassport.svg",
     handle: "",
     description:
@@ -24,7 +24,7 @@ export const identity = [
   },
   {
     name: "Spruce",
-    url: "https://www.spruceid.com",
+    url: "https://www.spruceid.com/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/spruce.png",
     handle: "",
     description:
@@ -32,7 +32,7 @@ export const identity = [
   },
   {
     name: "BrightID",
-    url: "https://www.brightid.org/",
+    url: "https://www.brightid.org/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/brightid.svg",
     handle: "",
     description:
@@ -40,7 +40,7 @@ export const identity = [
   },
   {
     name: "Iden3",
-    url: "https://iden3.io/",
+    url: "https://iden3.io/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/iden3.svg",
     handle: "",
     description:
@@ -48,7 +48,7 @@ export const identity = [
   },
   {
     name: "101.xyz",
-    url: "https://101.xyz",
+    url: "https://101.xyz/https://sismo.io/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/101.jpeg",
     handle: "",
     description:
@@ -56,7 +56,7 @@ export const identity = [
   },
   {
     name: "Orange Protocol",
-    url: "https://www.orangeprotocol.io/",
+    url: "https://www.orangeprotocol.io/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/orangeprotocol.svg",
     handle: "",
     description:
@@ -64,7 +64,7 @@ export const identity = [
   },
   {
     name: "Sismo",
-    url: "https://alpha.sismo.io",
+    url: "https://sismo.io/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/sismo.svg",
     handle: "",
     description:
@@ -72,7 +72,7 @@ export const identity = [
   },
   {
     name: "Myco",
-    url: "https://www.myco.space/",
+    url: "https://www.myco.space/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/myco.jpeg",
     handle: "",
     description:
@@ -80,7 +80,7 @@ export const identity = [
   },
   {
     name: "Iron Fish",
-    url: "https://ironfish.network",
+    url: "https://ironfish.network/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/ironfish.png",
     handle: "",
     description:
@@ -88,7 +88,7 @@ export const identity = [
   },
   {
     name: "SealCred",
-    url: "https://sealcred.xyz/",
+    url: "https://sealcred.xyz/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/sealcred.jpg",
     handle: "",
     description:
@@ -96,7 +96,7 @@ export const identity = [
   },
   {
     name: "Gateway",
-    url: "https://mygateway.xyz/",
+    url: "https://mygateway.xyz/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/gateway.jpeg",
     handle: "",
     description:
@@ -104,21 +104,29 @@ export const identity = [
   },
   {
     name: "0xPolygonID",
-    url: "https://polygon.technology/polygon-id",
+    url: "https://polygon.technology/polygon-id?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/0xpolygonid.jpeg",
     handle: "",
     description: "Trusted interactions with web3 services.",
   },
   {
     name: "Ceramic Network",
-    url: "https://ceramic.network/",
+    url: "https://ceramic.network/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/ceramicnetwork.jpeg",
     handle: "",
     description: "Trusted interactions with web3 services.",
   },
   {
+    name: "Galxe",
+    url: "https://galxe.com/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
+    logo: "/galxe.svg",
+    handle: "",
+    description:
+      "Collaborative web3 credential data network helping brands engage users and developers to build",
+  },
+  {
     name: "Praise",
-    url: "https://givepraise.xyz/",
+    url: "https://givepraise.xyz/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/praise.jpeg",
     handle: "",
     description:
@@ -126,7 +134,7 @@ export const identity = [
   },
   {
     name: "DegenScore",
-    url: "https://degenscore.com/",
+    url: "https://degenscore.com/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/degenscore.jpeg",
     handle: "",
     description: "Leverage your on-chain reputation across web3",

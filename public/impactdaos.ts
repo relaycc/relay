@@ -1,14 +1,14 @@
 export const impactdaos = [
   {
     name: "Gitcoin DAO - Grants",
-    url: "https://gitcoin.co/grants/",
+    url: "https://gitcoin.co/grants/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/gitcoindaogrants.jpeg",
     handle: "",
     description: "Build and fund digital public goods with quadratic funding",
   },
   {
     name: "Giveth",
-    url: "https://giveth.io/",
+    url: "https://giveth.io/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/giveth.png",
     handle: "",
     description:
@@ -16,7 +16,7 @@ export const impactdaos = [
   },
   {
     name: "KlimaDAO",
-    url: "https://www.klimadao.finance/",
+    url: "https://www.klimadao.finance/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/klimadao.jpeg",
     handle: "",
     description:
@@ -24,7 +24,7 @@ export const impactdaos = [
   },
   {
     name: "ESG DAO",
-    url: "https://www.esgdao.earth/",
+    url: "https://www.esgdao.earth/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/esgdao.png",
     handle: "",
     description:
@@ -32,7 +32,7 @@ export const impactdaos = [
   },
   {
     name: "Toucan",
-    url: "https://toucan.earth/",
+    url: "https://toucan.earth/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/toucan.jpeg",
     handle: "",
     description:
@@ -40,7 +40,7 @@ export const impactdaos = [
   },
   {
     name: "DoinGud",
-    url: "https://doingud.com/",
+    url: "https://doingud.com/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/doingud.jpeg",
     handle: "",
     description:
@@ -56,14 +56,14 @@ export const impactdaos = [
   },
   {
     name: "Panvala",
-    url: "https://www.panvala.com/",
+    url: "https://www.panvala.com/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/panvala.jpeg",
     handle: "",
     description: "Helping communities earn funding",
   },
   {
     name: "New Atlantis",
-    url: "https://newatlantis.io/",
+    url: "https://newatlantis.io/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/newatlantis.jpeg",
     handle: "",
     description:
@@ -79,14 +79,14 @@ export const impactdaos = [
   },
   {
     name: "AquaGoat",
-    url: "https://aquagoat.finance/",
+    url: "https://aquagoat.finance/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/aquagoat.jpeg",
     handle: "",
     description: "Ecocoin looking to help keep all waterways and oceans clean",
   },
   {
     name: "Popcorn",
-    url: "https://www.popcorn.network/",
+    url: "https://www.popcorn.network/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/popcorn.jpeg",
     handle: "",
     description:
@@ -94,7 +94,7 @@ export const impactdaos = [
   },
   {
     name: "CitizenDAO",
-    url: "https://citizendao.io/",
+    url: "https://citizendao.io/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/citizendao.jpeg",
     handle: "",
     description:
@@ -102,7 +102,7 @@ export const impactdaos = [
   },
   {
     name: "Dream DAO",
-    url: "https://www.dreamdao.xyz/",
+    url: "https://www.dreamdao.xyz/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/dreamdao.jpeg",
     handle: "",
     description:
@@ -110,7 +110,7 @@ export const impactdaos = [
   },
   {
     name: "Monograma",
-    url: "https://monograma.io/home/",
+    url: "https://monograma.io/home/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/monograma.png",
     handle: "",
     description:
@@ -118,21 +118,21 @@ export const impactdaos = [
   },
   {
     name: "SeeDAO",
-    url: "https://seedao.xyz/",
+    url: "https://seedao.xyz/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/seedao.jpeg",
     handle: "",
     description: "Introducing web2 creators to the web3 world",
   },
   {
     name: "Big Green DAO",
-    url: "https://dao.biggreen.org/",
+    url: "https://dao.biggreen.org/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/biggreendao.jpeg",
     handle: "",
     description: "Project to radically reconceive and restructure grant-making",
   },
   {
     name: "Ed3 DAO",
-    url: "https://www.ed3dao.com/",
+    url: "https://www.ed3dao.com/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/ed3dao.jpeg",
     handle: "",
     description:
@@ -140,7 +140,7 @@ export const impactdaos = [
   },
   {
     name: "Future Thinkers",
-    url: "https://futurethinkers.org/village/",
+    url: "https://futurethinkers.org/village/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/futurethinkers.png",
     handle: "",
     description:
@@ -148,28 +148,28 @@ export const impactdaos = [
   },
   {
     name: "DAOer",
-    url: "https://www.daoer.xyz/",
+    url: "https://www.daoer.xyz/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/daoer.jpeg",
     handle: "",
     description: "Discover new DAOs",
   },
   {
     name: "Project Ark",
-    url: "https://www.project-ark.co/",
+    url: "https://www.project-ark.co/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/projectark.jpeg",
     handle: "",
     description: "Creating a more sustainable Metaverse for real world impact",
   },
   {
     name: "Give Crypto",
-    url: "https://givecrypto.org/",
+    url: "https://givecrypto.org/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/givecrypto.jpeg",
     handle: "",
     description: "Donate crypto to people in need",
   },
   {
     name: "Endaoment",
-    url: "https://endaoment.org/",
+    url: "https://endaoment.org/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/endaoment.jpeg",
     handle: "",
     description:
@@ -177,7 +177,7 @@ export const impactdaos = [
   },
   {
     name: "The Giving Block",
-    url: "https://thegivingblock.com/",
+    url: "https://thegivingblock.com/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/thegivingblock.png",
     handle: "",
     description:
@@ -185,7 +185,7 @@ export const impactdaos = [
   },
   {
     name: "Daffy",
-    url: "https://www.daffy.org/",
+    url: "https://www.daffy.org/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/daffy.png",
     handle: "",
     description:
@@ -193,7 +193,7 @@ export const impactdaos = [
   },
   {
     name: "UNICEF Crypto Fund",
-    url: "https://cryptofund.unicef.io/home/",
+    url: "https://cryptofund.unicef.io/home/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/unicef.jpeg",
     handle: "",
     description:
@@ -201,7 +201,7 @@ export const impactdaos = [
   },
   {
     name: "On the Other Side podcast",
-    url: "https://www.othersidepod.xyz/",
+    url: "https://www.othersidepod.xyz/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/ontheothersidepodcast.jpeg",
     handle: "",
     description:

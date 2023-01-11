@@ -1,7 +1,7 @@
 export const defi = [
   {
     name: "Uniswap",
-    url: "https://uniswap.org/",
+    url: "https://uniswap.org/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/uniswap.jpeg",
     handle: "",
     description:
@@ -9,7 +9,7 @@ export const defi = [
   },
   {
     name: "MakerDAO",
-    url: "https://makerdao.com/",
+    url: "https://makerdao.com/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/makerdao.jpeg",
     handle: "",
     description:
@@ -17,7 +17,7 @@ export const defi = [
   },
   {
     name: "1inch Network",
-    url: "https://1inch.io/",
+    url: "https://1inch.io/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/1inchnetwork.jpeg",
     handle: "",
     description:
@@ -25,14 +25,14 @@ export const defi = [
   },
   {
     name: "Aave",
-    url: "https://aave.com/",
+    url: "https://aave.com/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/aave.jpeg",
     handle: "",
     description: "Decentralized finance protocol that allows people to lend and borrow crypto.",
   },
   {
     name: "Compound",
-    url: "https://compound.finance/",
+    url: "https://compound.finance/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/compound.png",
     handle: "",
     description:
@@ -40,7 +40,7 @@ export const defi = [
   },
   {
     name: "Synthetix",
-    url: "https://synthetix.io/",
+    url: "https://synthetix.io/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/synthetix.png",
     handle: "",
     description:
@@ -48,7 +48,7 @@ export const defi = [
   },
   {
     name: "0x",
-    url: "https://www.0x.org",
+    url: "https://www.0x.org?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/0x.png",
     handle: "",
     description:
@@ -56,35 +56,35 @@ export const defi = [
   },
   {
     name: "Aztec",
-    url: "https://aztec.network/",
+    url: "https://aztec.network/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/aztec.jpeg",
     handle: "",
     description: "Programmable privacy layer for web3.",
   },
   {
     name: "ElementFi",
-    url: "https://www.element.fi/",
+    url: "https://www.element.fi/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/elementfi.jpeg",
     handle: "",
     description: "Protocol for fixed and variable yield markets.",
   },
   {
     name: "Balancer",
-    url: "https://balancer.fi/",
+    url: "https://balancer.fi/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/balancer.png",
     handle: "",
     description: "Secure infrastructure for liquidity applications",
   },
   {
     name: "Barn Bridge",
-    url: "https://barnbridge.com/",
+    url: "https://barnbridge.com/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/barnbridge.jpeg",
     handle: "",
     description: "Earn sustainable fixed income.",
   },
   {
     name: "Rocket Pool",
-    url: "https://rocketpool.net/#header",
+    url: "https://rocketpool.net/#header?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/rocketpool.jpeg",
     handle: "",
     description:
@@ -92,21 +92,21 @@ export const defi = [
   },
   {
     name: "Concentrator",
-    url: "https://concentrator.aladdin.club/#/vault",
+    url: "https://concentrator.aladdin.club/#/vault?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/concentrator.jpeg",
     handle: "",
     description: "Seamless compounding made for $CRV, $CVX, and $FRAX maxis.",
   },
   {
     name: "Convex Finance",
-    url: "https://www.convexfinance.com/",
+    url: "https://www.convexfinance.com/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/convexfinance.jpeg",
     handle: "",
     description: "Boosts rewards for CRV stakers and liquidity providers.",
   },
   {
     name: "CoW Swap",
-    url: "https://cow.fi/",
+    url: "https://cow.fi/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/cowswap.jpeg",
     handle: "",
     description:
@@ -114,14 +114,14 @@ export const defi = [
   },
   {
     name: "Curve",
-    url: "https://curve.fi/#/ethereum/swap",
+    url: "https://curve.fi/#/ethereum/swap?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/curve.jpeg",
     handle: "",
     description: "Decentralized exchange and automated market maker protocol.",
   },
   {
     name: "dYdX",
-    url: "https://dydx.exchange/",
+    url: "https://dydx.exchange/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/dydx.jpeg",
     handle: "",
     description:
@@ -129,7 +129,7 @@ export const defi = [
   },
   {
     name: "Instadapp",
-    url: "https://instadapp.io/",
+    url: "https://instadapp.io/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/instadapp.jpeg",
     handle: "",
     description:
@@ -137,7 +137,7 @@ export const defi = [
   },
   {
     name: "JustCryptos",
-    url: "https://just.network/",
+    url: "https://just.network/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/justcryptos.jpeg",
     handle: "",
     description:
@@ -145,7 +145,7 @@ export const defi = [
   },
   {
     name: "JustLend",
-    url: "https://app.justlend.org/#/home",
+    url: "https://app.justlend.org/#/hom?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/justlend.webp",
     handle: "",
     description:
@@ -153,42 +153,42 @@ export const defi = [
   },
   {
     name: "Lido",
-    url: "https://lido.fi/",
+    url: "https://lido.fi/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/lido.jpeg",
     handle: "",
     description: "Use your staked assets to gain yield on top of yield.",
   },
   {
     name: "Liquity Protocol",
-    url: "https://www.liquity.org/",
+    url: "https://www.liquity.org/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/liquidityprotocall.jpeg",
     handle: "",
     description: "Interest free borrowing built on ethereum.",
   },
   {
     name: "Alchemix",
-    url: "https://alchemix.fi/",
+    url: "https://alchemix.fi/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/alchemixfi.jpeg",
     handle: "",
     description: "Leverage a range of tokens without risk of liquidation.",
   },
   {
     name: "Morpho Labs",
-    url: "https://www.morpho.xyz/",
+    url: "https://www.morpho.xyz/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/morpholabs.jpeg",
     handle: "",
     description: "Improve your lend & borrow APY with peer-to-peer liquidity.",
   },
   {
     name: "Nested Fi",
-    url: "https://nested.fi/",
+    url: "https://nested.fi/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/nestedfi.jpeg",
     handle: "",
     description: "Build crypto portfolios or copy the best traders.",
   },
   {
     name: "PancakeSwap",
-    url: "https://pancakeswap.finance/",
+    url: "https://pancakeswap.finance/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/pancakeswap.jpeg",
     handle: "",
     description:
@@ -196,21 +196,21 @@ export const defi = [
   },
   {
     name: "PortalsFi",
-    url: "https://portals.fi/",
+    url: "https://portals.fi/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/portalsfi.jpeg",
     handle: "",
     description: "Endpoint for swaps, transaction bundling, farming, and data.",
   },
   {
     name: "StakeDAO",
-    url: "https://stakedao.org/",
+    url: "https://stakedao.org/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/stakedao.jpeg",
     handle: "",
     description: "Yield. Options. Staking. Power from lockable tokens.",
   },
   {
     name: "SushiSwap",
-    url: "https://www.sushi.com/",
+    url: "https://www.sushi.com/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/sushiswap.png",
     handle: "",
     description:
@@ -218,21 +218,21 @@ export const defi = [
   },
   {
     name: "GMX",
-    url: "https://gmx.io/#/",
+    url: "https://gmx.io/#/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/gmx.jpeg",
     handle: "",
     description: "Trade BTC, ETH, AVAX and more with up to 50x leverage.",
   },
   {
     name: "Premia",
-    url: "https://premia.finance/",
+    url: "https://premia.finance/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/premia.jpeg",
     handle: "",
     description: "DeFi native options protocol with market-driven pricing.",
   },
   {
     name: "Arrakis Finance",
-    url: "https://www.arrakis.finance/",
+    url: "https://www.arrakis.finance/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/arrakisfinance.jpeg",
     handle: "",
     description:
@@ -240,49 +240,49 @@ export const defi = [
   },
   {
     name: "Panoptic",
-    url: "https://www.panoptic.xyz/",
+    url: "https://www.panoptic.xyz/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/panoptic.jpeg",
     handle: "",
     description: "Perpetual, oracle-free options protocol.",
   },
   {
     name: "Gamma Swap",
-    url: "https://gammaswap.com/",
+    url: "https://gammaswap.com/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/gammaswap.jpeg",
     handle: "",
     description: "Oracle Free Volatility DEX.",
   },
   {
     name: "VelodromeFi",
-    url: "https://app.velodrome.finance/",
+    url: "https://app.velodrome.finance/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/velodromefi.jpeg",
     handle: "",
     description: "Trading and liquidity marketplace on Optimism.",
   },
   {
     name: "WBTC",
-    url: "https://wbtc.network/",
+    url: "https://wbtc.network/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/wbtc.png",
     handle: "",
     description: "First ERC20 token backed 1:1 with Bitcoin.",
   },
   {
     name: "El Dorado",
-    url: "https://eldorado.io/en/",
+    url: "https://eldorado.io/en/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/eldorado.jpeg",
     handle: "",
     description: "Stablecoin on/off ramps for Latin America",
   },
   {
     name: "Yearn",
-    url: "https://yearn.finance/vaults",
+    url: "https://yearn.finance/vaults?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/Yearn.jpeg",
     handle: "",
     description: "Yield farming platform with an intuitive interface.",
   },
   {
     name: "RWA.xyz",
-    url: "https://www.rwa.xyz/",
+    url: "https://www.rwa.xyz/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/rwa.jpeg",
     handle: "",
     description: "Analytics and news on real world assets used in DeFi",

@@ -1,7 +1,7 @@
 export const lens = [
   {
     name: "Lenster",
-    url: "https://lenster.xyz/",
+    url: "https://lenster.xyz/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/lenster.svg",
     handle: "lenster.lens",
     description:
@@ -9,28 +9,28 @@ export const lens = [
   },
   {
     name: "Phaver",
-    url: "https://phaver.com/",
+    url: "https://phaver.com/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/phaver.jpeg",
     handle: "phaver.lens",
     description: "Mobile first Lens UI, share-to-earn",
   },
   {
     name: "Orb",
-    url: "https://orb.ac/",
+    url: "https://orb.ac/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/ORB.jpeg",
     handle: "orbapp.lens",
     description: "Lens mobile app, made for networking web3 professionals",
   },
   {
     name: "re:meme",
-    url: "https://www.rememe.lol/",
+    url: "https://www.rememe.lol/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/rememe.png",
     handle: "rememe.lens",
     description: "Create and collect the best memes",
   },
   {
     name: "Lenstube",
-    url: "https://lenstube.xyz/",
+    url: "https://lenstube.xyz/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/lenstube.svg",
     handle: "lenstube.lens",
     description:
@@ -38,42 +38,42 @@ export const lens = [
   },
   {
     name: "Lensfrens",
-    url: "https://www.lensfrens.xyz/",
+    url: "https://www.lensfrens.xyz/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/lensgreen.jpeg",
     handle: "lensfrens.lens",
     description: "Lens profile and post UI, made by Lens Protocol team",
   },
   {
     name: "TeaParty",
-    url: "https://app.teaparty.life/",
+    url: "https://app.teaparty.life/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/teaparty.jpeg",
     handle: "teaparty.lens",
     description: "Social-&-Earn (S&E) economy powered by Lens Protocol.",
   },
   {
     name: "LensPort",
-    url: "https://lensport.io/",
+    url: "https://lensport.io/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/lensport.png",
     handle: "lensport.lens",
     description: "Social NFT marketplace built specifically for Lens Protocol",
   },
   {
     name: "Lensta",
-    url: "https://www.lensta.xyz/",
+    url: "https://www.lensta.xyz/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/lensgreen.jpeg",
     handle: "",
     description: "Image feed for Lens Protocol.",
   },
   {
     name: "LensAlert",
-    url: "https://lensalert.me/",
+    url: "https://lensalert.me/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/LensAlert.jpeg",
     handle: "",
     description: "Notification module for Lens Protocol.",
   },
   {
     name: "Buttrfly",
-    url: "https://www.buttrfly.app/",
+    url: "https://www.buttrfly.app/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/buttrfly.png",
     handle: "",
     description:
@@ -81,28 +81,28 @@ export const lens = [
   },
   {
     name: "Amnisiac",
-    url: "https://www.amnisiac.xyz/",
+    url: "https://www.amnisiac.xyz/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/amnisiac.png",
     handle: "",
     description: "Decentralized music app built on Lens protocol..",
   },
   {
     name: "Lenstats",
-    url: "https://lenstats.xyz/",
+    url: "https://lenstats.xyz/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/LensAnalytics.png",
     handle: "",
     description: "Web app to track data on Lens Protocol.",
   },
   {
     name: "Greenhouse",
-    url: "https://greenhouse.social/",
+    url: "https://greenhouse.social/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/Greenhouse.svg",
     handle: "greenhouse.lens",
     description: "Grow and spread your web3 roots.",
   },
   {
     name: "LensDrop",
-    url: "https://lensdrop.netlify.app/",
+    url: "https://lensdrop.netlify.app/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/lensdrop.png",
     handle: "lensdrop.lens",
     description:
@@ -110,7 +110,7 @@ export const lens = [
   },
   {
     name: "Superfun",
-    url: "https://lens.superfun.social/",
+    url: "https://lens.superfun.social/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/lensgreen.jpeg",
     handle: "superfun.lens",
     description:
@@ -118,7 +118,7 @@ export const lens = [
   },
   {
     name: "YUP",
-    url: "https://app.yup.io/",
+    url: "https://app.yup.io/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/Yup.jpeg",
     handle: "yup_io.lens",
     description:
@@ -126,21 +126,21 @@ export const lens = [
   },
   {
     name: "Lens Garden",
-    url: "https://lensgarden.xyz/",
+    url: "https://lensgarden.xyz/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/lensgreen.jpeg",
     handle: "",
     description: "Explore blooming projects of the Lens ecosystem.",
   },
   {
     name: "Dune Lens Overview",
-    url: "https://dune.com/rustamov/overview",
+    url: "https://dune.com/niftytable/Lens/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/dune.png",
     handle: "",
     description: "Data analytics dashboard about the Lens ecosystem",
   },
   {
     name: "PhiLand",
-    url: "https://philand.xyz/",
+    url: "https://philand.xyz/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/philand.svg",
     handle: "philand.lens",
     description:
@@ -148,21 +148,21 @@ export const lens = [
   },
   {
     name: "Lens Analytics",
-    url: "https://www.lensanalytics.xyz/",
+    url: "https://www.lensanalytics.xyz/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/lensgreen.jpeg",
     handle: "",
     description: "Leaderboard and metrics on Lens",
   },
   {
     name: "Stats Lens",
-    url: "https://stats.lens.xyz/",
+    url: "https://stats.lens.xyz/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/lensgreen.jpeg",
     handle: "",
     description: "Data metrics for Lens Protocol.",
   },
   {
     name: "Sepana",
-    url: "https://lens.sepana.io/",
+    url: "https://lens.sepana.io/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/lensgreen.jpeg",
     handle: "sepana.lens",
     description: "Open-source search infrastructure for the Lens protocol.",
@@ -177,7 +177,7 @@ export const lens = [
   },
   {
     name: "Leaderboard",
-    url: "https://leaderboard.withlens.app/",
+    url: "https://leaderboard.withlens.app/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/lensgreen.jpeg",
     handle: "",
     description: "Leaderboard of profiles on Lens Protocol.",
@@ -185,53 +185,53 @@ export const lens = [
 
   {
     name: "InLens",
-    url: "https://inlens.xyz/",
+    url: "https://inlens.xyz/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/inlens.svg",
     handle: "inlens.lens",
     description: "Find your friends from Twitter in Lens Protocol.",
   },
   {
     name: "Reflect",
-    url: "https://reflect.withlens.app/",
+    url: "https://reflect.withlens.app/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/lensgreen.jpeg",
     description: "Auto-tweet new Lens publications.",
   },
   {
     name: "Cultivator",
-    url: "https://cultivator.cc/",
+    url: "https://cultivator.cc/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/cultivator.png",
     handle: "cultivator.lens",
     description: "Explore the Lens Protocol Social Graph.",
   },
   {
     name: "Nimi",
-    url: "https://nimi.eth.limo/",
+    url: "https://nimi.eth.limo/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/nimi.png",
     handle: "0xnimi.eth",
     description: "Your personal web3 front page.",
   },
   {
     name: "Mashmesh",
-    url: "https://social.mashmesh.knn3.xyz/",
+    url: "https://social.mashmesh.knn3.xyz/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/Mashmesh.jpeg",
     description: "Relationship explorer to find new friends on Lens Protocol.",
   },
   {
     name: "Ooh la la",
-    url: "https://www.oohlala.xyz/",
+    url: "https://www.oohlala.xyz/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/oohlala.png",
     description: "The web3 music player/aggregator.",
   },
   {
     name: "StemsDAO",
-    url: "https://www.stemsdao.com/",
+    url: "https://www.stemsdao.com/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/SteamDAO.jpeg",
     handle: "stems.lens",
     description: "Make music with your favorite artist.",
   },
   {
     name: "Soclly",
-    url: "https://www.soclly.com/",
+    url: "https://www.soclly.com/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/soclly.jpeg",
     handle: "soclly.lens",
     description:
@@ -239,7 +239,7 @@ export const lens = [
   },
   {
     name: "Embed",
-    url: "https://embed.withlens.app/",
+    url: "https://embed.withlens.app/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/lensgreen.jpeg",
     handle: "embed.lens",
     description:
@@ -247,7 +247,7 @@ export const lens = [
   },
   {
     name: "Mad.Finance",
-    url: "https://madfinance.xyz/",
+    url: "https://madfinance.xyz/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/Madfinance.png",
     handle: "madfinance.lens",
     description:
@@ -255,7 +255,7 @@ export const lens = [
   },
   {
     name: "Harfang",
-    url: "https://harfang.app/",
+    url: "https://harfang.app/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/harfang.png",
     handle: "harfang.lens",
     description:
@@ -277,7 +277,7 @@ export const lens = [
   },
   {
     name: "Alps Finance",
-    url: "https://app.alps.finance/",
+    url: "https://app.alps.finance/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/Alpsfinance.jpeg",
     handle: "alpsfinance.lens",
     description:
@@ -285,7 +285,7 @@ export const lens = [
   },
   {
     name: "Garden",
-    url: "https://garden.withlens.app/",
+    url: "https://garden.withlens.app/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/lensgreen.jpeg",
     handle: "",
     description:
@@ -293,14 +293,14 @@ export const lens = [
   },
   {
     name: "Meetvers",
-    url: "https://app.meetvers.io/",
+    url: "https://app.meetvers.io/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/meetverse.jpeg",
     handle: "meetvers.lens",
     description: "Find friends with a similar web3 footprint.",
   },
   {
     name: "Lens Share",
-    url: "https://lens-share.apoorv.xyz/",
+    url: "https://lens-share.apoorv.xyz/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/lensgreen.jpeg",
     handle: "",
     description: "Post your Tweets to Lens Protocol.",

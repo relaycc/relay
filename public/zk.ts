@@ -1,14 +1,14 @@
 export const zk = [
   {
     name: "Zcash",
-    url: "https://z.cash/",
+    url: "https://z.cash/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/zcash.jpeg",
     handle: "",
     description: "Private financial transactions using zkSNARK.",
   },
   {
     name: "Sismo",
-    url: "https://www.sismo.io/",
+    url: "https://www.sismo.io/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/sismo.jpeg",
     handle: "",
     description:
@@ -16,7 +16,7 @@ export const zk = [
   },
   {
     name: "zkPass",
-    url: "https://zkpass.org/",
+    url: "https://zkpass.org/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/zkpass.jpeg",
     handle: "",
     description:
@@ -24,7 +24,7 @@ export const zk = [
   },
   {
     name: "Notebook",
-    url: "https://www.notebooklabs.xyz/",
+    url: "https://www.notebooklabs.xyz/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/notebooklabs.png",
     handle: "",
     description:
@@ -32,7 +32,7 @@ export const zk = [
   },
   {
     name: "Semaphore",
-    url: "https://semaphore.appliedzkp.org/",
+    url: "https://semaphore.appliedzkp.org/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/semaphore.svg",
     handle: "",
     description:
@@ -40,7 +40,7 @@ export const zk = [
   },
   {
     name: "Nuggets",
-    url: "https://nuggets.life/",
+    url: "https://nuggets.life/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/nuggets.jpeg",
     handle: "",
     description:
@@ -48,7 +48,7 @@ export const zk = [
   },
   {
     name: "Holonym",
-    url: "https://www.holonym.id/",
+    url: "https://www.holonym.id/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/holonym.jpeg",
     handle: "",
     description:
@@ -56,7 +56,7 @@ export const zk = [
   },
   {
     name: "Worldcoin",
-    url: "https://worldcoin.org/",
+    url: "https://worldcoin.org/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/worldcoin.jpeg",
     handle: "",
     description:
@@ -64,7 +64,7 @@ export const zk = [
   },
   {
     name: "Interep",
-    url: "https://interep.link/",
+    url: "https://interep.link/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/interep.jpeg",
     handle: "",
     description:
@@ -72,7 +72,7 @@ export const zk = [
   },
   {
     name: "Iden3",
-    url: "https://iden3.io/",
+    url: "https://iden3.io/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/iden3.png",
     handle: "",
     description:
@@ -80,7 +80,7 @@ export const zk = [
   },
   {
     name: "OutDID",
-    url: "https://www.outdid.io/",
+    url: "https://www.outdid.io/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/outdid.jpeg",
     handle: "",
     description:
@@ -88,7 +88,7 @@ export const zk = [
   },
   {
     name: "Electron Labs",
-    url: "https://electronlabs.org/",
+    url: "https://electronlabs.org/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/electronlabs.jpeg",
     handle: "",
     description:
@@ -96,7 +96,7 @@ export const zk = [
   },
   {
     name: "Succinct Labs",
-    url: "https://succinct.xyz/",
+    url: "https://succinct.xyz/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/succinct.jpeg",
     handle: "",
     description:
@@ -104,7 +104,7 @@ export const zk = [
   },
   {
     name: "Slush",
-    url: "https://slush.dev/",
+    url: "https://slush.dev/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/slushdev.jpeg",
     handle: "",
     description:
@@ -112,7 +112,7 @@ export const zk = [
   },
   {
     name: "Polymer",
-    url: "https://www.polymerlabs.org/",
+    url: "https://www.polymerlabs.org/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/polymer.jpeg",
     handle: "",
     description: "Enable ZK-IBC connectivity.",
@@ -127,21 +127,21 @@ export const zk = [
   },
   {
     name: "Railgun",
-    url: "https://www.railgun.org/#/",
+    url: "https://www.railgun.org/#/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/railgun.jpeg",
     handle: "",
     description: "Adds privacy protection to cryptocurrency transactions.",
   },
   {
     name: "Namada",
-    url: "https://namada.net/",
+    url: "https://namada.net/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/namada.jpeg",
     handle: "",
     description: "Proof-of-Stake L1 for interchain asset-agnostic privacy.",
   },
   {
     name: "Nym",
-    url: "https://nymtech.net/",
+    url: "https://nymtech.net/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/nym.jpeg",
     handle: "",
     description:
@@ -149,21 +149,21 @@ export const zk = [
   },
   {
     name: "Otter Cash",
-    url: "https://otter.cash/",
+    url: "https://otter.cash/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/ottercash.svg",
     handle: "",
     description: "Lets you anonymize your SOL.",
   },
   {
     name: "Corda",
-    url: "https://corda.net/",
+    url: "https://corda.net/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/corda.jpeg",
     handle: "",
     description: "DLT platform designed for regulated markets.",
   },
   {
     name: "Manta",
-    url: "https://www.manta.network/",
+    url: "https://www.manta.network/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/manta.jpeg",
     handle: "",
     description: "Onchain multi-asset shielded pool using zkSNARK.",
