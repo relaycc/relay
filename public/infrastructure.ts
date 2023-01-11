@@ -58,7 +58,7 @@ export const infrastructure = [
   {
     name: "Delegatable",
     url: "https://delegatable.org/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
-    logo: "/delegatable.jpeg",
+    logo: "/delegatable.png",
     handle: "",
     description:
       "Solidity framework for extending smart contracts with counterfactual revocable-delegation",

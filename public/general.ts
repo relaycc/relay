@@ -39,7 +39,7 @@ export const general = [
   {
     name: "Coinbase",
     url: "https://coinbase.com/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
-    logo: "/coinbase.jpeg",
+    logo: "/coinbase.png",
     handle: "",
     description: "The most trusted crypto exchange.",
   },
