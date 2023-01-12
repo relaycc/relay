@@ -63,22 +63,23 @@ export const Page: FunctionComponent<{
             </li>
             <li
               onClick={() => {
-                setCategory(lens);
-              }}
-              className={`cursor-pointer text-xl ${
-                category === lens && "underline text-blue-800"
-              }`}
-            >
-              </li>
-            <li
-              onClick={() => {
                 setCategory(recent);
               }}
-              className={`cursor-pointer text-xl whitespace-nowrap ${
+              className={`cursor-pointer text-xl ${
                 category === recent && "underline text-blue-800"
               }`}
             >
               New
+              </li>
+            <li
+              onClick={() => {
+                setCategory(lens);
+              }}
+              className={`cursor-pointer text-xl whitespace-nowrap ${
+                category === lens && "underline text-blue-800"
+              }`}
+            >
+              Lens
             </li>
             <li
               onClick={() => {
