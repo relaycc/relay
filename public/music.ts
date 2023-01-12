@@ -145,6 +145,7 @@ export const music = [
     name: "Anotherblock",
     url: "https://anotherblock.io/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/anotherblock.jpeg",
+    handle: "0x9ef75b412D8466B9b35F3A1Bf7a809a5C6d0Aa7C",
     description:
       "Own a share of your favorite song & earn royalties alongside your favorite artist.",
   },
