@@ -168,6 +168,14 @@ export const general = [
       "Personal metaverse created from ENS domainas and on-chain activities",
   },
   {
+    name: "Lit Protocol",
+    url: "https://litprotocol.com/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
+    logo: "/lit.jpeg",
+    handle: "",
+    description:
+      "Lit is decentralized cryptography for compute, encryption, and access control. Free the Web",
+  },
+  {
     name: "Backdrop",
     url: "https://backdrop.so/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/backdrop.svg",
