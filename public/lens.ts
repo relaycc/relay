@@ -134,7 +134,7 @@ export const lens = [
     url: "https://www.wagmi.fund//?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/wagmifund.jpeg",
     handle: "wagmifund.lens",
-    description: "A web3 crowdfunding platform built on top of Lens",
+    description: "A web3 crowdfunding platform built on and for the Lens ecosystem",
   },
   {
     name: "Ensō Collective",
