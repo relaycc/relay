@@ -254,7 +254,7 @@ export const defi = [
     description: "Perpetual, oracle-free options protocol.",
   },
   {
-    name: "Gamme Swap",
+    name: "Gamma Swap",
     url: "https://gammaswap.com/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/gammaswap.jpeg",
     handle: "",

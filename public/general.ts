@@ -44,6 +44,14 @@ export const general = [
     description: "The most trusted crypto exchange.",
   },
   {
+    name: "XMTP",
+    url: "https://www.xmtp.org/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
+    logo: "/xmtp.jpeg",
+    handle: "xmtplabs.lens",
+    description:
+      "The open protocol for secure web3 messaging",
+  },
+  {
     name: "Guild",
     url: "https://guild.xyz/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/guild.jpeg",
