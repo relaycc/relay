@@ -22,6 +22,20 @@ export const general = [
       "The world's first and largest web3 marketplace for NFTs and crypto collectibles",
   },
   {
+    name: "Metamask",
+    url: "https://metamask.io/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
+    logo: "/metamask.jpeg",
+    handle: "",
+    description: "The world's leading web3 wallet",
+  },
+  {
+    name: "Consensys",
+    url: "https://consensys.net/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
+    logo: "/consensys.jpeg",
+    handle: "",
+    description: "Leading #thereum blockchain software company. Our products help users, developers, and financial institutions build a more trusted digital economy.",
+  },
+  {
     name: "Lens",
     url: "https://lens.xyz/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/lensgreen.jpeg",
@@ -42,6 +56,13 @@ export const general = [
     logo: "/coinbase.png",
     handle: "",
     description: "The most trusted crypto exchange.",
+  },
+  {
+    name: "EthGlobal",
+    url: "https://ethglobal.com/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
+    logo: "/ethglobal.jpeg",
+    handle: "",
+    description: "Worldwide hackathons growing the Ethereum ecosystem.",
   },
   {
     name: "XMTP",
@@ -82,6 +103,13 @@ export const general = [
     description: "Kickstart your Web3 career for free.",
   },
   {
+    name: "Zerion",
+    url: "https://link3.to/zerion/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
+    logo: "/zerion.jpeg",
+    handle: "",
+    description: "Smart & Social Web3 Wallet | Explore, buidl & track your DeFi & NFT portfolios - on any chain, dApp, and wallet.",
+  },
+  {
     name: "Lenstube",
     url: "https://lenstube.xyz/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/lenstube.svg",
@@ -103,6 +131,20 @@ export const general = [
     handle: "",
     description:
       "Web3 NFT social media network for creators & collectors to showcase digital art",
+  },
+  {
+    name: "Upshot",
+    url: "https://upshot.xyz/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
+    logo: "/upshot.jpeg",
+    handle: "",
+    description: "Upshot provides deep insights into NFT markets and unlocks a wave of exotic new DeFi possibilities.",
+  },
+  {
+    name: "Launch House",
+    url: "https://www.launchhouse.com/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
+    logo: "/launchhouse.jpeg",
+    handle: "",
+    description: "a membership community to help ambitious founders, engineers, investors and more. web3 integations and VCs.",
   },
   {
     name: "DeepDAO",
@@ -234,6 +276,13 @@ export const general = [
     logo: "/unstoppabledomains.jpeg",
     handle: "",
     description: "Own your identity in the digital world.",
+  },
+  {
+    name: "Loot",
+    url: "https://www.lootproject.com/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
+    logo: "/loot.jpeg",
+    handle: "",
+    description: "Loot is randomized adventurer gear generated and stored on chain",
   },
   {
     name: "Oohlala",

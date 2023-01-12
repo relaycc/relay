@@ -39,6 +39,13 @@ export const dao = [
       "SNX stakers vote directly, or for elected committess and councils that govern the Synthetix protocol",
   },
   {
+    name: "Syndicate",
+    url: "https://syndicate.io/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
+    logo: "/syndicate.jpeg",
+    handle: "",
+    description: "Investing Infrastructure for Web3.",
+  },
+  {
     name: "BanklessDAO",
     url: "https://www.bankless.community/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/banklessdao.jpeg",
@@ -60,6 +67,20 @@ export const dao = [
     handle: "",
     description:
       "CRV holders take part in the voting process of the Curve network",
+  },
+  {
+    name: "DeveloperDAO",
+    url: "https://www.developerdao.com/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
+    logo: "/developerdao.jpeg",
+    handle: "",
+    description: "Build web3 with friends. Workshop, blog, talent board.",
+  },
+  {
+    name: "LexDAO",
+    url: "https://www.matchboxdao.com/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
+    logo: "/lexdao.jpeg",
+    handle: "",
+    description: "legal engineering | crypto law",
   },
   {
     name: "0x DAO",
@@ -257,6 +278,14 @@ export const dao = [
     description: "Develops, governs, and grows DeFi products.",
   },
   {
+    name: "CabinDAO",
+    url: "https://www.cabin.city/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
+    logo: "/cabindao.jpeg",
+    handle: "",
+    description:
+      "Collection of remarkable coliving properties tied by a shared culture, community, economy, and governance.",
+  },
+  {
     name: "BitDAO",
     url: "https://www.bitdao.io/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/bitdao.png",
@@ -287,19 +316,18 @@ export const dao = [
     description: "Build multiplayer crypto software.",
   },
   {
+    name: "MatchboxDAO",
+    url: "https://www.matchboxdao.com/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
+    logo: "/matchbox.jpeg",
+    handle: "",
+    description: "The ecosystem DAO to ignite and fuel fully on-chain games",
+  },
+  {
     name: "FingerprintsDAO",
     url: "https://fingerprintsdao.xyz/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/fingerprintdao.jpeg",
     handle: "",
     description: "The hub for blockchain art.",
-  },
-  {
-    name: "CabinDAO",
-    url: "https://www.cabin.city/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
-    logo: "/cabindao.jpeg",
-    handle: "",
-    description:
-      "Collection of remarkable coliving properties tied by a shared culture, community, economy, and governance.",
   },
   {
     name: "XDAO",

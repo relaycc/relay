@@ -25,12 +25,47 @@ export const infrastructure = [
       "Lit is decentralized cryptography for compute, encryption, and access control. Free the Web",
   },
   {
+    name: "thirdweb",
+    url: "https://thirdweb.com/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
+    logo: "/thirdweb.jpeg",
+    handle: "",
+    description: "The complete web3 development framework.",
+  },
+  {
+    name: "Tableland",
+    url: "https://tableland.xyz/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
+    logo: "/tableland.jpeg",
+    handle: "",
+    description: "Supercharge NFTs, metaverses, and games. Create dynamic web3 experiences through relational data and SQL.",
+  },
+  {
+    name: "Light Wallet",
+    url: "https://wallet.light.so/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
+    logo: "/light.jpeg",
+    handle: "",
+    description: "Open source wallet prototype exploring edges of crypto on mobile. One click wallet access inside iOS Safari.",
+  },
+  {
     name: "Nouns Builder",
     url: "https://nouns.build/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/nounsbuilder.jpeg",
     handle: "",
     description:
       "Nouns Builder is a tool that allows any DAO to form and govern completely onchain, in the format of Nouns DAO.",
+  },
+  {
+    name: "Fire",
+    url: "https://www.joinfire.xyz/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
+    logo: "/fire.jpeg",
+    handle: "",
+    description: "The browser extension that shows a preview of what will enter and exit your wallet, before you sign.",
+  },
+  {
+    name: "Manifold",
+    url: "https://manifold.xyz/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
+    logo: "/manifold.jpeg",
+    handle: "",
+    description: "Tools to enable creative sovereignty in web3.",
   },
   {
     name: "Juicebox",

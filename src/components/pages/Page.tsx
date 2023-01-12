@@ -17,6 +17,7 @@ import { defi } from "../../../public/defi";
 import { dao } from "../../../public/dao";
 import { zk } from "../../../public/zk";
 import { daotool } from "../../../public/daotool";
+import { recent } from "../../../public/recent";
 import { infrastructure } from "../../../public/infrastructure";
 import { Footer } from "components/Footer";
 
@@ -68,7 +69,16 @@ export const Page: FunctionComponent<{
                 category === lens && "underline text-blue-800"
               }`}
             >
-              Lens
+              </li>
+            <li
+              onClick={() => {
+                setCategory(recent);
+              }}
+              className={`cursor-pointer text-xl whitespace-nowrap ${
+                category === recent && "underline text-blue-800"
+              }`}
+            >
+              New
             </li>
             <li
               onClick={() => {
