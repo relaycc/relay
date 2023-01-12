@@ -89,7 +89,7 @@ export const lens = [
   {
     name: "Fanstastic",
     url: "https://fanstastic.app/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
-    logo: "/fantastic.jpeg",
+    logo: "/fanstastic.jpeg",
     handle: "",
     description: "Decentralized social media for content creators."
   },
