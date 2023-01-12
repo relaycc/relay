@@ -131,13 +131,6 @@ export const daotool = [
     description: "An infrastructure for Delegates. Excellent delegate guide and stats.",
   },
   {
-    name: "Senate Labs",
-    url: "https://twitter.com/SenateLabs?utm_source=relay&utm_medium=web&utm_content=dapp_details",
-    logo: "/senate.jpeg",
-    handle: "",
-    description: "An infrastructure for Delegates. Excellent delegate guide and stats.",
-  },
-  {
     name: "Sybil",
     url: "https://sybil.org/#/delegates/uniswap?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/sybil.png",
