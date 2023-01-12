@@ -164,7 +164,7 @@ export const dao = [
       "Member-owned community. $SPORK holders direct the community's events, investments, & interests.",
   },
   {
-    name: "HerDAO",
+    name: "H.E.R.DAO",
     url: "https://linktr.ee/H.E.R.DAO/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/herdao.jpeg",
     handle: "her-dao.lens",
