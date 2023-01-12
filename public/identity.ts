@@ -55,6 +55,14 @@ export const identity = [
       "The central hub for online courses that issue crypto rewards. Built for decentralized communities.",
   },
   {
+    name: "Welook",
+    url: "https://welook.io/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
+    logo: "/welook.jpeg",
+    handle: "welook.lens",
+    description:
+      "Web3 Social Platform | Building the future of NFTs with POAP integrations",
+  },
+  {
     name: "Orange Protocol",
     url: "https://www.orangeprotocol.io/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/orangeprotocol.svg",

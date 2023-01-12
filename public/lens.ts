@@ -294,7 +294,7 @@ export const lens = [
   {
     name: "Lens React Kit",
     url: "https://github.com/daoleno/lenskit/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
-    logo: "/lenskit.jpg",
+    logo: "/lenskit.jpeg",
     handle: "",
     description: "Community-built Lens Protocol UI React kit with great demo site"
   },
