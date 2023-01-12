@@ -140,6 +140,14 @@ export const dao = [
       "SUSHI holders participate on building a comprehensive decentralized trading platform at SushiSwap",
   },
   {
+    name: "Boys Club",
+    url: "https://boysclub.vip/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
+    logo: "/boysclub.jpeg",
+    handle: "boyclub.lens",
+    description:
+      "Member-owned community. $SPORK holders direct the community's events, investments, & interests.",
+  },
+  {
     name: "BitDAO",
     url: "https://www.bitdao.io/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/bitdao.png",
@@ -154,14 +162,6 @@ export const dao = [
     handle: "",
     description:
       "AUDIO token holders directly shape future iterations of the Audius platform and its decentralized infrastructure",
-  },
-  {
-    name: "Boys Club",
-    url: "https://boysclub.vip/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
-    logo: "/boysclub.jpeg",
-    handle: "boyclub.lens",
-    description:
-      "Member-owned community. $SPORK holders direct the community's events, investments, & interests.",
   },
   {
     name: "H.E.R.DAO",
