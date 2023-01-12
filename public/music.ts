@@ -176,8 +176,8 @@ export const music = [
   },
   {
     name: "Phlote DAO",
-    url: "https://www.phlote.co/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
-    logo: "/phlotedao.png",
+    url: "https://twitter.com/teamphlote?utm_source=relay&utm_medium=web&utm_content=dapp_details",
+    logo: "/phlote.jpeg",
     description: "Introducing the best new music we find everyday, to you.",
   },
   {

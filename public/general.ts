@@ -173,14 +173,14 @@ export const general = [
     logo: "/lit.jpeg",
     handle: "",
     description:
-      "Lit is decentralized cryptography for compute, encryption, and access control. Free the Web",
+      "Lit is decentralized cryptography for compute, encryption, and access control. Free the Web.",
   },
   {
     name: "Backdrop",
     url: "https://backdrop.so/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
-    logo: "/backdrop.svg",
+    logo: "/backdrop.jpeg",
     handle: "",
-    description: "Dive into leading tokenized projects and DAOs across web3",
+    description: "Professional network for builders in web3, working towards a sufficiently decentralized professional network",
   },
   {
     name: "Farcaster",

@@ -87,9 +87,9 @@ export const lens = [
     description: "Publish, read, connect and collect the best writings of your favorite authors."
   },
   {
-    name: "Fantastic",
+    name: "Fanstastic",
     url: "https://fanstastic.app/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
-    logo: "/fantastic.jpeg",
+    logo: "/fanstastic.jpeg",
     handle: "",
     description: "Decentralized social media for content creators."
   },
