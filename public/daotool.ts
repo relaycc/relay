@@ -50,6 +50,13 @@ export const daotool = [
       "Platform for DAOs to quickly and fairly distribute resources to contributors.",
   },
   {
+    name: "Aragon",
+    url: "https://aragon.org/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
+    logo: "/aragon.jpeg",
+    handle: "",
+    description: "Build your DAO on open-source infrastructure with governance plugins.",
+  },
+  {
     name: "Quest",
     url: "https://quest3.xyz/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/quest.jpeg",
@@ -117,11 +124,11 @@ export const daotool = [
       "Complete tasks, learn skills, and earn credentials that prove your knowledge.",
   },
   {
-    name: "Aragon",
-    url: "https://aragon.org/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
-    logo: "/aragon.jpeg",
+    name: "Senate Labs",
+    url: "https://twitter.com/SenateLabs?utm_source=relay&utm_medium=web&utm_content=dapp_details",
+    logo: "/senate.jpeg",
     handle: "",
-    description: "Build your DAO on open-source infrastructure with governance plugins.",
+    description: "An infrastructure for Delegates. Excellent delegate guide and stats.",
   },
   {
     name: "Senate Labs",
