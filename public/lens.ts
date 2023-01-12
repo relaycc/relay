@@ -22,13 +22,6 @@ export const lens = [
     description: "Lens mobile app, made for networking web3 professionals",
   },
   {
-    name: "re:meme",
-    url: "https://www.rememe.lol/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
-    logo: "/rememe.png",
-    handle: "rememe.lens",
-    description: "Create and collect the best memes",
-  },
-  {
     name: "Lenstube",
     url: "https://lenstube.xyz/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/lenstube.svg",
@@ -185,6 +178,13 @@ export const lens = [
     logo: "/meetverse.jpeg",
     handle: "meetvers.lens",
     description: "Find friends with a similar web3 footprint.",
+  },
+  {
+    name: "re:meme",
+    url: "https://www.rememe.lol/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
+    logo: "/rememe.png",
+    handle: "rememe.lens",
+    description: "Create and collect the best memes",
   },
   {
     name: "LensDrop",
