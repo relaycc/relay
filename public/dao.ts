@@ -108,6 +108,22 @@ export const dao = [
       "BAL token holders make decisions about new features and directions of where Balancer protocol should go",
   },
   {
+    name: "SporkDAO",
+    url: "https://www.sporkdao.org//?utm_source=relay&utm_medium=web&utm_content=dapp_details",
+    logo: "/sporkdao.jpeg",
+    handle: "sporkdao.eth",
+    description:
+      "Member-owned community. $SPORK holders direct the community's events, investments, & interests.",
+  },
+  {
+    name: "SheFi",
+    url: "https://www.shefi.org/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
+    logo: "/shefi.jpeg",
+    handle: "shefi.lens",
+    description:
+      "Financial Freedom is Feminine | JOIN Cohort 8 → http://tinyurl.com/season8shefi | For Partnerships: http://tinyurl.com/sheficollab",
+  },
+  {
     name: "Yearn DAO",
     url: "https://yearn.finance/vaults/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/yearndao.jpeg",
@@ -124,6 +140,14 @@ export const dao = [
       "SUSHI holders participate on building a comprehensive decentralized trading platform at SushiSwap",
   },
   {
+    name: "Boys Club",
+    url: "https://boysclub.vip/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
+    logo: "/boysclub.jpeg",
+    handle: "boyclub.lens",
+    description:
+      "Member-owned community. $SPORK holders direct the community's events, investments, & interests.",
+  },
+  {
     name: "BitDAO",
     url: "https://www.bitdao.io/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/bitdao.png",
@@ -138,6 +162,14 @@ export const dao = [
     handle: "",
     description:
       "AUDIO token holders directly shape future iterations of the Audius platform and its decentralized infrastructure",
+  },
+  {
+    name: "H.E.R.DAO",
+    url: "https://linktr.ee/H.E.R.DAO/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
+    logo: "/herdao.jpeg",
+    handle: "her-dao.lens",
+    description:
+      "A womxn focused developer DAO championing innovation & diversity.",
   },
   {
     name: "SuperUMAn DAO",

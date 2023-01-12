@@ -1,11 +1,12 @@
 export const infrastructure = [
+  
   {
-    name: "Gelato",
-    url: "https://www.gelato.network/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
-    logo: "/gelato.jpeg",
-    handle: "",
+    name: "XMTP",
+    url: "https://www.xmtp.org/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
+    logo: "/xmtp.jpeg",
+    handle: "xmtplabs.lens",
     description:
-      "Create augmented smart contracts that are automated, gasless & off-chain aware.",
+      "The open protocol for secure web3 messaging",
   },
   {
     name: "Plex",

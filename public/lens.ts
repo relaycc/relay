@@ -127,7 +127,14 @@ export const lens = [
     url: "https://www.amnisiac.xyz/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/amnisiac.png",
     handle: "",
-    description: "Decentralized music app built on Lens protocol..",
+    description: "Decentralized music app built on Lens protocol.",
+  },
+  {
+    name: "Wagmi Fund",
+    url: "https://www.wagmi.fund//?utm_source=relay&utm_medium=web&utm_content=dapp_details",
+    logo: "/wagmifund",
+    handle: "wagmifund.lens",
+    description: "A web3 crowdfunding platform built on top of Lens",
   },
   {
     name: "Ensō Collective",
@@ -287,7 +294,7 @@ export const lens = [
   {
     name: "Lens Human",
     url: "https://human.withlens.app/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
-    logo: "/lensgreen.png",
+    logo: "/plantonly.png",
     handle: "",
     description: "Sybil resistance + Lens profiles. Proof-of-1-lens-account."
   },
