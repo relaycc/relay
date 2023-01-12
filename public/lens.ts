@@ -130,7 +130,7 @@ export const lens = [
     description: "Decentralized music app built on Lens protocol..",
   },
   {
-    name: "Enso Collective",
+    name: "Ensō Collective",
     url: "https://ensocollective.xyz/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/enso.png",
     handle: "ensocollective.lens",
