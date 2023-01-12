@@ -42,6 +42,7 @@ export const music = [
     name: "Ooh la la",
     url: "https://www.oohlala.xyz/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/oohlala.png",
+    handle: "oohlala.lens",
     description: "The web3 music player/aggregator.",
   },
   {

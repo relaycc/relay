@@ -12,7 +12,7 @@ import { general } from "../../../public/general";
 import { lens } from "../../../public/lens";
 import { identity } from "../../../public/identity";
 import { music } from "../../../public/music";
-import { impactdaos } from "../../../public/impactdaos";
+import { impactdao } from "../../../public/impactdao";
 import { defi } from "../../../public/defi";
 import { dao } from "../../../public/dao";
 import { zk } from "../../../public/zk";
@@ -122,13 +122,13 @@ export const Page: FunctionComponent<{
             </li>
             <li
               onClick={() => {
-                setCategory(impactdaos);
+                setCategory(impactdao);
               }}
               className={`cursor-pointer text-xl ${
-                category === impactdaos && "underline text-blue-800"
+                category === impactdao && "underline text-blue-800"
               }`}
             >
-              ImpactDAOs
+              ImpactDAO
             </li>
             <li
               onClick={() => {

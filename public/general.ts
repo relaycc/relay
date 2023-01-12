@@ -136,12 +136,28 @@ export const general = [
     description: "The fastest NFT marketplace for pro traders.",
   },
   {
+    name: "Lit Protocol",
+    url: "https://litprotocol.com/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
+    logo: "/lit.jpeg",
+    handle: "",
+    description:
+      "Lit is decentralized cryptography for compute, encryption, and access control. Free the Web",
+  },
+  {
     name: "Boardroom",
     url: "https://boardroom.io/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/boardroom.png",
     handle: "",
     description:
       "Governance portal helping users discover, track, and make more informed decisions",
+  },
+  {
+    name: "Lenster",
+    url: "https://lenster.xyz/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
+    logo: "/lenster.svg",
+    handle: "lenster.lens",
+    description:
+      "Composable, decentralized, and permissionless social media web app built with Lens Protocol.",
   },
   {
     name: "Phi",
@@ -198,13 +214,6 @@ export const general = [
       "Multi-chain markeplace that aggregates every NFT into a single platform",
   },
   {
-    name: "Nimi",
-    url: "https://nimi.eth.limo/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
-    logo: "/nimi.png",
-    handle: "",
-    description: "Your personal web3 front page",
-  },
-  {
     name: "MintKudos",
     url: "https://mintkudos.xyz/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/mintkudos.png",
@@ -218,14 +227,6 @@ export const general = [
     logo: "/orbis.png",
     handle: "",
     description: "Fully-decentralized multi-chain web3 social protocol ",
-  },
-  {
-    name: "Layer 3",
-    url: "https://beta.layer3.xyz/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
-    logo: "/layer3.png",
-    handle: "",
-    description:
-      "Permissionless platform curating unique interactive experiences to explore the magic of web3",
   },
   {
     name: "Unstoppable Domains",
