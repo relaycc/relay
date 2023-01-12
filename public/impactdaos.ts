@@ -1,4 +1,4 @@
-export const impactdaos = [
+export const impactdao = [
   {
     name: "Gitcoin DAO - Grants",
     url: "https://gitcoin.co/grants/?utm_source=relay&utm_medium=web&utm_content=dapp_details",

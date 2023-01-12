@@ -37,13 +37,6 @@ export const lens = [
       "Decentralized video-sharing platform built with Lens Protocol.",
   },
   {
-    name: "Lensfrens",
-    url: "https://www.lensfrens.xyz/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
-    logo: "/lensgreen.jpeg",
-    handle: "lensfrens.lens",
-    description: "Lens profile and post UI, made by Lens Protocol team",
-  },
-  {
     name: "TeaParty",
     url: "https://app.teaparty.life/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/teaparty.jpeg",
@@ -60,9 +53,66 @@ export const lens = [
   {
     name: "Lensta",
     url: "https://www.lensta.xyz/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
-    logo: "/lensgreen.jpeg",
-    handle: "",
+    logo: "/lensta.jpeg",
+    handle: "lenstaxyz.lens",
     description: "Image feed for Lens Protocol.",
+  },
+  {
+    name: "YUP",
+    url: "https://app.yup.io/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
+    logo: "/Yup.jpeg",
+    handle: "yup_io.lens",
+    description:
+      "Follow your friends's web3 activity, curate top content from your favorite platforms.",
+  },
+  {
+    name: "Interface",
+    url: "https://www.interface.social/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
+    logo: "/interface.jpeg",
+    handle: "interfacelabs.lens",
+    description: "Human readable social web3 feed.",
+  },
+  {
+    name: "Bello",
+    url: "https://bello.lol/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
+    logo: "/bello.jpeg",
+    handle: "bello.lens",
+    description: "Discover actionable insights on your collectors through a simple search."
+  },
+  {
+    name: "theDial",
+    url: "https://www.thedial.xyz/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
+    logo: "/dial.jpeg",
+    handle: "digitalax.lens",
+    description: "An ever evolving canvas you can use with friends."
+  },
+  {
+    name: "Share",
+    url: "https://theshr.xyz/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
+    logo: "/theshr.jpeg",
+    handle: "theshr.lens",
+    description: "Publish, read, connect and collect the best writings of your favorite authors."
+  },
+  {
+    name: "Fantastic",
+    url: "https://fanstastic.app/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
+    logo: "/fantastic.jpeg",
+    handle: "",
+    description: "Decentralized social media for content creators."
+  },
+  {
+    name: "Memester",
+    url: "https://memester.xyz/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
+    logo: "/memester.jpeg",
+    handle: "memester-xyz.lens",
+    description: "The NFT Meme Platform. Create memes and turn them into NFTs."
+  },
+  {
+    name: "DiverseHQ",
+    url: "https://app.diversehq.xyz/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
+    logo: "/diverse.jpeg",
+    handle: "",
+    description: "Follow your favorite communities and start taking part in conversations."
   },
   {
     name: "LensAlert",
@@ -87,18 +137,54 @@ export const lens = [
     description: "Decentralized music app built on Lens protocol..",
   },
   {
-    name: "Lenstats",
-    url: "https://lenstats.xyz/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
-    logo: "/LensAnalytics.png",
-    handle: "",
-    description: "Web app to track data on Lens Protocol.",
+    name: "Enso Collective",
+    url: "https://ensocollective.xyz/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
+    logo: "/enso.png",
+    handle: "ensocollective.lens",
+    description: "Save any Publication and earn when your network Collects them. Private Beta."
   },
   {
-    name: "Greenhouse",
-    url: "https://greenhouse.social/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
-    logo: "/Greenhouse.svg",
-    handle: "greenhouse.lens",
-    description: "Grow and spread your web3 roots.",
+    name: "Superfun",
+    url: "https://lens.superfun.social/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
+    logo: "/superfun.png",
+    handle: "superfun.lens",
+    description:
+      "Social app for users to create and explore funny content, play online games, participate in online contests",
+  },
+  {
+    name: "Pinsta",
+    url: "https://testnet.pinsta.xyz/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
+    logo: "/pinsta.jpeg",
+    handle: "pinsta.lens",
+    description: "Explore and collect images on Lens."
+  },
+  {
+    name: "PhiLand",
+    url: "https://philand.xyz/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
+    logo: "/philand.svg",
+    handle: "philand.lens",
+    description:
+      "Build your personal metaverse that grows from on-chain activities.",
+  },
+  {
+    name: "Ooh la la",
+    url: "https://www.oohlala.xyz/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
+    logo: "/oohlala.png",
+    description: "The web3 music player/aggregator.",
+  },
+  {
+    name: "Chainjet",
+    url: "https://chainjet.io/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
+    logo: "/chainjet.jpeg",
+    handle: "chainjet.lens",
+    description: "A no-code platform for building on-chain or off-chain task automations."
+  },
+  {
+    name: "Meetvers",
+    url: "https://app.meetvers.io/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
+    logo: "/meetverse.jpeg",
+    handle: "meetvers.lens",
+    description: "Find friends with a similar web3 footprint.",
   },
   {
     name: "LensDrop",
@@ -107,22 +193,6 @@ export const lens = [
     handle: "lensdrop.lens",
     description:
       "Reward your Lens Protocol followers and fans with airdrops and special prizes.",
-  },
-  {
-    name: "Superfun",
-    url: "https://lens.superfun.social/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
-    logo: "/lensgreen.jpeg",
-    handle: "superfun.lens",
-    description:
-      "Social app for Meme artists to get rewarded for their super fun content.",
-  },
-  {
-    name: "YUP",
-    url: "https://app.yup.io/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
-    logo: "/Yup.jpeg",
-    handle: "yup_io.lens",
-    description:
-      "Follow your friends's web3 activity, curate top content from your favorite platforms.",
   },
   {
     name: "Lens Garden",
@@ -139,19 +209,11 @@ export const lens = [
     description: "Data analytics dashboard about the Lens ecosystem",
   },
   {
-    name: "PhiLand",
-    url: "https://philand.xyz/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
-    logo: "/philand.svg",
-    handle: "philand.lens",
-    description:
-      "Build your personal metaverse that grows from on-chain activities.",
-  },
-  {
-    name: "Lens Analytics",
-    url: "https://www.lensanalytics.xyz/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
-    logo: "/lensgreen.jpeg",
-    handle: "",
-    description: "Leaderboard and metrics on Lens",
+    name: "StemsDAO",
+    url: "https://www.stemsdao.com/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
+    logo: "/SteamDAO.jpeg",
+    handle: "stems.lens",
+    description: "Make music with your favorite artist.",
   },
   {
     name: "Stats Lens",
@@ -161,28 +223,19 @@ export const lens = [
     description: "Data metrics for Lens Protocol.",
   },
   {
+    name: "Lens Analytics",
+    url: "https://lensanalytics.xyz/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
+    logo: "/lensgreen.jpeg",
+    handle: "",
+    description: "Leaderboard, metrics, and user earnings on Lens Ecosytem.",
+  },
+  {
     name: "Sepana",
     url: "https://lens.sepana.io/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/lensgreen.jpeg",
     handle: "sepana.lens",
     description: "Open-source search infrastructure for the Lens protocol.",
   },
-  {
-    name: "Lens Token Terminal",
-    url: "https://tokenterminal.com/terminal/projects/lens",
-    logo: "/tokenterminal.jpeg",
-    handle: "oskari.lens",
-    description:
-      "View several financial metrics and valuation multiples for Lens Protocol",
-  },
-  {
-    name: "Leaderboard",
-    url: "https://leaderboard.withlens.app/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
-    logo: "/lensgreen.jpeg",
-    handle: "",
-    description: "Leaderboard of profiles on Lens Protocol.",
-  },
-
   {
     name: "InLens",
     url: "https://inlens.xyz/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
@@ -204,6 +257,76 @@ export const lens = [
     description: "Explore the Lens Protocol Social Graph.",
   },
   {
+    name: "Scaffold Lens",
+    url: "https://github.com/bhargavaparoksham/scaffold-eth-lens-starter-kit/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
+    logo: "/scaffold.png",
+    handle: "",
+    description: "Scaffold ETH boilerplater for quick Lens app development."
+  },
+  {
+    name: "Embed",
+    url: "https://embed.withlens.app/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
+    logo: "/plantonly.png",
+    handle: "",
+    description: "Easily embed Lens post anywhere."
+  },
+  {
+    name: "Lens Lists",
+    url: "https://lists.inlens.xyz/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
+    logo: "/plantonly.png",
+    handle: "",
+    description: "Find your friends from Twitter in Lens Protocol. Create shareable lists."
+  },
+  {
+    name: "Eden",
+    url: "https://www.joineden.xyz/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
+    logo: "/eden.jpeg",
+    handle: "edenprotocol.lens",
+    description: "Tools that make web3 talent searches across the web hyper-relevant, fast & cheap."
+  },
+  {
+    name: "Lens Human",
+    url: "https://human.withlens.app/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
+    logo: "/lensgreen.png",
+    handle: "",
+    description: "Sybil resistance + Lens profiles. Proof-of-1-lens-account."
+  },
+  {
+    name: "Lens React Kit",
+    url: "https://github.com/daoleno/lenskit/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
+    logo: "/lenskit.jpg",
+    handle: "",
+    description: "Community-built Lens Protocol UI React kit with great demo site"
+  },
+  {
+    name: "Lens SDK",
+    url: "https://github.com/lens-protocol/lens-sdk/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
+    logo: "/lensgreen.jpeg",
+    handle: "nader.lens",
+    description: "The official SDK to interact with the Lens Protocol."
+  },
+  {
+    name: "Web3 Events",
+    url: "https://web3events.ai/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
+    logo: "/web3events.jpeg",
+    handle: "web3events.lens",
+    description: "Create, distribute and monitor tickets for events with Web3Event's Ticketing Platform."
+  },
+  {
+    name: "Wav3s",
+    url: "https://wav3s.app/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
+    logo: "/wav3s.jpeg",
+    handle: "",
+    description: "Your content spread through web3 social media."
+  },
+  {
+    name: "Awesome Lens Guide",
+    url: "https://github.com/0xJuancito/awesome-lens-protocol/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
+    logo: "/lenskit.jpeg",
+    handle: "",
+    description: "A curated list of Lens ecosystem links and projects.",
+  },
+  {
     name: "Nimi",
     url: "https://nimi.eth.limo/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/nimi.png",
@@ -217,33 +340,12 @@ export const lens = [
     description: "Relationship explorer to find new friends on Lens Protocol.",
   },
   {
-    name: "Ooh la la",
-    url: "https://www.oohlala.xyz/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
-    logo: "/oohlala.png",
-    description: "The web3 music player/aggregator.",
-  },
-  {
-    name: "StemsDAO",
-    url: "https://www.stemsdao.com/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
-    logo: "/SteamDAO.jpeg",
-    handle: "stems.lens",
-    description: "Make music with your favorite artist.",
-  },
-  {
     name: "Soclly",
     url: "https://www.soclly.com/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/soclly.jpeg",
     handle: "soclly.lens",
     description:
       "Connect with a Web3 expert and be a part of the decentralized economy.",
-  },
-  {
-    name: "Embed",
-    url: "https://embed.withlens.app/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
-    logo: "/lensgreen.jpeg",
-    handle: "embed.lens",
-    description:
-      "One-click embeds for all your links posts, mirrors & comments.",
   },
   {
     name: "Mad.Finance",
@@ -254,26 +356,11 @@ export const lens = [
       "Connects advertisers with creators and offers a way to monetize their content.",
   },
   {
-    name: "Harfang",
-    url: "https://harfang.app/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
-    logo: "/harfang.png",
-    handle: "harfang.lens",
-    description:
-      "NFT postal card creator and marketplace based on Lens Protocol.",
-  },
-  {
     name: "LensAI",
     url: "https://thegallerydao.vercel.app/login",
     logo: "/lensgreen.jpeg",
     handle: "artofficialintelligence.lens",
-    description: "Text2Image NFT generator to monetize your AI creations.",
-  },
-  {
-    name: "Lenscast",
-    url: "https://www.raycast.com/peduarte/lenscast",
-    logo: "/lenscast.jpeg",
-    handle: "lenscast.lens",
-    description: "Raycast Extension built with Lens Protocol.",
+    description: "Text2Image NFT generator to monetize your AI creations, by TheGalleryDAO.",
   },
   {
     name: "Alps Finance",
@@ -281,7 +368,7 @@ export const lens = [
     logo: "/Alpsfinance.jpeg",
     handle: "alpsfinance.lens",
     description:
-      "Decentralized social trading network to build your DeFi investing community and reputation.",
+      "Decentralized social trading network to build your DeFi investing community and reputation, in Beta.",
   },
   {
     name: "Garden",
@@ -292,17 +379,24 @@ export const lens = [
       "Create links that only wallets following your Lens profile can click through.",
   },
   {
-    name: "Meetvers",
-    url: "https://app.meetvers.io/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
-    logo: "/meetverse.jpeg",
-    handle: "meetvers.lens",
-    description: "Find friends with a similar web3 footprint.",
-  },
-  {
     name: "Lens Share",
     url: "https://lens-share.apoorv.xyz/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
     logo: "/lensgreen.jpeg",
     handle: "",
     description: "Post your Tweets to Lens Protocol.",
+  },
+  {
+    name: "LensPin",
+    url: "https://www.lenspin.xyz/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
+    logo: "/lenspin.png",
+    handle: "",
+    description: "LensPin aims to make it easy for users to own and host their own data.",
+  },
+  {
+    name: "Ticklens",
+    url: "https://github.com/ArturVargas/ticklens.js/?utm_source=relay&utm_medium=web&utm_content=dapp_details",
+    logo: "/ticklens.png",
+    handle: "",
+    description: "A ticketing/events Javascript SDK built on Lens",
   },
 ];
