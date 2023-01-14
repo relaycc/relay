@@ -60,7 +60,7 @@ export const AppCard: FunctionComponent<{
         </div>
       </Header>
       <div
-        className={`flex max-w-max relative items-center justify-center duration-300 flex-col bottom-[0rem] ${
+        className={`flex relative items-center justify-center duration-300 flex-col bottom-[0rem] ${
           showInfo && "bottom-[5rem]"
         }`}
       >
