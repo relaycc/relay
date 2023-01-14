@@ -85,7 +85,11 @@ export const AppCard: FunctionComponent<{
         }
       >
         <DataRow
-          className={`${"bg-secondary mr-3"}`}
+          className={`${
+            handle === "" || handle === null || handle === undefined
+              ? "bg-gray-300"
+              : "bg-secondary"
+          } mr-3`}
           onClick={onClickSendMessage}
           handle={handle}
           setAddressToMessage={setAddressToMessage}
