@@ -3,6 +3,7 @@ import styled, { css } from "styled-components";
 const Svg = styled.svg<{isOpen: boolean}>`
   ${({isOpen}) => isOpen && css`
     path {
+      transition: transform 150ms ease-in;
       transform: rotate(90deg);
       transform-origin: 50% 50%;
     }
