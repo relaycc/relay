@@ -3,22 +3,27 @@ import styled, { css } from "styled-components";
 const Svg = styled.svg<{active: boolean}>`
   ${({active}) => active ? css`
     circle:first-child {
+      transition: all 150ms ease-in;
       fill: #4236C7;
       stroke: #4236C7;
     }
     circle {
+      transition: all 150ms ease-in;
       stroke: #FFFFFF;
       fill: #4236C7;
     }
     path {
+      transition: fill 150ms ease-in;
       fill: #FFFFFF;
     }
   ` : css`
     :hover {
       circle{
+        transition: stroke 150ms ease-in;
         stroke: #4236C7;
       }
       path {
+        transition: fill 150ms ease-in;
         fill: #4236C7;
       }
     }
