@@ -2,7 +2,7 @@
 name: Receiver v0 UI Issues
 about: Temp
 title: ''
-labels: development, v0
+labels: development, v0 design elements
 assignees: ''
 
 ---
