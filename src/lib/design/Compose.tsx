@@ -3,11 +3,13 @@ import styled from "styled-components";
 const Svg = styled.svg`
   :hover {
     rect {
+      transition: fill 150ms ease-in;
       fill: #F2F4F7;
     }
   }
   :active {
     rect {
+      transition: fill 150ms ease-in;
       fill: #D0D5DD;
     }
   } 
