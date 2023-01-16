@@ -1,4 +1,4 @@
-import { FunctionComponent, useState } from "react";
+import { FunctionComponent, useEffect, useState } from "react";
 import { Page, AppCard } from "components";
 import { Intercom, Receiver, useLaunch, Launcher } from "@relaycc/receiver";
 import { motion } from "framer-motion";
@@ -7,6 +7,7 @@ import { Message } from "@relaycc/xmtp-js";
 import { useAccount } from "wagmi";
 import { NavBarConversations } from "../NavBarConversations";
 import { Project } from "lib";
+import { useRouter } from "next/router";
 export interface Conversation {
   peerAddress: string;
   messages: Message[];
@@ -42,6 +43,27 @@ export const CardContainer: FunctionComponent<{
   const { data, isError } = useEnsName({
     handle: account.address,
   });
+
+  const router = useRouter();
+
+  useEffect(() => {
+    router.push(`/?counter=${category}`, undefined, { shallow: true });
+  }, [category]);
+
+  useEffect(() => {
+    router.query.category === "general" && setCategory(router.query.category);
+    router.query.category === "new" && setCategory(router.query.category);
+    router.query.category === "lens" && setCategory(router.query.category);
+    router.query.category === "music" && setCategory(router.query.category);
+    router.query.category === "identity" && setCategory(router.query.category);
+    router.query.category === "dao" && setCategory(router.query.category);
+    router.query.category === "defi" && setCategory(router.query.category);
+    router.query.category === "zk" && setCategory(router.query.category);
+    router.query.category === "impactdao" && setCategory(router.query.category);
+    router.query.category === "daotool" && setCategory(router.query.category);
+    router.query.category === "infrastructure" &&
+      setCategory(router.query.category);
+  }, []);
 
   return (
     <Page
