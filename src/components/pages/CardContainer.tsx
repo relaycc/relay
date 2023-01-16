@@ -47,7 +47,7 @@ export const CardContainer: FunctionComponent<{
   const router = useRouter();
 
   useEffect(() => {
-    router.push(`/?counter=${category}`, undefined, { shallow: true });
+    router.push(`/?category=${category}`, undefined, { shallow: true });
   }, [category]);
 
   useEffect(() => {
