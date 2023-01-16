@@ -1,31 +1,14 @@
-import { Intercom, SignerWallet, useWallet, Receiver } from "@relaycc/receiver";
-import React, {
-  FunctionComponent,
-  ReactNode,
-  useEffect,
-  useState,
-} from "react";
-import { NavBar } from "../NavBar";
+import { Intercom, useWallet, Receiver } from "@relaycc/receiver";
+import React, { FunctionComponent, ReactNode, useEffect } from "react";
 import { useSigner } from "wagmi";
-import { AppCard, LogoCard, HoverToggle } from "components";
-import { general } from "../../../public/general";
-import { lens } from "../../../public/lens";
-import { identity } from "../../../public/identity";
-import { music } from "../../../public/music";
-import { impactdao } from "../../../public/impactdao";
-import { defi } from "../../../public/defi";
-import { dao } from "../../../public/dao";
-import { zk } from "../../../public/zk";
-import { daotool } from "../../../public/daotool";
-import { recent } from "../../../public/recent";
-import { infrastructure } from "../../../public/infrastructure";
 import { Footer } from "components/Footer";
+import { Project } from "lib";
 
 export const Page: FunctionComponent<{
   children: ReactNode;
   navBar?: ReactNode;
-  setCategory: (e: any) => unknown;
-  category: any;
+  setCategory: (category: Project["category"]) => unknown;
+  category: Project["category"];
 }> = ({ children, navBar, setCategory, category }) => {
   const { data: signer } = useSigner();
   const [, setWallet] = useWallet();
@@ -53,110 +36,110 @@ export const Page: FunctionComponent<{
           <ul className="h-14 flex items-center gap-5 overflow-x-scroll">
             <li
               onClick={() => {
-                setCategory(general);
+                setCategory("general");
               }}
               className={`cursor-pointer text-xl ${
-                category === general && "underline text-blue-800"
+                category === "general" && "underline text-blue-800"
               }`}
             >
               General
             </li>
             <li
               onClick={() => {
-                setCategory(recent);
+                setCategory("new");
               }}
               className={`cursor-pointer text-xl ${
-                category === recent && "underline text-blue-800"
+                category === "new" && "underline text-blue-800"
               }`}
             >
               New
-              </li>
+            </li>
             <li
               onClick={() => {
-                setCategory(lens);
+                setCategory("lens");
               }}
               className={`cursor-pointer text-xl whitespace-nowrap ${
-                category === lens && "underline text-blue-800"
+                category === "lens" && "underline text-blue-800"
               }`}
             >
               Lens
             </li>
             <li
               onClick={() => {
-                setCategory(music);
+                setCategory("music");
               }}
               className={`cursor-pointer text-xl ${
-                category === music && "underline text-blue-800"
+                category === "music" && "underline text-blue-800"
               }`}
             >
               Music
             </li>
             <li
               onClick={() => {
-                setCategory(identity);
+                setCategory("identity");
               }}
               className={`cursor-pointer text-xl ${
-                category === identity && "underline text-blue-800"
+                category === "identity" && "underline text-blue-800"
               }`}
             >
               Identity
             </li>
             <li
               onClick={() => {
-                setCategory(dao);
+                setCategory("dao");
               }}
               className={`cursor-pointer text-xl ${
-                category === dao && "underline text-blue-800"
+                category === "dao" && "underline text-blue-800"
               }`}
             >
               DAO
             </li>
             <li
               onClick={() => {
-                setCategory(defi);
+                setCategory("defi");
               }}
               className={`cursor-pointer text-xl ${
-                category === defi && "underline text-blue-800"
+                category === "defi" && "underline text-blue-800"
               }`}
             >
               DeFi
             </li>
             <li
               onClick={() => {
-                setCategory(zk);
+                setCategory("zk");
               }}
               className={`cursor-pointer text-xl ${
-                category === zk && "underline text-blue-800"
+                category === "zk" && "underline text-blue-800"
               }`}
             >
               ZK
             </li>
             <li
               onClick={() => {
-                setCategory(impactdao);
+                setCategory("impactdao");
               }}
               className={`cursor-pointer text-xl ${
-                category === impactdao && "underline text-blue-800"
+                category === "impactdao" && "underline text-blue-800"
               }`}
             >
               ImpactDAO
             </li>
             <li
               onClick={() => {
-                setCategory(daotool);
+                setCategory("daotool");
               }}
               className={`cursor-pointer text-xl whitespace-nowrap ${
-                category === daotool && "underline text-blue-800"
+                category === "daotool" && "underline text-blue-800"
               }`}
             >
               DAO Tool
             </li>
             <li
               onClick={() => {
-                setCategory(infrastructure);
+                setCategory("infrastructure");
               }}
               className={`cursor-pointer text-xl ${
-                category === infrastructure && "underline text-blue-800"
+                category === "infrastructure" && "underline text-blue-800"
               }`}
             >
               Infrastructure

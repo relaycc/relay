@@ -60,7 +60,7 @@ export const AppCard: FunctionComponent<{
         </div>
       </Header>
       <div
-        className={`flex max-w-max relative items-center justify-center duration-300 flex-col bottom-[0rem] ${
+        className={`flex relative items-center justify-center duration-300 flex-col bottom-[0rem] ${
           showInfo && "bottom-[5rem]"
         }`}
       >
@@ -85,7 +85,11 @@ export const AppCard: FunctionComponent<{
         }
       >
         <DataRow
-          className={`${"bg-secondary mr-3"}`}
+          className={`${
+            handle === "" || handle === null || handle === undefined
+              ? "bg-gray-300"
+              : "bg-secondary"
+          } mr-3`}
           onClick={onClickSendMessage}
           handle={handle}
           setAddressToMessage={setAddressToMessage}
