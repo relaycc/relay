@@ -3,9 +3,9 @@ import React from 'react'
 export function Mirror() {
   return (
     <svg
-    width="24"
-    height="26"
-    viewBox="0 0 27 36"
+    width="25"
+    height="25"
+    viewBox="0 0 30 30"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
     xmlnsXlink="http://www.w3.org/1999/xlink"

@@ -88,7 +88,7 @@ export const AppCard: FunctionComponent<{
           className={`${
             handle === "" || handle === null || handle === undefined
               ? "bg-gray-300 text-black"
-              : "bg-blue-200 hover:bg-blue-200"
+              : "bg-indigo-700 border-4 border-indigo-900 hover:bg-indigo-700 text-gray-100"
           } text-indigo-900 mr-3`}
           onClick={onClickSendMessage}
           handle={handle}
@@ -104,7 +104,7 @@ export const AppCard: FunctionComponent<{
             target="_blank"
           >
             <button
-              className={`btn btn-ghost text-indigo-900 p-0 pl-4 pr-4 mt-auto rounded-md border-[3px] border-cyan-400 bg-cyan-50 hover:bg-cyan-50 flex flex-row justify-center`}
+              className={`btn btn-ghost text-indigo-900 p-0 pl-4 pr-4 mt-auto rounded-md border-[3px] border-blue-400 bg-blue-50 hover:bg-blue-50 flex flex-row justify-center`}
             >
               <IconLinkOut />
             </button>
