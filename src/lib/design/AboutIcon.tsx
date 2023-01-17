@@ -16,9 +16,11 @@ const Svg = styled.svg<{active: boolean}>`
   ` : css`
     :hover {
       circle{
+        transition: stroke 150ms ease-out;
         stroke: #4236C7;
       }
       path {
+        transition: fill 150ms ease-out;
         fill: #4236C7;
       }
     }
