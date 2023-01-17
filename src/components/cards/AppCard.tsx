@@ -40,7 +40,7 @@ export const AppCard: FunctionComponent<{
     <Card>
       <div
         onClick={() => setShowInfo(!showInfo)}
-        className="lg:hidden group-hover:block absolute right-[0.9rem] top-[0.9rem] cursor-pointer"
+        className="lg:hidden group-hover:block absolute right-[0.9rem] top-[0.9rem] bg-secondary-content rounded-full cursor-pointer"
       >
         <Info />
       </div>
@@ -87,9 +87,9 @@ export const AppCard: FunctionComponent<{
         <DataRow
           className={`${
             handle === "" || handle === null || handle === undefined
-              ? "bg-gray-300"
-              : "bg-secondary"
-          } mr-3`}
+              ? "bg-gray-300 text-black"
+              : "bg-blue-200 hover:bg-blue-200"
+          } text-indigo-900 mr-3`}
           onClick={onClickSendMessage}
           handle={handle}
           setAddressToMessage={setAddressToMessage}
@@ -104,7 +104,7 @@ export const AppCard: FunctionComponent<{
             target="_blank"
           >
             <button
-              className={`btn btn-ghost p-0 pl-4 pr-4 mt-auto rounded-md border-[3px] border-black bg-secondary flex flex-row justify-center`}
+              className={`btn btn-ghost text-indigo-900 p-0 pl-4 pr-4 mt-auto rounded-md border-[3px] border-cyan-400 bg-cyan-50 hover:bg-cyan-50 flex flex-row justify-center`}
             >
               <IconLinkOut />
             </button>

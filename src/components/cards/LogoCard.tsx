@@ -19,7 +19,7 @@ export const LogoCard: FunctionComponent<LogoCardProps> = ({
   return (
     <Card>
       <div
-        className={`relative group flex flex-col items-center p-0 w-full flex-grow`}
+        className={`group flex flex-col items-center p-0 w-full flex-grow`}
       >
         <div
           className={`mt-6 w-full rounded-md p-2 flex flex-row justify-center items-center ${logoWrapperClassName}`}

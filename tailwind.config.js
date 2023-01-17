@@ -13,4 +13,21 @@ module.exports = {
     },
   },
   plugins: [require("@tailwindcss/typography"), require("daisyui")],
+  daisyui: {
+    themes: [
+              {
+                relay: {
+                  "primary": "#2b1fae",
+                  "secondary": "#1e3a8a",
+                  "accent": "#4c96ac",
+                  "neutral": "#3D4451",
+                  "base-100": "#FFFFFF",
+                  "info": "#3ABFF8",
+                  "success": "#36D399",
+                  "warning": "#FBBD23",
+                  "error": "#F87272",
+                },
+              },
+            ],
+          },
 };

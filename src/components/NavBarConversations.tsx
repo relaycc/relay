@@ -33,8 +33,8 @@ export const NavBarConversations = ({
 
   return (
     <div className="fixed left-0 right-0 bg-white">
-      <nav className="flex items-center mt-0 bg-white p-6 rounded-lg">
-        <div className="sm:w-[164px] min-h-[47px] w-[125px] xl:min-w-[174px] relative top-[4px] md:top-[3px]">
+      <nav className="flex items-center mt-0 bg-gray-50 p-6 rounded-lg">
+        <div className="sm:w-[164px] min-h-[47px] min-w-[125px] xl:min-w-[174px] relative top-[4px] md:top-[3px]">
           <Image src={"/relaylogo.svg"} alt={"Relay"} layout="fill" />
         </div>
 
@@ -51,10 +51,11 @@ export const NavBarConversations = ({
             }
           }}
         >
+          <div>
           <input
             type="text"
             placeholder="Enter ENS, Lens, or ETH Address"
-            className={`hover:bg-gray-200 focus:bg-gray-200 focus:outline-none border-[3px] border-black bg-gray-100 h-12 p-5 rounded-lg w-full pr-12 ${
+            className={`hover:bg-blue-100 focus:bg-blue-200 focus:outline-none border-[3px] border-black bg-gray-100 h-12 p-5 rounded-lg w-full pr-12 font-bold ${
               inputIsError && "focus:border-2 focus:border-red-200"
             }`}
             onChange={(e) => {
@@ -67,8 +68,9 @@ export const NavBarConversations = ({
           <div className="absolute right-[16px] top-0 h-full flex flex-col justify-center">
             <IconSearch />
           </div>
+          </div>
         </form>
-        <ul className="ml-auto flex items-center gap-4 mr-4 min-w-32">
+        <ul className="ml-auto flex items-center font-bold gap-4 text-indigo-900 mr-4 min-w-32">
           <a
             className="text-xl hover:underline"
             href={"https://twitter.com/relay_eth"}
@@ -91,7 +93,7 @@ export const NavBarConversations = ({
             target="_blank"
             rel="noreferrer"
           >
-            Blog
+            Mirror
           </a>
           <a href="https://github.com/relaycc" target="_blank" rel="noreferrer">
             <Github />
@@ -104,7 +106,7 @@ export const NavBarConversations = ({
               ? accountModal.openAccountModal
               : connectModal.openConnectModal
           }
-          className={`btn btn-ghost bg-accent lg:w-[240px] border-none rounded-md ml-0 hover:bg-orange-200`}
+          className={`btn btn-ghost bg-blue-200 border-2 border-black text-indigo-900 lg:w-[240px]rounded-md ml-5 hover:bg-indigo-600 hover:border-secondary`}
         >
           <div className="flex flex-row flex-grow items-center justify-between">
             {account.isConnected && typeof account.address === "string"
