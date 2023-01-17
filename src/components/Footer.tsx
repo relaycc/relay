@@ -17,7 +17,7 @@ export const Footer = () => {
               </li>
             </a>
           </Link>
-          <Link href={"https://discord.gg/DTMKf63ZSf"} passHref>
+          <Link href={"https://discord.gg/relaycc"} passHref>
             <a target="_blank">
               <li className="cursor-pointer">
                 <Discord />
@@ -77,16 +77,6 @@ export const Footer = () => {
           <Link href="https://docs.relay.cc/relay/relay-receiver" passHref>
             <a target="_blank">
               <li className="cursor-pointer">Receiver</li>
-            </a>
-          </Link>
-          <Link href="https://docs.relay.cc/relay/relay-bridge" passHref>
-            <a target="_blank">
-              <li className="cursor-pointer">Bridge</li>
-            </a>
-          </Link>
-          <Link href="https://docs.relay.cc/relay/relay-broadcast" passHref>
-            <a target="_blank">
-              <li className="cursor-pointer">Pro</li>
             </a>
           </Link>
         </ul>
