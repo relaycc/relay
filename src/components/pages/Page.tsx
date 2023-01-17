@@ -30,9 +30,9 @@ export const Page: FunctionComponent<{
       data-theme="retro"
       className="w-screen min-h-screen flex flex-row justify-center overflow-scroll bg-blue-100"
     >
-      <div className="relative container mx-auto flex flex-col align-center flex-grow p-8">
+      <div className="relative container mx-auto flex flex-col align-center flex-grow p-8 pt-0">
         {navBar}
-        <nav className="w-full mb-7 border-b-2 border-blue-800">
+        <nav className="w-full mt-28 mb-7 border-b-2 border-blue-800">
           <ul className="h-14 flex items-center gap-5 overflow-x-scroll">
             <li
               onClick={() => {

@@ -1,4 +1,3 @@
-export * from "./NavBar";
 export * from "./NavBarConversations";
 export * from "./pages";
 export * from "./cards";
