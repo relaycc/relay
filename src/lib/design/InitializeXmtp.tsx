@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { XmptIcon } from "@/lib/design/XmptIcon";
 import { textMdSemiBold, textSmallRegular } from "@/lib/design/wip/typography";
+import { ButtonView } from "@/lib/design/ButtonView";
 
 const ComponentRoot = styled.div`
   display: flex;
@@ -31,11 +32,6 @@ const ButtonWrapper = styled.div`
   justify-content: center;
   align-items: center;
   width: 100%;
-  
-  button {
-    width: 100%;
-    height: 60px;
-  }
 `
 
 const Title = styled.div`
@@ -48,12 +44,16 @@ const Subtitle = styled.div`
     color: ${(props) => props.theme.colors.gray["600"]};
 `
 
+const SignUpButton = styled(ButtonView)`
+`
+
 interface InitializeXmtpProps {
+  hasXmtpConnected: boolean;
   isLoading: boolean;
   handleSignin: () => void;
 }
 
-export const InitializeXmtp = ({isLoading, handleSignin}: InitializeXmtpProps) => {
+export const InitializeXmtp = ({hasXmtpConnected ,isLoading, handleSignin}: InitializeXmtpProps) => {
   return (
     <ComponentRoot>
       <Row>
@@ -65,9 +65,9 @@ export const InitializeXmtp = ({isLoading, handleSignin}: InitializeXmtpProps) =
       </Row>
       <ButtonWrapper>
         {isLoading ? (
-          <button>Signing in</button>
+          <SignUpButton size="2xl" label="Signign In..." handleClick={() => null} hierarchy="primary" disabled={hasXmtpConnected}/>
         ) : (
-          <button onClick={handleSignin}>Sign-in with XMTP</button>
+          <SignUpButton size="2xl" label="Sign-in with XMTP" handleClick={handleSignin} hierarchy="primary" disabled={hasXmtpConnected}/>
           )}
       </ButtonWrapper>
     </ComponentRoot>
