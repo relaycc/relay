@@ -6,6 +6,7 @@ const Svg = styled.svg<{active:boolean}>`
   
   :hover {
     path {
+      transition: stroke 150ms ease-out, stroke 150ms ease-in;
       stroke: #4236C7;
     }
   }
