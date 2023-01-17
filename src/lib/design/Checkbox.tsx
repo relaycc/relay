@@ -1,9 +1,6 @@
 import styled, {css} from "styled-components";
 
 const Svg = styled.svg<{selected: boolean}>`
-  width: 1.5rem;
-  height: 1.5rem;
-  
   
   ${({selected}) => !selected && css`
     rect{
@@ -11,6 +8,19 @@ const Svg = styled.svg<{selected: boolean}>`
     }
     path:first-child{
       stroke: #101828;
+    }
+    
+    :hover{
+      rect {
+        transition: stroke 150ms ease-in;
+        fill: #EAECF0;
+      }
+      path{
+          stroke: #EAECF0;
+      }
+      path:first-child{
+        stroke: #101828;
+      }
     }
     
   `}
