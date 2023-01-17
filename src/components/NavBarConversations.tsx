@@ -33,7 +33,7 @@ export const NavBarConversations = ({
 
   return (
     <div className="fixed left-0 right-0 bg-white">
-      <nav className="flex items-center mt-0 bg-gray-50 p-6 rounded-lg">
+      <nav className="flex items-center mt-0 bg-gray-50 p-6 rounded-lg overflow-x-scroll">
         <div className="sm:w-[164px] min-h-[47px] min-w-[125px] xl:min-w-[174px] relative top-[4px] md:top-[3px]">
           <Image src={"/relaylogo.svg"} alt={"Relay"} layout="fill" />
         </div>
@@ -55,7 +55,7 @@ export const NavBarConversations = ({
           <input
             type="text"
             placeholder="Enter ENS, Lens, or ETH Address"
-            className={`hover:bg-blue-100 focus:bg-blue-200 focus:outline-none border-[3px] border-black bg-gray-100 h-12 p-5 rounded-lg w-full pr-12 font-bold ${
+            className={`hover:bg-blue-100 focus:bg-blue-200 focus:outline-none border-[3px] border-black bg-gray-100 h-12 p-5 rounded-lg w-full  min-w-max pr-12 font-bold ${
               inputIsError && "focus:border-2 focus:border-red-200"
             }`}
             onChange={(e) => {
