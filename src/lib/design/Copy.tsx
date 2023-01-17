@@ -27,7 +27,8 @@ const MessageBubble = styled.div<{ isClicked: boolean }>`
   background-color: white;
   box-shadow: 0px 1px 3px rgba(16, 24, 40, 0.1),
     0px 1px 2px rgba(16, 24, 40, 0.06);
-
+  font-size: 12px;
+  
   :before {
     height: 0px;
     width: 0px;
