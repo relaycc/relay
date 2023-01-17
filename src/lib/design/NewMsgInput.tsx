@@ -11,14 +11,15 @@ const Root = styled.div`
   border-bottom: 0.5px solid ${receiverTheme.colors.gray["300"]};
   
   background: #FFFFFF;
-  width: 400px;
+  width: 100%;
+  //width: 360px;
 `;
 
 const To = styled.div`
   ${textMdRegular};
   color: ${receiverTheme.colors.gray["400"]};
   
-  width: 1.5rem;
+  width: 6%;
 `;
 
 const TextInput = styled.input<{isLoading: boolean}>`
@@ -34,13 +35,14 @@ const TextInput = styled.input<{isLoading: boolean}>`
     outline: none;  
   }
   
-  width: 300px;
+  width: 75%;
 `;
 
 const IconContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  
   width: 1.25rem;
   height: 1.25rem;
 `;
