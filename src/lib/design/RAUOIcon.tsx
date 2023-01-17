@@ -6,11 +6,13 @@ const Svg = styled.svg`
     height: 2.625rem;
   
   :hover {
+    transition: all 100ms ease-in, all 100ms ease-out;
     width: 2.875rem;
     height: 2.875rem;
   }
 
   :active {
+    transition: all 100ms ease-in, all 100ms ease-out;
     width: 2.25rem;
     height: 2.25rem;
   }
