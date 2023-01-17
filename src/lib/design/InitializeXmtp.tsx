@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { XmptIcon } from "@/lib/design/XmptIcon";
 import { textMdSemiBold, textSmallRegular } from "@/lib/design/wip/typography";
 import { ButtonView } from "@/lib/design/ButtonView";
+import { LoaderAnimInitialization } from "@/lib/design/LoaderAnimInitialization";
 
 const ComponentRoot = styled.div`
   display: flex;
@@ -48,12 +49,12 @@ const SignUpButton = styled(ButtonView)`
 `
 
 interface InitializeXmtpProps {
-  hasXmtpConnected: boolean;
+  hasConnected: boolean;
   isLoading: boolean;
   handleSignin: () => void;
 }
 
-export const InitializeXmtp = ({hasXmtpConnected ,isLoading, handleSignin}: InitializeXmtpProps) => {
+export const InitializeXmtp = ({hasConnected ,isLoading, handleSignin}: InitializeXmtpProps) => {
   return (
     <ComponentRoot>
       <Row>
@@ -65,9 +66,9 @@ export const InitializeXmtp = ({hasXmtpConnected ,isLoading, handleSignin}: Init
       </Row>
       <ButtonWrapper>
         {isLoading ? (
-          <SignUpButton size="2xl" label="Signign In..." handleClick={() => null} hierarchy="primary" disabled={hasXmtpConnected}/>
+          <SignUpButton size="2xl" label="Signign In..." handleClick={() => null} hierarchy="primary" disabled={hasConnected} icon={<LoaderAnimInitialization/>}/>
         ) : (
-          <SignUpButton size="2xl" label="Sign-in with XMTP" handleClick={handleSignin} hierarchy="primary" disabled={hasXmtpConnected}/>
+          <SignUpButton size="2xl" label="Sign-in with XMTP" handleClick={handleSignin} hierarchy="primary" disabled={hasConnected}/>
           )}
       </ButtonWrapper>
     </ComponentRoot>

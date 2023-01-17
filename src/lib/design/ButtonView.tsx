@@ -1,4 +1,5 @@
 import styled, { css } from "styled-components";
+import { ReactNode } from "react";
 
 const StyledButton = styled.button<{
   hierarchy: "primary" | "secondary",
@@ -124,10 +125,11 @@ interface ButtonViewProps {
   label: string;
   handleClick: () => void;
   disabled: boolean;
+  icon?: ReactNode;
 }
 
-export const ButtonView = ({hierarchy, size, label, handleClick, disabled}: ButtonViewProps) => {
+export const ButtonView = ({hierarchy, size, label, handleClick, disabled, icon}: ButtonViewProps) => {
   return (
-    <StyledButton size={size} hierarchy={hierarchy} onClick={handleClick} disabled={disabled}>{label}</StyledButton>
+    <StyledButton size={size} hierarchy={hierarchy} onClick={handleClick} disabled={disabled}>{label}{icon}</StyledButton>
   )
 }
