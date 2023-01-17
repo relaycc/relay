@@ -1,6 +1,6 @@
 import styled, {css} from "styled-components";
 
-const Img = styled.div<{size: string, src: string}>`
+const Img = styled.div<{size: "lg" | "3xl" | "sm", src: string}>`
   background: url(${({src}) => src});
   border-radius: 29px;
   
@@ -20,7 +20,7 @@ const Img = styled.div<{size: string, src: string}>`
   `}
 `;
 
-const LoadingSvg = styled.div<{size:string}>`
+const LoadingSvg = styled.div<{size: "lg" | "3xl" | "sm"}>`
   background: linear-gradient(90deg, #F1EFEF -24.18%, #F9F8F8 50.26%, #E7E5E5 114.84%);
   border-radius: 75px;
 
@@ -40,7 +40,7 @@ const LoadingSvg = styled.div<{size:string}>`
   `}
 `;
 
-export const StatusIcon = ({size, src, isLoading}: {size: string, src: string, isLoading:boolean}) => {
+export const StatusIcon = ({size, src, isLoading}: {size: "lg" | "3xl" | "sm", src: string, isLoading:boolean}) => {
 
     return(
 
