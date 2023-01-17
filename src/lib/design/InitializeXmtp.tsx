@@ -66,7 +66,7 @@ export const InitializeXmtp = ({hasConnected ,isLoading, handleSignin}: Initiali
       </Row>
       <ButtonWrapper>
         {isLoading ? (
-          <SignUpButton size="2xl" label="Signign In..." handleClick={() => null} hierarchy="primary" disabled={hasConnected} icon={<LoaderAnimInitialization/>}/>
+          <SignUpButton size="2xl" label="Signing In..." handleClick={() => null} hierarchy="primary" disabled={hasConnected} icon={<LoaderAnimInitialization/>}/>
         ) : (
           <SignUpButton size="2xl" label="Sign-in with XMTP" handleClick={handleSignin} hierarchy="primary" disabled={hasConnected}/>
           )}
