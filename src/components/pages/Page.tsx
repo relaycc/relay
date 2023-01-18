@@ -31,14 +31,14 @@ export const Page: FunctionComponent<{
     >
       <div className="relative container mx-auto flex flex-col align-center flex-grow p-8">
         {navBar}
-        <nav className="w-full mb-7 border-b-2 border-blue-800">
-          <ul className="button-grp h-14 flex items-center gap-5 whitespace-nowrap overflow-auto scrollbar-hide">
+        <nav className="w-full mb-7 mt-2 border-b-2 border-blue-800">
+          <ul className="button-grp h-14 mb-4 flex items-center gap-5 whitespace-nowrap overflow-auto scrollbar-hide">
             <li
               onClick={() => {
                 setCategory("general");
               }}
               className={`btn bg-indigo-50 text-[#4236C7] hover:text-[#3220ff] border-[#4236C7] border-2 hover:bg-indigo-200 btn-active cursor-pointer text-xl ${
-                category === "general" && "bg-indigo-300"
+                category === "general" && "underline text-[#4236C7] bg-indigo-200"
               }`}
             >
               General
