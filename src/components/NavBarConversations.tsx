@@ -17,6 +17,7 @@ import {
 import { useAccount, useNetwork } from "wagmi";
 import { IconSearch } from "./icons/IconSearch";
 import Image from "next/image";
+import Link from "next/link";
 
 interface NavbarConversationsProps {
   handleAddressSearch: (e: string) => unknown;
@@ -37,12 +38,10 @@ export const NavBarConversations = ({
 
   return (
     <nav className="xl:flex items-end grid grid-cols-2 gap-4 mb-6 mt-5">
-      <div className="sm:w-[164px] min-h-[47px] w-[125px] xl:min-w-[174px] relative top-[4px] md:top-[3px]">
-        <Image
-          src={'/relaylogo.svg'}
-          alt={"Relay"}
-          layout="fill"
-        />
+      <div className="hover:cursor-pointer sm:w-[164px] min-h-[47px] w-[125px] xl:min-w-[174px] relative top-[4px] md:top-[3px]">
+        <Link href="/">
+          <Image src={"/relaylogo.svg"} alt={"Relay"} layout="fill" />
+        </Link>
       </div>
 
       <div className="w-full flex justify-end order-3 col-span-2">
