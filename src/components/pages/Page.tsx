@@ -32,13 +32,13 @@ export const Page: FunctionComponent<{
       <div className="relative container mx-auto flex flex-col align-center flex-grow p-8">
         {navBar}
         <nav className="w-full mb-7 border-b-2 border-blue-800">
-          <ul className="h-14 flex items-center gap-5 whitespace-nowrap overflow-auto scrollbar-hide">
+          <ul className="button-grp h-14 flex items-center gap-5 whitespace-nowrap overflow-auto scrollbar-hide">
             <li
               onClick={() => {
                 setCategory("general");
               }}
-              className={`cursor-pointer text-xl ${
-                category === "general" && "underline text-[#7235BF]"
+              className={`btn bg-indigo-50 text-[#4236C7] hover:text-[#3220ff] border-[#4236C7] border-2 hover:bg-indigo-200 btn-active cursor-pointer text-xl ${
+                category === "general" && "bg-indigo-300"
               }`}
             >
               General
@@ -47,8 +47,8 @@ export const Page: FunctionComponent<{
               onClick={() => {
                 setCategory("new");
               }}
-              className={`cursor-pointer text-xl ${
-                category === "new" && "underline text-[#7235bf]"
+              className={`btn bg-indigo-50 text-[#4236C7] hover:text-[#3220ff] border-[#4236C7] border-2 hover:bg-indigo-200 btn-active cursor-pointer text-xl ${
+                category === "new" && "underline text-[#4236C7] bg-indigo-200"
               }`}
             >
               New
@@ -57,8 +57,8 @@ export const Page: FunctionComponent<{
               onClick={() => {
                 setCategory("venture");
               }}
-              className={`cursor-pointer text-xl ${
-                category === "venture" && "underline text-[#7235bf]"
+              className={`btn bg-indigo-50 text-[#4236C7] hover:text-[#3220ff] border-[#4236C7] border-2 hover:bg-indigo-200 btn-active cursor-pointer text-xl ${
+                category === "venture" && "underline text-[#4236C7] bg-indigo-200"
               }`}
             >
               Venture
@@ -67,8 +67,8 @@ export const Page: FunctionComponent<{
               onClick={() => {
                 setCategory("lens");
               }}
-              className={`cursor-pointer text-xl whitespace-nowrap ${
-                category === "lens" && "underline text-[#7235bf]"
+              className={`btn bg-indigo-50 text-[#4236C7] hover:text-[#3220ff] border-[#4236C7] border-2 hover:bg-indigo-200 btn-active cursor-pointer text-xl ${
+                category === "lens" && "underline text-[#4236C7] bg-indigo-200"
               }`}
             >
               Lens
@@ -77,18 +77,38 @@ export const Page: FunctionComponent<{
               onClick={() => {
                 setCategory("music");
               }}
-              className={`cursor-pointer text-xl ${
-                category === "music" && "underline text-[#7235bf]"
+              className={`btn bg-indigo-50 text-[#4236C7] hover:text-[#3220ff] border-[#4236C7] border-2 hover:bg-indigo-200 btn-active cursor-pointer text-xl ${
+                category === "music" && "underline text-[#4236C7] bg-indigo-200"
               }`}
             >
               Music
             </li>
             <li
               onClick={() => {
+                setCategory("infrastructure");
+              }}
+              className={`btn bg-indigo-50 text-[#4236C7] hover:text-[#3220ff] border-[#4236C7] border-2 hover:bg-indigo-200 btn-active cursor-pointer text-xl ${
+                category === "infrastructure" && "underline text-[#4236C7] bg-indigo-200"
+              }`}
+            >
+              Infrastructure
+            </li>
+            <li
+              onClick={() => {
+                setCategory("impactdao");
+              }}
+              className={`btn bg-indigo-50 text-[#4236C7] hover:text-[#3220ff] border-[#4236C7] border-2 hover:bg-indigo-200 btn-active cursor-pointer text-xl ${
+                category === "impactdao" && "underline text-[#4236C7] bg-indigo-200"
+              }`}
+            >
+              ImpactDAO
+            </li>
+            <li
+              onClick={() => {
                 setCategory("identity");
               }}
-              className={`cursor-pointer text-xl ${
-                category === "identity" && "underline text-[#7235bf]"
+              className={`btn bg-indigo-50 text-[#4236C7] hover:text-[#3220ff] border-[#4236C7] border-2 hover:bg-indigo-200 btn-active cursor-pointer text-xl ${
+                category === "identity" && "underline text-[#4236C7] bg-indigo-200"
               }`}
             >
               Identity
@@ -97,8 +117,8 @@ export const Page: FunctionComponent<{
               onClick={() => {
                 setCategory("dao");
               }}
-              className={`cursor-pointer text-xl ${
-                category === "dao" && "underline text-[#7235bf]"
+              className={`btn bg-indigo-50 text-[#4236C7] hover:text-[#3220ff] border-[#4236C7] border-2 hover:bg-indigo-200 btn-active cursor-pointer text-xl ${
+                category === "dao" && "underline text-[#4236C7] bg-indigo-200"
               }`}
             >
               DAO
@@ -107,8 +127,8 @@ export const Page: FunctionComponent<{
               onClick={() => {
                 setCategory("defi");
               }}
-              className={`cursor-pointer text-xl ${
-                category === "defi" && "underline text-[#7235bf]"
+              className={`btn bg-indigo-50 text-[#4236C7] hover:text-[#3220ff] border-[#4236C7] border-2 hover:bg-indigo-200 btn-active cursor-pointer text-xl ${
+                category === "defi" && "underline text-[#4236C7] bg-indigo-200"
               }`}
             >
               DeFi
@@ -117,41 +137,21 @@ export const Page: FunctionComponent<{
               onClick={() => {
                 setCategory("zk");
               }}
-              className={`cursor-pointer text-xl ${
-                category === "zk" && "underline text-[#7235bf]"
+              className={`btn bg-indigo-50 text-[#4236C7] hover:text-[#3220ff] border-[#4236C7] border-2 hover:bg-indigo-200 btn-active cursor-pointer text-xl ${
+                category === "zk" && "underline text-[#4236C7] bg-indigo-200"
               }`}
             >
               ZK
             </li>
             <li
               onClick={() => {
-                setCategory("impactdao");
-              }}
-              className={`cursor-pointer text-xl ${
-                category === "impactdao" && "underline text-[#7235bf]"
-              }`}
-            >
-              ImpactDAO
-            </li>
-            <li
-              onClick={() => {
                 setCategory("daotool");
               }}
-              className={`cursor-pointer text-xl whitespace-nowrap ${
-                category === "daotool" && "underline text-[#7235bf]"
+              className={`btn bg-indigo-50 text-[#4236C7] hover:text-[#3220ff] border-[#4236C7] border-2 hover:bg-indigo-200 btn-active cursor-pointer text-xl ${
+                category === "daotool" && "underline text-[#4236C7] bg-indigo-200"
               }`}
             >
-              DAO Tool
-            </li>
-            <li
-              onClick={() => {
-                setCategory("infrastructure");
-              }}
-              className={`cursor-pointer text-xl ${
-                category === "infrastructure" && "underline text-[#7235bf]"
-              }`}
-            >
-              Infrastructure
+              DAO Tools
             </li>
           </ul>
         </nav>

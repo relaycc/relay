@@ -9,6 +9,10 @@ import { useRouter } from "next/router";
 import { IconSwap } from "./icons/IconSwap";
 import { IconWallet } from "./icons/IconWallet";
 import { IconNetwork } from "./icons/IconNetwork";
+import { Discord } from "./icons/Discord";
+import { Twitter } from "./icons/Twitter";
+import { Github } from "./icons/Github";
+import { Mirror } from "./icons/Mirror";
 import {
   useAccountModal,
   useChainModal,
@@ -77,20 +81,53 @@ export const NavBarConversations = ({
         </form>
       </div>
 
-      <div className="flex justify-end items-center gap-4 ml-auto xl:order-3 order-2 md:w-auto xs:w-full">
-        <button
-          onClick={chainModal.openChainModal}
-          className={`hidden sm:flex btn btn-ghost bg-[#EAECF0] w-40 border-none rounded-md`}
-        >
-          <div className="flex flex-row items-center flex-grow justify-between">
-            {network.chain?.name || "No Network"}
-          </div>
-          {account.isConnected ? (
-            <IconSwap onClick={() => null} />
-          ) : (
-            <IconNetwork />
-          )}
-        </button>
+      <div className="flex justify-end items-center gap-4 xl:order-3 order-2 ml-6 md:w-auto xs:w-full">
+      <ul className="ml-auto flex items-center font-bold gap-4 text-indigo-900 mr-2 min-w-24">
+          <a
+            className="text-xl hidden md:flex hover:underline"
+            href={"https://twitter.com/relay_eth"}
+            target="_blank"
+            rel="noreferrer"
+          >
+            Twitter
+          </a>
+          <a 
+            className="sm:flex md:hidden hover:underline"
+            href="https://twitter.com/relay_eth" target="_blank" rel="noreferrer">
+            <Twitter />
+          </a>
+          <a
+            className="text-xl hidden md:flex hover:underline"
+            href={"https://discord.gg/relaycc"}
+            target="_blank"
+            rel="noreferrer"
+          >
+            Discord
+          </a>
+          <a 
+            className="sm:flex md:hidden hover:underline"
+            href="https://discord.gg/relaycc" target="_blank" rel="noreferrer">
+            <Discord />
+          </a>
+          <a
+            className="text-xl hidden md:flex hover:underline"
+            href={"https://mirror.xyz/relaycc.eth"}
+            target="_blank"
+            rel="noreferrer"
+          >
+            Mirror
+          </a>
+          <a 
+            className="sm:flex md:hidden hover:underline"
+            href="https://mirror.xyz/relaycc.eth" target="_blank" rel="noreferrer">
+            <Mirror />
+          </a>
+          <a 
+            className="sm:flex hover:underline"
+            href="https://github.com/relaycc" target="_blank" rel="noreferrer">
+            <Github />
+          </a>
+        </ul>
         <button
           onClick={
             account.isConnected
