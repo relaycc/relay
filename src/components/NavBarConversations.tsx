@@ -82,7 +82,7 @@ export const NavBarConversations = ({
       </div>
 
       <div className="flex justify-end items-center gap-4 xl:order-3 order-2 ml-6 md:w-auto xs:w-full">
-      <ul className="ml-auto flex items-center font-bold gap-4 text-indigo-900 mr-2 min-w-24">
+    <ul className="ml-auto flex items-center font-bold gap-4 text-indigo-900 mr-2 min-w-24">
           <a
             className="text-xl hidden md:flex hover:underline"
             href={"https://twitter.com/relay_eth"}
@@ -91,11 +91,6 @@ export const NavBarConversations = ({
           >
             Twitter
           </a>
-          <a 
-            className="xs:hidden sm:flex md:hidden hover:underline"
-            href="https://twitter.com/relay_eth" target="_blank" rel="noreferrer">
-            <Twitter />
-          </a>
           <a
             className="text-xl hidden md:flex hover:underline"
             href={"https://discord.gg/relaycc"}
@@ -103,11 +98,6 @@ export const NavBarConversations = ({
             rel="noreferrer"
           >
             Discord
-          </a>
-          <a 
-            className="sm:hidden sm:flex md:hidden hover:underline"
-            href="https://discord.gg/relaycc" target="_blank" rel="noreferrer">
-            <Discord />
           </a>
           <a
             className="text-xl hidden md:flex hover:underline"
@@ -118,12 +108,7 @@ export const NavBarConversations = ({
             Mirror
           </a>
           <a 
-            className="sm:hidden md:hidden hover:underline"
-            href="https://mirror.xyz/relaycc.eth" target="_blank" rel="noreferrer">
-            <Mirror />
-          </a>
-          <a 
-            className="xs:hidden sm:flex hover:underline"
+            className="xs:flex xs:ml-1 hover:underline"
             href="https://github.com/relaycc" target="_blank" rel="noreferrer">
             <Github />
           </a>
