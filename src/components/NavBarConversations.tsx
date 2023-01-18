@@ -123,7 +123,7 @@ export const NavBarConversations = ({
             <Mirror />
           </a>
           <a 
-            className="sm:hidden hover:underline"
+            className="xs: hidden sm:flex hover:underline"
             href="https://github.com/relaycc" target="_blank" rel="noreferrer">
             <Github />
           </a>
