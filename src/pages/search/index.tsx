@@ -2,7 +2,7 @@ import type { NextPage } from "next";
 import { CardContainer } from "components/pages/CardContainer";
 import { client, Project, isProject } from "lib";
 
-export const getServerSideProps = async (): Promise<{
+export const getStaticProps = async (): Promise<{
   props: {
     projects: Project[];
   };
@@ -17,7 +17,6 @@ export const getServerSideProps = async (): Promise<{
       console.error("Error fetching projects", error);
       return [];
     } else {
-      // console.log("Data for projects is", data);
       return data.filter(isProject);
     }
   })();

@@ -7,6 +7,7 @@ import { Message } from "@relaycc/xmtp-js";
 import { useAccount } from "wagmi";
 import { NavBarConversations } from "../NavBarConversations";
 import { Project } from "lib";
+import { useRouter } from "next/router";
 export interface Conversation {
   peerAddress: string;
   messages: Message[];
@@ -15,7 +16,10 @@ export interface Conversation {
 export const CardContainer: FunctionComponent<{
   projects: Project[];
 }> = ({ projects }) => {
-  const [category, setCategory] = useState<Project["category"]>("general");
+  const router = useRouter();
+  const category = (router.query.category || "general") as Project["category"];
+  const setCategory = (category: Project["category"]) =>
+    router.push(`/${category}`);
   const projectsToDisplay = projects.filter(
     (project) => project.category === category
   );

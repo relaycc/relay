@@ -10,6 +10,25 @@ const nextConfig = withPlausibleProxy()({
     }
     return config;
   },
+  rewrites: async () => {
+    return [
+      { source: "/", destination: "/search?category=general" },
+      { source: "/general", destination: "/search?category=general" },
+      { source: "/music", destination: "/search?category=music" },
+      { source: "/lens", destination: "/search?category=lens" },
+      { source: "/new", destination: "/search?category=new" },
+      { source: "/identity", destination: "/search?category=identity" },
+      { source: "/dao", destination: "/search?category=dao" },
+      { source: "/defi", destination: "/search?category=defi" },
+      { source: "/zk", destination: "/search?category=zk" },
+      { source: "/impactdao", destination: "/search?category=impactdao" },
+      { source: "/daotool", destination: "/search?category=daotool" },
+      {
+        source: "/infrastructure",
+        destination: "/search?category=infrastructure",
+      },
+    ];
+  },
 });
 
 module.exports = nextConfig;
