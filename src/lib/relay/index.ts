@@ -9,6 +9,7 @@ export interface Project {
   category:
     | "general"
     | "new"
+    | "venture"
     | "lens"
     | "identity"
     | "music"
@@ -26,6 +27,7 @@ export const fromListToByCategory = (
   const result: Record<Project["category"], Project[]> = {
     general: [],
     new: [],
+    venture: [],
     lens: [],
     identity: [],
     music: [],
