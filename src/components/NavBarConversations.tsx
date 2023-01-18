@@ -9,10 +9,7 @@ import { useRouter } from "next/router";
 import { IconSwap } from "./icons/IconSwap";
 import { IconWallet } from "./icons/IconWallet";
 import { IconNetwork } from "./icons/IconNetwork";
-import { Discord } from "./icons/Discord";
-import { Twitter } from "./icons/Twitter";
 import { Github } from "./icons/Github";
-import { Mirror } from "./icons/Mirror";
 import {
   useAccountModal,
   useChainModal,
@@ -108,7 +105,7 @@ export const NavBarConversations = ({
             Mirror
           </a>
           <a 
-            className="xs:flex xs:ml-1 hover:underline"
+            className="xs:hidden sm:flex hover:underline"
             href="https://github.com/relaycc" target="_blank" rel="noreferrer">
             <Github />
           </a>
