@@ -4,6 +4,7 @@ import { useState } from "react";
 interface CopyProps {
   hoverText: string;
   onCopy: () => void;
+  isLoading: boolean;
 }
 
 const Svg = styled.svg`
@@ -28,7 +29,7 @@ const MessageBubble = styled.div<{ isClicked: boolean }>`
   box-shadow: 0px 1px 3px rgba(16, 24, 40, 0.1),
     0px 1px 2px rgba(16, 24, 40, 0.06);
   font-size: 12px;
-  
+
   :before {
     height: 0px;
     width: 0px;
@@ -86,7 +87,19 @@ const Button = styled.button<{ isClicked: boolean }>`
   }
 `;
 
-export const Copy = ({ hoverText, onCopy }: CopyProps) => {
+const LoadingImg = styled.div`
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: linear-gradient(
+    90deg,
+    #f1efef -24.18%,
+    #f9f8f8 50.26%,
+    #e7e5e5 114.84%
+  );
+`;
+
+export const Copy = ({ hoverText, onCopy, isLoading }: CopyProps) => {
   const [isClicked, setIsClicked] = useState(false);
 
   const handleAllowClicking = () => {
@@ -98,8 +111,10 @@ export const Copy = ({ hoverText, onCopy }: CopyProps) => {
     onCopy();
     setTimeout(handleAllowClicking, 2000);
   };
-
-  return (
+  
+  return isLoading ? (
+    <LoadingImg />
+  ) : (
     <Button isClicked={isClicked} onClick={handleClick}>
       <MessageBubblePoint isClicked={isClicked} />
       <MessageBubble isClicked={isClicked}>
