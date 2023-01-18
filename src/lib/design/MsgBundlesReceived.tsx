@@ -5,18 +5,47 @@ import {spaceMonoMdBold, textSmallRegular, textXsRegular} from "@/lib/design/wip
 const Root = styled.div`
   display: flex;
   justify-content: flex-start;
-  column-gap: 0.5rem;
+  flex-direction: column;
   background-color: #FFFFFF;
-  padding: 0 1rem;
   margin-top: 1.4rem;
 
-  //width: 360px;
-  width: 100%;
+  width: 360px;
+  //width: 100%;
   min-height: 2.75rem;
   
   :hover{
     background-color: ${receiverTheme.colors.gray["100"]};
   }
+`;
+
+const FirstMsgContainer = styled.div`
+  display: flex;
+  justify-content: flex-start;
+  column-gap: 0.5rem;
+  padding: 0 1rem;
+`;
+
+const RestOfTheMessages = styled(FirstMsgContainer)`
+  min-height: 1.25rem;
+  border-top: 2px solid #FFFFFF;
+  row-gap: 1rem;
+`;
+
+const HoveredDateContainer = styled.div`
+  visibility: hidden;
+  
+  ${textXsRegular};
+  font-size: 0.5rem;
+  letter-spacing: 0.03em;
+  color: ${receiverTheme.colors.gray["400"]};
+  width: 2.5rem;
+
+  ${Root}:hover & {
+    visibility: unset;
+    display: flex;
+    align-items: center;
+  }
+  
 `;
 
 const StatusIconContainer = styled.div`
@@ -33,6 +62,7 @@ const Img= styled.img`
   height: 2.5rem;
   border-radius: 50%;
 `;
+
 
 const MainContainer = styled.div`
   display: flex;
@@ -70,33 +100,37 @@ const Msg = styled.div`
 export const MsgBundlesReceived = (
     {
         ensName,
-        message,
+        messages,
         statusIcon,
-        date
     }: {
-        ensName:string,
-        message:Array<string>,
-        statusIcon:string,
-        date:string
+        ensName: string,
+        messages: Array<{date: string, message: string}>,
+        statusIcon: string,
     }) => {
 
     return (
         <Root>
-            <StatusIconContainer>
-                <Img src={statusIcon} />
-            </StatusIconContainer>
-            <MainContainer>
-                <NameAndDate>
-                    <EnsName>{ensName}</EnsName>
-                    <Date>{date}</Date>
-                </NameAndDate>
-                <MsgContainer>
-                    {message.map((i, index) => (
-                    <Msg key={index}>{i}</Msg>
-                    ))}
-                </MsgContainer>
-            </MainContainer>
-        </Root>
+            <FirstMsgContainer>
+                <StatusIconContainer>
+                    <Img src={statusIcon} />
+                </StatusIconContainer>
+                <MainContainer>
+                    <NameAndDate>
+                        <EnsName>{ensName}</EnsName>
+                        <Date>{messages[0].date}</Date>
+                    </NameAndDate>
+                    <MsgContainer>
+                        <Msg>{messages[0].message}</Msg>
+                    </MsgContainer>
+                </MainContainer>
+            </FirstMsgContainer>
 
+            {messages.slice(1).map((i, index) => (
+                <RestOfTheMessages key={index}>
+                    <HoveredDateContainer>{i.date}</HoveredDateContainer>
+                    <Msg>{i.message}</Msg>
+                </RestOfTheMessages>
+            ))}
+        </Root>
     )
 }
