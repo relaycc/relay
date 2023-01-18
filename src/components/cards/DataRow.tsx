@@ -37,7 +37,7 @@ export const DataRow: FunctionComponent<DataRowProps> = ({
   return (
     <button
       onClick={handleClick}
-      className={`btn btn-ghost p-0 pl-4 pr-4 rounded-md border-[3px] border-black flex flex-grow flex-row justify-between ${className}`}
+      className={`btn btn-ghost p-0 pl-4 pr-4 rounded-md border-[3px] border-[#DAD8F6] flex flex-grow flex-row justify-between  ${className}`}
     >
       {children}
     </button>

@@ -66,20 +66,6 @@ export const NavBar = () => {
           </div>
         </form>
       </div>
-      <div className="flex justify-end items-center gap-4 ml-auto xl:order-3 order-2 md:w-auto xs:w-full">
-        <button
-          onClick={chainModal.openChainModal}
-          className={`hidden sm:flex btn btn-ghost bg-accent w-40 border-none rounded-md`}
-        >
-          <div className="flex flex-row items-center flex-grow justify-between">
-            {network.chain?.name || "No Network"}
-          </div>
-          {account.isConnected ? (
-            <IconSwap onClick={() => null} />
-          ) : (
-            <IconNetwork />
-          )}
-        </button>
         <button
           onClick={
             account.isConnected
@@ -99,7 +85,6 @@ export const NavBar = () => {
             )}
           </div>
         </button>
-      </div>
     </nav>
   );
 };
