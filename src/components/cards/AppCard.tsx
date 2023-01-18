@@ -35,20 +35,12 @@ export const AppCard: FunctionComponent<{
   description,
   setAddressToMessage,
 }) => {
-  const [showInfo, setShowInfo] = useState(false);
   return (
     <Card>
-      <div
-        onClick={() => setShowInfo(!showInfo)}
-        className="lg:hidden group-hover:block absolute right-[0.9rem] top-[0.9rem] cursor-pointer"
-      >
-        <Info />
-      </div>
       <Header>
         <div
-          className={`flex relative justify-center top-0 left-0 duration-300 ${
-            showInfo && "scale-50 top-[-3.2rem] left-[-5.15rem]"
-          } items-center mt-6 p-2 bg-white h-[8rem] max-w-[14rem] rounded-md`}
+          className="flex relative justify-center top-0 left-0 duration-300 group-hover:scale-50 group-hover:top-[-3.2rem] group-hover:left-[-5.15rem]
+           items-center mt-6 p-2 h-[8rem] max-w-[14rem] rounded-md"
         >
           <Image
             className="rounded-md"
@@ -60,22 +52,14 @@ export const AppCard: FunctionComponent<{
         </div>
       </Header>
       <div
-        className={`flex relative items-center justify-center duration-300 flex-col bottom-[0rem] ${
-          showInfo && "bottom-[5rem]"
-        }`}
+        className={`flex relative items-center justify-center duration-300 flex-col bottom-[0rem] group-hover:bottom-[5rem]`}
       >
         <span
-          className={`max-w-max relative mt-2 text-3xl duration-300 flex text-center after:bottom-[-7px] items-center justify-center after:bg-black after:content-[""] after:w-full after:scale-x-0 after:duration-300 after:block after:h-[0.18rem] after:absolute after:rounded-xl ${
-            showInfo && "after:scale-x-[100%]"
-          }`}
+          className={`max-w-max relative mt-2 text-3xl duration-300 flex text-center after:bottom-[-7px] items-center justify-center after:bg-black after:content-[""] after:w-full after:scale-x-0 after:duration-300 after:block after:h-[0.18rem] after:absolute after:rounded-xl group-hover:after:scale-x-[100%]`}
         >
           {title}
         </span>
-        <span
-          className={`opacity-0 mt-3 text-center duration-300 ${
-            showInfo && "opacity-100"
-          }`}
-        >
+        <span className="opacity-0 mt-3 text-center duration-300 group-hover:opacity-100">
           {description}
         </span>
       </div>
