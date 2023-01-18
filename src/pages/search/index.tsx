@@ -7,7 +7,10 @@ export const getStaticProps = async (): Promise<{
     projects: Project[];
   };
 }> => {
-  const { data, error } = await client.from("projects").select("*");
+  const { data, error } = await client
+    .from("projects")
+    .select("*")
+    .order("sort", { ascending: true });
 
   const processed = (() => {
     if (data === null) {
