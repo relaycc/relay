@@ -1,4 +1,6 @@
 const { withPlausibleProxy } = require("next-plausible");
+const { startTransition } = require("react");
+const { validateLocaleAndSetLanguage } = require("typescript");
 
 /** @type {import('next').NextConfig} */
 const nextConfig = withPlausibleProxy()({
@@ -15,6 +17,7 @@ const nextConfig = withPlausibleProxy()({
       { source: "/", destination: "/search?category=general" },
       { source: "/general", destination: "/search?category=general" },
       { source: "/music", destination: "/search?category=music" },
+      { source: "/venture", destination: "/search?category=venture" },
       { source: "/lens", destination: "/search?category=lens" },
       { source: "/new", destination: "/search?category=new" },
       { source: "/identity", destination: "/search?category=identity" },
