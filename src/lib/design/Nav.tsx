@@ -5,7 +5,10 @@ import { ProfileIcon } from "./ProfileIcon";
 import { AboutIcon } from "./AboutIcon";
 
 interface NavProps {
-  activeLink?: "chat" | "profile" | "about";
+  onClickChat: () => unknown;
+  onClickProfile: () => unknown;
+  onClickAbout: () => unknown;
+  activeSection: "chat" | "profile" | "about";
 }
 
 const Navbar = styled.nav`
@@ -46,19 +49,39 @@ const NavItem = styled.li`
   }
 `;
 
-export const Nav = ({ activeLink }: NavProps) => {
-  const [activeIcon, setActiveIcon] = useState(activeLink || "null");
+export const Nav = ({
+  onClickAbout,
+  onClickChat,
+  onClickProfile,
+  activeSection,
+}: NavProps) => {
+  const [activeIcon, setActiveIcon] = useState(activeSection);
+
+  const handleChatClick = () => {
+    setActiveIcon("chat");
+    onClickChat();
+  };
+
+  const handleProfileClick = () => {
+    setActiveIcon("profile");
+    onClickProfile();
+  };
+
+  const handleAboutClick = () => {
+    setActiveIcon("about");
+    onClickAbout();
+  };
 
   return (
     <Navbar>
       <NavItems>
-        <NavItem onClick={() => setActiveIcon("chat")}>
+        <NavItem onClick={handleChatClick}>
           <ChatIcon active={activeIcon === "chat"} />
         </NavItem>
-        <NavItem onClick={() => setActiveIcon("profile")}>
+        <NavItem onClick={handleProfileClick}>
           <ProfileIcon active={activeIcon === "profile"} />
         </NavItem>
-        <NavItem onClick={() => setActiveIcon("about")}>
+        <NavItem onClick={handleAboutClick}>
           <AboutIcon active={activeIcon === "about"} />
         </NavItem>
       </NavItems>
