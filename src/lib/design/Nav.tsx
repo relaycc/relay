@@ -1,13 +1,11 @@
-import { ReactNode } from "react";
 import styled from "styled-components";
+import { useState } from "react";
+import { ChatIcon } from "./ChatIcon";
+import { ProfileIcon } from "./ProfileIcon";
+import { AboutIcon } from "./AboutIcon";
 
 interface NavProps {
-  LeftIcon: ReactNode;
-  CenterIcon: ReactNode;
-  RightIcon: ReactNode;
-  handleLeftIconClick: () => unknown;
-  handleCenterIconClick: () => unknown;
-  handleRightIconClick: () => unknown;
+  activeLink: "chat" | "profile" | "about";
 }
 
 const Navbar = styled.nav`
@@ -15,7 +13,7 @@ const Navbar = styled.nav`
   border-radius: 0px 0px 14px 14px;
   width: 100%;
   height: 80px;
-  border-top: 0.5px solid #D0D5DD;
+  border-top: 0.5px solid #d0d5dd;
 `;
 
 const NavItems = styled.ul`
@@ -37,23 +35,32 @@ const NavItem = styled.li`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
 
-   :first-of-type {
+  :first-of-type {
     border-bottom-left-radius: 14px;
-   }
+  }
 
-   :last-of-type {
+  :last-of-type {
     border-bottom-right-radius: 14px;
-   }
+  }
 `;
 
-export const Nav = ({ LeftIcon, CenterIcon, RightIcon, handleLeftIconClick, handleCenterIconClick, handleRightIconClick }: NavProps) => {
+export const Nav = ({ activeLink }: NavProps) => {
+  const [activeIcon, setActiveIcon] = useState(activeLink || "null");
+
   return (
     <Navbar>
       <NavItems>
-        <NavItem onClick={handleLeftIconClick}>{LeftIcon}</NavItem>
-        <NavItem onClick={handleCenterIconClick}>{CenterIcon}</NavItem>
-        <NavItem onClick={handleRightIconClick}>{RightIcon}</NavItem>
+        <NavItem onClick={() => setActiveIcon("chat")}>
+          <ChatIcon active={activeIcon === "chat"} />
+        </NavItem>
+        <NavItem onClick={() => setActiveIcon("profile")}>
+          <ProfileIcon active={activeIcon === "profile"} />
+        </NavItem>
+        <NavItem onClick={() => setActiveIcon("about")}>
+          <AboutIcon active={activeIcon === "about"} />
+        </NavItem>
       </NavItems>
     </Navbar>
   );
