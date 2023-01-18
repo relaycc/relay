@@ -2,7 +2,7 @@ import type { NextPage } from "next";
 import { CardContainer } from "components/pages/CardContainer";
 import { client, Project, isProject } from "lib";
 
-export const getStaticProps = async (): Promise<{
+export const getServerSideProps = async (): Promise<{
   props: {
     projects: Project[];
   };
