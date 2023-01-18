@@ -2,6 +2,7 @@ import styled from "styled-components";
 import {ArrowUpCircle} from "@/lib/design/ArrowUpCircle";
 import {receiverTheme} from "@/lib/design/wip/receiverTheme";
 import {textSmallRegular} from "@/lib/design/wip/typography";
+import {LoaderAnimGeneral} from "@/lib/design/LoaderAnimGeneral";
 
 const Root = styled.div`
   display: flex;
@@ -39,14 +40,14 @@ const Input = styled.input`
 `;
 
 
-export const MsgBox = ({active}: {active: boolean}) => {
+export const MsgBox = ({active, isLoading}: {active: boolean, isLoading: boolean}) => {
 
-        if (active) {
+        if (isLoading) {
             return (
                 <Root>
                     <Wrapper>
                         <Input placeholder={"Type a Message"} />
-                        <ArrowUpCircle active={active} />
+                        <LoaderAnimGeneral />
                     </Wrapper>
                 </Root>
             )}
@@ -59,6 +60,5 @@ export const MsgBox = ({active}: {active: boolean}) => {
             </Root>
         )
 
-
-
 }
+
