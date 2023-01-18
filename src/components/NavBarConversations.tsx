@@ -92,7 +92,7 @@ export const NavBarConversations = ({
             Twitter
           </a>
           <a 
-            className="sm:flex md:hidden hover:underline"
+            className="xs:hidden sm:flex md:hidden hover:underline"
             href="https://twitter.com/relay_eth" target="_blank" rel="noreferrer">
             <Twitter />
           </a>
@@ -105,7 +105,7 @@ export const NavBarConversations = ({
             Discord
           </a>
           <a 
-            className="sm:flex md:hidden hover:underline"
+            className="sm:hidden sm:flex md:hidden hover:underline"
             href="https://discord.gg/relaycc" target="_blank" rel="noreferrer">
             <Discord />
           </a>
@@ -118,12 +118,12 @@ export const NavBarConversations = ({
             Mirror
           </a>
           <a 
-            className="sm:flex md:hidden hover:underline"
+            className="sm:hidden md:hidden hover:underline"
             href="https://mirror.xyz/relaycc.eth" target="_blank" rel="noreferrer">
             <Mirror />
           </a>
           <a 
-            className="sm:flex hover:underline"
+            className="sm:hidden hover:underline"
             href="https://github.com/relaycc" target="_blank" rel="noreferrer">
             <Github />
           </a>
