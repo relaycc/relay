@@ -61,7 +61,7 @@ export const NavBarConversations = ({
           <input
             type="text"
             placeholder="Enter ENS, Lens, or ETH Address"
-            className={`focus:outline-none border-[3px] border-[#F9FAFB] bg-gray-100 h-12 p-5 rounded-lg w-full pr-12 ${
+            className={`focus:outline-none border-[3px] border-[#DAD8F6] bg-gray-100 h-12 p-5 rounded-lg w-full pr-12 ${
               inputIsError && "focus:border-2 focus:border-red-200"
             }`}
             onChange={(e) => {

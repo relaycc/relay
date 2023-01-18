@@ -81,14 +81,14 @@ export const AppCard: FunctionComponent<{
       </div>
       <div
         className={
-          "flex w-full pr-[1rem] pl-[1rem] absolute bottom-[1rem] left-[50%] translate-x-[-50%]"
+          "flex w-full pr-[1rem] pl-[1rem] absolute bottom-[1rem] left-[50%] translate-x-[-50%] border-[#DAD8F6]"
         }
       >
         <DataRow
           className={`${
             handle === "" || handle === null || handle === undefined
               ? "bg-gray-300"
-              : "bg-[#4236C7] hover:bg-[#3220ff] text-white"
+              : "bg-[#4236C7] hover:bg-[#3220ff] text-white border-[#4236C7] border-2"
           } mr-3`}
           onClick={onClickSendMessage}
           handle={handle}
@@ -104,7 +104,7 @@ export const AppCard: FunctionComponent<{
             target="_blank"
           >
             <button
-              className={`btn btn-ghost p-0 pl-4 pr-4 mt-auto rounded-md border-[3px] border-black flex flex-row justify-center`}
+              className={`btn bg-white hover:bg-white hover: p-0 pl-4 pr-4 mt-auto rounded-md border-[3px] border-[#4236C7] flex flex-row justify-center`}
             >
               <IconLinkOut />
             </button>
