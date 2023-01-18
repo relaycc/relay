@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { textXsRegular } from "@/lib/design/wip/typography";
 
 const NewDateDividerContainer = styled.div`
   display: flex;
@@ -14,6 +15,7 @@ const Line = styled.div`
 `;
 
 const Time = styled.div`
+  ${textXsRegular};
   color: #D0D5DD;
 `
 
@@ -21,7 +23,7 @@ export const NewDateDivider = () => {
   return (
     <NewDateDividerContainer>
       <Line/>
-      <Time>Today</Time>
+      <Time>TODAY</Time>
       <Line/>
     </NewDateDividerContainer>
 
