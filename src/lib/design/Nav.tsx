@@ -5,7 +5,7 @@ import { ProfileIcon } from "./ProfileIcon";
 import { AboutIcon } from "./AboutIcon";
 
 interface NavProps {
-  activeLink: "chat" | "profile" | "about";
+  activeLink?: "chat" | "profile" | "about";
 }
 
 const Navbar = styled.nav`
