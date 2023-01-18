@@ -33,7 +33,7 @@ export const Page: FunctionComponent<{
       <div className="relative container mx-auto flex flex-col align-center flex-grow p-8">
         {navBar}
         <nav className="w-full mb-7 border-b-2 border-blue-800">
-          <ul className="h-14 flex items-center gap-5 overflow-x-scroll">
+          <ul className="h-14 flex items-center gap-5 whitespace-nowrap overflow-auto scrollbar-hide">
             <li
               onClick={() => {
                 setCategory("general");
