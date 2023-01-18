@@ -61,7 +61,7 @@ export const NavBarConversations = ({
           <input
             type="text"
             placeholder="Enter ENS, Lens, or ETH Address"
-            className={`focus:outline-none border-[3px] border-black bg-gray-100 h-12 p-5 rounded-lg w-full pr-12 ${
+            className={`focus:outline-none border-[3px] border-[#DAD8F6] bg-gray-100 h-12 p-5 rounded-lg w-full pr-12 ${
               inputIsError && "focus:border-2 focus:border-red-200"
             }`}
             onChange={(e) => {
@@ -80,7 +80,7 @@ export const NavBarConversations = ({
       <div className="flex justify-end items-center gap-4 ml-auto xl:order-3 order-2 md:w-auto xs:w-full">
         <button
           onClick={chainModal.openChainModal}
-          className={`hidden sm:flex btn btn-ghost bg-accent w-40 border-none rounded-md`}
+          className={`hidden sm:flex btn btn-ghost bg-[#EAECF0] w-40 border-none rounded-md`}
         >
           <div className="flex flex-row items-center flex-grow justify-between">
             {network.chain?.name || "No Network"}
@@ -97,9 +97,9 @@ export const NavBarConversations = ({
               ? accountModal.openAccountModal
               : connectModal.openConnectModal
           }
-          className={`btn btn-ghost bg-accent lg:w-[319px] border-none rounded-md`}
+          className={`btn bg-[#857EEA] hover:bg-[#2f24c4] lg:w-[319px] border-none rounded-md text-white`}
         >
-          <div className="flex flex-row flex-grow items-center justify-between">
+          <div className="flex flex-row flex-grow items-center justify-between bg-#2f24c4">
             {account.isConnected && typeof account.address === "string"
               ? account.address.slice(0, 8) + "..." + account.address.slice(-4)
               : "Connect A Wallet"}

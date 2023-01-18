@@ -27,8 +27,7 @@ export const Page: FunctionComponent<{
 
   return (
     <main
-      data-theme="retro"
-      className="w-screen min-h-screen flex flex-row justify-center overflow-scroll bg-blue-100"
+      className="w-screen min-h-screen flex flex-row justify-center overflow-scroll bg-gradient-to-t from-[#857EEA]"
     >
       <div className="relative container mx-auto flex flex-col align-center flex-grow p-8">
         {navBar}
@@ -39,7 +38,7 @@ export const Page: FunctionComponent<{
                 setCategory("general");
               }}
               className={`cursor-pointer text-xl ${
-                category === "general" && "underline text-blue-800"
+                category === "general" && "underline text-[#7235BF]"
               }`}
             >
               General
@@ -49,7 +48,7 @@ export const Page: FunctionComponent<{
                 setCategory("new");
               }}
               className={`cursor-pointer text-xl ${
-                category === "new" && "underline text-blue-800"
+                category === "new" && "underline text-[#7235bf]"
               }`}
             >
               New
@@ -59,7 +58,7 @@ export const Page: FunctionComponent<{
                 setCategory("venture");
               }}
               className={`cursor-pointer text-xl ${
-                category === "venture" && "underline text-blue-800"
+                category === "venture" && "underline text-[#7235bf]"
               }`}
             >
               Venture
@@ -69,7 +68,7 @@ export const Page: FunctionComponent<{
                 setCategory("lens");
               }}
               className={`cursor-pointer text-xl whitespace-nowrap ${
-                category === "lens" && "underline text-blue-800"
+                category === "lens" && "underline text-[#7235bf]"
               }`}
             >
               Lens
@@ -79,7 +78,7 @@ export const Page: FunctionComponent<{
                 setCategory("music");
               }}
               className={`cursor-pointer text-xl ${
-                category === "music" && "underline text-blue-800"
+                category === "music" && "underline text-[#7235bf]"
               }`}
             >
               Music
@@ -89,7 +88,7 @@ export const Page: FunctionComponent<{
                 setCategory("identity");
               }}
               className={`cursor-pointer text-xl ${
-                category === "identity" && "underline text-blue-800"
+                category === "identity" && "underline text-[#7235bf]"
               }`}
             >
               Identity
@@ -99,7 +98,7 @@ export const Page: FunctionComponent<{
                 setCategory("dao");
               }}
               className={`cursor-pointer text-xl ${
-                category === "dao" && "underline text-blue-800"
+                category === "dao" && "underline text-[#7235bf]"
               }`}
             >
               DAO
@@ -109,7 +108,7 @@ export const Page: FunctionComponent<{
                 setCategory("defi");
               }}
               className={`cursor-pointer text-xl ${
-                category === "defi" && "underline text-blue-800"
+                category === "defi" && "underline text-[#7235bf]"
               }`}
             >
               DeFi
@@ -119,7 +118,7 @@ export const Page: FunctionComponent<{
                 setCategory("zk");
               }}
               className={`cursor-pointer text-xl ${
-                category === "zk" && "underline text-blue-800"
+                category === "zk" && "underline text-[#7235bf]"
               }`}
             >
               ZK
@@ -129,7 +128,7 @@ export const Page: FunctionComponent<{
                 setCategory("impactdao");
               }}
               className={`cursor-pointer text-xl ${
-                category === "impactdao" && "underline text-blue-800"
+                category === "impactdao" && "underline text-[#7235bf]"
               }`}
             >
               ImpactDAO
@@ -139,7 +138,7 @@ export const Page: FunctionComponent<{
                 setCategory("daotool");
               }}
               className={`cursor-pointer text-xl whitespace-nowrap ${
-                category === "daotool" && "underline text-blue-800"
+                category === "daotool" && "underline text-[#7235bf]"
               }`}
             >
               DAO Tool
@@ -149,7 +148,7 @@ export const Page: FunctionComponent<{
                 setCategory("infrastructure");
               }}
               className={`cursor-pointer text-xl ${
-                category === "infrastructure" && "underline text-blue-800"
+                category === "infrastructure" && "underline text-[#7235bf]"
               }`}
             >
               Infrastructure
