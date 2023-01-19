@@ -1,12 +1,11 @@
 import styled from "styled-components";
-import { AddressHeader } from "@/lib/design/AddressHeader";
-import { ButtonView } from "@/lib/design/ButtonView";
 import DesignAddressHeader from "./DesignAddressHeader";
 import DesignButtonView from "./DesignButtonView";
 import DesignAboutIcon from './DesignAboutIcon'
 import DesignAlertCircle from './DesignAlertCircle'
 import DesignArrowUpCircle from './DesignArrowUpCircle'
 import DesignBackIcon from "./DesignBackIcon";
+import DesignBadge from "./DesignBadge";
 
 const VERY_LONG_TEXT =
   "Very long text that will be truncated. This is the longest text of all time and I can't believe that it's overlfowing the container.";
@@ -24,6 +23,7 @@ export default function Design() {
       <DesignAlertCircle />
       <DesignArrowUpCircle />
       <DesignBackIcon />
+      <DesignBadge />
     </CenteredFlexColumn>
   );
 }
