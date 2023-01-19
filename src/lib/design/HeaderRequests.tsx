@@ -35,7 +35,7 @@ export const HeaderRequests = () => {
         <BackIcon/>
         <Title>Requests</Title>
       </TitleContainer>
-      <Edit/>
+      <Edit isActive={false}/>
     </Container>
   );
 };
