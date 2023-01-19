@@ -31,7 +31,7 @@ export const LogoCard: FunctionComponent<LogoCardProps> = ({
             className={`${logoClassName} rounded-md w-[8rem]`}
           />
         </div>
-        <h2 className="bg-secondary border-[3px] overflow-hidden border-black rounded-md m-0 mt-auto uppercase h-12 font-bold flex flex-row w-full justify-center items-center">
+        <h2 className="bg-secondary border-[3px] overflow-hidden border-white rounded-md m-0 mt-auto uppercase h-12 font-bold flex flex-row w-full justify-center items-center">
           {title}
         </h2>
       </div>
