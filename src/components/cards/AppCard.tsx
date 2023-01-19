@@ -71,7 +71,7 @@ export const AppCard: FunctionComponent<{
         <DataRow
           className={`${
             handle === "" || handle === null || handle === undefined
-              ? "bg-gray-300"
+              ? "bg-gray-300 hover:bg-gray-400"
               : "bg-[#4236C7] hover:bg-[#3220ff] text-white border-[#4236C7] border-2"
           } mr-3`}
           onClick={onClickSendMessage}
@@ -88,7 +88,7 @@ export const AppCard: FunctionComponent<{
             target="_blank"
           >
             <button
-              className={`btn bg-white hover:bg-white hover: p-0 pl-4 pr-4 mt-auto rounded-md border-[3px] border-[#4236C7] flex flex-row justify-center`}
+              className={`btn bg-white hover:bg-indigo-100 hover:border-[#4236C7] p-0 pl-4 pr-4 mt-auto rounded-md border-[3px] border-[#4236C7] flex flex-row justify-center`}
             >
               <IconLinkOut />
             </button>
