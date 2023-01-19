@@ -18,8 +18,7 @@ export default function DesignButtonView () {
             <Link
               href="https://www.figma.com/file/EZOEJ9JRgoJObOEQsf6NqV/Relay's-Design-System?t=0qDhgsZoj2XintxJ-0"
               target={"_blank"}
-            >
-              ButtonView
+            >ButtonView
             </Link>
           </FigmaLink>
         </ComponentSectionHeader>
@@ -639,7 +638,7 @@ const ComponentSectionHeader = styled.div`
 
 const ComponentSectionTitle = styled.h1``;
 
-const FigmaLink = styled.a``;
+const FigmaLink = styled.div``;
 
 const CenteredFlexColumn = styled.div`
   padding: 6rem;

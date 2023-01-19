@@ -18,8 +18,7 @@ export default function DesignAddressHeader () {
             <Link
               href="https://www.figma.com/file/oeHqO9qLCkz7SYb73J5Qx4/Receiver-Design-File?node-id=806%3A13629&t=3csLpeXKF1rhktk1-4"
               target={"_blank"}
-            >
-              address header
+            >address header
             </Link>
           </FigmaLink>
         </ComponentSectionHeader>
@@ -58,7 +57,7 @@ const ComponentSectionHeader = styled.div`
 
 const ComponentSectionTitle = styled.h1``;
 
-const FigmaLink = styled.a``;
+const FigmaLink = styled.div``;
 
 const CenteredFlexColumn = styled.div`
   padding: 6rem;

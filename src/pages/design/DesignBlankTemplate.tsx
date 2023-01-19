@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { AboutIcon } from "@/lib/design/AboutIcon";
 import Link from "next/link";
 
 const VERY_LONG_TEXT =
@@ -12,12 +11,14 @@ export default function DesignAboutIcon() {
   return (
     <ComponentSection>
       <ComponentSectionHeader>
-        <ComponentSectionTitle>AddressHeader</ComponentSectionTitle>
+        <ComponentSectionTitle>Title goes here</ComponentSectionTitle>
         <FigmaLink>
           Figma Link:{" "}
-          <Link href="https://www.figma.com/file/oeHqO9qLCkz7SYb73J5Qx4/Receiver-Design-File?node-id=806%3A13629&t=3csLpeXKF1rhktk1-4"></Link>
+          <Link href="link goes here"></Link>
           <span>title goes here</span>
         </FigmaLink>
+        <h3>Title of css stuff</h3>
+        <li>Css stuff</li>
       </ComponentSectionHeader>
       <Receiver>
         <span> components go here </span>
@@ -49,7 +50,7 @@ const ComponentSectionHeader = styled.div`
 
 const ComponentSectionTitle = styled.h1``;
 
-const FigmaLink = styled.a``;
+const FigmaLink = styled.div``;
 
 const CenteredFlexColumn = styled.div`
   padding: 6rem;

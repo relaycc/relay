@@ -4,6 +4,7 @@ import { ButtonView } from "@/lib/design/ButtonView";
 import DesignAddressHeader from "./DesignAddressHeader";
 import DesignButtonView from "./DesignButtonView";
 import DesignAboutIcon from './DesignAboutIcon'
+import DesignAlertCircle from './DesignAlertCircle'
 
 const VERY_LONG_TEXT =
   "Very long text that will be truncated. This is the longest text of all time and I can't believe that it's overlfowing the container.";
@@ -18,34 +19,10 @@ export default function Design() {
       <DesignAddressHeader />
       <DesignButtonView />
       <DesignAboutIcon />
+      <DesignAlertCircle />
     </CenteredFlexColumn>
   );
 }
-
-const Receiver = styled.div`
-  height: 700px;
-  width: 360px;
-  border: 4px solid black;
-  border-radius: 4px;
-`;
-
-const ComponentSection = styled.section`
-  width: 100vw;
-  display: flex;
-  justify-content: center;
-  margin-top: 6rem;
-  margin-bottom: 6rem;
-  padding: 6rem;
-`;
-
-const ComponentSectionHeader = styled.div`
-  margin-right: 6rem;
-  min-width: 20rem;
-`;
-
-const ComponentSectionTitle = styled.h1``;
-
-const FigmaLink = styled.a``;
 
 const CenteredFlexColumn = styled.div`
   padding: 6rem;
