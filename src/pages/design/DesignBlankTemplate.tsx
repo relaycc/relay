@@ -7,7 +7,7 @@ const MEDIUM_TEXT = "Medium text that might be truncated.";
 const SHORT_TEXT = "Short text";
 const EMPTY_TEXT = "";
 
-export default function DesignAboutIcon() {
+export default function DesignBlankTemplate() {
   return (
     <ComponentSection>
       <ComponentSectionHeader>

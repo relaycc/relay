@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import Link from "next/link";
-import { ChatIcon } from "@/lib/design/ChatIcon";
+import { Checkbox } from "@/lib/design/Checkbox";
 
 const VERY_LONG_TEXT =
   "Very long text that will be truncated. This is the longest text of all time and I can't believe that it's overlfowing the container.";
@@ -12,25 +12,24 @@ export default function DesignCheckbox() {
   return (
     <ComponentSection>
       <ComponentSectionHeader>
-        <ComponentSectionTitle>ChatIcon</ComponentSectionTitle>
+        <ComponentSectionTitle>Checkbox</ComponentSectionTitle>
         <FigmaLink>
           Figma Link:{" "}
-          <Link href="https://www.figma.com/file/oeHqO9qLCkz7SYb73J5Qx4/Receiver-Design-File?node-id=520%3A11058&t=B5T9zGUw4OVNoomZ-4" target={"_blank"}>
-            <span>ChatIcon</span>
+          <Link href="https://www.figma.com/file/oeHqO9qLCkz7SYb73J5Qx4/Receiver-Design-File?node-id=454%3A10851&t=B5T9zGUw4OVNoomZ-4" target={"_blank"}>
+            <span>Checkbox</span>
           </Link>
         </FigmaLink>
         <h3>Colors</h3>
         <li>Primary/500</li>
-        <li>Gray/400</li>
       </ComponentSectionHeader>
       <Receiver>
-        <span>Active</span>
-        <br/>
-        <ChatIcon active={true} />
+        <span>Secected</span>
         <br />
-        <span>Inactive + hover</span>
+        <Checkbox selected={true} />
         <br />
-        <ChatIcon active={false} />
+        <span>Unselected + hover</span>
+        <br />
+        <Checkbox selected={false} />
       </Receiver>
     </ComponentSection>
   );
