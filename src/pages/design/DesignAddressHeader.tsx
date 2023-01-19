@@ -58,10 +58,3 @@ const ComponentSectionHeader = styled.div`
 const ComponentSectionTitle = styled.h1``;
 
 const FigmaLink = styled.div``;
-
-const CenteredFlexColumn = styled.div`
-  padding: 6rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`;

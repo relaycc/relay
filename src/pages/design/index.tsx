@@ -5,6 +5,7 @@ import DesignAddressHeader from "./DesignAddressHeader";
 import DesignButtonView from "./DesignButtonView";
 import DesignAboutIcon from './DesignAboutIcon'
 import DesignAlertCircle from './DesignAlertCircle'
+import DesignArrowUpCircle from './DesignArrowUpCircle'
 
 const VERY_LONG_TEXT =
   "Very long text that will be truncated. This is the longest text of all time and I can't believe that it's overlfowing the container.";
@@ -20,6 +21,7 @@ export default function Design() {
       <DesignButtonView />
       <DesignAboutIcon />
       <DesignAlertCircle />
+      <DesignArrowUpCircle />
     </CenteredFlexColumn>
   );
 }
