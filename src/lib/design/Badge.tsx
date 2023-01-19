@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, {css} from "styled-components";
 import {receiverTheme} from "@/lib/design/wip/receiverTheme";
 import {textXsMedium} from "@/lib/design/wip/typography";
 
@@ -6,20 +6,39 @@ import {textXsMedium} from "@/lib/design/wip/typography";
 const Root = styled.div`
   display: flex;
 
-  width: 100%;
-`;
+  width: 100%;`;
 
 const Container = styled.div`
-  ${textXsMedium};
-  color: ${receiverTheme.colors.gray["700"]};
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  column-gap: 0.4rem;
+
   border-radius: 16px;
   background-color: ${receiverTheme.colors.gray["100"]};
   padding: 2px 8px;
   height: 1.125rem;
+  min-width: 3rem;
+`;
 
-  display: flex;
-  justify-content: center;
-  align-items: center;
+const Label = styled.div<{ color: "gray" | "purple" }>`
+  ${textXsMedium};
+  color: ${receiverTheme.colors.primary["500"]};
+
+  ${props => props.color === "gray" && css`
+    color: ${receiverTheme.colors.gray["700"]}
+  `};
+`;
+
+const Icon = styled.div<{ color: "gray" | "purple" }>`
+  width: 0.375rem;
+  height: 0.375rem;
+  border-radius: 50%;
+  background-color: ${receiverTheme.colors.primary["500"]};
+
+  ${props => props.color === "gray" && css`
+    background-color: ${receiverTheme.colors.gray["700"]}
+  `};
 `;
 
 const LoadingDiv = styled.div`
@@ -27,10 +46,15 @@ const LoadingDiv = styled.div`
   border-radius: 16px;
   height: 1.375rem;
 
-  width: 5.75rem;
+  width: 3.75rem;
 `;
 
-export const Badge = ({isLoading, label}: { isLoading: boolean, label: string }) => {
+export const Badge = ({
+                          isLoading,
+                          label,
+                          color,
+                          dot
+                      }: { isLoading: boolean, label: string, color: "gray" | "purple", dot: boolean }) => {
 
     if (isLoading) {
         return (
@@ -41,7 +65,10 @@ export const Badge = ({isLoading, label}: { isLoading: boolean, label: string })
     }
     return (
         <Root>
-            <Container>{label}</Container>
+            <Container>
+                {dot && <Icon color={color}/>}
+                <Label color={color}>{label}</Label>
+            </Container>
         </Root>
     )
 }
