@@ -12,6 +12,7 @@ export interface Project {
     | "venture"
     | "lens"
     | "identity"
+    | "events"
     | "music"
     | "impactdao"
     | "defi"
@@ -29,6 +30,7 @@ export const fromListToByCategory = (
     new: [],
     venture: [],
     lens: [],
+    events: [],
     identity: [],
     music: [],
     impactdao: [],

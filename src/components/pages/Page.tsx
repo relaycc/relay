@@ -26,9 +26,7 @@ export const Page: FunctionComponent<{
   }, [setWallet, signer]);
 
   return (
-    <main
-      className="w-screen min-h-screen flex flex-row justify-center overflow-scroll bg-gradient-to-t from-[#857EEA]"
-    >
+    <main className="w-screen min-h-screen flex flex-row justify-center overflow-scroll bg-gradient-to-t from-[#857EEA]">
       <div className="relative container mx-auto flex flex-col align-center flex-grow p-8">
         {navBar}
         <nav className="w-full mb-7 mt-2 border-b-2 border-blue-800">
@@ -38,7 +36,8 @@ export const Page: FunctionComponent<{
                 setCategory("general");
               }}
               className={`btn bg-indigo-50 text-[#4236C7] hover:text-[#3220ff] border-[#4236C7] border-2 hover:bg-indigo-200 btn-active cursor-pointer text-xl ${
-                category === "general" && "underline text-[#4236C7] bg-indigo-200"
+                category === "general" &&
+                "underline text-[#4236C7] bg-indigo-200"
               }`}
             >
               General
@@ -58,7 +57,8 @@ export const Page: FunctionComponent<{
                 setCategory("venture");
               }}
               className={`btn bg-indigo-50 text-[#4236C7] hover:text-[#3220ff] border-[#4236C7] border-2 hover:bg-indigo-200 btn-active cursor-pointer text-xl ${
-                category === "venture" && "underline text-[#4236C7] bg-indigo-200"
+                category === "venture" &&
+                "underline text-[#4236C7] bg-indigo-200"
               }`}
             >
               Venture
@@ -85,10 +85,22 @@ export const Page: FunctionComponent<{
             </li>
             <li
               onClick={() => {
+                setCategory("events");
+              }}
+              className={`btn bg-indigo-50 text-[#4236C7] hover:text-[#3220ff] border-[#4236C7] border-2 hover:bg-indigo-200 btn-active cursor-pointer text-xl ${
+                category === "events" &&
+                "underline text-[#4236C7] bg-indigo-200"
+              }`}
+            >
+              Events
+            </li>
+            <li
+              onClick={() => {
                 setCategory("infrastructure");
               }}
               className={`btn bg-indigo-50 text-[#4236C7] hover:text-[#3220ff] border-[#4236C7] border-2 hover:bg-indigo-200 btn-active cursor-pointer text-xl ${
-                category === "infrastructure" && "underline text-[#4236C7] bg-indigo-200"
+                category === "infrastructure" &&
+                "underline text-[#4236C7] bg-indigo-200"
               }`}
             >
               Infrastructure
@@ -98,7 +110,8 @@ export const Page: FunctionComponent<{
                 setCategory("impactdao");
               }}
               className={`btn bg-indigo-50 text-[#4236C7] hover:text-[#3220ff] border-[#4236C7] border-2 hover:bg-indigo-200 btn-active cursor-pointer text-xl ${
-                category === "impactdao" && "underline text-[#4236C7] bg-indigo-200"
+                category === "impactdao" &&
+                "underline text-[#4236C7] bg-indigo-200"
               }`}
             >
               ImpactDAO
@@ -108,7 +121,8 @@ export const Page: FunctionComponent<{
                 setCategory("identity");
               }}
               className={`btn bg-indigo-50 text-[#4236C7] hover:text-[#3220ff] border-[#4236C7] border-2 hover:bg-indigo-200 btn-active cursor-pointer text-xl ${
-                category === "identity" && "underline text-[#4236C7] bg-indigo-200"
+                category === "identity" &&
+                "underline text-[#4236C7] bg-indigo-200"
               }`}
             >
               Identity
@@ -148,7 +162,8 @@ export const Page: FunctionComponent<{
                 setCategory("daotool");
               }}
               className={`btn bg-indigo-50 text-[#4236C7] hover:text-[#3220ff] border-[#4236C7] border-2 hover:bg-indigo-200 btn-active cursor-pointer text-xl ${
-                category === "daotool" && "underline text-[#4236C7] bg-indigo-200"
+                category === "daotool" &&
+                "underline text-[#4236C7] bg-indigo-200"
               }`}
             >
               DAO Tools
