@@ -12,7 +12,9 @@ const Root = styled.div`
   padding: 1rem;
   height: 4.5rem;
 
-  width: 100%;
+  bordeR: thin solid red;
+  width: 360px;
+  //width: 100%;
   background: #FFFFFF;
 
   :hover {
@@ -56,8 +58,7 @@ const Wrapper = styled.div`
   padding: 0;
   column-gap: 24px;
 
-  min-width: 65%;
-  max-width: 85%;
+  max-width: 80%;
 `;
 
 const RequestDetails = styled.div`
@@ -65,37 +66,49 @@ const RequestDetails = styled.div`
   flex-direction: column;
   justify-content: space-evenly;
   align-items: flex-start;
-  width: 60%;
+  width: 80%;
 `;
 const Name = styled.div`
   ${spaceMonoMdBold};
   color: ${receiverTheme.colors.gray["900"]};
+  overflow: clip;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  max-width: 90%;
 `;
-const MessageDetails = styled.div`
+
+const Message = styled.div`
   ${textSmallRegular};
   color: ${receiverTheme.colors.gray["400"]};
 `;
 
+const TimeWrapper = styled.div`
+  display: flex;
+  justify-content: flex-end;
+`;
 
 export const Request = ({
                             isEditing,
                             ENSName,
+                            statusIcon,
                             messageDetails, isLoading
-                        }: { isEditing: boolean, ENSName: string, messageDetails: Array<{ message: string, time: string }>, isLoading: boolean }) => {
+                        }: { isEditing: boolean, ENSName: string, statusIcon: string, messageDetails: Array<{ message: string, time: string }>, isLoading: boolean }) => {
 
     return (
         <Root>
             <Wrapper>
                 {isEditing && <Checkbox selected={false}/>}
                 <StatusIcon size={"lg"}
-                            src={""}
+                            src={statusIcon}
                             isLoading={isLoading}/>
                 <RequestDetails>
                     <Name>{ENSName}</Name>
-                    <MessageDetails>{messageDetails[0].message}</MessageDetails>
+                    <Message>{messageDetails[0].message}</Message>
                 </RequestDetails>
             </Wrapper>
-            <Time isLoading={isLoading} time={messageDetails[0].time}/>
+            <TimeWrapper>
+                <Time isLoading={isLoading} time={messageDetails[0].time}/>
+            </TimeWrapper>
         </Root>
     )
 };
