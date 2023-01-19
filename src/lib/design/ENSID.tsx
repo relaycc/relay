@@ -116,7 +116,7 @@ export const ENSID = ({
                 </ConnectionContent>
             </LeftSide>
             <RightSide>
-                <Badge isLoading={isLoading} label={"ETH Network"} color={color} dot={dot}/>
+                <Badge hasLoaded={isLoading} label={"ETH Network"} color={color} dot={dot}/>
 
                 {isLoading ?
                     <IconContainer>
