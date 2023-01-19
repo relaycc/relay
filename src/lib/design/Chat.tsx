@@ -13,7 +13,6 @@ const Root = styled.div`
   padding: 1rem;
   height: 4.5rem;
 
-  border: thin solid red;
   width: 100%;
   background: #FFFFFF;
 
@@ -58,7 +57,7 @@ const Name = styled.div`
   overflow: clip;
   white-space: nowrap;
   text-overflow: ellipsis;
-  max-width: 43%;
+  max-width: 55%;
 `;
 
 const MessageDetails = styled.div`
