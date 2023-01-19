@@ -7,28 +7,37 @@ const MEDIUM_TEXT = "Medium text that might be truncated.";
 const SHORT_TEXT = "Short text";
 const EMPTY_TEXT = "";
 
-export default function DesignAboutIcon () {
-    return (
-        <ComponentSection>
-        <ComponentSectionHeader>
-          <ComponentSectionTitle>AddressHeader</ComponentSectionTitle>
-          <FigmaLink>
-            Figma Link:{" "}
-            <a
-              href="https://www.figma.com/file/oeHqO9qLCkz7SYb73J5Qx4/Receiver-Design-File?node-id=806%3A13629&t=3csLpeXKF1rhktk1-4"
-              target={"_blank"}
-            >
-              <span>title goes here</span>
-            </a>
-          </FigmaLink>
-        </ComponentSectionHeader>
-        <Receiver>
-<span> components go here </span>
-        </Receiver>
-      </ComponentSection>
-    )
+export default function DesignAboutIcon() {
+  return (
+    <ComponentSection>
+      <ComponentSectionHeader>
+        <ComponentSectionTitle>AboutIcon</ComponentSectionTitle>
+        <FigmaLink>
+          Figma Link:{" "}
+          <a
+            href="https://www.figma.com/file/oeHqO9qLCkz7SYb73J5Qx4/Receiver-Design-File?node-id=520%3A11083&t=uihIk28UOF7pgZee-4"
+            target={"_blank"}
+          >
+            About Icon
+          </a>
+        </FigmaLink>
+          <h3>Colors used</h3>
+          <li>Primary/500</li>
+          <li>Gray/400</li>
+          <li>White</li>
+      </ComponentSectionHeader>
+      <Receiver>
+        <span>About Icon Active</span>
+        <br />
+        <AboutIcon active={true} />
+        <br />
+        <span>About Icon Inactive + hover</span>
+        <br />
+        <AboutIcon active={false} />
+      </Receiver>
+    </ComponentSection>
+  );
 }
-
 
 const Receiver = styled.div`
   height: 700px;
