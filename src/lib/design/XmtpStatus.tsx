@@ -19,6 +19,10 @@ const Row = styled.div`
   align-items: center;
   width: 100%;
   gap: 1rem;
+  
+  svg {
+    min-width: 40px;
+  }
 `
 
 const RowItem = styled.div`
@@ -44,7 +48,7 @@ const XmtpTitleWrapper = styled.div<{loaded: boolean}>`
       background: linear-gradient(90deg, #F1EFEF -24.18%, #F9F8F8 50.26%, #E7E5E5 114.84%);
       mix-blend-mode: multiply;
       border-radius: 6px;
-      width: 8rem;
+      width: 6rem;
       height: 1.5rem;
     }
     ${XmtpVersion} {
@@ -80,7 +84,7 @@ export const XmtpStatus = ({hasPageDataLoaded} : {hasPageDataLoaded: boolean}) =
               {hasPageDataLoaded ? "xmtp-js x7.7.1" : ""}
             </XmtpVersion>
           </XmtpTitleWrapper>
-          <Badge isLoading={hasPageDataLoaded} label={"DEV"}/>
+          <Badge isLoading={!hasPageDataLoaded} label={"DEV"}/>
         </RowItem>
         <IconWrapper>
           <LogoutIcon />
