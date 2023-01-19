@@ -1,6 +1,8 @@
 import styled from "styled-components";
 import {receiverTheme} from "@/lib/design/wip/receiverTheme";
 import {spaceMonoMdBold, textSmallRegular, textXsRegular} from "@/lib/design/wip/typography";
+import {StatusIcon} from "@/lib/design/StatusIcon";
+import {Time} from "@/lib/design/Time";
 
 const Root = styled.div`
   display: flex;
@@ -31,20 +33,22 @@ const RestOfTheMessages = styled(FirstMsgContainer)`
   border-top: 2px solid #FFFFFF;
 `;
 
-const HoveredDateContainer = styled.div`
+const HoveredTimeContainer = styled.div`
   visibility: hidden;
 
-  ${textXsRegular};
-  font-size: 0.5rem;
-  letter-spacing: 0.03em;
-  color: ${receiverTheme.colors.gray["400"]};
   width: 2.5rem;
 
   ${Root}:hover & {
     visibility: unset;
     display: flex;
     align-items: center;
+    justify-content: flex-start;
   }
+`;
+
+const StyledTime = styled(Time)`
+  font-size: 0.5rem;
+  line-height: 0.5rem;
 `;
 
 const StatusIconContainer = styled.div`
@@ -53,13 +57,6 @@ const StatusIconContainer = styled.div`
   justify-content: center;
   width: 2.5rem;
   height: 2.5rem;
-`;
-
-/* Img: Should be replaced with the StatusIcon component */
-const Img = styled.img`
-  width: 2.5rem;
-  height: 2.5rem;
-  border-radius: 50%;
 `;
 
 const MainContainer = styled.div`
@@ -99,23 +96,24 @@ export const MsgBundlesSent = (
     {
         ensName,
         messages,
-        statusIcon,
+        isLoading
     }: {
         ensName: string,
-        messages: Array<{ date: string, message: string }>,
+        messages: Array<{ time: string, message: string }>,
         statusIcon: string,
+        isLoading: boolean
     }) => {
 
     return (
         <Root>
             <FirstMsgContainer>
                 <StatusIconContainer>
-                    <Img src={statusIcon}/>
+                    <StatusIcon size={"lg"} src={""} isLoading={isLoading}/>
                 </StatusIconContainer>
                 <MainContainer>
                     <NameAndDate>
                         <EnsName>{ensName}</EnsName>
-                        <Date>{messages[0].date}</Date>
+                        <Date>{messages[0].time}</Date>
                     </NameAndDate>
                     <MsgContainer>
                         <Msg>{messages[0].message}</Msg>
@@ -125,7 +123,9 @@ export const MsgBundlesSent = (
             </FirstMsgContainer>
             {messages.slice(1).map((i, index) => (
                 <RestOfTheMessages key={index}>
-                    <HoveredDateContainer>{i.date}</HoveredDateContainer>
+                    <HoveredTimeContainer>
+                        <StyledTime isLoading={isLoading} time={i.time}/>
+                    </HoveredTimeContainer>
                     <Msg>{i.message}</Msg>
                 </RestOfTheMessages>
             ))}
