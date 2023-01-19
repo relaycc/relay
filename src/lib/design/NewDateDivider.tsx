@@ -9,21 +9,26 @@ const NewDateDividerContainer = styled.div`
   `;
 
 const Line = styled.div`
-  width: 10.188rem;
-  height: 0;
+  width: 100%;
   border: 0.5px solid #D0D5DD;
 `;
 
 const Time = styled.div`
   ${textXsRegular};
   color: #D0D5DD;
+  white-space: nowrap;
+
 `
 
-export const NewDateDivider = () => {
+interface TimeProps {
+  date: string;
+}
+
+export const NewDateDivider = ({date} : TimeProps) => {
   return (
     <NewDateDividerContainer>
       <Line/>
-      <Time>TODAY</Time>
+      <Time>{date}</Time>
       <Line/>
     </NewDateDividerContainer>
 
