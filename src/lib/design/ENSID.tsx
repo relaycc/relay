@@ -90,7 +90,12 @@ const IconContainer = styled.div`
   flex-direction: row;
 `;
 
-export const ENSID = ({profileScreen, isLoading}: { profileScreen: boolean, isLoading: boolean }) => {
+export const ENSID = ({
+                          profileScreen,
+                          isLoading,
+                          color,
+                          dot
+                      }: { profileScreen: boolean, isLoading: boolean, color: "gray" | "purple", dot: boolean }) => {
 
     return (
         <Root>
@@ -111,7 +116,7 @@ export const ENSID = ({profileScreen, isLoading}: { profileScreen: boolean, isLo
                 </ConnectionContent>
             </LeftSide>
             <RightSide>
-                <Badge isLoading={isLoading} label={"ETH Network"}/>
+                <Badge isLoading={isLoading} label={"ETH Network"} color={color} dot={dot}/>
 
                 {isLoading ?
                     <IconContainer>
