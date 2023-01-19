@@ -14,8 +14,7 @@ const Root = styled.div`
   height: 4.5rem;
 
   border: thin solid red;
-  width: 360px;
-  //width: 100%;
+  width: 100%;
   background: #FFFFFF;
 
   :hover {
