@@ -1,8 +1,9 @@
 import styled from "styled-components";
-import { XmptIcon } from "@/lib/design/XmptIcon";
+import { XmtpIcon } from "@/lib/design/XmtpIcon";
 import { textMdSemiBold, textSmallRegular } from "@/lib/design/wip/typography";
 import { ButtonView } from "@/lib/design/ButtonView";
 import { LoaderAnimInitialization } from "@/lib/design/LoaderAnimInitialization";
+import { AlertCircle } from "@/lib/design/AlertCircle";
 
 const ComponentRoot = styled.div`
   display: flex;
@@ -49,19 +50,24 @@ const SignUpButton = styled(ButtonView)`
 `
 
 interface InitializeXmtpProps {
+  isWalletConnected: boolean;
   hasConnected: boolean;
   isLoading: boolean;
   handleSignin: () => void;
 }
 
-export const InitializeXmtp = ({hasConnected ,isLoading, handleSignin}: InitializeXmtpProps) => {
+export const InitializeXmtp = ({isWalletConnected, hasConnected ,isLoading, handleSignin}: InitializeXmtpProps) => {
   return (
     <ComponentRoot>
       <Row>
-        <XmptIcon/>
+        {isWalletConnected ? <XmtpIcon/> : <AlertCircle/>}
         <RowItem>
-          <Title>Initialize XMTP</Title>
-          <Subtitle>Please connect with XMTP to start messaging.</Subtitle>
+          <Title>
+            {isWalletConnected ? "Initialize XMTP" : "Connect & Sign"}
+          </Title>
+          <Subtitle>
+            {isWalletConnected ? "Please connect with XMTP to start messaging." : "To start using Receiver, connect your wallet and sign the XMTP request."}
+          </Subtitle>
         </RowItem>
       </Row>
       <ButtonWrapper>
