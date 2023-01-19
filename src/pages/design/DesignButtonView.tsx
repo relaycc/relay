@@ -15,12 +15,12 @@ export default function DesignButtonView () {
           <ComponentSectionTitle>ButtonView</ComponentSectionTitle>
           <FigmaLink>
             Figma Link:{" "}
-            <a
+            <Link
               href="https://www.figma.com/file/EZOEJ9JRgoJObOEQsf6NqV/Relay's-Design-System?t=0qDhgsZoj2XintxJ-0"
               target={"_blank"}
             >
               ButtonView
-            </a>
+            </Link>
           </FigmaLink>
         </ComponentSectionHeader>
         <Receiver>

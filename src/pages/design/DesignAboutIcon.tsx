@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { AboutIcon } from "@/lib/design/AboutIcon";
+import Link from "next/link";
 
 const VERY_LONG_TEXT =
   "Very long text that will be truncated. This is the longest text of all time and I can't believe that it's overlfowing the container.";
@@ -14,12 +15,12 @@ export default function DesignAboutIcon() {
         <ComponentSectionTitle>AboutIcon</ComponentSectionTitle>
         <FigmaLink>
           Figma Link:{" "}
-          <a
+          <Link
             href="https://www.figma.com/file/oeHqO9qLCkz7SYb73J5Qx4/Receiver-Design-File?node-id=520%3A11083&t=uihIk28UOF7pgZee-4"
             target={"_blank"}
           >
             About Icon
-          </a>
+          </Link>
         </FigmaLink>
           <h3>Colors used</h3>
           <li>Primary/500</li>

@@ -15,12 +15,12 @@ export default function DesignAddressHeader () {
           <ComponentSectionTitle>AddressHeader</ComponentSectionTitle>
           <FigmaLink>
             Figma Link:{" "}
-            <a
+            <Link
               href="https://www.figma.com/file/oeHqO9qLCkz7SYb73J5Qx4/Receiver-Design-File?node-id=806%3A13629&t=3csLpeXKF1rhktk1-4"
               target={"_blank"}
             >
               address header
-            </a>
+            </Link>
           </FigmaLink>
         </ComponentSectionHeader>
         <Receiver>
