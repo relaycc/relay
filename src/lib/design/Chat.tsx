@@ -72,16 +72,15 @@ const StyledTime = styled.div`
 `;
 
 export const Chat = ({
-
-                         ENSName,
+                         ENSName, statusIcon,
                          messageDetails, hasLoaded, isPinned, hasLENS
-                     }: { isEditing: boolean, ENSName: string, messageDetails: Array<{ message: string, time: string }>, hasLoaded: boolean, isPinned: boolean, hasLENS: boolean }) => {
+                     }: { ENSName: string, statusIcon: string; messageDetails: Array<{ message: string, time: string }>, hasLoaded: boolean, isPinned: boolean, hasLENS: boolean }) => {
 
     return (
         <Root>
             <Wrapper>
                 <StatusIcon size={"lg"}
-                            src={"https://pyxis.nymag.com/v1/imgs/f47/788/caac0f6d9bc8edc26a8c8b17d69a41e447-02-sherlock.rsquare.w330.jpg"}
+                            src={statusIcon}
                             isLoading={!hasLoaded}/>
                 <MsgDetails>
                     <NameAndIcons>
