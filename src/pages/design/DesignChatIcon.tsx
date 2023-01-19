@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import Link from "next/link";
-import { Badge } from "@/lib/design/Badge";
+import { ChatIcon } from "@/lib/design/ChatIcon";
 
 const VERY_LONG_TEXT =
   "Very long text that will be truncated. This is the longest text of all time and I can't believe that it's overlfowing the container.";
@@ -8,33 +8,29 @@ const MEDIUM_TEXT = "Medium text that might be truncated.";
 const SHORT_TEXT = "Short text";
 const EMPTY_TEXT = "";
 
-export default function DesignBadge() {
+export default function DesignChatIcon() {
   return (
     <ComponentSection>
       <ComponentSectionHeader>
-        <ComponentSectionTitle>Badge</ComponentSectionTitle>
+        <ComponentSectionTitle>ChatIcon</ComponentSectionTitle>
         <FigmaLink>
           Figma Link:{" "}
-          <Link href="https://www.figma.com/file/oeHqO9qLCkz7SYb73J5Qx4/Receiver-Design-File?node-id=826%3A20866&t=na5BcWI9n0lemVeP-4" target={"_blank"}>
-            <span>Badge</span>
+          <Link href="https://www.figma.com/file/oeHqO9qLCkz7SYb73J5Qx4/Receiver-Design-File?node-id=520%3A11058&t=B5T9zGUw4OVNoomZ-4" target={"_blank"}>
+            <span>ChatIcon</span>
           </Link>
         </FigmaLink>
         <h3>Colors</h3>
-        <li>Gray/100</li>
-        <li>Gray/700</li>
+        <li>Primary/500</li>
+        <li>Gray/400</li>
       </ComponentSectionHeader>
       <Receiver>
-        <span>loading</span>
-        <Badge isLoading={true} label="badge"/>
-        <span>Empty text</span>
-        <Badge isLoading={false} label={EMPTY_TEXT}/>
+        <span>Active</span>
+        <br/>
+        <ChatIcon active={true} />
         <br />
-        <Badge isLoading={false} label={SHORT_TEXT}/>
+        <span>Inactive + hover</span>
         <br />
-        <Badge isLoading={false} label={MEDIUM_TEXT}/>
-        <br />
-        <br />
-        <Badge isLoading={false} label={VERY_LONG_TEXT}/>
+        <ChatIcon active={false} />
       </Receiver>
     </ComponentSection>
   );
