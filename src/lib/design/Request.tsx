@@ -3,6 +3,7 @@ import {receiverTheme} from "@/lib/design/wip/receiverTheme";
 import {Checkbox, CheckboxSvg} from "@/lib/design/Checkbox";
 import {StatusIcon} from "@/lib/design/StatusIcon";
 import {spaceMonoMdBold, textSmallRegular} from "@/lib/design/wip/typography";
+import {Time} from "@/lib/design/Time";
 
 const Root = styled.div`
   display: flex;
@@ -12,7 +13,6 @@ const Root = styled.div`
   height: 4.5rem;
 
   width: 100%;
-  //width: 400px;
   background: #FFFFFF;
 
   :hover {
@@ -67,7 +67,7 @@ const RequestDetails = styled.div`
   align-items: flex-start;
   width: 60%;
 `;
-const ENSName = styled.div`
+const Name = styled.div`
   ${spaceMonoMdBold};
   color: ${receiverTheme.colors.gray["900"]};
 `;
@@ -75,15 +75,13 @@ const MessageDetails = styled.div`
   ${textSmallRegular};
   color: ${receiverTheme.colors.gray["400"]};
 `;
-const Time = styled.div`
-  ${textSmallRegular};
-  font-size: 12px;
-  line-height: 18px;
-  color: ${receiverTheme.colors.gray["400"]};
 
-`;
 
-export const Request = ({isEditing}: { isEditing: boolean }) => {
+export const Request = ({
+                            isEditing,
+                            ENSName,
+                            messageDetails, isLoading
+                        }: { isEditing: boolean, ENSName: string, messageDetails: Array<{ message: string, time: string }>, isLoading: boolean }) => {
 
     return (
         <Root>
@@ -91,13 +89,13 @@ export const Request = ({isEditing}: { isEditing: boolean }) => {
                 {isEditing && <Checkbox selected={false}/>}
                 <StatusIcon size={"lg"}
                             src={""}
-                            isLoading={false}/>
+                            isLoading={isLoading}/>
                 <RequestDetails>
-                    <ENSName>request.eth</ENSName>
-                    <MessageDetails>This is a request msg.</MessageDetails>
+                    <Name>{ENSName}</Name>
+                    <MessageDetails>{messageDetails[0].message}</MessageDetails>
                 </RequestDetails>
             </Wrapper>
-            <Time>YESTERDAY</Time>
+            <Time isLoading={isLoading} time={messageDetails[0].time}/>
         </Root>
     )
 };
