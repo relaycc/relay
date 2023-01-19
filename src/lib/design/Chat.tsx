@@ -86,7 +86,7 @@ export const Chat = ({
                     <NameAndIcons>
                         <Name>{ENSName}</Name>
                         {hasLENS && <LensIcon isLoading={!hasLoaded}/>}
-                        {isPinned && <PinIcon pinned={isPinned} isLoading={!hasLoaded}/>}
+                        {isPinned && <PinIcon pinned={isPinned} hasLoaded={hasLoaded}/>}
                     </NameAndIcons>
                     <MessageDetails>{messageDetails[0].message}</MessageDetails>
                 </MsgDetails>

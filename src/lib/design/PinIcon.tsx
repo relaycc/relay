@@ -1,27 +1,13 @@
 import styled, {css} from "styled-components";
+import {receiverTheme} from "@/lib/design/wip/receiverTheme";
 
-const Svg = styled.svg<{pinned : boolean}>`
+const Svg = styled.svg<{ pinned: boolean }>`
 
   ${({pinned}) => pinned && css`
-    path{
-      transition: fill 150ms ease-in;
-      fill: black;
-  }
-`};
-  
-  :hover{
-    rect{
-      transition: fill 150ms ease-in;
-      fill: #EAECF0;
+    path {
+      fill: ${receiverTheme.colors.gray["900"]};
     }
-  }
-  
-  :active{
-    rect{
-      transition: fill 150ms ease-in;
-      fill: #D0D5DD;
-    }
-  }
+  `};
 `;
 
 const LoadingImg = styled.div`
@@ -31,16 +17,19 @@ const LoadingImg = styled.div`
   background: linear-gradient(90deg, #F1EFEF -24.18%, #F9F8F8 50.26%, #E7E5E5 114.84%);
 `;
 
-export const PinIcon = ({pinned, isLoading}: {pinned:boolean, isLoading:boolean}) => (
+export const PinIcon = ({pinned, hasLoaded}: { pinned: boolean, hasLoaded: boolean }) => (
 
-    isLoading ?
-        <LoadingImg />
-    :
-    <Svg pinned={pinned} width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <rect width="40" height="40" rx="20" fill="white"/>
-        <path d="M16.75 15.75L15.75 12.75H24.25L23.25 15.75V18C26.25 19 26.25 22.25 26.25 22.25H13.75C13.75 22.25 13.75 19 16.75 18V15.75Z" stroke="#101828" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-        <path d="M20 22.5V27.25" stroke="#101828" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-    </Svg>
+    hasLoaded ?
 
+        <Svg pinned={pinned} width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+                d="M8.75 7.75L7.75 4.75H16.25L15.25 7.75V10C18.25 11 18.25 14.25 18.25 14.25H5.75C5.75 14.25 5.75 11 8.75 10V7.75Z"
+                stroke="#101828" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+            <path d="M12 14.5V19.25" stroke="#101828" strokeWidth="1.5" strokeLinecap="round"
+                  strokeLinejoin="round"/>
+        </Svg>
+
+        :
+        <LoadingImg/>
 
 )
