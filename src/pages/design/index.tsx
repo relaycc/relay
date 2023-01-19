@@ -9,6 +9,7 @@ import DesignBadge from "./DesignBadge";
 import DesignChatIcon from './DesignChatIcon'
 import DesignCheckbox from "./DesighCheckbox";
 import DesignCloseIcon from "./DesignCloseIcon";
+import DesignCompose from "./DesignCompose";
 
 const VERY_LONG_TEXT =
   "Very long text that will be truncated. This is the longest text of all time and I can't believe that it's overlfowing the container.";
@@ -30,6 +31,7 @@ export default function Design() {
       <DesignChatIcon />
       <DesignCheckbox />
       <DesignCloseIcon />
+      <DesignCompose />
     </CenteredFlexColumn>
   );
 }
