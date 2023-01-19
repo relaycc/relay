@@ -5,7 +5,7 @@ import {textXsRegular} from "@/lib/design/wip/typography";
 
 const Root = styled.div`
   display: flex;
-  
+
   width: 100%;
 `;
 
@@ -21,20 +21,21 @@ const LoadingDiv = styled.div`
   background: linear-gradient(90deg, #F1EFEF -24.18%, #F9F8F8 50.26%, #E7E5E5 114.84%);
   border-radius: 6px;
   height: 0.75rem;
-  
-  width: 100%;
+
+  min-width: 3.5rem;
+  max-width: 30%;
 `;
 
-export const Time = ({isLoading, time}: {isLoading: boolean, time: string}) => {
+export const Time = ({isLoading, time}: { isLoading: boolean, time: string }) => {
 
-    if (isLoading){
+    if (isLoading) {
         return (
             <Root>
-                <LoadingDiv />
+                <LoadingDiv/>
             </Root>
         )
     }
-    return(
+    return (
         <Root>
             <Container>{time}</Container>
         </Root>
