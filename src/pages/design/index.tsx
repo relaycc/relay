@@ -27,6 +27,7 @@ import DesignLoaderAniminitialization from "./DesignLoaderAniminitialization";
 import DesignLogo from "./DesignLogo";
 import DesignLogoPicture from "./DesignLogoPicture";
 import DesignLogoutIcon from "./DesignLogoutIcon";
+import DesignMagnifier from "./DesignMagnifier";
 
 const VERY_LONG_TEXT =
   "Very long text that will be truncated. This is the longest text of all time and I can't believe that it's overlfowing the container.";
@@ -66,6 +67,7 @@ export default function Design() {
       <DesignLogo />
       <DesignLogoPicture />
       <DesignLogoutIcon />
+      <DesignMagnifier />
     </CenteredFlexColumn>
   );
 }
