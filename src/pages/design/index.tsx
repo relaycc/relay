@@ -13,6 +13,7 @@ import DesignCompose from "./DesignCompose";
 import DesignCopy from "./DesignCopy";
 import DesignDropdownIcon from "./DesignDropdownIcon"; 
 import DesignEdit from "./DesignEdit";
+import DesignENSID from "./DesignENSID";
 
 const VERY_LONG_TEXT =
   "Very long text that will be truncated. This is the longest text of all time and I can't believe that it's overlfowing the container.";
@@ -38,6 +39,7 @@ export default function Design() {
       <DesignCopy />
       <DesignDropdownIcon />
       <DesignEdit />
+      <DesignENSID />
     </CenteredFlexColumn>
   );
 }
