@@ -26,7 +26,9 @@ const Root = styled.div`
 const LeftSide = styled.div`
   display: flex;
   justify-content: flex-start;
+  align-items: center;
   column-gap: 0.5rem;
+  max-width: 65%;
 `;
 
 const UserDetails = styled.div`
@@ -34,8 +36,8 @@ const UserDetails = styled.div`
   flex-direction: column;
   justify-content: center;
   height: 100%;
-
-  //border: thin solid red;
+  max-width: 60%;
+  row-gap: 0.25rem;
 `;
 
 const NameAndIcon = styled.div`
@@ -43,10 +45,10 @@ const NameAndIcon = styled.div`
   align-items: center;
   justify-content: flex-start;
   column-gap: 0.25rem;
-  min-width: 5%;
-  max-width: 30%;
 
+  width: 100%;
 `;
+
 
 const RightSide = styled.div`
   display: flex;
@@ -61,8 +63,8 @@ export const DMHeader = ({
                              hasLoaded,
                              ENSname,
                              addressHeader,
-                             pinned, LENSicon
-                         }: { src: string, hasLoaded: boolean, ENSname: string, addressHeader: string, pinned: boolean, LENSicon: boolean }) => {
+                             pinned, hasLENSicon
+                         }: { src: string, hasLoaded: boolean, ENSname: string, addressHeader: string, pinned: boolean, hasLENSicon: boolean }) => {
     return (
         <Root>
             <LeftSide>
@@ -70,8 +72,8 @@ export const DMHeader = ({
                 <StatusIcon size={"lg"} src={src} isLoading={!hasLoaded}/>
                 <UserDetails>
                     <NameAndIcon>
-                        <ENSName size={"lg"} monoFont={false} isLoading={!hasLoaded} ENSname={ENSname}/>
-                        {LENSicon && <LensIcon isLoading={!hasLoaded}/>}
+                        <ENSName size={"md"} monoFont={false} isLoading={!hasLoaded} ENSname={ENSname}/>
+                        {hasLENSicon && <LensIcon isLoading={!hasLoaded}/>}
                     </NameAndIcon>
                     <AddressHeader isLoading={!hasLoaded} addressHeader={addressHeader}/>
                 </UserDetails>
