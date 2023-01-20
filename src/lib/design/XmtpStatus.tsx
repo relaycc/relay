@@ -84,7 +84,7 @@ export const XmtpStatus = ({hasPageDataLoaded} : {hasPageDataLoaded: boolean}) =
               {hasPageDataLoaded ? "xmtp-js x7.7.1" : ""}
             </XmtpVersion>
           </XmtpTitleWrapper>
-          <Badge isLoading={!hasPageDataLoaded} label={"DEV"}/>
+          <Badge hasLoaded={hasPageDataLoaded} label={"DEV"} color={"purple"} dot={true}/>
         </RowItem>
         <IconWrapper>
           <LogoutIcon />
