@@ -16,6 +16,11 @@ import DesignEdit from "./DesignEdit";
 import DesignENSID from "./DesignENSID";
 import DesignENSName from './DesignENSName'
 import DesignHomeHeader from "./DesignHomeHeader";
+import DesignIgnoredMessage from "./DesignIgnoredMessage";
+import DesignInfoToast from "./DesignInfoToast";
+import DesignInfoToastIcon from "./DesignInfoToastIcon";
+import DesignInitializeXmtp from "./DesignInitializeXmtp";
+import DesignLensIcon from "./DesignLensIcon";
 
 const VERY_LONG_TEXT =
   "Very long text that will be truncated. This is the longest text of all time and I can't believe that it's overlfowing the container.";
@@ -44,6 +49,11 @@ export default function Design() {
       <DesignENSID />
       <DesignENSName />
       <DesignHomeHeader />
+      <DesignIgnoredMessage />
+      <DesignInfoToast />
+      <DesignInfoToastIcon />
+      <DesignInitializeXmtp />
+      <DesignLensIcon />
     </CenteredFlexColumn>
   );
 }

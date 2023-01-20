@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import Link from "next/link";
+import { IgnoredMsg } from "@/lib/design/IgnoredMsg";
 
 const VERY_LONG_TEXT =
   "Very long text that will be truncated. This is the longest text of all time and I can't believe that it's overlfowing the container.";
@@ -7,20 +8,20 @@ const MEDIUM_TEXT = "Medium text that might be truncated.";
 const SHORT_TEXT = "Short text";
 const EMPTY_TEXT = "";
 
-export default function DesignBlankTemplate() {
+export default function DesignIgnoredMessage() {
   return (
     <ComponentSection>
       <ComponentSectionHeader>
-        <ComponentSectionTitle>Title goes here</ComponentSectionTitle>
+        <ComponentSectionTitle>Ignored Message</ComponentSectionTitle>
         <FigmaLink>
           Figma Link:{" "}
-          <Link href="" target={"_blank"}>
+          <Link href="https://www.figma.com/file/oeHqO9qLCkz7SYb73J5Qx4/Receiver-Design-File?node-id=454%3A12890&t=GRC3KY8ofLUVJUZP-4" target={"_blank"}>
             <span>title goes here</span>
           </Link>
         </FigmaLink>
       </ComponentSectionHeader>
       <Receiver>
-        <span> components go here </span>
+        <IgnoredMsg label="ignored" />
       </Receiver>
     </ComponentSection>
   );
