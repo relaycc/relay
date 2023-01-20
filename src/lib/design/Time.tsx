@@ -2,17 +2,12 @@ import styled from "styled-components";
 import {receiverTheme} from "@/lib/design/wip/receiverTheme";
 import {textXsRegular} from "@/lib/design/wip/typography";
 
-
 const Root = styled.div`
-  display: flex;
-
-  width: 100%;
-`;
-
-const Container = styled.div`
   ${textXsRegular};
   color: ${receiverTheme.colors.gray["400"]};
   letter-spacing: 0.03em;
+  display: flex;
+  width: 100%;
 
   height: 0.75rem;
 `;
@@ -22,6 +17,7 @@ const LoadingDiv = styled.div`
   border-radius: 6px;
   height: 0.75rem;
 
+
   min-width: 3.5rem;
   max-width: 30%;
 `;
@@ -30,14 +26,12 @@ export const Time = ({isLoading, time}: { isLoading: boolean, time: string }) =>
 
     if (isLoading) {
         return (
-            <Root>
-                <LoadingDiv/>
-            </Root>
+            <LoadingDiv/>
         )
     }
     return (
         <Root>
-            <Container>{time}</Container>
+            {time}
         </Root>
     )
 }

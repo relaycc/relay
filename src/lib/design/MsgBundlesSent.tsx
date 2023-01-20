@@ -1,22 +1,59 @@
 import styled from "styled-components";
 import {receiverTheme} from "@/lib/design/wip/receiverTheme";
-import {spaceMonoMdBold, textSmallRegular, textXsRegular} from "@/lib/design/wip/typography";
+import {textXsRegular} from "@/lib/design/wip/typography";
+import {StatusIcon} from "@/lib/design/StatusIcon";
+import {Time} from "@/lib/design/Time";
+import {MsgPreview} from "@/lib/design/MsgPreview";
+import {ENSName} from "@/lib/design/ENSName";
 
 const Root = styled.div`
   display: flex;
   justify-content: flex-start;
-  column-gap: 0.5rem;
+  flex-direction: column;
   background-color: #FFFFFF;
-  padding: 0 1rem;
   margin-top: 1.4rem;
-  
-  //width: 100%;
-  width: 360px;
+
+  width: 100%;
   min-height: 2.75rem;
-  
-  :hover{
+`;
+
+const FirstMsgContainer = styled.div`
+  display: flex;
+  justify-content: flex-start;
+  column-gap: 0.5rem;
+  padding: 0 1rem;
+
+  :hover {
     background-color: ${receiverTheme.colors.gray["100"]};
   }
+`;
+
+const RestOfTheMessages = styled(FirstMsgContainer)`
+  min-height: 1.25rem;
+  border-top: 2px solid #FFFFFF;
+
+  :hover {
+    background-color: ${receiverTheme.colors.gray["100"]};
+  }
+`;
+
+const HoveredTimeContainer = styled.div`
+  visibility: hidden;
+
+  width: 2.5rem;
+
+  ${RestOfTheMessages}:hover & {
+    visibility: unset;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+`;
+
+const XxsSizedTime = styled.div`
+  ${textXsRegular};
+  font-size: 0.5rem;
+  color: ${receiverTheme.colors.gray["400"]};
 `;
 
 const StatusIconContainer = styled.div`
@@ -27,34 +64,15 @@ const StatusIconContainer = styled.div`
   height: 2.5rem;
 `;
 
-/**/
-const Img= styled.img`
-  width: 2.5rem;
-  height: 2.5rem;
-  border-radius: 50%;
-`;
-
-const MainContainer = styled.div`
+const MiddlePart = styled.div`
   display: flex;
   flex-direction: column;
 `;
 
 const NameAndDate = styled.div`
   display: flex;
-  flex-direction: row;
+  align-items: baseline;
   column-gap: 0.5rem;
-`;
-
-const EnsName = styled.div`
-  ${spaceMonoMdBold};
-  font-size: 14px;
-  line-height: 20px;
-  color: ${receiverTheme.colors.primary["500"]};
-`;
-
-const Date = styled.div`
-  ${textXsRegular};
-  color: ${receiverTheme.colors.gray["400"]};
 `;
 
 const MsgContainer = styled.div`
@@ -62,41 +80,43 @@ const MsgContainer = styled.div`
   flex-direction: column;
 `;
 
-const Msg = styled.div`
-  ${textSmallRegular};
-  color: ${receiverTheme.colors.gray["900"]};
-`;
-
 export const MsgBundlesSent = (
     {
         ensName,
-        message,
-        statusIcon,
-        date
+        messages,
+        isLoading
     }: {
-        ensName:string,
-        message:Array<string>,
-        statusIcon:string,
-        date:string
+        ensName: string,
+        messages: Array<{ time: string, message: string }>,
+        statusIcon: string,
+        isLoading: boolean
     }) => {
 
     return (
         <Root>
-            <StatusIconContainer>
-                <Img src={statusIcon} />
-            </StatusIconContainer>
-            <MainContainer>
-                <NameAndDate>
-                    <EnsName>{ensName}</EnsName>
-                    <Date>{date}</Date>
-                </NameAndDate>
-                <MsgContainer>
-                    {message.map((i, index) => (
-                    <Msg key={index}>{i}</Msg>
-                    ))}
-                </MsgContainer>
-            </MainContainer>
-        </Root>
+            <FirstMsgContainer>
+                <StatusIconContainer>
+                    <StatusIcon size={"lg"} src={""} isLoading={isLoading}/>
+                </StatusIconContainer>
+                <MiddlePart>
+                    <NameAndDate>
+                        <ENSName size={"lg"} monoFont={true} isLoading={isLoading} ENSname={ensName}/>
+                        <Time time={messages[0].time} isLoading={isLoading}/>
+                    </NameAndDate>
+                    <MsgContainer>
+                        <MsgPreview isLoading={isLoading} msg={messages[0].message}/>
+                    </MsgContainer>
+                </MiddlePart>
+            </FirstMsgContainer>
 
+            {messages.slice(1).map((i, index) => (
+                <RestOfTheMessages key={index}>
+                    <HoveredTimeContainer>
+                        <XxsSizedTime>{i.time}</XxsSizedTime>
+                    </HoveredTimeContainer>
+                    <MsgPreview isLoading={isLoading} msg={i.message}/>
+                </RestOfTheMessages>
+            ))}
+        </Root>
     )
 }

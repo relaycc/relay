@@ -5,7 +5,7 @@ import {receiverTheme} from "@/lib/design/wip/receiverTheme";
 const Name = styled.div<{ size: "lg" | "md", monoFont: boolean }>`
   color: ${receiverTheme.colors.gray["900"]};
 
-  overflow: hidden;
+  overflow: clip;
   white-space: nowrap;
   text-overflow: ellipsis;
   max-width: 80%;
