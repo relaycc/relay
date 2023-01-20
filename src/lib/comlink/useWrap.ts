@@ -18,7 +18,7 @@ export const useWrap = (targ: unknown) => {
       );
     }
     setWrapped(true);
-  }, []);
+  }, [targ]);
 
   return useMemo(() => {
     if (wrapped && COMLINK.wrapped === null) {
