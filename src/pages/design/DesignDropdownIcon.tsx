@@ -27,7 +27,7 @@ export default function DesignDropdownIcon() {
         <br />
         <DropdownIcon isOpen={true} />
         <br />
-        <span>Isn't open</span>
+        <span>Not open</span>
         <br />
         <DropdownIcon isOpen={false} />
       </Receiver>
