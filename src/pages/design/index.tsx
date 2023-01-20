@@ -21,6 +21,8 @@ import DesignInfoToast from "./DesignInfoToast";
 import DesignInfoToastIcon from "./DesignInfoToastIcon";
 import DesignInitializeXmtp from "./DesignInitializeXmtp";
 import DesignLensIcon from "./DesignLensIcon";
+import DesignLinkIcon from "./DesignLinkIcon";
+import DesignLoaderAnimGeneral from "./DesignLoaderAnimGeneral";
 
 const VERY_LONG_TEXT =
   "Very long text that will be truncated. This is the longest text of all time and I can't believe that it's overlfowing the container.";
@@ -54,6 +56,8 @@ export default function Design() {
       <DesignInfoToastIcon />
       <DesignInitializeXmtp />
       <DesignLensIcon />
+      <DesignLinkIcon />
+      <DesignLoaderAnimGeneral />
     </CenteredFlexColumn>
   );
 }
