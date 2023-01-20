@@ -7,10 +7,11 @@ import DesignArrowUpCircle from './DesignArrowUpCircle'
 import DesignBackIcon from "./DesignBackIcon";
 import DesignBadge from "./DesignBadge";
 import DesignChatIcon from './DesignChatIcon'
-import DesignCheckbox from "./DesighCheckbox";
+import DesignCheckbox from "./DesignCheckbox";
 import DesignCloseIcon from "./DesignCloseIcon";
 import DesignCompose from "./DesignCompose";
 import DesignCopy from "./DesignCopy";
+import DesignDropdownIcon from "./DesignDropdownIcon"; 
 
 const VERY_LONG_TEXT =
   "Very long text that will be truncated. This is the longest text of all time and I can't believe that it's overlfowing the container.";
@@ -34,6 +35,7 @@ export default function Design() {
       <DesignCloseIcon />
       <DesignCompose />
       <DesignCopy />
+      <DesignDropdownIcon />
     </CenteredFlexColumn>
   );
 }
