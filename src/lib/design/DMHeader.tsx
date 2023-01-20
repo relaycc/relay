@@ -19,8 +19,7 @@ const Root = styled.div`
   padding: 0.5rem 1rem;
   column-gap: 0.5rem;
 
-  //width: 100%;
-  width: 400px;
+  width: 100%;
 `;
 
 const LeftSide = styled.div`
