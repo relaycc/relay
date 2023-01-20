@@ -1,18 +1,57 @@
 import styled, { css } from "styled-components";
 import { ReactNode } from "react";
+import { textMdSemiBold } from "@/lib/design/wip/typography";
 
 const StyledButton = styled.button<{
   hierarchy: "primary" | "secondary",
   size: "sm" | "md" | "lg" | "xl" | "2xl",
   disabled: boolean,
 }>`
+  ${({size}) => {
+    switch (size) {
+      case "sm":
+        return css`
+          font-size: 14px;
+          font-weight: 600;
+          line-height: 20px;
+          font-style: normal;
+          vertical-align: middle;
+        `;
+      case "md":
+        return css`
+          font-size: 14px;
+          font-weight: 600;
+          line-height: 20px;
+          font-style: normal;
+          vertical-align: middle;
+        `;
+      case "lg":
+        return css`
+          ${textMdSemiBold};
+        `;
+      case "xl":
+        return css`
+          ${textMdSemiBold};
+        `;
+      default:
+        return css`
+          font-size: 18px;
+          font-weight: 600;
+          line-height: 28px;
+          font-style: normal;
+          vertical-align: middle;
+        `;
+    }
+  }}
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   width: 100%;
   gap: 0.5rem;
+  border: 2px solid #4236C7;
   border-radius: ${(props) => props.theme.radius.m};
+  box-shadow: 0 1px 2px rgba(16, 24, 40, 0.05);
   padding: ${({size}) => {
     switch (size) {
       case "sm":
@@ -25,20 +64,6 @@ const StyledButton = styled.button<{
         return "12px 20px 12px 20px"; 
       default:
         return "16px 28px 16px 28px";
-    }
-  }};
-  font-size: ${({size}) => {
-    switch (size) {
-      case "sm":
-        return "14px";
-      case "md":
-        return "14px";
-      case "lg":
-        return "16px";
-      case "xl":
-        return "16px";
-      default:
-        return "18px";
     }
   }};
   color: ${({hierarchy}) => {
@@ -57,38 +82,14 @@ const StyledButton = styled.button<{
         return (props) => props.theme.colors.primary["500"];
     }
   }};
-  border: ${({hierarchy}) => {
-    switch (hierarchy) {
-      case "secondary":
-        return "1px solid #FFFFFF";
-      default:
-        return "1px solid #4236C7";
-    }
-  }};
-  box-shadow: ${({hierarchy}) => {
-    switch (hierarchy) {
-      case "secondary":
-        return "0 1px 2px rgba(16, 24, 40, 0.05)";
-      default:
-        return "0 1px 2px rgba(16, 24, 40, 0.05)";
-    }
-  }};
   
   :hover {
     background-color: ${({hierarchy}) => {
       switch (hierarchy) {
         case "secondary":
-          return "#F9F5FF";
+          return "#EFEEFB";
         default:
           return (props) => props.theme.colors.primary["700"];
-      }
-    }};
-    border: ${({hierarchy}) => {
-      switch (hierarchy) {
-        case "secondary":
-          return "1px solid #F9F5FF";
-        default:
-          return "1px solid #4236C7";
       }
     }};
   }
@@ -97,17 +98,9 @@ const StyledButton = styled.button<{
     background-color: ${({hierarchy}) => {
       switch (hierarchy) {
         case "secondary":
-          return "#FFFFFF";
+          return (props) => props.theme.colors.primary["100"];
         default:
           return (props) => props.theme.colors.primary["500"];
-      }
-    }};
-    box-shadow: ${({hierarchy}) => {
-      switch (hierarchy) {
-        case "secondary":
-          return "none";
-        default:
-          return "0 1px 2px rgba(16, 24, 40, 0.05), 0 0 0 4px #F4EBFF";
       }
     }};
   }
@@ -130,6 +123,6 @@ interface ButtonViewProps {
 
 export const ButtonView = ({hierarchy, size, label, handleClick, disabled, icon}: ButtonViewProps) => {
   return (
-    <StyledButton size={size} hierarchy={hierarchy} onClick={handleClick} disabled={disabled}>{label}{icon}</StyledButton>
+    <StyledButton size={size} hierarchy={hierarchy} onClick={handleClick} disabled={disabled}>{label}{icon && icon}</StyledButton>
   )
 }
