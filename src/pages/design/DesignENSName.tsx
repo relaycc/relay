@@ -27,10 +27,14 @@ export default function DesignENSName() {
         <ENSName size="lg" monoFont={true} isLoading={true} ENSname={"ENSName.eth"} />
         <span>Loading MD</span>
         <ENSName size="lg" monoFont={true} isLoading={true} ENSname={"ENSName.eth"} />
-        <span>LG</span>
+        <span>LG Monofont true</span>
         <ENSName size="lg" monoFont={true} isLoading={false} ENSname={"ENSName.eth"} />
-        <span>MD</span>
+        <span>MD Monofont true</span>
         <ENSName size="md" monoFont={true} isLoading={false} ENSname={"ENSName.eth"} />
+        <span>LG Monofont false</span>
+        <ENSName size="lg" monoFont={false} isLoading={false} ENSname={"ENSName.eth"} />
+        <span>MD Monofont false</span>
+        <ENSName size="md" monoFont={false} isLoading={false} ENSname={"ENSName.eth"} />
       </Receiver>
     </ComponentSection>
   );
