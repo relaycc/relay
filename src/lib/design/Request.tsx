@@ -2,8 +2,9 @@ import styled from "styled-components";
 import {receiverTheme} from "@/lib/design/wip/receiverTheme";
 import {Checkbox, CheckboxSvg} from "@/lib/design/Checkbox";
 import {StatusIcon} from "@/lib/design/StatusIcon";
-import {spaceMonoMdBold, textSmallRegular} from "@/lib/design/wip/typography";
+import {textSmallRegular} from "@/lib/design/wip/typography";
 import {Time} from "@/lib/design/Time";
+import {ENSName} from "@/lib/design/ENSName";
 
 const Root = styled.div`
   display: flex;
@@ -51,7 +52,7 @@ const Root = styled.div`
 
 const Wrapper = styled.div`
   display: flex;
-  justify-content: flex-start;
+  justify-content: space-evenly;
   align-items: center;
   padding: 0;
   column-gap: 24px;
@@ -64,15 +65,11 @@ const RequestDetails = styled.div`
   flex-direction: column;
   justify-content: space-evenly;
   align-items: flex-start;
-  width: 80%;
+  max-width: 55%;
 `;
-const Name = styled.div`
-  ${spaceMonoMdBold};
-  color: ${receiverTheme.colors.gray["900"]};
-  overflow: clip;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  max-width: 90%;
+
+const NameContainer = styled.div`
+  max-width: 100%;
 `;
 
 const Message = styled.div`
@@ -87,10 +84,10 @@ const TimeWrapper = styled.div`
 
 export const Request = ({
                             isEditing,
-                            ENSName,
+                            ENSname,
                             statusIcon,
-                            messageDetails, isLoading
-                        }: { isEditing: boolean, ENSName: string, statusIcon: string, messageDetails: Array<{ message: string, time: string }>, isLoading: boolean }) => {
+                            messageDetails, hasLoaded
+                        }: { isEditing: boolean, ENSname: string, statusIcon: string, messageDetails: Array<{ message: string, time: string }>, hasLoaded: boolean }) => {
 
     return (
         <Root>
@@ -98,14 +95,16 @@ export const Request = ({
                 {isEditing && <Checkbox selected={false}/>}
                 <StatusIcon size={"lg"}
                             src={statusIcon}
-                            isLoading={isLoading}/>
+                            isLoading={!hasLoaded}/>
                 <RequestDetails>
-                    <Name>{ENSName}</Name>
+                    <NameContainer>
+                        <ENSName size={"md"} monoFont={true} isLoading={!hasLoaded} ENSname={ENSname}/>
+                    </NameContainer>
                     <Message>{messageDetails[0].message}</Message>
                 </RequestDetails>
             </Wrapper>
             <TimeWrapper>
-                <Time isLoading={isLoading} time={messageDetails[0].time}/>
+                <Time isLoading={!hasLoaded} time={messageDetails[0].time}/>
             </TimeWrapper>
         </Root>
     )
