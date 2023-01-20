@@ -1,10 +1,11 @@
 import styled from "styled-components";
 import {receiverTheme} from "@/lib/design/wip/receiverTheme";
 import {StatusIcon} from "@/lib/design/StatusIcon";
-import {spaceMonoMdBold, textSmallRegular} from "@/lib/design/wip/typography";
+import {textSmallRegular} from "@/lib/design/wip/typography";
 import {Time} from "@/lib/design/Time";
 import {PinIcon} from "@/lib/design/PinIcon";
 import {LensIcon} from "@/lib/design/LensIcon";
+import {ENSName} from "@/lib/design/ENSName";
 
 const Root = styled.div`
   display: flex;
@@ -42,22 +43,14 @@ const MsgDetails = styled.div`
   flex-direction: column;
   justify-content: space-evenly;
   align-items: flex-start;
-  width: 60%;
+  max-width: 70%;
 `;
 
 const NameAndIcons = styled.div`
   display: flex;
   height: 1.5rem;
   column-gap: 4px;
-`;
-
-const Name = styled.div`
-  ${spaceMonoMdBold};
-  color: ${receiverTheme.colors.gray["900"]};
-  overflow: clip;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  max-width: 55%;
+  max-width: 100%;
 `;
 
 const MessageDetails = styled.div`
@@ -70,9 +63,9 @@ const StyledTime = styled.div`
 `;
 
 export const Chat = ({
-                         ENSName, statusIcon,
+                         ENSname, statusIcon,
                          messageDetails, hasLoaded, isPinned, hasLENS
-                     }: { ENSName: string, statusIcon: string; messageDetails: Array<{ message: string, time: string }>, hasLoaded: boolean, isPinned: boolean, hasLENS: boolean }) => {
+                     }: { ENSname: string, statusIcon: string; messageDetails: Array<{ message: string, time: string }>, hasLoaded: boolean, isPinned: boolean, hasLENS: boolean }) => {
 
     return (
         <Root>
@@ -82,7 +75,7 @@ export const Chat = ({
                             isLoading={!hasLoaded}/>
                 <MsgDetails>
                     <NameAndIcons>
-                        <Name>{ENSName}</Name>
+                        <ENSName size={"md"} monoFont={true} isLoading={!hasLoaded} ENSname={ENSname}/>
                         {hasLENS && <LensIcon isLoading={!hasLoaded}/>}
                         {isPinned && <PinIcon pinned={isPinned} hasLoaded={hasLoaded}/>}
                     </NameAndIcons>
