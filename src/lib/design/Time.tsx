@@ -17,7 +17,9 @@ const LoadingDiv = styled.div`
   border-radius: 6px;
   height: 0.75rem;
 
-  width: 100%;
+
+  min-width: 3.5rem;
+  max-width: 30%;
 `;
 
 export const Time = ({isLoading, time}: { isLoading: boolean, time: string }) => {
