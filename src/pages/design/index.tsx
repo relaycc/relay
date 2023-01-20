@@ -23,6 +23,10 @@ import DesignInitializeXmtp from "./DesignInitializeXmtp";
 import DesignLensIcon from "./DesignLensIcon";
 import DesignLinkIcon from "./DesignLinkIcon";
 import DesignLoaderAnimGeneral from "./DesignLoaderAnimGeneral";
+import DesignLoaderAniminitialization from "./DesignLoaderAniminitialization";
+import DesignLogo from "./DesignLogo";
+import DesignLogoPicture from "./DesignLogoPicture";
+import DesignLogoutIcon from "./DesignLogoutIcon";
 
 const VERY_LONG_TEXT =
   "Very long text that will be truncated. This is the longest text of all time and I can't believe that it's overlfowing the container.";
@@ -58,6 +62,10 @@ export default function Design() {
       <DesignLensIcon />
       <DesignLinkIcon />
       <DesignLoaderAnimGeneral />
+      <DesignLoaderAniminitialization />
+      <DesignLogo />
+      <DesignLogoPicture />
+      <DesignLogoutIcon />
     </CenteredFlexColumn>
   );
 }
