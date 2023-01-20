@@ -5,8 +5,9 @@ import {LogoRelay} from "@/lib/design/LogoRelay";
 import {LogoGithub} from "@/lib/design/LogoGithub";
 import {LogoTwitter} from "@/lib/design/LogoTwitter";
 import {LogoDiscord} from "@/lib/design/LogoDiscord";
-import {LogoCompany} from "@/lib/design/LogoCompany";
+import {LogoMirror} from "@/lib/design/LogoMirror";
 import {textSmallBold, textSmallRegular, textXlSemibold} from "@/lib/design/wip/typography";
+import {useRouter} from "next/router";
 
 const Root = styled.div`
   display: flex;
@@ -16,7 +17,7 @@ const Root = styled.div`
   border-radius: 14px;
 
   height: 43.75rem;
-  width: 360px;
+  width: 400px;
 `;
 
 const Header = styled.div`
@@ -68,10 +69,13 @@ const LogoContainer = styled.div`
   display: flex;
   column-gap: 1.125rem;
   height: 2.5rem;
+  margin: 0 3rem;
 `;
 
 
 export const AboutPage = () => {
+
+    const router = useRouter();
 
     return (
         <Root>
@@ -83,11 +87,11 @@ export const AboutPage = () => {
                         the future of messaging together. </Text>
                     <Subtitle>Stay in the loop with everything Relay</Subtitle>
                     <LogoContainer>
-                        <LogoRelay/>
-                        <LogoGithub/>
-                        <LogoTwitter/>
-                        <LogoDiscord/>
-                        <LogoCompany/>
+                        <LogoRelay onClick={() => router.push("/")}/>
+                        <LogoGithub onClick={() => router.push("/")}/>
+                        <LogoTwitter onClick={() => router.push("/")}/>
+                        <LogoDiscord onClick={() => router.push("/")}/>
+                        <LogoMirror onClick={() => router.push("/")}/>
                     </LogoContainer>
                 </AboutBox>
             </Main>
