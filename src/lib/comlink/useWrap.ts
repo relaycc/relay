@@ -7,18 +7,21 @@ const COMLINK: {
   wrapped: null,
 };
 
-export const useWrap = (targ: unknown) => {
+export const useWrap = (target: Window | null) => {
   const [wrapped, setWrapped] = useState(false);
 
   useEffect(() => {
+    if (target === null) {
+      return;
+    } else {
     if (COMLINK.wrapped === null) {
-      console.log(targ);
       COMLINK.wrapped = Comlink.wrap(
-        Comlink.windowEndpoint((targ as any).current.contentWindow as Window)
+        Comlink.windowEndpoint(target)
       );
     }
     setWrapped(true);
-  }, [targ]);
+    }
+  }, [target]);
 
   return useMemo(() => {
     if (wrapped && COMLINK.wrapped === null) {

@@ -7,16 +7,20 @@ const COMLINK: {
   exposed: null,
 };
 
-export const useExpose = (key: string, value: unknown) => {
+export const useExpose = (key: string, value: unknown, target: Window | null) => {
   const [exposed, setExposed] = useState(false);
 
   useEffect(() => {
-    if (COMLINK.exposed === null) {
-      COMLINK.exposed = {};
-      Comlink.expose(COMLINK.exposed, Comlink.windowEndpoint(window.parent));
+    if (target === null) {
+      return;
+    } else {
+      if (COMLINK.exposed === null) {
+        COMLINK.exposed = {};
+        Comlink.expose(COMLINK.exposed, Comlink.windowEndpoint(target));
+      }
+      setExposed(true);
     }
-    setExposed(true);
-  }, []);
+  }, [target]);
 
   useEffect(() => {
     if (!exposed) {
