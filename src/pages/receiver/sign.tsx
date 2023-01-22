@@ -1,13 +1,17 @@
 import styled from "styled-components";
-import { FunctionComponent } from "react";
+import { useState, useCallback } from "react";
 import { EthAddress, useStartClient, useXmtpClient } from "@relaycc/xmtp-hooks";
-import { textSmallRegular } from "@/lib/design/wip/typography";
-import { LogoPicture } from "@/lib/design/LogoPicture";
-import { Logo } from "@/lib/design/Logo";
-import * as Init from "@/lib/design/InitializeXmtp";
-import * as Connected from "@/lib/design/ENSID";
-import { useConnectedWallet } from "@/lib/auth/useConnectedWallet";
-import { useRouter } from "next/router";
+import { textSmallRegular } from "@/design/typography";
+import { LogoPicture } from "@/design/LogoPicture";
+import { Logo } from "@/design/Logo";
+import * as Init from "@/design/InitializeXmtp";
+import * as Connected from "@/design/ENSID";
+import { useConnectedWallet } from "@/hooks/useConnectedWallet";
+import { Avatar } from "@/components/Avatar";
+import * as Toast from "@/design/Toast";
+import { useRelayId } from "@/hooks/useRelayId";
+import { isEnsName } from "@/lib/isEnsName";
+import { useRedirectWhenSignedIn } from "@/hooks/useRedirectWhenSignedIn";
 
 const Receiver = styled.div`
   height: 700px;
@@ -16,6 +20,7 @@ const Receiver = styled.div`
   margin: 6rem auto;
   box-shadow: 0px 4px 32px rgba(16, 24, 40, 0.12);
   border-radius: 14px;
+  position: relative;
 `;
 
 const Container = styled.div`
@@ -24,8 +29,8 @@ const Container = styled.div`
   justify-content: space-between;
   align-items: center;
   padding: 3rem 1rem;
-  width: 100%;
   height: 100%;
+  min-width: 0;
 `;
 
 const LogoSection = styled.div`
@@ -37,8 +42,9 @@ const LogoSection = styled.div`
 const SignupSection = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: center;
   gap: 1rem;
+  min-width: 0;
+  width: 380px;
 `;
 
 const Description = styled.div`
@@ -67,21 +73,39 @@ const LogoPictureWithSpacing = () => (
   </LogoPictureWrapper>
 );
 
-export const SignInPage: FunctionComponent = () => {
-  const signIn = useStartClient({});
+const ToastPosition = styled.div`
+  position: absolute;
+  bottom: 2rem;
+  left: 1rem;
+`;
+
+export default function SignIn() {
   const { connectedWallet } = useConnectedWallet();
+  const [showFailureToast, setShowFailureToast] = useState<boolean>(false);
+  const relayId = useRelayId({ handle: connectedWallet?.address });
+
+  const triggerFailureToast = useCallback(() => {
+    setShowFailureToast(true);
+
+    setTimeout(() => {
+      setShowFailureToast(false);
+    }, 3000);
+  }, []);
+
+  const clearFailureToast = useCallback(() => {
+    setShowFailureToast(false);
+  }, [setShowFailureToast]);
+
+  const { mutate: signIn, isLoading: isSigningIn } = useStartClient({
+    onError: triggerFailureToast,
+  });
+
   const xmtpClient = useXmtpClient({
     clientAddress: connectedWallet?.address as EthAddress,
   });
-  const router = useRouter();
+  console.log("xmtpClient in render", xmtpClient);
 
-  if (
-    xmtpClient.data !== undefined &&
-    xmtpClient.data !== null &&
-    xmtpClient.data.address() === connectedWallet?.address
-  ) {
-    router.push("/receiver/messages");
-  }
+  useRedirectWhenSignedIn();
 
   return (
     <Receiver>
@@ -96,43 +120,34 @@ export const SignInPage: FunctionComponent = () => {
         </LogoSection>
         <SignupSection>
           <Connected.Root>
-            <Connected.LeftSide>
-              <Connected.Header>
-                <Connected.Signal />
-                <Connected.HeaderText>Connected as:</Connected.HeaderText>
-              </Connected.Header>
-              <Connected.ConnectionContent>
-                <Connected.StatusIconContainer>
-                  <Connected.StatusIcon
-                    size="lg"
-                    isLoading={true}
-                    src={
-                      "https://pyxis.nymag.com/v1/imgs/f47/788/caac0f6d9bc8edc26a8c8b17d69a41e447-02-sherlock.rsquare.w330.jpg"
-                    }
-                  />
-                </Connected.StatusIconContainer>
-                <Connected.UserDetails>
-                  <Connected.ENSName
-                    size="md"
-                    monoFont={false}
-                    isLoading={false}
-                    ENSname="oswin.eth"
-                  />
-                  <Connected.AddressHeader
-                    isLoading={false}
-                    addressHeader="0x123456adfadfadfa7890"
-                  />
-                </Connected.UserDetails>
-              </Connected.ConnectionContent>
-            </Connected.LeftSide>
-            <Connected.RightSide>
-              <Connected.Badge
-                hasLoaded={false}
-                label="ETH Network"
-                color="purple"
-                dot={false}
+            <Connected.Header>
+              <Connected.Signal />
+              <Connected.HeaderText>Connected as:</Connected.HeaderText>
+            </Connected.Header>
+            <Connected.Row>
+              <Avatar
+                handle={connectedWallet?.address}
+                onClick={() => null}
+                size="md"
               />
-            </Connected.RightSide>
+              <Connected.UserDetails>
+                <Connected.EnsNameMd>
+                  {(() => {
+                    if (isEnsName(relayId.ens.data)) {
+                      return relayId.ens.data;
+                    } else if (relayId.ens.isLoading) {
+                      return "Loading...";
+                    } else {
+                      return connectedWallet?.address;
+                    }
+                  })()}
+                </Connected.EnsNameMd>
+                <Connected.AddressHeader
+                  isLoading={false}
+                  addressHeader={connectedWallet?.address || "..."}
+                />
+              </Connected.UserDetails>
+            </Connected.Row>
           </Connected.Root>
 
           <Init.Root>
@@ -148,20 +163,39 @@ export const SignInPage: FunctionComponent = () => {
             <Init.ButtonWrapper>
               <Init.Button
                 onClick={() => {
-                  if (connectedWallet === null) {
+                  if (
+                    connectedWallet === undefined ||
+                    connectedWallet === null
+                  ) {
                     return;
                   } else {
-                    signIn.mutate({ wallet: connectedWallet });
+                    signIn({ wallet: connectedWallet });
                   }
                 }}
               >
-                {signIn.isLoading ? "Signin In..." : "Sign-in with XMTP"}
-                {signIn.isLoading && <Init.Spinner />}
+                {isSigningIn ? "Signin In..." : "Sign-in with XMTP"}
+                {isSigningIn && <Init.Spinner />}
               </Init.Button>
             </Init.ButtonWrapper>
           </Init.Root>
         </SignupSection>
       </Container>
+      {showFailureToast && (
+        <ToastPosition>
+          <Toast.Failure.Card
+            initial={{ opacity: 0.2 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.2 }}
+          >
+            <Toast.Failure.AlertIcon />
+            <Toast.Failure.Column>
+              <Toast.Failure.Title>Sign-In Failed</Toast.Failure.Title>
+              <Toast.Failure.Subtitle>Please try again.</Toast.Failure.Subtitle>
+            </Toast.Failure.Column>
+            <Toast.Failure.ExitIcon onClick={clearFailureToast} />
+          </Toast.Failure.Card>
+        </ToastPosition>
+      )}
     </Receiver>
   );
-};
+}

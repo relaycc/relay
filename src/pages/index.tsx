@@ -1,5 +1,3 @@
-import { useEffect, useState } from "react";
-import { ConnectButton } from "@rainbow-me/rainbowkit";
 import Head from "next/head";
 
 export default function Home() {

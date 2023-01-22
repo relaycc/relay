@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { GlobalStyles } from "@/components/GlobalStyles";
 import type { AppProps } from "next/app";
-import { ReceiverThemeProvider } from "@/lib/design/wip/ReceiverThemeProvider";
+import { ReceiverThemeProvider } from "@/design/ReceiverThemeProvider";
 import { Session } from "next-auth";
 import { SessionProvider } from "next-auth/react";
 import { WagmiConfig, createClient, configureChains } from "wagmi";
@@ -10,7 +10,11 @@ import { publicProvider } from "wagmi/providers/public";
 import "@rainbow-me/rainbowkit/styles.css";
 import { XmtpProvider } from "@relaycc/xmtp-hooks";
 
-import { getDefaultWallets, RainbowKitProvider } from "@rainbow-me/rainbowkit";
+import {
+  ConnectButton,
+  getDefaultWallets,
+  RainbowKitProvider,
+} from "@rainbow-me/rainbowkit";
 
 export const { chains, provider } = configureChains(
   [mainnet, polygon, optimism, arbitrum],
@@ -49,6 +53,7 @@ export default function App({
               } else {
                 return (
                   <XmtpProvider config={{ worker: worker as Worker }}>
+                    <ConnectButton />
                     <Component {...pageProps} />
                   </XmtpProvider>
                 );
