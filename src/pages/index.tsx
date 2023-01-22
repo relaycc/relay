@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import Head from "next/head";
-import { useSigner } from "wagmi";
-import { useXmtpClient } from "@relaycc/xmtp-hooks";
 
 export default function Home() {
   return (

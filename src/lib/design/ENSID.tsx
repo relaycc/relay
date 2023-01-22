@@ -1,15 +1,14 @@
 import styled from "styled-components";
-import {receiverTheme} from "@/lib/design/wip/receiverTheme";
-import {StatusIcon} from "@/lib/design/StatusIcon";
-import {AddressHeader} from "@/lib/design/AddressHeader";
-import {Badge} from "@/lib/design/Badge";
-import {Copy} from "@/lib/design/Copy";
-import {LinkIcon} from "@/lib/design/LinkIcon";
-import {textXsMedium} from "@/lib/design/wip/typography";
-import {ENSName} from "@/lib/design/ENSName";
+import { receiverTheme } from "@/lib/design/wip/receiverTheme";
+export { StatusIcon } from "@/lib/design/StatusIcon";
+export { AddressHeader } from "@/lib/design/AddressHeader";
+export { Badge } from "@/lib/design/Badge";
+export { Copy } from "@/lib/design/Copy";
+export { LinkIcon } from "@/lib/design/LinkIcon";
+import { textXsMedium } from "@/lib/design/wip/typography";
+export { ENSName } from "@/lib/design/ENSName";
 
-
-const Root = styled.div`
+export const Root = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -17,13 +16,11 @@ const Root = styled.div`
   box-shadow: 0 1px 3px rgba(16, 24, 40, 0.1), 0 1px 2px rgba(16, 24, 40, 0.06);
   border-radius: 0.5rem;
   padding: 0.5rem 1rem;
-
   height: 5.375rem;
-  //width: 100%;
   width: 380px;
 `;
 
-const LeftSide = styled.div`
+export const LeftSide = styled.div`
   display: flex;
   flex-direction: column;
   row-gap: 0.5rem;
@@ -31,7 +28,7 @@ const LeftSide = styled.div`
   align-items: flex-start;
 `;
 
-const Header = styled.div`
+export const Header = styled.div`
   display: flex;
   flex-direction: row;
   column-gap: 0.5rem;
@@ -39,28 +36,28 @@ const Header = styled.div`
   align-items: center;
   width: 100%;
 `;
-const Signal = styled.div`
+
+export const Signal = styled.div`
   width: 0.75rem;
   height: 0.75rem;
   border-radius: 50%;
   background-color: ${receiverTheme.colors.success["500"]};
 `;
-const HeaderText = styled.div`
+
+export const HeaderText = styled.div`
   ${textXsMedium};
   color: ${receiverTheme.colors.success["500"]};
 `;
 
-
-const ConnectionContent = styled.div`
+export const ConnectionContent = styled.div`
   display: flex;
   flex-direction: row;
   column-gap: 1rem;
 
-
   width: 100%;
 `;
 
-const StatusIconContainer = styled.div`
+export const StatusIconContainer = styled.div`
   display: flex;
   align-items: flex-start;
   justify-content: flex-start;
@@ -68,7 +65,7 @@ const StatusIconContainer = styled.div`
   height: 2.5rem;
 `;
 
-const UserDetails = styled.div`
+export const UserDetails = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
@@ -77,63 +74,14 @@ const UserDetails = styled.div`
   width: 100%;
 `;
 
-const RightSide = styled(LeftSide)`
+export const RightSide = styled(LeftSide)`
   row-gap: 0.2rem;
   justify-content: flex-end;
   align-items: center;
   height: 3.8rem;
-
 `;
 
-const IconContainer = styled.div`
+export const IconContainer = styled.div`
   display: flex;
   flex-direction: row;
 `;
-
-export const ENSID = ({
-                          profileScreen,
-                          isLoading,
-                          color,
-                          dot
-                      }: { profileScreen: boolean, isLoading: boolean, color: "gray" | "purple", dot: boolean }) => {
-
-    return (
-        <Root>
-            <LeftSide>
-                <Header>
-                    <Signal/>
-                    <HeaderText>Connected as: </HeaderText>
-                </Header>
-                <ConnectionContent>
-                    <StatusIconContainer>
-                        <StatusIcon size={"lg"} isLoading={isLoading}
-                                    src={"https://pyxis.nymag.com/v1/imgs/f47/788/caac0f6d9bc8edc26a8c8b17d69a41e447-02-sherlock.rsquare.w330.jpg"}/>
-                    </StatusIconContainer>
-                    <UserDetails>
-                        <ENSName size={"md"} monoFont={false} isLoading={isLoading} ENSname={"oswidan.eth"}/>
-                        <AddressHeader isLoading={isLoading} addressHeader={"4J5bd74H7jgGy2hKL"}/>
-                    </UserDetails>
-                </ConnectionContent>
-            </LeftSide>
-            <RightSide>
-                <Badge hasLoaded={isLoading} label={"ETH Network"} color={color} dot={dot}/>
-
-                {isLoading ?
-                    <IconContainer>
-                        <Copy hoverText={""} onCopy={() => {
-                            return ("0")
-                        }} isLoading={false}/>
-                        <LinkIcon/>
-                    </IconContainer>
-                    : profileScreen &&
-                    <IconContainer>
-                        <Copy hoverText={""} onCopy={() => {
-                            return ("0")
-                        }} isLoading={false}/>
-                        <LinkIcon/>
-                    </IconContainer>
-                }
-            </RightSide>
-        </Root>
-    )
-}
