@@ -5,7 +5,7 @@ const Svg = styled.svg`
     width: 2.625rem;
     height: 2.625rem;
   
-  :hover {
+    :hover {
     transition: all 100ms ease-out;
     width: 2.875rem;
     height: 2.875rem;

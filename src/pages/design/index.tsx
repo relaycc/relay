@@ -38,7 +38,29 @@ import DesignNewMessageHeader from "./DesignNewMessageHeader";
 import DesignNewMsgInput from "./DesignNewMessageInput";
 import DesignNewUserMessage from "./DesignNewUserMessage";
 import DesignPinButton from "./DesignPinButton";
-
+import DesignPinIcon from "./DesignPinIcon";
+import DesignPlusCircle from "./DesignPlusCircle";
+import DesignProfileIcon from "./DesignProfileIcon";
+import DesignRAOIcon from "./DesignRAOIcon";
+import DesignRAUOIcon from "./DesignRAUOIcon";
+import DesignRemoveIcon from "./DesignRemoveIcon";
+import DesignRequest from "./DesignRequest";
+import DesignRequests from "./DesignRequests";
+import DesignSearch from "./DesignSearch";
+import DesignSignInPage from "./DesignSignInPage";
+import DesignStatusIcon from "./DesignStatusIcon";
+import DesignTime from "./DesignTime";
+import DesignToast from "./DesignToast";
+import DesignXmtpIcon from "./DesignXmtpIcon";
+import DesignXmtpStatus from "./DesignXmtpStatus";
+import DesignLogoAll from "./DesignLogoSocials";
+import DesignButtonMinimize from "./DesignButtonMinimize";
+import DesignChat from "./DesignChat";
+import DesignHeader from "./Designheader";
+import DesignHeaderAbout from "./DesignHeaderAbout";
+import DesignHeaderProfile from "./DesignHeaderProfile";
+import DesignHeaderRequests from "./DesignHeaderRequests";
+import DesignLogoCompany from "./DesignLogoCompany";
 
 const VERY_LONG_TEXT =
   "Very long text that will be truncated. This is the longest text of all time and I can't believe that it's overlfowing the container.";
@@ -89,6 +111,29 @@ export default function Design() {
       <DesignNewMsgInput />
       <DesignNewUserMessage />
       <DesignPinButton />
+      <DesignPinIcon />
+      <DesignPlusCircle />
+      <DesignProfileIcon />
+      <DesignRAOIcon />
+      <DesignRAUOIcon />
+      <DesignRemoveIcon />
+      <DesignRequest />
+      <DesignRequests />
+      <DesignSearch />
+      <DesignSignInPage />
+      <DesignStatusIcon />
+      <DesignTime />
+      <DesignToast />
+      <DesignXmtpIcon />
+      <DesignXmtpStatus />
+      <DesignLogoAll />
+      <DesignButtonMinimize />
+      <DesignChat />
+      <DesignHeader />
+      <DesignHeaderAbout />
+      <DesignHeaderProfile />
+      <DesignHeaderRequests />
+      <DesignLogoCompany />
     </CenteredFlexColumn>
   );
 }
