@@ -1,10 +1,11 @@
-import styled from "styled-components";
-import { receiverTheme } from "@/design/receiverTheme";
-import { textXsRegular } from "@/design/typography";
-import { StatusIcon } from "@/design/StatusIcon";
-import { Time } from "@/design/Time";
-import { MsgPreview } from "@/design/MsgPreview";
-import { ENSName } from "@/design/ENSName";
+import styled from 'styled-components';
+import { receiverTheme } from '@/design/receiverTheme';
+import { textXsRegular } from '@/design/typography';
+import { Time } from '@/design/Time';
+import { MsgPreview } from '@/design/MsgPreview';
+import { ENSName } from '@/design/ENSName';
+import { EthAddress } from '@relaycc/xmtp-hooks';
+import { Avatar } from '@/components/Avatar';
 
 const Root = styled.div`
   display: flex;
@@ -24,7 +25,7 @@ const FirstMsgContainer = styled.div`
   padding: 0 1rem;
 
   :hover {
-    background-color: ${receiverTheme.colors.gray["100"]};
+    background-color: ${receiverTheme.colors.gray['100']};
   }
 `;
 
@@ -33,7 +34,7 @@ const RestOfTheMessages = styled(FirstMsgContainer)`
   border-top: 2px solid #ffffff;
 
   :hover {
-    background-color: ${receiverTheme.colors.gray["100"]};
+    background-color: ${receiverTheme.colors.gray['100']};
   }
 `;
 
@@ -53,7 +54,7 @@ const HoveredTimeContainer = styled.div`
 const XxsSizedTime = styled.div`
   ${textXsRegular};
   font-size: 0.5rem;
-  color: ${receiverTheme.colors.gray["400"]};
+  color: ${receiverTheme.colors.gray['400']};
 `;
 
 const StatusIconContainer = styled.div`
@@ -86,7 +87,12 @@ export const MsgBundlesSent = ({
   isLoading,
 }: {
   ensName: string;
-  messages: Array<{ time: string; message: string }>;
+  messages: Array<{
+    time: string;
+    content: string;
+    senderAddress: EthAddress;
+    id: string;
+  }>;
   statusIcon: string;
   isLoading: boolean;
 }) => {
@@ -94,12 +100,16 @@ export const MsgBundlesSent = ({
     <Root>
       <FirstMsgContainer>
         <StatusIconContainer>
-          <StatusIcon size={"lg"} src={""} isLoading={isLoading} />
+          <Avatar
+            handle={messages[0].senderAddress}
+            onClick={() => null}
+            size="sm"
+          />
         </StatusIconContainer>
         <MiddlePart>
           <NameAndDate>
             <ENSName
-              size={"lg"}
+              size={'lg'}
               monoFont={true}
               isLoading={isLoading}
               ENSname={ensName}
@@ -107,7 +117,7 @@ export const MsgBundlesSent = ({
             <Time time={messages[0].time} isLoading={isLoading} />
           </NameAndDate>
           <MsgContainer>
-            <MsgPreview isLoading={isLoading} msg={messages[0].message} />
+            <MsgPreview isLoading={isLoading} msg={messages[0].content} />
           </MsgContainer>
         </MiddlePart>
       </FirstMsgContainer>
@@ -117,7 +127,7 @@ export const MsgBundlesSent = ({
           <HoveredTimeContainer>
             <XxsSizedTime>{i.time}</XxsSizedTime>
           </HoveredTimeContainer>
-          <MsgPreview isLoading={isLoading} msg={i.message} />
+          <MsgPreview isLoading={isLoading} msg={i.content} />
         </RestOfTheMessages>
       ))}
     </Root>
