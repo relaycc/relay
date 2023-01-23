@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { useState, useCallback } from "react";
 import { EthAddress, useStartClient, useXmtpClient } from "@relaycc/xmtp-hooks";
+import { useRouter } from "next/router";
 import { textSmallRegular } from "@/design/typography";
 import { LogoPicture } from "@/design/LogoPicture";
 import { Logo } from "@/design/Logo";
@@ -53,26 +54,6 @@ const Description = styled.div`
   text-align: center;
 `;
 
-const LogoWrapper = styled.div`
-  margin-bottom: 2.813rem;
-`;
-
-const LogoPictureWrapper = styled.div`
-  margin-bottom: 0.625rem;
-`;
-
-const LogoWithBottomSpacing = () => (
-  <LogoWrapper>
-    <Logo />
-  </LogoWrapper>
-);
-
-const LogoPictureWithSpacing = () => (
-  <LogoPictureWrapper>
-    <LogoPicture />
-  </LogoPictureWrapper>
-);
-
 const ToastPosition = styled.div`
   position: absolute;
   bottom: 2rem;
@@ -82,6 +63,8 @@ const ToastPosition = styled.div`
 export default function SignIn() {
   const { connectedWallet } = useConnectedWallet();
   const [showFailureToast, setShowFailureToast] = useState<boolean>(false);
+  const router = useRouter();
+
   const relayId = useRelayId({ handle: connectedWallet?.address });
 
   const triggerFailureToast = useCallback(() => {
@@ -98,12 +81,18 @@ export default function SignIn() {
 
   const { mutate: signIn, isLoading: isSigningIn } = useStartClient({
     onError: triggerFailureToast,
+    onSuccess: () => {
+      if (typeof router.query.redirect === "string") {
+        return;
+      } else {
+        router.push("/receiver/messages");
+      }
+    },
   });
 
   const xmtpClient = useXmtpClient({
     clientAddress: connectedWallet?.address as EthAddress,
   });
-  console.log("xmtpClient in render", xmtpClient);
 
   useRedirectWhenSignedIn();
 
@@ -111,8 +100,8 @@ export default function SignIn() {
     <Receiver>
       <Container>
         <LogoSection>
-          <LogoWithBottomSpacing />
-          <LogoPictureWithSpacing />
+          <Logo style={{ marginBottom: "2.813rem" }} />
+          <LogoPicture style={{ marginBottom: "0.625rem" }} />
           <Description>
             Bring your encrypted conversations & self-sovereign web3 identity
             <b> everywhere you go.</b>

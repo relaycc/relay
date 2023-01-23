@@ -1,25 +1,18 @@
 import styled from "styled-components";
-import { useState } from "react";
-import { ChatIcon } from "./ChatIcon";
-import { ProfileIcon } from "./ProfileIcon";
-import { AboutIcon } from "./AboutIcon";
+export * as ChatIcon from "./ChatIcon";
+export * as ProfileIcon from "./ProfileIcon";
+export * as AboutIcon from "./AboutIcon";
 
-interface NavProps {
-  onClickChat: () => unknown;
-  onClickProfile: () => unknown;
-  onClickAbout: () => unknown;
-  activeSection: "chat" | "profile" | "about";
-}
-
-const Navbar = styled.nav`
+export const Root = styled.nav`
   background-color: white;
   border-radius: 0px 0px 14px 14px;
   width: 100%;
   height: 80px;
-  border-top: 0.5px solid #d0d5dd;
+  border-top: 1px solid #eaecf0;
+  margin-top: 1rem;
 `;
 
-const NavItems = styled.ul`
+export const NavItems = styled.ul`
   list-style-type: none;
   display: flex;
   justify-content: space-between;
@@ -33,7 +26,7 @@ const NavItems = styled.ul`
   padding-right: 46px;
 `;
 
-const NavItem = styled.li`
+export const NavItem = styled.li`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -49,42 +42,18 @@ const NavItem = styled.li`
   }
 `;
 
-export const Nav = ({
-  onClickAbout,
-  onClickChat,
-  onClickProfile,
-  activeSection,
-}: NavProps) => {
-  const [activeIcon, setActiveIcon] = useState(activeSection);
-
-  const handleChatClick = () => {
-    setActiveIcon("chat");
-    onClickChat();
-  };
-
-  const handleProfileClick = () => {
-    setActiveIcon("profile");
-    onClickProfile();
-  };
-
-  const handleAboutClick = () => {
-    setActiveIcon("about");
-    onClickAbout();
-  };
-
-  return (
-    <Navbar>
-      <NavItems>
-        <NavItem onClick={handleChatClick}>
-          <ChatIcon active={activeIcon === "chat"} />
-        </NavItem>
-        <NavItem onClick={handleProfileClick}>
-          <ProfileIcon active={activeIcon === "profile"} />
-        </NavItem>
-        <NavItem onClick={handleAboutClick}>
-          <AboutIcon active={activeIcon === "about"} />
-        </NavItem>
-      </NavItems>
-    </Navbar>
-  );
-};
+// return (
+//   <Navbar>
+//     <NavItems>
+//       <NavItem onClick={handleChatClick}>
+//         <ChatIcon active={activeIcon === "chat"} />
+//       </NavItem>
+//       <NavItem onClick={handleProfileClick}>
+//         <ProfileIcon active={activeIcon === "profile"} />
+//       </NavItem>
+//       <NavItem onClick={handleAboutClick}>
+//         <AboutIcon active={activeIcon === "about"} />
+//       </NavItem>
+//     </NavItems>
+//   </Navbar>
+// );

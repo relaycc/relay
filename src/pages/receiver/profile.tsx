@@ -12,7 +12,8 @@ import { useRelayId } from "@/hooks/useRelayId";
 import { isEnsName } from "@/lib/isEnsName";
 import { useRedirectWhenNotSignedIn } from "@/hooks/useRedirectWhenNotSignedInt";
 import * as XmtpStatus from "@/design/XmtpStatus";
-import * as Header from "@/design/HeaderProfile";
+import * as Header from "@/design/HeaderSimple";
+import { FooterNav } from "@/components/FooterNav";
 
 const Receiver = styled.div`
   height: 700px;
@@ -31,7 +32,7 @@ const Container = styled.div`
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  padding: 3rem 1rem;
+  padding: 3rem 1rem 0 1rem;
   min-width: 0;
   flex-grow: 1;
 `;
@@ -48,6 +49,7 @@ const SignupSection = styled.div`
   gap: 1rem;
   min-width: 0;
   width: 380px;
+  margin-top: auto;
 `;
 
 const Description = styled.div`
@@ -56,9 +58,7 @@ const Description = styled.div`
   text-align: center;
 `;
 
-const LogoWrapper = styled.div`
-  margin-bottom: 2.813rem;
-`;
+const LogoWrapper = styled.div``;
 
 const LogoPictureWrapper = styled.div`
   margin-bottom: 0.625rem;
@@ -210,6 +210,7 @@ export default function Profile() {
           </XmtpStatus.Root>
         </SignupSection>
       </Container>
+      <FooterNav />
       {showFailureToast && (
         <ToastPosition>
           <Toast.Failure.Card

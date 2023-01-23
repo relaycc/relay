@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { receiverTheme } from "@/design/receiverTheme";
-import { Nav } from "@/design/Nav";
+import { FooterNav } from "@/components/FooterNav";
 import { LogoRelay } from "@/design/LogoRelay";
 import { LogoGithub } from "@/design/LogoGithub";
 import { LogoTwitter } from "@/design/LogoTwitter";
@@ -12,6 +12,7 @@ import {
   textXlSemibold,
 } from "@/design/typography";
 import { useRedirectWhenNotSignedIn } from "@/hooks/useRedirectWhenNotSignedInt";
+import * as HeaderSimple from "@/design/HeaderSimple";
 
 const Root = styled.div`
   display: flex;
@@ -23,11 +24,6 @@ const Root = styled.div`
 
   height: 43.75rem;
   width: 400px;
-`;
-
-const Header = styled.div`
-  height: 5rem;
-  border-bottom: 1px solid #eaecf0;
 `;
 
 const Main = styled.div`
@@ -91,11 +87,13 @@ const LogoContainer = styled.div`
 `;
 
 export default function Info() {
-  useRedirectWhenNotSignedIn("/receiver/info");
+  useRedirectWhenNotSignedIn("/receiver/about");
 
   return (
     <Root>
-      <Header>About</Header>
+      <HeaderSimple.Root>
+        <HeaderSimple.Title>About</HeaderSimple.Title>
+      </HeaderSimple.Root>
       <Main>
         <AboutBox>
           <Title>Join the Relay Community 🎉</Title>
@@ -139,12 +137,7 @@ export default function Info() {
           </LogoContainer>
         </AboutBox>
       </Main>
-      <Nav
-        onClickChat={() => {}}
-        onClickProfile={() => {}}
-        onClickAbout={() => {}}
-        activeSection={"about"}
-      />
+      <FooterNav />
     </Root>
   );
 }
