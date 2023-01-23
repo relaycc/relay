@@ -1,10 +1,10 @@
 import styled, { css } from "styled-components";
-import { XmtpIcon } from "@/design/XmtpIcon";
+export { XmtpIcon } from "@/design/XmtpIcon";
 import { spaceMonoXsRegular, textMdSemiBold } from "@/design/typography";
-import { LogoutIcon } from "@/design/LogoutIcon";
-import { Badge } from "@/design/Badge";
+export { LogoutIcon } from "@/design/LogoutIcon";
+export { Badge } from "@/design/Badge";
 
-const ComponentRoot = styled.div`
+export const Root = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -14,7 +14,7 @@ const ComponentRoot = styled.div`
   box-shadow: 0 1px 3px rgba(16, 24, 40, 0.1), 0 1px 2px rgba(16, 24, 40, 0.06);
 `;
 
-const Row = styled.div`
+export const Row = styled.div`
   display: flex;
   align-items: center;
   width: 100%;
@@ -25,90 +25,30 @@ const Row = styled.div`
   }
 `;
 
-const RowItem = styled.div`
+export const RowItem = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
   width: 100%;
   gap: 1rem;
 `;
-const IconWrapper = styled.div`
+export const IconWrapper = styled.div`
   display: flex;
   align-items: center;
 `;
 
-const XmtpTitleWrapper = styled.div<{ loaded: boolean }>`
+export const XmtpTitleWrapper = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
   gap: 0.25rem;
-
-  ${({ loaded }) =>
-    !loaded &&
-    css`
-      ${XmtpTitle} {
-        background: linear-gradient(
-          90deg,
-          #f1efef -24.18%,
-          #f9f8f8 50.26%,
-          #e7e5e5 114.84%
-        );
-        mix-blend-mode: multiply;
-        border-radius: 6px;
-        width: 6rem;
-        height: 1.5rem;
-      }
-      ${XmtpVersion} {
-        background: linear-gradient(
-          90deg,
-          #f1efef -24.18%,
-          #f9f8f8 50.26%,
-          #e7e5e5 114.84%
-        );
-        mix-blend-mode: multiply;
-        border-radius: 6px;
-        width: 5rem;
-        height: 1rem;
-      }
-    `}
 `;
 
-const XmtpTitle = styled.div`
+export const XmtpTitle = styled.div`
   ${textMdSemiBold};
 `;
 
-const XmtpVersion = styled.div`
+export const XmtpVersion = styled.div`
   ${spaceMonoXsRegular};
   color: ${(props) => props.theme.colors.gray["500"]};
 `;
-
-export const XmtpStatus = ({
-  hasPageDataLoaded,
-}: {
-  hasPageDataLoaded: boolean;
-}) => {
-  return (
-    <ComponentRoot>
-      <Row>
-        <XmtpIcon />
-        <RowItem>
-          <XmtpTitleWrapper loaded={hasPageDataLoaded}>
-            <XmtpTitle>{hasPageDataLoaded ? "XMTP signed in" : ""}</XmtpTitle>
-            <XmtpVersion>
-              {hasPageDataLoaded ? "xmtp-js x7.7.1" : ""}
-            </XmtpVersion>
-          </XmtpTitleWrapper>
-          <Badge
-            hasLoaded={hasPageDataLoaded}
-            label={"DEV"}
-            color={"purple"}
-            dot={true}
-          />
-        </RowItem>
-        <IconWrapper>
-          <LogoutIcon />
-        </IconWrapper>
-      </Row>
-    </ComponentRoot>
-  );
-};

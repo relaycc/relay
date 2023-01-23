@@ -6,14 +6,12 @@ import { LogoGithub } from "@/design/LogoGithub";
 import { LogoTwitter } from "@/design/LogoTwitter";
 import { LogoDiscord } from "@/design/LogoDiscord";
 import { LogoMirror } from "@/design/LogoMirror";
-import { useConnectedWallet } from "@/hooks/useConnectedWallet";
 import {
   textSmallBold,
   textSmallRegular,
   textXlSemibold,
 } from "@/design/typography";
-import { useRouter } from "next/router";
-import { useXmtpClient, EthAddress } from "@relaycc/xmtp-hooks";
+import { useRedirectWhenNotSignedIn } from "@/hooks/useRedirectWhenNotSignedInt";
 
 const Root = styled.div`
   display: flex;
@@ -93,7 +91,7 @@ const LogoContainer = styled.div`
 `;
 
 export default function Info() {
-  useRedirectWhenNotSignedIn();
+  useRedirectWhenNotSignedIn("/receiver/info");
 
   return (
     <Root>
@@ -149,20 +147,4 @@ export default function Info() {
       />
     </Root>
   );
-}
-
-function useRedirectWhenNotSignedIn() {
-  const router = useRouter();
-  const { connectedWallet } = useConnectedWallet();
-  const xmtpClient = useXmtpClient({
-    clientAddress: connectedWallet?.address as EthAddress,
-  });
-
-  if (
-    xmtpClient.data === undefined ||
-    xmtpClient.data === null ||
-    xmtpClient.data.address() !== connectedWallet?.address
-  ) {
-    router.push("/receiver/sign?redirect=/receiver/info");
-  }
 }

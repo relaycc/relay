@@ -1,18 +1,5 @@
 import styled from "styled-components";
-import { useState } from "react";
-
-interface CopyProps {
-  hoverText: string;
-  onCopy: () => void;
-  isLoading: boolean;
-}
-
-const Svg = styled.svg`
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-`;
+import { ComponentProps } from "react";
 
 const MessageBubble = styled.div<{ isClicked: boolean }>`
   display: ${({ isClicked }) => (isClicked ? "block" : "none")};
@@ -99,37 +86,24 @@ const LoadingImg = styled.div`
   );
 `;
 
-export const Copy = ({ hoverText, onCopy, isLoading }: CopyProps) => {
-  const [isClicked, setIsClicked] = useState(false);
-
-  const handleAllowClicking = () => {
-    setIsClicked(false);
-  };
-
-  const handleClick = () => {
-    setIsClicked(true);
-    onCopy();
-    setTimeout(handleAllowClicking, 2000);
-  };
-  
-  return isLoading ? (
-    <LoadingImg />
-  ) : (
-    <Button isClicked={isClicked} onClick={handleClick}>
-      <MessageBubblePoint isClicked={isClicked} />
-      <MessageBubble isClicked={isClicked}>
-        {isClicked && "Copied!"}
-        {isClicked || hoverText}
-      </MessageBubble>
-      <Svg width="22" height="22" viewBox="0 0 22 22" fill="none">
-        <path
-          d="M4 14H3C2.46957 14 1.96086 13.7893 1.58579 13.4142C1.21071 13.0391 1 12.5304 1 12V3C1 2.46957 1.21071 1.96086 1.58579 1.58579C1.96086 1.21071 2.46957 1 3 1H12C12.5304 1 13.0391 1.21071 13.4142 1.58579C13.7893 1.96086 14 2.46957 14 3V4M10 8H19C20.1046 8 21 8.89543 21 10V19C21 20.1046 20.1046 21 19 21H10C8.89543 21 8 20.1046 8 19V10C8 8.89543 8.89543 8 10 8Z"
-          stroke="#101828"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-      </Svg>
-    </Button>
-  );
-};
+export const Copy = styled((props: ComponentProps<"svg">) => (
+  <svg width="22" height="22" viewBox="0 0 22 22" fill="none" {...props}>
+    <path
+      d="M4 14H3C2.46957 14 1.96086 13.7893 1.58579 13.4142C1.21071 13.0391 1 12.5304 1 12V3C1 2.46957 1.21071 1.96086 1.58579 1.58579C1.96086 1.21071 2.46957 1 3 1H12C12.5304 1 13.0391 1.21071 13.4142 1.58579C13.7893 1.96086 14 2.46957 14 3V4M10 8H19C20.1046 8 21 8.89543 21 10V19C21 20.1046 20.1046 21 19 21H10C8.89543 21 8 20.1046 8 19V10C8 8.89543 8.89543 8 10 8Z"
+      stroke="#101828"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </svg>
+))`
+  cursor: pointer;
+  :hover {
+    transition: fill 150ms ease-out;
+    fill: #eaecf0;
+  }
+  :active {
+    transition: fill 150ms ease-out;
+    fill: #d0d5dd;
+  }
+`;

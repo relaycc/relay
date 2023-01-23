@@ -34,6 +34,8 @@ const Label = styled.div<{ color: "gray" | "purple" }>`
 `;
 
 const Icon = styled.div<{ color: "gray" | "purple" }>`
+  min-width: 0.375rem;
+  min-height: 0.375rem;
   width: 0.375rem;
   height: 0.375rem;
   border-radius: 50%;

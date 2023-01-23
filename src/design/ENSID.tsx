@@ -29,7 +29,7 @@ export const Header = styled.div`
   display: flex;
   flex-direction: row;
   column-gap: 0.5rem;
-  justify-content: flex-start;
+  justify-content: space-between;
   align-items: center;
 `;
 
@@ -43,6 +43,7 @@ export const Signal = styled.div`
 export const HeaderText = styled.div`
   ${textXsMedium};
   color: ${receiverTheme.colors.success["500"]};
+  margin-right: auto;
 `;
 
 export const UserDetails = styled.div`

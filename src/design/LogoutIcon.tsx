@@ -20,6 +20,7 @@ export const LogoutIcon = styled((props: ComponentProps<"svg">) => (
     />
   </svg>
 ))`
+  cursor: pointer;
   :hover {
     rect {
       transition: fill 150ms ease-out;
