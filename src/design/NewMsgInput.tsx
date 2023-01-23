@@ -1,7 +1,7 @@
-import styled, { css } from "styled-components";
-import { receiverTheme } from "@/design/receiverTheme";
-import { LoaderAnimGeneral } from "@/design/LoaderAnimGeneral";
-import { textMdRegular } from "@/design/typography";
+import styled, {css} from "styled-components";
+import {receiverTheme} from "@/design/receiverTheme";
+import {LoaderAnimGeneral} from "@/design/LoaderAnimGeneral";
+import {textMdRegular} from "@/design/typography";
 
 const Root = styled.div`
   height: 2.5rem;
@@ -22,16 +22,16 @@ const To = styled.div`
   width: 6%;
 `;
 
-const TextInput = styled.input<{ isLoading: boolean }>`
+export const TextInput = styled.input<{ isLoading: boolean }>`
   ${textMdRegular};
   border: hidden;
   color: ${receiverTheme.colors.gray["900"]};
 
-  ${({ isLoading }) =>
-    isLoading &&
-    css`
-      color: ${receiverTheme.colors.gray["400"]};
-    `};
+  ${({isLoading}) =>
+          isLoading &&
+          css`
+            color: ${receiverTheme.colors.gray["400"]};
+          `};
 
   :focus {
     outline: none;
@@ -58,40 +58,40 @@ const AddIcon = styled.div<{ active: boolean }>`
   font-size: 1.5rem;
   color: ${receiverTheme.colors.gray["400"]};
 
-  ${({ active }) =>
-    active &&
-    css`
-      color: ${receiverTheme.colors.gray["900"]};
-    `};
+  ${({active}) =>
+          active &&
+          css`
+            color: ${receiverTheme.colors.gray["900"]};
+          `};
 `;
 
 export const NewMsgInput = ({
-  active,
-  isLoading,
-  value,
-}: {
-  active: boolean;
-  isLoading: boolean;
-  value: string;
+                                active,
+                                isLoading,
+                                value,
+                            }: {
+    active: boolean;
+    isLoading: boolean;
+    value: string;
 }) => {
-  if (isLoading) {
+    if (isLoading) {
+        return (
+            <Root>
+                <To>To: </To>
+                <TextInput value={value} isLoading={isLoading}/>
+                <IconContainer>
+                    <LoaderAnimGeneral/>
+                </IconContainer>
+            </Root>
+        );
+    }
     return (
-      <Root>
-        <To>To: </To>
-        <TextInput value={value} isLoading={isLoading} />
-        <IconContainer>
-          <LoaderAnimGeneral />
-        </IconContainer>
-      </Root>
+        <Root>
+            <To>To: </To>
+            <TextInput value={value} isLoading={isLoading}/>
+            <IconContainer>
+                <AddIcon active={active}>+</AddIcon>
+            </IconContainer>
+        </Root>
     );
-  }
-  return (
-    <Root>
-      <To>To: </To>
-      <TextInput value={value} isLoading={isLoading} />
-      <IconContainer>
-        <AddIcon active={active}>+</AddIcon>
-      </IconContainer>
-    </Root>
-  );
 };
