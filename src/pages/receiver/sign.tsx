@@ -1,19 +1,18 @@
 import styled from "styled-components";
 import { useState, useCallback } from "react";
-import { EthAddress, useStopClient, useXmtpClient } from "@relaycc/xmtp-hooks";
+import { EthAddress, useStartClient, useXmtpClient } from "@relaycc/xmtp-hooks";
+import { useRouter } from "next/router";
 import { textSmallRegular } from "@/design/typography";
 import { LogoPicture } from "@/design/LogoPicture";
 import { Logo } from "@/design/Logo";
+import * as Init from "@/design/InitializeXmtp";
 import * as Connected from "@/design/ENSID";
 import { useConnectedWallet } from "@/hooks/useConnectedWallet";
 import { Avatar } from "@/components/Avatar";
 import * as Toast from "@/design/Toast";
 import { useRelayId } from "@/hooks/useRelayId";
 import { isEnsName } from "@/lib/isEnsName";
-import { useRedirectWhenNotSignedIn } from "@/hooks/useRedirectWhenNotSignedInt";
-import * as XmtpStatus from "@/design/XmtpStatus";
-import * as Header from "@/design/HeaderSimple";
-import { FooterNav } from "@/components/FooterNav";
+import { useRedirectWhenSignedIn } from "@/hooks/useRedirectWhenSignedIn";
 
 const Receiver = styled.div`
   height: 700px;
@@ -23,8 +22,6 @@ const Receiver = styled.div`
   box-shadow: 0px 4px 32px rgba(16, 24, 40, 0.12);
   border-radius: 14px;
   position: relative;
-  display: flex;
-  flex-direction: column;
 `;
 
 const Container = styled.div`
@@ -32,9 +29,9 @@ const Container = styled.div`
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  padding: 3rem 1rem 0 1rem;
+  padding: 3rem 1rem;
+  height: 100%;
   min-width: 0;
-  flex-grow: 1;
 `;
 
 const LogoSection = styled.div`
@@ -49,7 +46,6 @@ const SignupSection = styled.div`
   gap: 1rem;
   min-width: 0;
   width: 380px;
-  margin-top: auto;
 `;
 
 const Description = styled.div`
@@ -58,45 +54,17 @@ const Description = styled.div`
   text-align: center;
 `;
 
-const LogoWrapper = styled.div``;
-
-const LogoPictureWrapper = styled.div`
-  margin-bottom: 0.625rem;
-`;
-
-const LogoWithBottomSpacing = () => (
-  <LogoWrapper>
-    <Logo />
-  </LogoWrapper>
-);
-
-const LogoPictureWithSpacing = () => (
-  <LogoPictureWrapper>
-    <LogoPicture />
-  </LogoPictureWrapper>
-);
-
 const ToastPosition = styled.div`
   position: absolute;
   bottom: 2rem;
   left: 1rem;
 `;
 
-const Column = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`;
-
-const Row = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-`;
-
-export default function Profile() {
+export default function SignIn() {
   const { connectedWallet } = useConnectedWallet();
   const [showFailureToast, setShowFailureToast] = useState<boolean>(false);
+  const router = useRouter();
+
   const relayId = useRelayId({ handle: connectedWallet?.address });
 
   const triggerFailureToast = useCallback(() => {
@@ -111,25 +79,29 @@ export default function Profile() {
     setShowFailureToast(false);
   }, [setShowFailureToast]);
 
-  const { mutate: signOut, isLoading: isSigningOut } = useStopClient({
+  const { mutate: signIn, isLoading: isSigningIn } = useStartClient({
     onError: triggerFailureToast,
+    onSuccess: () => {
+      if (typeof router.query.redirect === "string") {
+        return;
+      } else {
+        router.push("/receiver/messages");
+      }
+    },
   });
 
   const xmtpClient = useXmtpClient({
     clientAddress: connectedWallet?.address as EthAddress,
   });
 
-  useRedirectWhenNotSignedIn("/receiver/profile");
+  useRedirectWhenSignedIn();
 
   return (
     <Receiver>
-      <Header.Root>
-        <Header.Title>Profile</Header.Title>
-      </Header.Root>
       <Container>
         <LogoSection>
-          <LogoWithBottomSpacing />
-          <LogoPictureWithSpacing />
+          <Logo style={{ marginBottom: "2.813rem" }} />
+          <LogoPicture style={{ marginBottom: "0.625rem" }} />
           <Description>
             Bring your encrypted conversations & self-sovereign web3 identity
             <b> everywhere you go.</b>
@@ -140,12 +112,6 @@ export default function Profile() {
             <Connected.Header>
               <Connected.Signal />
               <Connected.HeaderText>Connected as:</Connected.HeaderText>
-              <Connected.Badge
-                hasLoaded={true}
-                label="ETH Mainnet"
-                color="gray"
-                dot={false}
-              />
             </Connected.Header>
             <Connected.Row>
               <Avatar
@@ -170,47 +136,39 @@ export default function Profile() {
                   addressHeader={connectedWallet?.address || "..."}
                 />
               </Connected.UserDetails>
-              <Connected.Copy
-                style={{
-                  marginLeft: "auto",
-                  marginTop: "auto",
-                  marginBottom: "0.65rem",
-                }}
-              />
-              <Connected.LinkIcon />
             </Connected.Row>
           </Connected.Root>
-          <XmtpStatus.Root>
-            <XmtpStatus.Row>
-              <XmtpStatus.XmtpIcon />
-              <XmtpStatus.RowItem>
-                <XmtpStatus.XmtpTitleWrapper>
-                  <XmtpStatus.XmtpTitle>Signed In To XMTP</XmtpStatus.XmtpTitle>
-                  <XmtpStatus.XmtpVersion>
-                    @xmtp/xmtp-js x7.7.1
-                  </XmtpStatus.XmtpVersion>
-                </XmtpStatus.XmtpTitleWrapper>
-              </XmtpStatus.RowItem>
-              <XmtpStatus.Badge
-                hasLoaded={true}
-                label="DEV"
-                color="purple"
-                dot={true}
-              />
-              <XmtpStatus.IconWrapper>
-                <XmtpStatus.LogoutIcon
-                  onClick={() => {
-                    signOut({
-                      clientAddress: xmtpClient?.data?.address() as EthAddress,
-                    });
-                  }}
-                />
-              </XmtpStatus.IconWrapper>
-            </XmtpStatus.Row>
-          </XmtpStatus.Root>
+
+          <Init.Root>
+            <Init.Row>
+              <Init.Xmtp />
+              <Init.RowItem>
+                <Init.Title>Initialize XMTP</Init.Title>
+                <Init.Subtitle>
+                  Please connect with XMTP to start messaging.
+                </Init.Subtitle>
+              </Init.RowItem>
+            </Init.Row>
+            <Init.ButtonWrapper>
+              <Init.Button
+                onClick={() => {
+                  if (
+                    connectedWallet === undefined ||
+                    connectedWallet === null
+                  ) {
+                    return;
+                  } else {
+                    signIn({ wallet: connectedWallet });
+                  }
+                }}
+              >
+                {isSigningIn ? "Signin In..." : "Sign-in with XMTP"}
+                {isSigningIn && <Init.Spinner />}
+              </Init.Button>
+            </Init.ButtonWrapper>
+          </Init.Root>
         </SignupSection>
       </Container>
-      <FooterNav />
       {showFailureToast && (
         <ToastPosition>
           <Toast.Failure.Card

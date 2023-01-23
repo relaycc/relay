@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import { AddressHeader } from "@/lib/design/AddressHeader";
-import { ButtonView } from "@/lib/design/ButtonView";
+import { AddressHeader } from "@/design/AddressHeader";
+import { ButtonView } from "@/design/ButtonView";
 
 const VERY_LONG_TEXT =
   "Very long text that will be truncated. This is the longest text of all time and I can't believe that it's overlfowing the container.";
