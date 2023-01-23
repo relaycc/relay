@@ -1,19 +1,19 @@
-import styled from "styled-components";
-import { useState, useCallback } from "react";
-import { EthAddress, useStopClient, useXmtpClient } from "@relaycc/xmtp-hooks";
-import { textSmallRegular } from "@/design/typography";
-import { LogoPicture } from "@/design/LogoPicture";
-import { Logo } from "@/design/Logo";
-import * as Connected from "@/design/ENSID";
-import { useConnectedWallet } from "@/hooks/useConnectedWallet";
-import { Avatar } from "@/components/Avatar";
-import * as Toast from "@/design/Toast";
-import { useRelayId } from "@/hooks/useRelayId";
-import { isEnsName } from "@/lib/isEnsName";
-import { useRedirectWhenNotSignedIn } from "@/hooks/useRedirectWhenNotSignedInt";
-import * as XmtpStatus from "@/design/XmtpStatus";
-import * as Header from "@/design/HeaderSimple";
-import { FooterNav } from "@/components/FooterNav";
+import styled from 'styled-components';
+import { useState, useCallback } from 'react';
+import { EthAddress, useStopClient, useXmtpClient } from '@relaycc/xmtp-hooks';
+import { textSmallRegular } from '@/design/typography';
+import { LogoPicture } from '@/design/LogoPicture';
+import { Logo } from '@/design/Logo';
+import * as Connected from '@/design/ENSID';
+import { useConnectedWallet } from '@/hooks/useConnectedWallet';
+import { Avatar } from '@/components/Avatar';
+import * as Toast from '@/design/Toast';
+import { useRelayId } from '@/hooks/useRelayId';
+import { isEnsName } from '@/lib/isEnsName';
+import { useRedirectWhenNotSignedIn } from '@/hooks/useRedirectWhenNotSignedInt';
+import * as XmtpStatus from '@/design/XmtpStatus';
+import * as Header from '@/design/HeaderSimple';
+import { FooterNav } from '@/components/FooterNav';
 
 const Receiver = styled.div`
   height: 700px;
@@ -76,7 +76,7 @@ const LogoPictureWithSpacing = () => (
   </LogoPictureWrapper>
 );
 
-const ToastPosition = styled.div`
+export const ToastPosition = styled.div`
   position: absolute;
   bottom: 2rem;
   left: 1rem;
@@ -119,7 +119,7 @@ export default function Profile() {
     clientAddress: connectedWallet?.address as EthAddress,
   });
 
-  useRedirectWhenNotSignedIn("/receiver/profile");
+  useRedirectWhenNotSignedIn('/receiver/profile');
 
   return (
     <Receiver>
@@ -159,7 +159,7 @@ export default function Profile() {
                     if (isEnsName(relayId.ens.data)) {
                       return relayId.ens.data;
                     } else if (relayId.ens.isLoading) {
-                      return "Loading...";
+                      return 'Loading...';
                     } else {
                       return connectedWallet?.address;
                     }
@@ -167,14 +167,14 @@ export default function Profile() {
                 </Connected.EnsNameMd>
                 <Connected.AddressHeader
                   isLoading={false}
-                  addressHeader={connectedWallet?.address || "..."}
+                  addressHeader={connectedWallet?.address || '...'}
                 />
               </Connected.UserDetails>
               <Connected.Copy
                 style={{
-                  marginLeft: "auto",
-                  marginTop: "auto",
-                  marginBottom: "0.65rem",
+                  marginLeft: 'auto',
+                  marginTop: 'auto',
+                  marginBottom: '0.65rem',
                 }}
               />
               <Connected.LinkIcon />
@@ -216,8 +216,7 @@ export default function Profile() {
           <Toast.Failure.Card
             initial={{ opacity: 0.2 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 0.2 }}
-          >
+            transition={{ duration: 0.2 }}>
             <Toast.Failure.AlertIcon />
             <Toast.Failure.Column>
               <Toast.Failure.Title>Sign-In Failed</Toast.Failure.Title>

@@ -1,6 +1,6 @@
-import styled, { css } from "styled-components";
-import Blockies from "react-blockies";
-import { motion } from "framer-motion";
+import styled, { css } from 'styled-components';
+import Blockies from 'react-blockies';
+import { motion } from 'framer-motion';
 
 const avatar = css`
   border-radius: 50%;
@@ -33,7 +33,17 @@ export const AvatarLg = styled(motion.img)`
   ${lg};
 `;
 
+export const AvatarSm = styled(motion.img)`
+  ${avatar};
+  ${md};
+`;
+
 export const AvatarMd = styled(motion.img)`
+  ${avatar};
+  ${md};
+`;
+
+export const BlockieSm = styled(Blockies)`
   ${avatar};
   ${md};
 `;

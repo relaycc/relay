@@ -1,7 +1,7 @@
-import styled from "styled-components";
-import { receiverTheme } from "@/design/receiverTheme";
-import { textSmallRegular } from "@/design/typography";
-import { Magnifier } from "@/design/Magnifier";
+import styled from 'styled-components';
+import { receiverTheme } from '@/design/receiverTheme';
+import { textSmallRegular } from '@/design/typography';
+import { Magnifier } from '@/design/Magnifier';
 
 const Root = styled.div`
   display: flex;
@@ -18,14 +18,14 @@ const Wrapper = styled.div`
 
   padding: 10px 8px;
   border-radius: 0.5rem;
-  background-color: ${receiverTheme.colors.gray["100"]};
+  background-color: ${receiverTheme.colors.gray['100']};
   width: 100%;
 `;
 
 const Input = styled.input`
   ${textSmallRegular};
-  background-color: ${receiverTheme.colors.gray["100"]};
-  color: ${receiverTheme.colors.gray["900"]};
+  background-color: ${receiverTheme.colors.gray['100']};
+  color: ${receiverTheme.colors.gray['900']};
   border: hidden;
 
   :focus {
@@ -34,7 +34,7 @@ const Input = styled.input`
 
   ::placeholder {
     ${textSmallRegular};
-    color: ${receiverTheme.colors.gray["400"]};
+    color: ${receiverTheme.colors.gray['400']};
   }
 
   width: 94%;
@@ -46,7 +46,7 @@ export const Search = ({ active }: { active: boolean }) => {
       <Root>
         <Wrapper>
           <Magnifier />
-          <Input placeholder={"Search Receiver"} />
+          <Input placeholder={'Search Receiver'} />
         </Wrapper>
       </Root>
     );
@@ -54,7 +54,7 @@ export const Search = ({ active }: { active: boolean }) => {
   return (
     <Root>
       <Wrapper>
-        <Input placeholder={"Search Receiver"} />
+        <Input placeholder={'Search Receiver'} />
       </Wrapper>
     </Root>
   );

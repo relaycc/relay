@@ -1,11 +1,11 @@
-import styled from "styled-components";
-import { receiverTheme } from "@/design/receiverTheme";
-import { StatusIcon } from "@/design/StatusIcon";
-import { textSmallRegular } from "@/design/typography";
-import { Time } from "@/design/Time";
-import { PinIcon } from "@/design/PinIcon";
-import { LensIcon } from "@/design/LensIcon";
-import { ENSName } from "@/design/ENSName";
+import styled from 'styled-components';
+import { receiverTheme } from '@/design/receiverTheme';
+import { textSmallRegular } from '@/design/typography';
+import { Time } from '@/design/Time';
+import { PinIcon } from '@/design/PinIcon';
+import { LensIcon } from '@/design/LensIcon';
+import { ENSName } from '@/design/ENSName';
+import { Avatar } from '@/components/Avatar';
 
 const Root = styled.div`
   display: flex;
@@ -13,15 +13,16 @@ const Root = styled.div`
   align-items: center;
   padding: 1rem;
   height: 4.5rem;
+  cursor: pointer;
 
   width: 100%;
   background: #ffffff;
 
   :hover {
-    background-color: ${receiverTheme.colors.gray["200"]};
+    background-color: ${receiverTheme.colors.gray['200']};
   }
   :active {
-    background-color: ${receiverTheme.colors.gray["300"]};
+    background-color: ${receiverTheme.colors.gray['300']};
   }
 `;
 
@@ -53,7 +54,7 @@ const NameAndIcons = styled.div`
 
 const MessageDetails = styled.div`
   ${textSmallRegular};
-  color: ${receiverTheme.colors.gray["400"]};
+  color: ${receiverTheme.colors.gray['400']};
 `;
 
 const StyledTime = styled.div`
@@ -62,27 +63,29 @@ const StyledTime = styled.div`
 
 export const Chat = ({
   ENSname,
-  statusIcon,
   messageDetails,
   hasLoaded,
   isPinned,
   hasLENS,
+  handleClick,
+  handle,
 }: {
   ENSname: string;
-  statusIcon: string;
   messageDetails: Array<{ message: string; time: string }>;
   hasLoaded: boolean;
   isPinned: boolean;
   hasLENS: boolean;
+  handleClick: () => void;
+  handle: string;
 }) => {
   return (
-    <Root>
+    <Root onClick={handleClick}>
       <Wrapper>
-        <StatusIcon size={"lg"} src={statusIcon} isLoading={!hasLoaded} />
+        <Avatar handle={handle} onClick={() => null} size="md" />
         <MsgDetails>
           <NameAndIcons>
             <ENSName
-              size={"md"}
+              size={'md'}
               monoFont={true}
               isLoading={!hasLoaded}
               ENSname={ENSname}

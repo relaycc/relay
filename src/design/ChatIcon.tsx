@@ -83,3 +83,34 @@ export const Inactive = styled(Base)`
     }
   }
 `;
+
+export const ChatIcon = styled(Base)<{active:boolean}>`
+  :hover {
+    path {
+      transition: fill 150ms ease-in;
+      fill: #ffffff;
+      stroke: #4236c7;
+    }
+  }
+${({active})=>active && css`
+  path {
+    fill: "#4236c7";
+    stroke: #4236c7;
+  }
+  path:nth-of-type(2) {
+    fill: "#4236c7";
+    stroke: #ffffff;
+  }
+  path:nth-of-type(3) {
+    stroke: #ffffff;
+  }
+  path:nth-of-type(4) {
+    fill: "#4236c7";
+    stroke: #ffffff;
+  }
+  path:nth-of-type(5) {
+    fill: "#4236c7";
+    stroke: #4236c7;
+  }
+`}
+`
