@@ -1,12 +1,11 @@
 import {NewMessageHeader} from "@/design/NewMessageHeader";
-import {NewMsgInput, TextInput} from "@/design/NewMsgInput";
+import {NewMsgInput} from "@/design/NewMsgInput";
 import {MsgBox} from "@/design/MsgBox";
 import * as Toast from "@/design/Toast";
 import styled from "styled-components";
 import {useCallback, useState} from "react";
 import {textMdSemiBold, textSmallRegular} from "@/design/typography";
 import {receiverTheme} from "@/design/receiverTheme";
-import {useRedirectWhenSignedIn} from "@/hooks/useRedirectWhenSignedIn";
 
 const Root = styled.div`
   display: flex;
@@ -21,11 +20,6 @@ const Root = styled.div`
 
   height: 42.5rem;
   width: 400px;
-
-  ${TextInput} {
-    color: ${receiverTheme.colors.gray["300"]};
-    caret-color: auto;
-  }
 `;
 
 const HeaderWrapper = styled.div`
@@ -104,7 +98,8 @@ export default function NewMessage({
                 <NewMessageHeader handleCloseClick={() => {
                 }}/>
             </HeaderWrapper>
-            <NewMsgInput active={false} isLoading={!hasLoaded} value={"search ENS, Lens or Address"}/>
+            <NewMsgInput isLoading={!hasLoaded} placeholder={"search ENS, Lens or Address"} handleAddingAddress={() => {
+            }}/>
             <Main>
 
                 {!isAddressValid && <NoResultText>
@@ -113,7 +108,8 @@ export default function NewMessage({
                 </NoResultText>}
             </Main>
             <MsgBoxWrapper>
-                <MsgBox active={false}/>
+                <MsgBox handleSendingIcon={() => {
+                }}/>
             </MsgBoxWrapper>
 
 
