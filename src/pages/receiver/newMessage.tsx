@@ -101,7 +101,7 @@ export default function NewMessage({
             }} placeholder={"search ENS, Lens or Address"}/>
             <Main>
 
-                {!isAddressValid && <NoResultText>
+                {isAddressValid && <NoResultText>
                     <NoResultTitle>No result found</NoResultTitle>
                     <NoResultSubtitle>Please enter a valid ENS, Lens, or Address</NoResultSubtitle>
                 </NoResultText>}
