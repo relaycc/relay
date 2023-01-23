@@ -74,9 +74,8 @@ const ToastPosition = styled.div`
 
 
 export default function NewMessage({
-                                       hasLoaded,
                                        isAddressValid
-                                   }: { hasLoaded: boolean, isAddressValid: boolean }) {
+                                   }: { isAddressValid: boolean }) {
 
     const [showFailureToast, setShowFailureToast] = useState<boolean>(false);
 
@@ -98,8 +97,8 @@ export default function NewMessage({
                 <NewMessageHeader handleCloseClick={() => {
                 }}/>
             </HeaderWrapper>
-            <NewMsgInput isLoading={!hasLoaded} placeholder={"search ENS, Lens or Address"} handleAddingAddress={() => {
-            }}/>
+            <NewMsgInput handleAddingAddress={() => {
+            }} placeholder={"search ENS, Lens or Address"}/>
             <Main>
 
                 {!isAddressValid && <NoResultText>
@@ -108,7 +107,7 @@ export default function NewMessage({
                 </NoResultText>}
             </Main>
             <MsgBoxWrapper>
-                <MsgBox handleSendingIcon={() => {
+                <MsgBox handleSendIcon={() => {
                 }}/>
             </MsgBoxWrapper>
 
