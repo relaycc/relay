@@ -1,12 +1,9 @@
 import styled from "styled-components";
-
-
-import {ArrowUpCircle} from "@/design/ArrowUpCircle";
-
-
 import {receiverTheme} from "@/design/receiverTheme";
 import {textSmallRegular} from "@/design/typography";
-import {LoaderAnimGeneral} from "@/design/LoaderAnimGeneral";
+
+export {LoaderAnimGeneral} from "@/design/LoaderAnimGeneral";
+export {ArrowUpCircle} from "@/design/ArrowUpCircle";
 
 
 export const Root = styled.div`
@@ -42,4 +39,3 @@ export const IconContainer = styled.div`
   justify-content: center;
   align-items: center;
 `;
-
