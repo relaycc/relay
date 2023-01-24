@@ -21,6 +21,7 @@ import { isEnsName } from "@/lib/isEnsName";
 import { MsgBox } from "@/design/MsgBox";
 import { MsgBundlesSent } from "@/design/MsgBundlesSent";
 import { Avatar } from "./Avatar";
+import { getDisplayDate } from "@/lib/getDisplayDate";
 
 const Root = styled.div`
   height: 700px;
@@ -48,6 +49,7 @@ const ScrollContainer = styled.div`
   align-items: center;
   height: 100%;
   overflow-y: auto;
+  padding-bottom: 0.5rem;
 `;
 
 export const DirectMessagesPage: FunctionComponent<{}> = () => {
@@ -78,7 +80,7 @@ export const DirectMessagesPage: FunctionComponent<{}> = () => {
       senderAddress: message.senderAddress,
       content: message.content,
       conversation: message.conversation,
-      time: format(new Date(message.sent), "hh:mm aaaaa'm'"),
+      time: getDisplayDate(message.sent),
     };
   }, []);
 
@@ -188,6 +190,7 @@ export const DirectMessagesPage: FunctionComponent<{}> = () => {
               key={`${bucket.peerAddress}_${idx}`}
               peerAddress={peerAddress}
               bucket={bucket}
+              isGray={!(idx % 2 == 0)}
             />
           );
         })}
@@ -213,8 +216,8 @@ export interface MessagesBucketProps {
 type MessageBucket = MessagesBucketProps["bucket"];
 
 const ListMessages: FunctionComponent<
-  MessagesBucketProps & { peerAddress: string }
-> = ({ bucket, peerAddress }) => {
+  MessagesBucketProps & { peerAddress: string } & { isGray: boolean }
+> = ({ bucket, peerAddress, isGray }) => {
   const handle = useMemo(() => {
     if (!bucket || !bucket.messages.length) {
       return "";
@@ -239,6 +242,7 @@ const ListMessages: FunctionComponent<
         ensName={ensName}
         isLoading={false}
         messages={[...bucket.messages].reverse()}
+        isGray={isGray}
       />
     );
   }
@@ -247,6 +251,7 @@ const ListMessages: FunctionComponent<
       ensName={ensName}
       isLoading={false}
       messages={[...bucket.messages].reverse()}
+      isGray={isGray}
     />
   );
 };

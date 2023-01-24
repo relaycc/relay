@@ -17,12 +17,15 @@ const Root = styled.div`
   width: 100%;
 `;
 
-const FirstMsgContainer = styled.div`
+const FirstMsgContainer = styled.div<{ isGray: boolean }>`
   display: flex;
   justify-content: flex-start;
   column-gap: 0.5rem;
-  padding: 0 1rem;
+  margin: 0 0.5rem;
+  padding: 0 0.5rem;
 
+  background-color: ${(props) =>
+    props.isGray ? receiverTheme.colors.gray["100"] : "#ffffff"};
   :hover {
     background-color: ${receiverTheme.colors.gray["100"]};
   }
@@ -84,6 +87,7 @@ export const MsgBundlesSent = ({
   ensName,
   messages,
   isLoading,
+  isGray,
 }: {
   ensName: string;
   messages: Array<{
@@ -94,10 +98,11 @@ export const MsgBundlesSent = ({
   }>;
   statusIcon: string;
   isLoading: boolean;
+  isGray: boolean;
 }) => {
   return (
     <Root>
-      <FirstMsgContainer>
+      <FirstMsgContainer isGray={isGray}>
         <StatusIconContainer>
           <Avatar
             handle={messages[0].senderAddress}
@@ -117,7 +122,7 @@ export const MsgBundlesSent = ({
       </FirstMsgContainer>
 
       {messages.slice(1).map((i, index) => (
-        <RestOfTheMessages key={index}>
+        <RestOfTheMessages key={index} isGray={isGray}>
           <HoveredTimeContainer>
             <XxsSizedTime>{i.time}</XxsSizedTime>
           </HoveredTimeContainer>
