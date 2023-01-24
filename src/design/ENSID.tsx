@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { receiverTheme } from "@/design/receiverTheme";
 export { StatusIcon } from "@/design/StatusIcon";
 export * as AddressHeader from "@/design/AddressHeader";
-export { Badge } from "@/design/Badge";
+export * as Badge from "@/design/Badge";
 export { Copy } from "@/design/Copy";
 export { LinkIcon } from "@/design/LinkIcon";
 import { textXsMedium } from "@/design/typography";

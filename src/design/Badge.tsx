@@ -2,7 +2,7 @@ import styled, { css } from "styled-components";
 import { receiverTheme } from "@/design/receiverTheme";
 import { textXsMedium } from "@/design/typography";
 
-const Root = styled.div<{ color: "gray" | "purple" }>`
+export const Root = styled.div<{ color: "gray" | "purple" }>`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -22,7 +22,7 @@ const Root = styled.div<{ color: "gray" | "purple" }>`
   min-width: 3rem;
 `;
 
-const Label = styled.div<{ color: "gray" | "purple" }>`
+export const Label = styled.div<{ color: "gray" | "purple" }>`
   ${textXsMedium};
   color: ${receiverTheme.colors.primary["500"]};
 
@@ -33,7 +33,7 @@ const Label = styled.div<{ color: "gray" | "purple" }>`
     `};
 `;
 
-const Icon = styled.div<{ color: "gray" | "purple" }>`
+export const Icon = styled.div<{ color: "gray" | "purple" }>`
   min-width: 0.375rem;
   min-height: 0.375rem;
   width: 0.375rem;
@@ -48,7 +48,7 @@ const Icon = styled.div<{ color: "gray" | "purple" }>`
     `};
 `;
 
-const LoadingDiv = styled.div`
+export const LoadingDiv = styled.div`
   background: linear-gradient(
     90deg,
     #f1efef -24.18%,
@@ -62,24 +62,24 @@ const LoadingDiv = styled.div`
   width: 3.75rem;
 `;
 
-export const Badge = ({
-  hasLoaded,
-  label,
-  color,
-  dot,
-}: {
-  hasLoaded: boolean;
-  label: string;
-  color: "gray" | "purple";
-  dot: boolean;
-}) => {
-  if (hasLoaded) {
-    return (
-      <Root color={color}>
-        {dot && <Icon color={color} />}
-        <Label color={color}>{label}</Label>
-      </Root>
-    );
-  }
-  return <LoadingDiv />;
-};
+// export const Badge = ({
+//   hasLoaded,
+//   label,
+//   color,
+//   dot,
+// }: {
+//   hasLoaded: boolean;
+//   label: string;
+//   color: "gray" | "purple";
+//   dot: boolean;
+// }) => {
+//   if (hasLoaded) {
+//     return (
+//       <Root color={color}>
+//         {dot && <Icon color={color} />}
+//         <Label color={color}>{label}</Label>
+//       </Root>
+//     );
+//   }
+//   return <LoadingDiv />;
+// };
