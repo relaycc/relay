@@ -2,7 +2,7 @@ import styled, { css } from "styled-components";
 export { XmtpIcon } from "@/design/XmtpIcon";
 import { spaceMonoXsRegular, textMdSemiBold } from "@/design/typography";
 export { LogoutIcon } from "@/design/LogoutIcon";
-export { Badge } from "@/design/Badge";
+export * as Badge from "@/design/Badge";
 
 export const Root = styled.div`
   display: flex;

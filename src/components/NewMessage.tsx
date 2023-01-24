@@ -1,12 +1,12 @@
-import { MsgBox } from "@/design/MsgBox";
+import * as MsgBox from "@/design/MsgBox";
 import * as NewMsgInput from "@/design/NewMsgInput";
 import * as Toast from "@/design/Toast";
 import * as NewMessageHeader from "@/design/NewMessageHeader";
 import styled from "styled-components";
-import { useCallback, useState } from "react";
-import { textMdSemiBold, textSmallRegular } from "@/design/typography";
-import { receiverTheme } from "@/design/receiverTheme";
-import { motion } from "framer-motion";
+import {useCallback, useState} from "react";
+import {textMdSemiBold, textSmallRegular} from "@/design/typography";
+import {receiverTheme} from "@/design/receiverTheme";
+import {motion} from "framer-motion";
 
 const Root = styled(motion.div)`
   display: flex;
@@ -78,109 +78,139 @@ const ToastPosition = styled.div`
   left: 1rem;
 `;
 
-export const NewMessage = ({ doClose }: { doClose: () => unknown }) => {
-  const [showFailureToast, setShowFailureToast] = useState<boolean>(false);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [inputIsFocused, setInputIsFocused] = useState<boolean>(false);
-  const [inputValue, setInputValue] = useState<string | null>(null);
-  const [isAddressValid, setIsAddressValid] = useState<boolean | null>(null);
+export const NewMessage = ({doClose}: { doClose: () => unknown }) => {
+    const [showFailureToast, setShowFailureToast] = useState<boolean>(false);
+    const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [inputIsFocused, setInputIsFocused] = useState<boolean>(false);
+    const [inputValue, setInputValue] = useState<string | null>(null);
+    const [isAddressValid, setIsAddressValid] = useState<boolean | null>(null);
 
-  const triggerFailureToast = useCallback(() => {
-    setShowFailureToast(true);
+    const [inputMessage, setInputMessage] = useState<string | null>(null);
 
-    setTimeout(() => {
-      setShowFailureToast(false);
-    }, 3000);
-  }, []);
 
-  const clearFailureToast = useCallback(() => {
-    setShowFailureToast(false);
-  }, [setShowFailureToast]);
+    const triggerFailureToast = useCallback(() => {
+        setShowFailureToast(true);
 
-  return (
-    <Root
-      initial={{ maxHeight: "0" }}
-      animate={{ maxHeight: "100vh" }}
-      transition={{ duration: 0.3 }}
-    >
-      <HeaderWrapper>
-        <NewMessageHeader.Root>
-          <NewMessageHeader.Title>New Message</NewMessageHeader.Title>
-          <NewMessageHeader.Button>
-            <NewMessageHeader.CloseIcon onClick={doClose} />
-          </NewMessageHeader.Button>
-        </NewMessageHeader.Root>
-      </HeaderWrapper>
-      <UnstyledForm
-        onSubmit={(e) => {
-          e.preventDefault();
-          setIsLoading(true);
-          setTimeout(() => {
-            setIsAddressValid(false);
-            setIsLoading(false);
-          }, 3000);
-        }}
-      >
-        <NewMsgInput.Root
-          onFocus={() => setInputIsFocused(true)}
-          onBlur={() => setInputIsFocused(false)}
+        setTimeout(() => {
+            setShowFailureToast(false);
+        }, 3000);
+    }, []);
+
+    const clearFailureToast = useCallback(() => {
+        setShowFailureToast(false);
+    }, [setShowFailureToast]);
+
+    return (
+        <Root
+            initial={{maxHeight: "0"}}
+            animate={{maxHeight: "100vh"}}
+            transition={{duration: 0.3}}
         >
-          <NewMsgInput.To>To: </NewMsgInput.To>
-          <NewMsgInput.TextInput
-            onChange={(e) => {
-              setInputValue(e.target.value);
-              setIsAddressValid(null);
-              clearFailureToast();
-            }}
-            autoFocus={true}
-            value={inputValue || ""}
-            placeholder="Enter ENS name or address"
-          />
-          <NewMsgInput.IconContainer>
-            {(() => {
-              if (isLoading) {
-                return <NewMsgInput.LoaderAnimGeneral />;
-              } else if (inputIsFocused) {
-                return <NewMsgInput.AddIconActive>+</NewMsgInput.AddIconActive>;
-              } else {
-                return <NewMsgInput.AddIcon>+</NewMsgInput.AddIcon>;
-              }
-            })()}
-          </NewMsgInput.IconContainer>
-        </NewMsgInput.Root>
-      </UnstyledForm>
-      <Main>
-        {isAddressValid === false && (
-          <NoResultText>
-            <NoResultTitle>No result found</NoResultTitle>
-            <NoResultSubtitle>
-              Please enter a valid ENS, Lens, or Address
-            </NoResultSubtitle>
-          </NoResultText>
-        )}
-      </Main>
-      <MsgBoxWrapper>
-        <MsgBox active={false} />
-      </MsgBoxWrapper>
+            <HeaderWrapper>
+                <NewMessageHeader.Root>
+                    <NewMessageHeader.Title>New Message</NewMessageHeader.Title>
+                    <NewMessageHeader.Button>
+                        <NewMessageHeader.CloseIcon onClick={doClose}/>
+                    </NewMessageHeader.Button>
+                </NewMessageHeader.Root>
+            </HeaderWrapper>
+            <UnstyledForm
+                onSubmit={(e) => {
+                    e.preventDefault();
+                    setIsLoading(true);
+                    setTimeout(() => {
+                        setIsAddressValid(false);
+                        setIsLoading(false);
+                    }, 3000);
+                }}
+            >
+                <NewMsgInput.Root
+                    onFocus={() => setInputIsFocused(true)}
+                    onBlur={() => setInputIsFocused(false)}
+                >
+                    <NewMsgInput.To>To: </NewMsgInput.To>
+                    <NewMsgInput.TextInput
+                        onChange={(e) => {
+                            setInputValue(e.target.value);
+                            setIsAddressValid(null);
+                            clearFailureToast();
+                        }}
+                        autoFocus={true}
+                        value={inputValue || ""}
+                        placeholder="Enter ENS name or address"
+                    />
+                    <NewMsgInput.IconContainer>
+                        {(() => {
+                            if (isLoading) {
+                                return <NewMsgInput.LoaderAnimGeneral/>;
+                            } else if (inputIsFocused) {
+                                return <NewMsgInput.AddIconActive>+</NewMsgInput.AddIconActive>;
+                            } else {
+                                return <NewMsgInput.AddIcon>+</NewMsgInput.AddIcon>;
+                            }
+                        })()}
+                    </NewMsgInput.IconContainer>
+                </NewMsgInput.Root>
+            </UnstyledForm>
+            <Main>
+                {isAddressValid === false && (
+                    <NoResultText>
+                        <NoResultTitle>No result found</NoResultTitle>
+                        <NoResultSubtitle>
+                            Please enter a valid ENS, Lens, or Address
+                        </NoResultSubtitle>
+                    </NoResultText>
+                )}
+            </Main>
+            <MsgBoxWrapper>
 
-      {showFailureToast && (
-        <ToastPosition>
-          <Toast.Failure.Card
-            initial={{ opacity: 0.2 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.2 }}
-          >
-            <Toast.Failure.AlertIcon />
-            <Toast.Failure.Column>
-              <Toast.Failure.Title>Failed to Send Message</Toast.Failure.Title>
-              <Toast.Failure.Subtitle>
-                Check connection and try again.
-              </Toast.Failure.Subtitle>
-            </Toast.Failure.Column>
-            <Toast.Failure.ExitIcon onClick={clearFailureToast} />
-          </Toast.Failure.Card>
-        </ToastPosition>
-      )}
-    </Root>
-  );
+                <MsgBox.Root
+                    onFocus={() => setInputIsFocused(true)}
+                    onBlur={() => setInputIsFocused(false)}
+                >
+                    <MsgBox.MessageInput
+                        onChange={(e) => {
+                            setInputMessage(e.target.value);
+                            clearFailureToast();
+                        }}
+                        autoFocus={true}
+                        value={inputMessage || ""}
+                        placeholder="Type a Message"
+                    />
+                    <MsgBox.IconContainer>
+                        {(() => {
+                            if (isLoading) {
+                                return <MsgBox.LoaderAnimGeneral/>;
+                            } else if (inputIsFocused) {
+                                return <MsgBox.ArrowUpCircle active={true}/>;
+                            } else {
+                                return <MsgBox.ArrowUpCircle active={false}/>;
+                            }
+                        })()}
+                    </MsgBox.IconContainer>
+                </MsgBox.Root>
+
+            </MsgBoxWrapper>
+
+            {showFailureToast && (
+                <ToastPosition>
+                    <Toast.Failure.Card
+                        initial={{opacity: 0.2}}
+                        animate={{opacity: 1}}
+                        transition={{duration: 0.2}}
+                    >
+                        <Toast.Failure.AlertIcon/>
+                        <Toast.Failure.Column>
+                            <Toast.Failure.Title>Failed to Send Message</Toast.Failure.Title>
+                            <Toast.Failure.Subtitle>
+                                Check connection and try again.
+                            </Toast.Failure.Subtitle>
+                        </Toast.Failure.Column>
+                        <Toast.Failure.ExitIcon onClick={clearFailureToast}/>
+                    </Toast.Failure.Card>
+                </ToastPosition>
+            )}
+        </Root>
+    );
 };
+

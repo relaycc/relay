@@ -4,7 +4,7 @@ import { displayXsBold } from "@/design/typography";
 import { BackIcon } from "@/design/BackIcon";
 import { Edit } from "@/design/Edit";
 
-const Container = styled.div`
+export const Container = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -16,25 +16,13 @@ const Container = styled.div`
   width: 100%;
 `;
 
-const Title = styled.div`
+export const Title = styled.div`
   ${displayXsBold};
   color: ${receiverTheme.colors.gray["900"]};
 `;
 
-const TitleContainer = styled.div`
+export const TitleContainer = styled.div`
   display: flex;
   align-items: center;
   gap: 1rem;
 `;
-
-export const HeaderRequests = () => {
-  return (
-    <Container>
-      <TitleContainer>
-        <BackIcon />
-        <Title>Requests</Title>
-      </TitleContainer>
-      <Edit isActive={false} />
-    </Container>
-  );
-};
