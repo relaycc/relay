@@ -2,9 +2,9 @@ import styled from "styled-components";
 import { receiverTheme } from "@/design/receiverTheme";
 import { textXsRegular } from "@/design/typography";
 import { StatusIcon } from "@/design/StatusIcon";
-import { Time } from "@/design/Time";
+import * as Time from "@/design/Time";
 import { MsgPreview } from "@/design/MsgPreview";
-import { ENSName } from "@/design/ENSName";
+import * as ENSName from "@/design/ENSName";
 
 const Root = styled.div`
   display: flex;
@@ -98,13 +98,8 @@ export const MsgBundlesSent = ({
         </StatusIconContainer>
         <MiddlePart>
           <NameAndDate>
-            <ENSName
-              size={"lg"}
-              monoFont={true}
-              isLoading={isLoading}
-              ENSname={ensName}
-            />
-            <Time time={messages[0].time} isLoading={isLoading} />
+            <ENSName.EnsNameMonofontLg>{ensName}</ENSName.EnsNameMonofontLg>
+            <Time.Root>{messages[0].time}</Time.Root>
           </NameAndDate>
           <MsgContainer>
             <MsgPreview isLoading={isLoading} msg={messages[0].message} />

@@ -1,10 +1,10 @@
 import styled from "styled-components";
-import { StatusIcon } from "@/design/StatusIcon";
-import { Compose } from "@/design/Compose";
+export { Compose } from "@/design/Compose";
 import { receiverTheme } from "@/design/receiverTheme";
 import { displayXsBold } from "@/design/typography";
+export { Avatar } from "@/components/Avatar";
 
-const Container = styled.div`
+export const Root = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -16,32 +16,14 @@ const Container = styled.div`
   width: 100%;
 `;
 
-const Title = styled.div`
+export const Title = styled.div`
   ${displayXsBold};
   color: ${receiverTheme.colors.gray["900"]};
 `;
 
-const IconContainer = styled.div`
+export const IconContainer = styled.div`
   display: flex;
   justify-content: space-evenly;
   align-items: center;
   column-gap: 0.75rem;
 `;
-
-export const HomeHeader = ({
-  src,
-  isLoading,
-}: {
-  src: string;
-  isLoading: boolean;
-}) => {
-  return (
-    <Container>
-      <Title>Messages</Title>
-      <IconContainer>
-        <StatusIcon size={"sm"} src={src} isLoading={isLoading} />
-        <Compose />
-      </IconContainer>
-    </Container>
-  );
-};

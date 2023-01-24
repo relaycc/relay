@@ -1,28 +1,29 @@
+import styled from "styled-components";
+import { receiverTheme } from "@/design/receiverTheme";
+export { LoaderAnimGeneral } from "@/design/LoaderAnimGeneral";
+import { textMdRegular } from "@/design/typography";
 import styled, {css} from "styled-components";
 import {receiverTheme} from "@/design/receiverTheme";
 import {LoaderAnimGeneral} from "@/design/LoaderAnimGeneral";
 import {textMdRegular} from "@/design/typography";
 import {useState} from "react";
 
-const Root = styled.div`
+export const Root = styled.div`
   height: 2.5rem;
   display: flex;
   justify-content: space-evenly;
   align-items: center;
   border-bottom: 0.5px solid ${receiverTheme.colors.gray["300"]};
-
   background: #ffffff;
-  width: 100%;
-  //width: 360px;
 `;
 
-const To = styled.div`
+export const To = styled.div`
   ${textMdRegular};
   color: ${receiverTheme.colors.gray["400"]};
-
   width: 6%;
 `;
 
+export const TextInput = styled.input`
 export const TextInput = styled.input<{ loading: boolean }>`
   ${textMdRegular};
   border: hidden;
@@ -44,8 +45,17 @@ export const TextInput = styled.input<{ loading: boolean }>`
   }
 
   width: 75%;
+
+  ::placeholder {
+    color: ${receiverTheme.colors.gray["300"]};
+  }
 `;
 
+export const TextInputLoading = styled(TextInput)`
+  color: ${receiverTheme.colors.gray["400"]};
+`;
+
+export const IconContainer = styled.div`
 export const IconContainer = styled.div`
   display: flex;
   justify-content: center;
@@ -56,7 +66,7 @@ export const IconContainer = styled.div`
   height: 1.25rem;
 `;
 
-const AddIcon = styled.div<{ active: boolean }>`
+export const AddIcon = styled.div`
   display: flex;
   align-self: center;
   justify-content: center;
@@ -64,7 +74,10 @@ const AddIcon = styled.div<{ active: boolean }>`
   ${textMdRegular};
   font-size: 1.5rem;
   color: ${receiverTheme.colors.gray["400"]};
+`;
 
+export const AddIconActive = styled(AddIcon)`
+  color: ${receiverTheme.colors.gray["900"]};
   ${({active}) =>
           active &&
           css`

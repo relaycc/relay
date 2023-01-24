@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import { EthAddress, useStartClient, useXmtpClient } from "@relaycc/xmtp-hooks";
 import { useRouter } from "next/router";
 import { textSmallRegular } from "@/design/typography";
@@ -7,9 +7,9 @@ import { LogoPicture } from "@/design/LogoPicture";
 import { Logo } from "@/design/Logo";
 import * as Init from "@/design/InitializeXmtp";
 import * as Connected from "@/design/ENSID";
+import * as Toast from "@/design/Toast";
 import { useConnectedWallet } from "@/hooks/useConnectedWallet";
 import { Avatar } from "@/components/Avatar";
-import * as Toast from "@/design/Toast";
 import { useRelayId } from "@/hooks/useRelayId";
 import { isEnsName } from "@/lib/isEnsName";
 import { useRedirectWhenSignedIn } from "@/hooks/useRedirectWhenSignedIn";
@@ -88,10 +88,6 @@ export default function SignIn() {
         router.push("/receiver/messages");
       }
     },
-  });
-
-  const xmtpClient = useXmtpClient({
-    clientAddress: connectedWallet?.address as EthAddress,
   });
 
   useRedirectWhenSignedIn();
