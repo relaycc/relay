@@ -7,12 +7,13 @@ import { LogoPicture } from "@/design/LogoPicture";
 import { Logo } from "@/design/Logo";
 import * as Init from "@/design/InitializeXmtp";
 import * as Connected from "@/design/ENSID";
+import * as Toast from "@/design/Toast";
 import { useConnectedWallet } from "@/hooks/useConnectedWallet";
 import { Avatar } from "@/components/Avatar";
-import * as Toast from "@/design/Toast";
 import { useRelayId } from "@/hooks/useRelayId";
 import { isEnsName } from "@/lib/isEnsName";
 import { useRedirectWhenSignedIn } from "@/hooks/useRedirectWhenSignedIn";
+import { NewMessage } from "@/components/NewMessage";
 
 const Receiver = styled.div`
   height: 700px;
@@ -64,6 +65,7 @@ export default function SignIn() {
   const { connectedWallet } = useConnectedWallet();
   const [showFailureToast, setShowFailureToast] = useState<boolean>(false);
   const router = useRouter();
+  const [showNewMessage, setShowNewMessage] = useState<boolean>(true);
 
   const relayId = useRelayId({ handle: connectedWallet?.address });
 
@@ -169,6 +171,9 @@ export default function SignIn() {
           </Init.Root>
         </SignupSection>
       </Container>
+      {showNewMessage && (
+        <NewMessage doClose={() => setShowNewMessage(false)} />
+      )}
       {showFailureToast && (
         <ToastPosition>
           <Toast.Failure.Card
