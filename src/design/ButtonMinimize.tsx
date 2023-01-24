@@ -23,6 +23,7 @@ export const ButtonMinimize = styled((props: ComponentProps<"svg">) => (
       />
     </svg>
   ))`
+  cursor: pointer;
   :hover {
     rect {
       fill: ${receiverTheme.colors.gray["200"]};

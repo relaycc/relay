@@ -29,6 +29,7 @@ export const PinButton = styled((props: ComponentProps<"svg"> & {pinned: boolean
     />
   </svg>
 ))`
+  cursor: pointer;
   ${({ pinned }) =>
           pinned &&
           css`

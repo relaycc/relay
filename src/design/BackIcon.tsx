@@ -20,6 +20,7 @@ export const BackIcon = styled((props: ComponentProps<"svg">) => (
         strokeLinejoin="round"/>
     </svg>
     ))`
+  cursor: pointer;
   :hover {
     rect {
       transition: fill 150ms ease-in;

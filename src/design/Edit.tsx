@@ -19,6 +19,7 @@ export const Edit = styled((props: ComponentProps<"svg"> & {isActive: boolean}) 
           strokeLinejoin="round"/>
 </svg>
     ))`
+  cursor: pointer;
   ${({isActive}) => isActive ? css`
         rect {
           transition: fill 150ms ease-in;
