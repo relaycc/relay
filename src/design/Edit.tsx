@@ -1,8 +1,8 @@
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 import { ComponentProps } from "react";
 
 
-export const Edit = styled((props: ComponentProps<"svg"> & {isActive: boolean}) =>(
+const Edit = styled((props: ComponentProps<"svg">)=>(
   <svg
     width="40"
     height="40"
@@ -20,26 +20,38 @@ export const Edit = styled((props: ComponentProps<"svg"> & {isActive: boolean}) 
 </svg>
     ))`
   cursor: pointer;
-  ${({isActive}) => isActive ? css`
-        rect {
-          transition: fill 150ms ease-in;
-          fill: #4236C7;
-        }
-        path {
-          transition: stroke 150ms ease-in;
-          stroke: #FFFFFF;
-        }
-  ` : css`
-        :hover {
-            rect {
-              transition: fill 150ms ease-in;
-              fill: #F2F4F7;
-            }
-        }
-        :active {
-            rect {
-                transition: fill 150ms ease-in;
-                fill: #D0D5DD;
-            }
-        }
-    `}`;
+  `;
+
+export const Active = styled(Edit)`
+  :hover {
+    rect {
+      transition: fill 150ms ease-in;
+      fill: #F2F4F7;
+    }
+  }
+  :active {
+    rect {
+      transition: fill 150ms ease-in;
+      fill: #D0D5DD;
+    }
+  }
+`;
+
+
+export const Inactive = styled(Edit)`
+  pointer-events: none;
+  cursor: not-allowed;
+  opacity: 0.2;
+`;
+
+
+export const Editing = styled(Edit)`
+  rect {
+    transition: fill 150ms ease-in;
+    fill: #4236C7;
+  }
+  path {
+    transition: stroke 150ms ease-in;
+    stroke: #FFFFFF;
+  }
+`;

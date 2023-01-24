@@ -1,7 +1,8 @@
 import { ComponentProps } from "react";
 import styled from "styled-components";
+import { receiverTheme } from "@/design/receiverTheme";
 
-export const Compose = styled((props: ComponentProps<"svg">) => (
+const Compose = styled((props: ComponentProps<"svg">) => (
   <svg
     width="40"
     height="40"
@@ -21,16 +22,25 @@ export const Compose = styled((props: ComponentProps<"svg">) => (
   </svg>
 ))`
   cursor: pointer;
+`;
+
+export const Active = styled(Compose)`
   :hover {
     rect {
       transition: fill 150ms ease-in;
-      fill: #f2f4f7;
+      fill: ${receiverTheme.colors.gray["100"]};
     }
   }
   :active {
     rect {
       transition: fill 150ms ease-in;
-      fill: #d0d5dd;
+      fill: ${receiverTheme.colors.gray["300"]};
     }
   }
+`;
+
+export const Inactive = styled(Compose)`
+  cursor: not-allowed;
+  pointer-events: none;
+  opacity: 0.2;
 `;

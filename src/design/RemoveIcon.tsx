@@ -19,8 +19,6 @@ export const RemoveIcon = styled((props: ComponentProps<"svg">) =>(
                   strokeLinejoin="round"/>
         </svg>
 ))`
-  width: 1.5rem;
-  height: 1.5rem;
 
   :hover {
     path {

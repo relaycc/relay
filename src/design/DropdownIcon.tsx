@@ -1,9 +1,9 @@
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 import { ComponentProps } from "react";
 
 
 
-export const DropdownIcon = styled((props: ComponentProps<"svg"> & {isOpen: boolean}) => (
+const DropdownIcon = styled((props: ComponentProps<"svg">) => (
     <svg
       width="24"
       height="24"
@@ -16,10 +16,16 @@ export const DropdownIcon = styled((props: ComponentProps<"svg"> & {isOpen: bool
     </svg>
 
   ))`
-  ${({isOpen}) => isOpen && css`
-    path {
-      transition: transform 150ms ease-in;
-      transform: rotate(90deg);
-      transform-origin: 50% 50%;
-    }
-`};`
+  `
+
+export const Open = styled(DropdownIcon)`
+`;
+
+
+export const Close = styled(DropdownIcon)`
+  path {
+    transition: transform 150ms ease-in;
+    transform: rotate(90deg);
+    transform-origin: 50% 50%;
+  }
+`;

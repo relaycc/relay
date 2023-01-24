@@ -1,8 +1,8 @@
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 import { receiverTheme } from "@/design/receiverTheme";
 import { ComponentProps } from "react";
 
-export const ArrowUpCircle = styled((props: ComponentProps<"svg"> & {active: boolean}) =>(
+const ArrowUpCircle = styled((props: ComponentProps<"svg">) =>(
   <svg
     width="24"
     height="24"
@@ -19,12 +19,12 @@ export const ArrowUpCircle = styled((props: ComponentProps<"svg"> & {active: boo
       strokeLinejoin="round"
     />
   </svg>
-))`
-  ${( {active}) =>
-          active &&
-          css`
-            path {
-              stroke: ${receiverTheme.colors.gray["600"]};
-            }
-          `};
+))``;
+
+export const Active = styled(ArrowUpCircle)`
+  path {
+    stroke: ${receiverTheme.colors.gray["600"]};
+  }
 `;
+
+export const Inactive = styled(ArrowUpCircle)``;
