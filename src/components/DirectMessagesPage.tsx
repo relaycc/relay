@@ -1,25 +1,25 @@
 import React, {
-  FunctionComponent,
-  useCallback,
-  useMemo,
-  useState,
+    FunctionComponent,
+    useCallback, useEffect,
+    useMemo,
+    useState,
 } from 'react';
 import styled from 'styled-components';
-import { format } from 'date-fns';
+import {format} from 'date-fns';
 
 import * as Nav from '@/design/Nav';
-import { FooterNav } from './FooterNav';
-import { DMHeader } from '@/design/DMHeader';
-import { useRouter } from 'next/router';
-import { useRedirectWhenNotSignedIn } from '@/hooks/useRedirectWhenNotSignedInt';
-import { useConnectedWallet } from '@/hooks/useConnectedWallet';
-import { EthAddress, Message, useDirectMessage } from '@relaycc/xmtp-hooks';
-import { MsgBundlesReceived } from '@/design/MsgBundlesReceived';
-import { useRelayId } from '@/hooks/useRelayId';
-import { isEnsName } from '@/lib/isEnsName';
-import { MsgBox } from '@/design/MsgBox';
-import { MsgBundlesSent } from '@/design/MsgBundlesSent';
-import { Avatar } from './Avatar';
+import {FooterNav} from './FooterNav';
+import {DMHeader} from '@/design/DMHeader';
+import {useRouter} from 'next/router';
+import {useRedirectWhenNotSignedIn} from '@/hooks/useRedirectWhenNotSignedInt';
+import {useConnectedWallet} from '@/hooks/useConnectedWallet';
+import {EthAddress, Message, useDirectMessage} from '@relaycc/xmtp-hooks';
+import {MsgBundlesReceived} from '@/design/MsgBundlesReceived';
+import {useRelayId} from '@/hooks/useRelayId';
+import {isEnsName} from '@/lib/isEnsName';
+import {MsgBox} from '@/design/MsgBox';
+import {MsgBundlesSent} from '@/design/MsgBundlesSent';
+import {Avatar} from './Avatar';
 
 const Root = styled.div`
   height: 700px;
@@ -50,161 +50,186 @@ const ScrollContainer = styled.div`
 `;
 
 export const DirectMessagesPage: FunctionComponent<{}> = () => {
-  useRedirectWhenNotSignedIn('/receiver/messages');
-  const connectedWallet = useConnectedWallet((s) => s.connectedWallet);
-  const router = useRouter();
-  const peerAddress = router.query.handle as EthAddress;
-  const { messages, sendMessage } = useDirectMessage({
-    clientAddress: connectedWallet?.address as EthAddress,
-    conversation: { peerAddress },
-  });
-
-  const parseMessage = useCallback((message: Message) => {
-    return {
-      id: message.id,
-      senderAddress: message.senderAddress,
-      content: message.content,
-      conversation: message.conversation,
-      time: format(new Date(message.sent), "hh:mm aaaaa'm'"),
-    };
-  }, []);
-
-  const parsedMessages = useMemo(() => {
-    if (!messages?.data) {
-      return [];
-    }
-    return messages.data.map((message) => {
-      if (parseMessage) {
-        return parseMessage(message);
-      } else {
-        return message;
-      }
+    useRedirectWhenNotSignedIn('/receiver/messages');
+    const connectedWallet = useConnectedWallet((s) => s.connectedWallet);
+    const router = useRouter();
+    const peerAddress = router.query.handle as EthAddress;
+    const {messages, sendMessage} = useDirectMessage({
+        clientAddress: connectedWallet?.address as EthAddress,
+        conversation: {peerAddress},
     });
-  }, [messages]);
+    const relayId = useRelayId({handle: peerAddress});
 
-  /* const relayId = useRelayId({ handle: address });
-   * const ensName = useMemo(() => {
-   *   if (isEnsName(relayId.ens.data)) {
-   *     return relayId.ens.data;
-   *   } else if (relayId.ens.isLoading) {
-   *     return 'Loading...';
-   *   } else {
-   *     return address;
-   *   }
-   * }, [address, relayId]);
-   */
-  console.log({ parsedMessages, messages });
-  const getMessageBuckets = (messages: Message[]): MessageBucket[] => {
-    const buckets: MessageBucket[] = [];
-    const currentBucket = () => buckets[0];
-    const currentSender = () => currentBucket()?.peerAddress;
-    const currentMessage = () => currentBucket()?.messages[0];
-    const currentSent = () => currentMessage()?.sent;
+    // TODO:Aaron Need a hook to get ens name or lens name or erh address if none exists
+    const ensName = useMemo(() => {
+        if (isEnsName(relayId.ens.data)) {
+            return relayId.ens.data;
+        } else if (relayId.ens.isLoading) {
+            return 'Loading...';
+        } else {
+            return peerAddress;
+        }
 
-    for (const message of messages) {
-      const shouldStartNewBucket = () => {
-        if (currentBucket() === undefined) {
-          return true;
-        }
-        if (currentSender() !== message.senderAddress) {
-          return true;
-        }
-        if (currentSent()) {
-          if (isFiveMinuteDifference(currentSent(), message.sent)) {
-            return true;
-          }
-        }
-      };
+    }, [peerAddress, relayId]);
 
-      if (shouldStartNewBucket()) {
-        buckets.unshift({
-          peerAddress: message.senderAddress,
-          messages: [message],
+    const parseMessage = useCallback((message: Message) => {
+        return {
+            id: message.id,
+            senderAddress: message.senderAddress,
+            content: message.content,
+            conversation: message.conversation,
+            time: format(new Date(message.sent), "hh:mm aaaaa'm'"),
+        };
+    }, []);
+
+    const parsedMessages = useMemo(() => {
+        if (!messages?.data) {
+            return [];
+        }
+        return messages.data.map((message) => {
+            if (parseMessage) {
+                return parseMessage(message);
+            } else {
+                return message;
+            }
         });
-      } else {
-        buckets[0].messages.push(message);
-      }
-    }
+    }, [messages]);
 
-    return buckets;
-  };
 
-  const isFiveMinuteDifference = (a: Date, b: Date): boolean => {
-    return Math.abs(a.getTime() - b.getTime()) > 300000;
-  };
+    const getMessageBuckets = (messages: Message[]): MessageBucket[] => {
+        const buckets: MessageBucket[] = [];
+        const currentBucket = () => buckets[0];
+        const currentSender = () => currentBucket()?.peerAddress;
+        const currentMessage = () => currentBucket()?.messages[0];
+        const currentSent = () => currentMessage()?.sent;
 
-  const [msgValue, setMsgValue] = useState<string>('');
+        for (const message of messages) {
+            const shouldStartNewBucket = () => {
+                if (currentBucket() === undefined) {
+                    return true;
+                }
+                if (currentSender() !== message.senderAddress) {
+                    return true;
+                }
+                if (currentSent()) {
+                    if (isFiveMinuteDifference(currentSent(), message.sent)) {
+                        return true;
+                    }
+                }
+            };
 
-  const messageBuckets = useMemo(() => {
-    if (!parsedMessages) {
-      return [];
-    }
-    return getMessageBuckets(parsedMessages);
-  }, [parsedMessages]);
+            if (shouldStartNewBucket()) {
+                buckets.unshift({
+                    peerAddress: message.senderAddress,
+                    messages: [message],
+                });
+            } else {
+                buckets[0].messages.push(message);
+            }
+        }
 
-  console.log({ messageBuckets });
+        return buckets;
+    };
 
-  const handleChange = useCallback(
-    (event: React.ChangeEvent<HTMLInputElement>) => {
-      setMsgValue(event.target.value);
-    },
-    []
-  );
+    const isFiveMinuteDifference = (a: Date, b: Date): boolean => {
+        return Math.abs(a.getTime() - b.getTime()) > 300000;
+    };
 
-  const handleSend = useCallback(() => {
-    if (!messages?.data || !messages.data.length) {
-      return;
-    }
-    sendMessage.mutate({
-      content: msgValue,
-      conversation: messages.data[0].conversation,
-    });
-    setMsgValue('');
-  }, [msgValue, messages]);
+    const [msgValue, setMsgValue] = useState<string>('');
 
-  return (
-    <Root>
-      <DMHeader
-        src={''}
-        hasLoaded={false}
-        ENSname={''}
-        addressHeader={''}
-        pinned={false}
-        hasLENSicon={false}
-      />
-      <ScrollContainer>
-        <HeadWrapper>
-          <Avatar handle={peerAddress} onClick={() => null} size="xl" />
-        </HeadWrapper>
-        {messageBuckets.map((bucket) => {
-          return <ListMessages peerAddress={peerAddress} bucket={bucket} />;
-        })}
-      </ScrollContainer>
-      <MsgBox
-        active
-        value={msgValue}
-        handleChange={handleChange}
-        handleSend={handleSend}
-      />
-      <FooterNav />
-    </Root>
-  );
+    const messageBuckets = useMemo(() => {
+        if (!parsedMessages) {
+            return [];
+        }
+        return getMessageBuckets(parsedMessages);
+    }, [parsedMessages]);
+
+    const handleChange = useCallback(
+        (event: React.ChangeEvent<HTMLInputElement>) => {
+            setMsgValue(event.target.value);
+        },
+        []
+    );
+
+    const handleSend = useCallback(() => {
+        if (!messages?.data || !messages.data.length) {
+            return;
+        }
+        sendMessage.mutate({
+            content: msgValue,
+            conversation: messages.data[0].conversation,
+        });
+        setMsgValue('');
+    }, [msgValue, messages]);
+
+    useEffect(() => {
+        const chat = document.getElementById("chatScroll");
+        if (!chat) {
+            return;
+        }
+        chat.scrollTop = chat.scrollHeight;
+    }, [messages]);
+
+    return (
+        <Root>
+            <DMHeader
+                src={''}
+                hasLoaded={true}
+                ENSname={ensName}
+                addressHeader={peerAddress}
+                pinned={false}
+            />
+            <ScrollContainer id="chatScroll">
+                <HeadWrapper>
+                    <Avatar handle={peerAddress} onClick={() => null} size="xl"/>
+                </HeadWrapper>
+                {messageBuckets.map((bucket, idx) => {
+                    return < ListMessages key={`${bucket.peerAddress}_${idx}`} peerAddress={peerAddress}
+                                          bucket={bucket}/>;
+                })}
+            </ScrollContainer>
+            <MsgBox
+                active
+                value={msgValue}
+                handleChange={handleChange}
+                handleSend={handleSend}
+            />
+            <FooterNav/>
+        </Root>
+    );
 };
 
 export interface MessagesBucketProps {
-  bucket: {
-    peerAddress: string;
-    messages: Message[];
-  };
+    bucket: {
+        peerAddress: string;
+        messages: Message[];
+    };
 }
 
 type MessageBucket = MessagesBucketProps['bucket'];
 
-const ListMessages: FunctionComponent<
-  MessagesBucketProps & { peerAddress: string }
-> = ({ bucket, peerAddress }) => {
-  if (peerAddress === bucket.messages[0].senderAddress) {
-    return <MsgBundlesReceived messages={bucket.messages.reverse()} />;
-  }
-  return <MsgBundlesSent messages={bucket.messages.reverse()} />;
+const ListMessages: FunctionComponent<MessagesBucketProps & { peerAddress: string }> = ({bucket, peerAddress}) => {
+    const handle = useMemo(() => {
+        if (!bucket || !bucket.messages.length) {
+            return ''
+        }
+        return bucket.messages[0].senderAddress as string
+    }, [bucket])
+    const relayId = useRelayId({handle});
+
+    const ensName = useMemo(() => {
+        if (isEnsName(relayId.ens.data)) {
+            return relayId.ens.data;
+        } else if (relayId.ens.isLoading) {
+            return 'Loading...';
+        } else {
+            return handle;
+        }
+
+    }, [handle, relayId]);
+
+    if (peerAddress === bucket.messages[0].senderAddress) {
+        return <MsgBundlesReceived ensName={ensName} isLoading={false} messages={[...bucket.messages].reverse()}/>;
+    }
+    return <MsgBundlesSent ensName={ensName} isLoading={false} messages={[...bucket.messages].reverse()}/>;
 };

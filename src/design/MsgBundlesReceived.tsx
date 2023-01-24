@@ -5,8 +5,8 @@ import { StatusIcon } from "@/design/StatusIcon";
 import * as Time from "@/design/Time";
 import * as ENSName from "@/design/ENSName";
 import { MsgPreview } from "@/design/MsgPreview";
-import { Avatar } from '@/components/Avatar';
-import { EthAddress, Message } from '@relaycc/xmtp-hooks';
+import { Avatar } from "@/components/Avatar";
+import { EthAddress, Message } from "@relaycc/xmtp-hooks";
 
 const Root = styled.div`
   display: flex;
@@ -26,7 +26,7 @@ const FirstMsgContainer = styled.div`
   padding: 0 1rem;
 
   :hover {
-    background-color: ${receiverTheme.colors.gray['100']};
+    background-color: ${receiverTheme.colors.gray["100"]};
   }
 `;
 
@@ -35,7 +35,7 @@ const RestOfTheMessages = styled(FirstMsgContainer)`
   border-top: 2px solid #ffffff;
 
   :hover {
-    background-color: ${receiverTheme.colors.gray['100']};
+    background-color: ${receiverTheme.colors.gray["100"]};
   }
 `;
 
@@ -55,7 +55,7 @@ const HoveredTimeContainer = styled.div`
 const XxsSizedTime = styled.div`
   ${textXsRegular};
   font-size: 0.5rem;
-  color: ${receiverTheme.colors.gray['400']};
+  color: ${receiverTheme.colors.gray["400"]};
 `;
 
 const StatusIconContainer = styled.div`
@@ -96,7 +96,6 @@ export const MsgBundlesReceived = ({
   }>;
   isLoading: boolean;
 }) => {
-  console.log({ messages });
   return (
     <Root>
       <FirstMsgContainer>
@@ -104,7 +103,7 @@ export const MsgBundlesReceived = ({
           <Avatar
             handle={messages[0].senderAddress}
             onClick={() => null}
-            size="sm"
+            size="md"
           />
         </StatusIconContainer>
         <MiddlePart>

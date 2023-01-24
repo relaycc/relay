@@ -7,6 +7,9 @@ import { AddressHeader } from "@/design/AddressHeader";
 import { PinIcon } from "@/design/PinIcon";
 import { ButtonMinimize } from "@/design/ButtonMinimize";
 import { CloseIcon } from "@/design/CloseIcon";
+import { useCallback } from "react";
+import { Avatar } from "@/components/Avatar";
+import { useRouter } from "next/router";
 
 const Root = styled.div`
   display: flex;
@@ -67,11 +70,16 @@ export const DMHeader = ({
   addressHeader: string;
   pinned: boolean;
 }) => {
+  const router = useRouter();
+  const navigateToDm = useCallback(() => {
+    router.push(`/receiver/messages`);
+  }, [router]);
+
   return (
     <Root>
       <LeftSide>
-        <BackIcon />
-        <StatusIcon size={"lg"} src={src} isLoading={!hasLoaded} />
+        <BackIcon onClick={navigateToDm} />
+        <Avatar handle={addressHeader} onClick={() => null} size="md" />
         <UserDetails>
           <NameAndIcon>
             <ENSName.EnsNameMd>{ENSname}</ENSName.EnsNameMd>
@@ -80,7 +88,7 @@ export const DMHeader = ({
         </UserDetails>
       </LeftSide>
       <RightSide>
-        <PinIcon pinned={pinned} hasLoaded={!hasLoaded} />
+        <PinIcon pinned={pinned} hasLoaded={hasLoaded} />
         <ButtonMinimize />
         <CloseIcon />
       </RightSide>

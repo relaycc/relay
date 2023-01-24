@@ -6,8 +6,8 @@ import * as Time from "@/design/Time";
 import { MsgPreview } from "@/design/MsgPreview";
 import * as ENSName from "@/design/ENSName";
 
-import { EthAddress } from '@relaycc/xmtp-hooks';
-import { Avatar } from '@/components/Avatar';
+import { EthAddress } from "@relaycc/xmtp-hooks";
+import { Avatar } from "@/components/Avatar";
 const Root = styled.div`
   display: flex;
   justify-content: flex-start;
@@ -104,7 +104,7 @@ export const MsgBundlesSent = ({
           <Avatar
             handle={messages[0].senderAddress}
             onClick={() => null}
-            size="sm"
+            size="md"
           />
         </StatusIconContainer>
         <MiddlePart>
