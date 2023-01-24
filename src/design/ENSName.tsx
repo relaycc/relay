@@ -1,10 +1,10 @@
-import styled, { css } from "styled-components";
+import styled, {css} from "styled-components";
 import {
-  spaceMonoMdBold,
-  textMdSemiBold,
-  textXlSemibold,
+    spaceMonoMdBold,
+    textMdSemiBold,
+    textXlSemibold,
 } from "@/design/typography";
-import { receiverTheme } from "@/design/receiverTheme";
+import {receiverTheme} from "@/design/receiverTheme";
 
 const name = css`
   color: ${receiverTheme.colors.gray["900"]};
@@ -33,6 +33,10 @@ const monoFontMd = css`
   font-size: 0.875rem;
 `;
 
+const primaryColor = css`
+  color: ${receiverTheme.colors.primary["500"]};
+`;
+
 export const EnsNameLg = styled.div`
   ${name};
   ${lg};
@@ -56,3 +60,12 @@ export const EnsNameMonofontMd = styled.div`
   ${monoFont};
   ${monoFontMd};
 `;
+
+export const EnsNameMonofontLgColored = styled.div`
+  ${name};
+  ${lg};
+  ${monoFont};
+  ${monoFontLg};
+  ${primaryColor};
+`;
+

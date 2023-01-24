@@ -1,17 +1,12 @@
 import styled from "styled-components";
-import { ArrowUpCircle } from "@/design/ArrowUpCircle";
-import { receiverTheme } from "@/design/receiverTheme";
-import { textSmallRegular } from "@/design/typography";
-import { KeyboardEventHandler, useCallback } from "react";
+import {receiverTheme} from "@/design/receiverTheme";
+import {textSmallRegular} from "@/design/typography";
 
-const Root = styled.div`
-  display: flex;
+export {LoaderAnimGeneral} from "@/design/LoaderAnimGeneral";
+export {ArrowUpCircle} from "@/design/ArrowUpCircle";
 
-  width: 100%;
-  //width: 360px;
-`;
 
-const Wrapper = styled.div`
+export const Root = styled.div`
   display: flex;
   justify-content: space-evenly;
   align-items: center;
@@ -22,7 +17,7 @@ const Wrapper = styled.div`
   width: 100%;
 `;
 
-const Input = styled.input`
+export const MessageInput = styled.input`
   ${textSmallRegular};
   background-color: ${receiverTheme.colors.gray["100"]};
   color: ${receiverTheme.colors.gray["900"]};
@@ -33,42 +28,14 @@ const Input = styled.input`
   }
 
   ::placeholder {
-    ${textSmallRegular};
     color: ${receiverTheme.colors.gray["400"]};
   }
+
   width: 94%;
 `;
 
-export const MsgBox = ({
-  active,
-  handleChange,
-  value,
-  handleSend,
-}: {
-  active: boolean;
-  handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  value: string;
-  handleSend: () => void;
-}) => {
-  const onEnter: KeyboardEventHandler<HTMLInputElement> = useCallback(
-    (event) => {
-      if (event.key === "Enter") {
-        handleSend();
-      }
-    },
-    [handleSend]
-  );
-  return (
-    <Root>
-      <Wrapper>
-        <Input
-          onChange={handleChange}
-          value={value}
-          placeholder={"Type a Message"}
-          onKeyDown={onEnter}
-        />
-        <ArrowUpCircle active={active} handleClick={handleSend} />
-      </Wrapper>
-    </Root>
-  );
-};
+export const IconContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;

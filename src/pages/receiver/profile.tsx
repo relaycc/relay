@@ -1,19 +1,19 @@
-import styled from 'styled-components';
-import { useState, useCallback } from 'react';
-import { EthAddress, useStopClient, useXmtpClient } from '@relaycc/xmtp-hooks';
-import { textSmallRegular } from '@/design/typography';
-import { LogoPicture } from '@/design/LogoPicture';
-import { Logo } from '@/design/Logo';
-import * as Connected from '@/design/ENSID';
-import { useConnectedWallet } from '@/hooks/useConnectedWallet';
-import { Avatar } from '@/components/Avatar';
-import * as Toast from '@/design/Toast';
-import { useRelayId } from '@/hooks/useRelayId';
-import { isEnsName } from '@/lib/isEnsName';
-import { useRedirectWhenNotSignedIn } from '@/hooks/useRedirectWhenNotSignedInt';
-import * as XmtpStatus from '@/design/XmtpStatus';
-import * as Header from '@/design/HeaderSimple';
-import { FooterNav } from '@/components/FooterNav';
+import styled from "styled-components";
+import { useState, useCallback } from "react";
+import { EthAddress, useStopClient, useXmtpClient } from "@relaycc/xmtp-hooks";
+import { textSmallRegular } from "@/design/typography";
+import { LogoPicture } from "@/design/LogoPicture";
+import { Logo } from "@/design/Logo";
+import * as Connected from "@/design/ENSID";
+import { useConnectedWallet } from "@/hooks/useConnectedWallet";
+import { Avatar } from "@/components/Avatar";
+import * as Toast from "@/design/Toast";
+import { useRelayId } from "@/hooks/useRelayId";
+import { isEnsName } from "@/lib/isEnsName";
+import { useRedirectWhenNotSignedIn } from "@/hooks/useRedirectWhenNotSignedInt";
+import * as XmtpStatus from "@/design/XmtpStatus";
+import * as Header from "@/design/HeaderSimple";
+import { FooterNav } from "@/components/FooterNav";
 
 const Receiver = styled.div`
   height: 700px;
@@ -76,7 +76,7 @@ const LogoPictureWithSpacing = () => (
   </LogoPictureWrapper>
 );
 
-export const ToastPosition = styled.div`
+const ToastPosition = styled.div`
   position: absolute;
   bottom: 2rem;
   left: 1rem;
@@ -119,7 +119,7 @@ export default function Profile() {
     clientAddress: connectedWallet?.address as EthAddress,
   });
 
-  useRedirectWhenNotSignedIn('/receiver/profile');
+  useRedirectWhenNotSignedIn("/receiver/profile");
 
   return (
     <Receiver>
@@ -140,12 +140,15 @@ export default function Profile() {
             <Connected.Header>
               <Connected.Signal />
               <Connected.HeaderText>Connected as:</Connected.HeaderText>
-              <Connected.Badge
-                hasLoaded={true}
-                label="ETH Mainnet"
-                color="gray"
-                dot={false}
-              />
+              {connectedWallet?.address ? (
+                <Connected.Badge.Root color={'gray'}>
+                  <Connected.Badge.Label color={'gray'}>
+                    {"ETH Mainnet"}
+                  </Connected.Badge.Label>
+                </Connected.Badge.Root>
+              ) : (
+                <Connected.Badge.LoadingDiv/>
+              )}
             </Connected.Header>
             <Connected.Row>
               <Avatar
@@ -159,22 +162,30 @@ export default function Profile() {
                     if (isEnsName(relayId.ens.data)) {
                       return relayId.ens.data;
                     } else if (relayId.ens.isLoading) {
-                      return 'Loading...';
+                      return "Loading...";
                     } else {
                       return connectedWallet?.address;
                     }
                   })()}
                 </Connected.EnsNameMd>
-                <Connected.AddressHeader
-                  isLoading={false}
-                  addressHeader={connectedWallet?.address || '...'}
-                />
+                {connectedWallet?.address ? (
+                  <Connected.AddressHeader.Root>
+                    <Connected.AddressHeader.Container>
+                      {connectedWallet.address.slice(0, 5)}...
+                      {connectedWallet.address.slice(connectedWallet.address.length - 4, Infinity)}
+                    </Connected.AddressHeader.Container>
+                  </Connected.AddressHeader.Root>
+                ) : (
+                  <Connected.AddressHeader.Root>
+                    <Connected.AddressHeader.LoadingDiv/>
+                  </Connected.AddressHeader.Root>
+                )}
               </Connected.UserDetails>
               <Connected.Copy
                 style={{
-                  marginLeft: 'auto',
-                  marginTop: 'auto',
-                  marginBottom: '0.65rem',
+                  marginLeft: "auto",
+                  marginTop: "auto",
+                  marginBottom: "0.65rem",
                 }}
               />
               <Connected.LinkIcon />
@@ -191,12 +202,16 @@ export default function Profile() {
                   </XmtpStatus.XmtpVersion>
                 </XmtpStatus.XmtpTitleWrapper>
               </XmtpStatus.RowItem>
-              <XmtpStatus.Badge
-                hasLoaded={true}
-                label="DEV"
-                color="purple"
-                dot={true}
-              />
+              {connectedWallet?.address ? (
+                <XmtpStatus.Badge.Root color={'purple'}>
+                  <XmtpStatus.Badge.Icon color={'purple'}/>
+                  <XmtpStatus.Badge.Label color={'purple'}>
+                    {"DEV"}
+                  </XmtpStatus.Badge.Label>
+                </XmtpStatus.Badge.Root>
+              ) : (
+                <XmtpStatus.Badge.LoadingDiv/>
+              )}
               <XmtpStatus.IconWrapper>
                 <XmtpStatus.LogoutIcon
                   onClick={() => {
@@ -216,7 +231,8 @@ export default function Profile() {
           <Toast.Failure.Card
             initial={{ opacity: 0.2 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 0.2 }}>
+            transition={{ duration: 0.2 }}
+          >
             <Toast.Failure.AlertIcon />
             <Toast.Failure.Column>
               <Toast.Failure.Title>Sign-In Failed</Toast.Failure.Title>
