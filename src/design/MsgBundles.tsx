@@ -86,40 +86,46 @@ export const MsgContainer = styled.div`
   flex-direction: column;
   overflow-wrap: break-word;
 `;
-
-/*export const MsgBundlesReceived = ({
-                                       ensName,
-                                       messages,
-                                   }: {
-    ensName: string;
-    messages: Array<{ time: string; message: string }>;
-}) => {
-    return (
-        <Root>
-            <FirstMsgContainer>
-                <StatusIconContainer>
-                    <Avatar handle={""} onClick={() => {
-                    }} size={"lg"}/>
-                </StatusIconContainer>
-                <UserAndMessage>
-                    <NameAndDate>
-                        <ENSName.EnsNameMonofontLg>{ensName}</ENSName.EnsNameMonofontLg>
-                        <Time.Root>{messages[0].time}</Time.Root>
-                    </NameAndDate>
-                    <MsgContainer>
-                        <MsgPreview/>
-                    </MsgContainer>
-                </UserAndMessage>
-            </FirstMsgContainer>
-
-            {messages.slice(1).map((i, index) => (
-                <RestOfTheMessages key={index}>
-                    <HoveredTimeContainer>
-                        <XxsSizedTime>{i.time}</XxsSizedTime>
-                    </HoveredTimeContainer>
-                    <MsgPreview/>
-                </RestOfTheMessages>
-            ))}
-        </Root>
-    );
-};*/
+//
+// export const MsgBundlesReceived = ({
+//                                        ensName,
+//                                        messages,
+//                                        sent
+//                                    }: {
+//     ensName: string;
+//     messages: Array<{ time: string; message: string }>;
+//     sent: boolean;
+// }) => {
+//     return (
+//         <Root>
+//             <FirstMsgContainer>
+//                 <StatusIconContainer>
+//                     <Avatar handle={""} onClick={() => {
+//                     }} size={"lg"}/>
+//                 </StatusIconContainer>
+//                 <UserAndMessage>
+//                     <NameAndDate>
+//                         if(sent){
+//                                   return <ENSName.EnsNameMonofontLgColored>{ensName}</ENSName.EnsNameMonofontLgColored>
+//                                 }:{
+//                                   return <ENSName.EnsNameMonofontLg>{ensName}</ENSName.EnsNameMonofontLg>
+//                                 }
+//                         <Time.Root>{messages[0].time}</Time.Root>
+//                     </NameAndDate>
+//                     <MsgContainer>
+//                         <MsgPreview/>
+//                     </MsgContainer>
+//                 </UserAndMessage>
+//             </FirstMsgContainer>
+//
+//             {messages.slice(1).map((i, index) => (
+//                 <RestOfTheMessages key={index}>
+//                     <HoveredTimeContainer>
+//                         <XxsSizedTime>{i.time}</XxsSizedTime>
+//                     </HoveredTimeContainer>
+//                     <MsgPreview/>
+//                 </RestOfTheMessages>
+//             ))}
+//         </Root>
+//     );
+// };
