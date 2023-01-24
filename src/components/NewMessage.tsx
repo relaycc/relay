@@ -182,9 +182,9 @@ export const NewMessage = ({doClose}: { doClose: () => unknown }) => {
                             if (isLoading) {
                                 return <MsgBox.LoaderAnimGeneral/>;
                             } else if (inputIsFocused) {
-                                return <MsgBox.ArrowUpCircle active={true}/>;
+                                return <MsgBox.ArrowUpCircle.Active/>;
                             } else {
-                                return <MsgBox.ArrowUpCircle active={false}/>;
+                                return <MsgBox.ArrowUpCircle.Inactive/>;
                             }
                         })()}
                     </MsgBox.IconContainer>
