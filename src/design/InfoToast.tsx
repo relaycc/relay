@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { textSmallRegular } from "@/design/typography";
 import { InfoToastIcon } from "@/design/InfoToastIcon";
 
-const InfoToastContainer = styled.div`
+export const InfoToastContainer = styled.div`
   display: flex;
   align-items: center;
   width: 100%;
@@ -11,7 +11,7 @@ const InfoToastContainer = styled.div`
   border-bottom: 1px solid #d0d5dd;
 `;
 
-const InfoToastDescription = styled.div`
+export const InfoToastDescription = styled.div`
   ${textSmallRegular};
   font-weight: 500;
   color: #667085;
@@ -22,15 +22,15 @@ const InfoToastDescription = styled.div`
   }
 `;
 
-export const InfoToast = () => {
-  return (
-    <InfoToastContainer>
-      <InfoToastDescription>
-        {
-          "Use the edit button to ignore or accept messages, restore any ignored message by clicking"
-        }{" "}
-        {<InfoToastIcon />}
-      </InfoToastDescription>
-    </InfoToastContainer>
-  );
-};
+// export const InfoToast = () => {
+//   return (
+//     <InfoToastContainer>
+//       <InfoToastDescription>
+//         {
+//           "Use the edit button to ignore or accept messages, restore any ignored message by clicking"
+//         }{" "}
+//         {<InfoToastIcon />}
+//       </InfoToastDescription>
+//     </InfoToastContainer>
+//   );
+// };
