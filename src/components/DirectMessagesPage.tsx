@@ -7,10 +7,12 @@ import React, {
 } from "react";
 import styled from "styled-components";
 import { format } from "date-fns";
+import * as ENSName from "@/design/ENSName";
 
 import * as Nav from "@/design/Nav";
+import * as DMHeader from "@/design/DMHeader";
+
 import { FooterNav } from "./FooterNav";
-import { DMHeader } from "@/design/DMHeader";
 import { useRouter } from "next/router";
 import { useRedirectWhenNotSignedIn } from "@/hooks/useRedirectWhenNotSignedInt";
 import { useConnectedWallet } from "@/hooks/useConnectedWallet";
@@ -18,12 +20,17 @@ import { EthAddress, Message, useDirectMessage } from "@relaycc/xmtp-hooks";
 import { MsgBundlesReceived } from "@/design/MsgBundlesReceived";
 import { useRelayId } from "@/hooks/useRelayId";
 import { isEnsName } from "@/lib/isEnsName";
-import { MsgBox } from "@/design/MsgBox";
+import * as MsgBox from "@/design/MsgBox";
 import { MsgBundlesSent } from "@/design/MsgBundlesSent";
 import { Avatar } from "./Avatar";
 import { getDisplayDate } from "@/lib/getDisplayDate";
 import * as Toast from "@/design/Toast";
 import { ToastPosition } from "@/pages/receiver/profile";
+import { BackIcon } from "@/design/BackIcon";
+import { UserDetails } from "@/design/DMHeader";
+import { PinIcon } from "@/design/PinIcon";
+import { ButtonMinimize } from "@/design/ButtonMinimize";
+import { CloseIcon } from "@/design/CloseIcon";
 
 export interface MessagesBucketProps {
   bucket: {
@@ -116,16 +123,44 @@ export const DirectMessagesPage: FunctionComponent<{}> = () => {
     }
     chat.scrollTop = chat.scrollHeight;
   }, [messages]);
-
+  const navigateBack = useCallback(() => {
+    router.push(`/receiver/messages`);
+  }, [router]);
   return (
     <Root>
-      <DMHeader
-        src={""}
-        hasLoaded={true}
-        ENSname={ensName}
-        addressHeader={peerAddress}
-        pinned={false}
-      />
+      <DMHeader.Root>
+        <DMHeader.LeftSide>
+          <BackIcon onClick={navigateBack} />
+          <Avatar handle={peerAddress} onClick={() => null} size="md" />
+          <UserDetails>
+            <DMHeader.NameAndIcon>
+              <ENSName.EnsNameMd>{ensName}</ENSName.EnsNameMd>
+            </DMHeader.NameAndIcon>
+            <DMHeader.AddressHeader.Root>
+              {!peerAddress ? (
+                <DMHeader.AddressHeader.LoadingDiv />
+              ) : (
+                <DMHeader.AddressHeader.Container>
+                  {peerAddress}
+                </DMHeader.AddressHeader.Container>
+              )}
+            </DMHeader.AddressHeader.Root>
+          </UserDetails>
+        </DMHeader.LeftSide>
+        <DMHeader.RightSide>
+          <PinIcon pinned={false} hasLoaded={!!peerAddress} />
+          <ButtonMinimize />
+          <CloseIcon />
+        </DMHeader.RightSide>
+      </DMHeader.Root>
+
+      {/*<DMHeader*/}
+      {/*  src={""}*/}
+      {/*  hasLoaded={true}*/}
+      {/*  ENSname={ensName}*/}
+      {/*  addressHeader={peerAddress}*/}
+      {/*  pinned={false}*/}
+      {/*/>*/}
       <ScrollContainer id="chatScroll">
         <HeadWrapper>
           <Avatar handle={peerAddress} onClick={() => null} size="xl" />
@@ -141,12 +176,12 @@ export const DirectMessagesPage: FunctionComponent<{}> = () => {
           );
         })}
       </ScrollContainer>
-      <MsgBox
-        active
-        value={msgValue}
-        handleChange={handleChange}
-        handleSend={handleSend}
-      />
+      {/*<MsgBox*/}
+      {/*  active*/}
+      {/*  value={msgValue}*/}
+      {/*  handleChange={handleChange}*/}
+      {/*  handleSend={handleSend}*/}
+      {/*/>*/}
       <FooterNav />
       {showFailureToast && (
         <ToastPosition>
