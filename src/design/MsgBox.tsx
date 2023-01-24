@@ -1,16 +1,12 @@
 import styled from "styled-components";
-import { ArrowUpCircle } from "@/design/ArrowUpCircle";
-import { receiverTheme } from "@/design/receiverTheme";
-import { textSmallRegular } from "@/design/typography";
+import {receiverTheme} from "@/design/receiverTheme";
+import {textSmallRegular} from "@/design/typography";
 
-const Root = styled.div`
-  display: flex;
+export {LoaderAnimGeneral} from "@/design/LoaderAnimGeneral";
+export {ArrowUpCircle} from "@/design/ArrowUpCircle";
 
-  width: 100%;
-  //width: 360px;
-`;
 
-const Wrapper = styled.div`
+export const Root = styled.div`
   display: flex;
   justify-content: space-evenly;
   align-items: center;
@@ -21,7 +17,7 @@ const Wrapper = styled.div`
   width: 100%;
 `;
 
-const Input = styled.input`
+export const MessageInput = styled.input`
   ${textSmallRegular};
   background-color: ${receiverTheme.colors.gray["100"]};
   color: ${receiverTheme.colors.gray["900"]};
@@ -32,29 +28,14 @@ const Input = styled.input`
   }
 
   ::placeholder {
-    ${textSmallRegular};
     color: ${receiverTheme.colors.gray["400"]};
   }
+
   width: 94%;
 `;
 
-export const MsgBox = ({ active }: { active: boolean }) => {
-  if (active) {
-    return (
-      <Root>
-        <Wrapper>
-          <Input placeholder={"Type a Message"} />
-          <ArrowUpCircle active={active} />
-        </Wrapper>
-      </Root>
-    );
-  }
-  return (
-    <Root>
-      <Wrapper>
-        <Input placeholder={"Type a Message"} />
-        <ArrowUpCircle active={active} />
-      </Wrapper>
-    </Root>
-  );
-};
+export const IconContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
