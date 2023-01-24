@@ -9,6 +9,7 @@ import React, {
 import styled from "styled-components";
 import { format } from "date-fns";
 import * as ENSName from "@/design/ENSName";
+export * as Time from "@/design/Time";
 
 import * as Nav from "@/design/Nav";
 import * as DMHeader from "@/design/DMHeader";
@@ -18,7 +19,7 @@ import { useRouter } from "next/router";
 import { useRedirectWhenNotSignedIn } from "@/hooks/useRedirectWhenNotSignedInt";
 import { useConnectedWallet } from "@/hooks/useConnectedWallet";
 import { EthAddress, Message, useDirectMessage } from "@relaycc/xmtp-hooks";
-import { MsgBundlesReceived } from "@/design/MsgBundlesReceived";
+import * as MsgBundles from "@/design/MsgBundles";
 import { useRelayId } from "@/hooks/useRelayId";
 import { isEnsName } from "@/lib/isEnsName";
 import * as MsgBox from "@/design/MsgBox";
@@ -34,6 +35,8 @@ import { ButtonMinimize } from "@/design/ButtonMinimize";
 import { CloseIcon } from "@/design/CloseIcon";
 import { getShortenedAddress } from "@/lib/getShortenedAddress";
 import { MessageInput } from "@/design/MsgBox";
+// import * as MsgBundles from "@/design/MsgBundles";
+import { MsgPreview } from "@/design/MsgPreview";
 
 export interface MessagesBucketProps {
   bucket: {
@@ -178,7 +181,6 @@ export const DirectMessagesPage: FunctionComponent<{}> = () => {
               key={`${bucket.peerAddress}_${idx}`}
               peerAddress={peerAddress}
               bucket={bucket}
-              isGray={!(idx % 2 == 0)}
             />
           );
         })}
@@ -220,10 +222,8 @@ export const DirectMessagesPage: FunctionComponent<{}> = () => {
 };
 
 const ListMessages: FunctionComponent<
-  MessagesBucketProps & { peerAddress: string } & {
-    isGray: boolean;
-  }
-> = ({ bucket, peerAddress, isGray, setSending }) => {
+  MessagesBucketProps & { peerAddress: string } & {}
+> = ({ bucket, peerAddress }) => {
   const handle = useMemo(() => {
     if (!bucket || !bucket.messages.length) {
       return "";
@@ -241,24 +241,104 @@ const ListMessages: FunctionComponent<
       return handle;
     }
   }, [handle, relayId]);
-
+  console.log("some", bucket.messages);
   if (peerAddress === bucket.messages[0].senderAddress) {
     return (
-      <MsgBundlesReceived
-        ensName={ensName}
-        isLoading={false}
-        messages={[...bucket.messages].reverse()}
-        isGray={isGray}
-      />
+      <MsgBundles.Root>
+        <MsgBundles.FirstMsgContainer>
+          <MsgBundles.StatusIconContainer>
+            <Avatar
+              handle={[...bucket.messages].reverse()[0].senderAddress}
+              onClick={() => {}}
+              size={"md"}
+            />
+          </MsgBundles.StatusIconContainer>
+          <MsgBundles.UserAndMessage>
+            <MsgBundles.NameAndDate>
+              <ENSName.EnsNameMonofontLgColored>
+                {ensName}
+              </ENSName.EnsNameMonofontLgColored>
+
+              <MsgBundles.Time.Root>
+                {[...bucket.messages].reverse()[0].time}
+                {/*{getDisplayDate([...bucket.messages].reverse()[0].sent)}*/}
+              </MsgBundles.Time.Root>
+            </MsgBundles.NameAndDate>
+            <MsgBundles.MsgContainer>
+              <MsgPreview
+                isLoading={false}
+                msg={[...bucket.messages].reverse()[0].content}
+              />
+            </MsgBundles.MsgContainer>
+          </MsgBundles.UserAndMessage>
+        </MsgBundles.FirstMsgContainer>
+
+        {[...bucket.messages]
+          .reverse()
+          .slice(1)
+          .map((i, index) => (
+            <MsgBundles.RestOfTheMessages key={index}>
+              <MsgBundles.HoveredTimeContainer>
+                <MsgBundles.XxsSizedTime>{i.time}</MsgBundles.XxsSizedTime>
+              </MsgBundles.HoveredTimeContainer>
+              <MsgPreview isLoading={false} msg={i.content} />
+            </MsgBundles.RestOfTheMessages>
+          ))}
+      </MsgBundles.Root>
     );
+
+    // return (
+    //   <MsgBundlesReceived
+    //     ensName={ensName}
+    //     isLoading={false}
+    //     messages={[...bucket.messages].reverse()}
+    //     isGray={isGray}
+    //   />
+    // );
   }
   return (
-    <MsgBundlesSent
-      ensName={ensName}
-      isLoading={false}
-      messages={[...bucket.messages].reverse()}
-      isGray={isGray}
-    />
+    <MsgBundles.Root>
+      <MsgBundles.FirstMsgContainer>
+        <MsgBundles.StatusIconContainer>
+          <Avatar
+            handle={[...bucket.messages].reverse()[0].senderAddress}
+            onClick={() => {}}
+            size={"md"}
+          />
+        </MsgBundles.StatusIconContainer>
+        <MsgBundles.UserAndMessage>
+          <MsgBundles.NameAndDate>
+            <ENSName.EnsNameMonofontLg>{ensName}</ENSName.EnsNameMonofontLg>
+
+            <MsgBundles.Time.Root>
+              <MsgBundles.XxsSizedTime>
+                {[...bucket.messages].reverse()[0].time}
+              </MsgBundles.XxsSizedTime>
+
+              {/*{getDisplayDate([...bucket.messages].reverse()[0].sent)}*/}
+            </MsgBundles.Time.Root>
+          </MsgBundles.NameAndDate>
+          <MsgBundles.MsgContainer>
+            <MsgPreview
+              isLoading={false}
+              msg={[...bucket.messages].reverse()[0].content}
+            />
+          </MsgBundles.MsgContainer>
+        </MsgBundles.UserAndMessage>
+      </MsgBundles.FirstMsgContainer>
+
+      {[...bucket.messages]
+        .reverse()
+        .slice(1)
+        .map((i, index) => (
+          <MsgBundles.RestOfTheMessages key={index}>
+            <MsgBundles.HoveredTimeContainer>
+              <MsgBundles.XxsSizedTime>{i.time}</MsgBundles.XxsSizedTime>
+            </MsgBundles.HoveredTimeContainer>
+            <MsgPreview isLoading={false} msg={i.content} />
+          </MsgBundles.RestOfTheMessages>
+        ))}
+    </MsgBundles.Root>
   );
 };
 
