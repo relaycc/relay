@@ -14,9 +14,7 @@ const Root = styled.div`
   flex-direction: column;
   background-color: #ffffff;
   margin-top: 1.4rem;
-
   width: 100%;
-  min-height: 2.75rem;
 `;
 
 const FirstMsgContainer = styled.div`
@@ -42,7 +40,7 @@ const RestOfTheMessages = styled(FirstMsgContainer)`
 const HoveredTimeContainer = styled.div`
   visibility: hidden;
 
-  width: 2.5rem;
+  width: 2.8rem;
 
   ${RestOfTheMessages}:hover & {
     visibility: unset;
