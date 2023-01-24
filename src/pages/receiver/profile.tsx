@@ -141,11 +141,11 @@ export default function Profile() {
               <Connected.Signal />
               <Connected.HeaderText>Connected as:</Connected.HeaderText>
               {connectedWallet?.address ? (
-                <Connected.Badge.Root color={'gray'}>
-                  <Connected.Badge.Label color={'gray'}>
+                <Connected.Badge.RootGray>
+                  <Connected.Badge.LabelGray>
                     {"ETH Mainnet"}
-                  </Connected.Badge.Label>
-                </Connected.Badge.Root>
+                  </Connected.Badge.LabelGray>
+                </Connected.Badge.RootGray>
               ) : (
                 <Connected.Badge.LoadingDiv/>
               )}
@@ -203,12 +203,12 @@ export default function Profile() {
                 </XmtpStatus.XmtpTitleWrapper>
               </XmtpStatus.RowItem>
               {connectedWallet?.address ? (
-                <XmtpStatus.Badge.Root color={'purple'}>
-                  <XmtpStatus.Badge.Icon color={'purple'}/>
-                  <XmtpStatus.Badge.Label color={'purple'}>
+                <XmtpStatus.Badge.RootPurple>
+                  <XmtpStatus.Badge.DotIconPurple />
+                  <XmtpStatus.Badge.LabelPurple>
                     {"DEV"}
-                  </XmtpStatus.Badge.Label>
-                </XmtpStatus.Badge.Root>
+                  </XmtpStatus.Badge.LabelPurple>
+                </XmtpStatus.Badge.RootPurple>
               ) : (
                 <XmtpStatus.Badge.LoadingDiv/>
               )}
