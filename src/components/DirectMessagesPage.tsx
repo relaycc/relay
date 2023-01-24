@@ -1,5 +1,6 @@
 import React, {
   FunctionComponent,
+  KeyboardEventHandler,
   useCallback,
   useEffect,
   useMemo,
@@ -31,6 +32,8 @@ import { UserDetails } from "@/design/DMHeader";
 import { PinIcon } from "@/design/PinIcon";
 import { ButtonMinimize } from "@/design/ButtonMinimize";
 import { CloseIcon } from "@/design/CloseIcon";
+import { getShortenedAddress } from "@/lib/getShortenedAddress";
+import { MessageInput } from "@/design/MsgBox";
 
 export interface MessagesBucketProps {
   bucket: {
@@ -44,6 +47,7 @@ type MessageBucket = MessagesBucketProps["bucket"];
 export const DirectMessagesPage: FunctionComponent<{}> = () => {
   useRedirectWhenNotSignedIn("/receiver/messages");
   const [showFailureToast, setShowFailureToast] = useState(false);
+  const [sending, setSending] = useState(false);
   const [msgValue, setMsgValue] = useState<string>("");
   const router = useRouter();
   const peerAddress = router.query.handle as EthAddress;
@@ -103,19 +107,29 @@ export const DirectMessagesPage: FunctionComponent<{}> = () => {
       return;
     }
     try {
+      setSending(true);
       sendMessage.mutate({
         content: msgValue,
         conversation: messages.data[0].conversation,
       });
     } catch (e) {
+      setSending(false);
+
       toggleFailureToast();
       console.log(e);
       return;
     }
-
     setMsgValue("");
+    setSending(false);
   }, [msgValue, messages]);
-
+  const onEnter: KeyboardEventHandler<HTMLInputElement> = useCallback(
+    (event) => {
+      if (event.key === "Enter") {
+        handleSend();
+      }
+    },
+    [handleSend]
+  );
   useEffect(() => {
     const chat = document.getElementById("chatScroll");
     if (!chat) {
@@ -141,7 +155,7 @@ export const DirectMessagesPage: FunctionComponent<{}> = () => {
                 <DMHeader.AddressHeader.LoadingDiv />
               ) : (
                 <DMHeader.AddressHeader.Container>
-                  {peerAddress}
+                  {getShortenedAddress(peerAddress)}
                 </DMHeader.AddressHeader.Container>
               )}
             </DMHeader.AddressHeader.Root>
@@ -154,13 +168,6 @@ export const DirectMessagesPage: FunctionComponent<{}> = () => {
         </DMHeader.RightSide>
       </DMHeader.Root>
 
-      {/*<DMHeader*/}
-      {/*  src={""}*/}
-      {/*  hasLoaded={true}*/}
-      {/*  ENSname={ensName}*/}
-      {/*  addressHeader={peerAddress}*/}
-      {/*  pinned={false}*/}
-      {/*/>*/}
       <ScrollContainer id="chatScroll">
         <HeadWrapper>
           <Avatar handle={peerAddress} onClick={() => null} size="xl" />
@@ -176,12 +183,19 @@ export const DirectMessagesPage: FunctionComponent<{}> = () => {
           );
         })}
       </ScrollContainer>
-      {/*<MsgBox*/}
-      {/*  active*/}
-      {/*  value={msgValue}*/}
-      {/*  handleChange={handleChange}*/}
-      {/*  handleSend={handleSend}*/}
-      {/*/>*/}
+
+      <MsgBox.Root>
+        <MsgBox.MessageInput
+          onChange={handleChange}
+          value={msgValue}
+          placeholder={"Type a Message"}
+          onKeyDown={onEnter}
+        />
+        <MsgBox.IconContainer>
+          <MsgBox.ArrowUpCircle active={!sending} handleClick={handleSend} />
+        </MsgBox.IconContainer>
+      </MsgBox.Root>
+
       <FooterNav />
       {showFailureToast && (
         <ToastPosition>
@@ -206,8 +220,10 @@ export const DirectMessagesPage: FunctionComponent<{}> = () => {
 };
 
 const ListMessages: FunctionComponent<
-  MessagesBucketProps & { peerAddress: string } & { isGray: boolean }
-> = ({ bucket, peerAddress, isGray }) => {
+  MessagesBucketProps & { peerAddress: string } & {
+    isGray: boolean;
+  }
+> = ({ bucket, peerAddress, isGray, setSending }) => {
   const handle = useMemo(() => {
     if (!bucket || !bucket.messages.length) {
       return "";

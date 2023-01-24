@@ -14,6 +14,7 @@ import { useRedirectWhenNotSignedIn } from "@/hooks/useRedirectWhenNotSignedInt"
 import * as XmtpStatus from "@/design/XmtpStatus";
 import * as Header from "@/design/HeaderSimple";
 import { FooterNav } from "@/components/FooterNav";
+import { getShortenedAddress } from "@/lib/getShortenedAddress";
 
 const Receiver = styled.div`
   height: 700px;
@@ -141,13 +142,13 @@ export default function Profile() {
               <Connected.Signal />
               <Connected.HeaderText>Connected as:</Connected.HeaderText>
               {connectedWallet?.address ? (
-                <Connected.Badge.Root color={'gray'}>
-                  <Connected.Badge.Label color={'gray'}>
+                <Connected.Badge.Root color={"gray"}>
+                  <Connected.Badge.Label color={"gray"}>
                     {"ETH Mainnet"}
                   </Connected.Badge.Label>
                 </Connected.Badge.Root>
               ) : (
-                <Connected.Badge.LoadingDiv/>
+                <Connected.Badge.LoadingDiv />
               )}
             </Connected.Header>
             <Connected.Row>
@@ -171,13 +172,12 @@ export default function Profile() {
                 {connectedWallet?.address ? (
                   <Connected.AddressHeader.Root>
                     <Connected.AddressHeader.Container>
-                      {connectedWallet.address.slice(0, 5)}...
-                      {connectedWallet.address.slice(connectedWallet.address.length - 4, Infinity)}
+                      {getShortenedAddress(connectedWallet.address)}
                     </Connected.AddressHeader.Container>
                   </Connected.AddressHeader.Root>
                 ) : (
                   <Connected.AddressHeader.Root>
-                    <Connected.AddressHeader.LoadingDiv/>
+                    <Connected.AddressHeader.LoadingDiv />
                   </Connected.AddressHeader.Root>
                 )}
               </Connected.UserDetails>
@@ -203,14 +203,14 @@ export default function Profile() {
                 </XmtpStatus.XmtpTitleWrapper>
               </XmtpStatus.RowItem>
               {connectedWallet?.address ? (
-                <XmtpStatus.Badge.Root color={'purple'}>
-                  <XmtpStatus.Badge.Icon color={'purple'}/>
-                  <XmtpStatus.Badge.Label color={'purple'}>
+                <XmtpStatus.Badge.Root color={"purple"}>
+                  <XmtpStatus.Badge.Icon color={"purple"} />
+                  <XmtpStatus.Badge.Label color={"purple"}>
                     {"DEV"}
                   </XmtpStatus.Badge.Label>
                 </XmtpStatus.Badge.Root>
               ) : (
-                <XmtpStatus.Badge.LoadingDiv/>
+                <XmtpStatus.Badge.LoadingDiv />
               )}
               <XmtpStatus.IconWrapper>
                 <XmtpStatus.LogoutIcon
