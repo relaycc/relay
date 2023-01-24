@@ -165,10 +165,18 @@ export default function Profile() {
                     }
                   })()}
                 </Connected.EnsNameMd>
-                <Connected.AddressHeader
-                  isLoading={false}
-                  addressHeader={connectedWallet?.address || "..."}
-                />
+                {connectedWallet?.address ? (
+                  <Connected.AddressHeader.Root>
+                    <Connected.AddressHeader.Container>
+                      {connectedWallet.address.slice(0, 5)}...
+                      {connectedWallet.address.slice(connectedWallet.address.length - 4, Infinity)}
+                    </Connected.AddressHeader.Container>
+                  </Connected.AddressHeader.Root>
+                ) : (
+                  <Connected.AddressHeader.Root>
+                    <Connected.AddressHeader.LoadingDiv/>
+                  </Connected.AddressHeader.Root>
+                )}
               </Connected.UserDetails>
               <Connected.Copy
                 style={{
