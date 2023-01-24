@@ -2,15 +2,11 @@ import styled from "styled-components";
 import {receiverTheme} from "@/design/receiverTheme";
 import {textMdRegular} from "@/design/typography";
 
-export const Root = styled.div`
-  display: flex;
-  width: 100%;
-  
-`;
 
 export const MsgContainer = styled.div`
   ${textMdRegular};
   color: ${receiverTheme.colors.gray["400"]};
+  width: 100%
 `;
 
 export const MsgLoading = styled.div`
