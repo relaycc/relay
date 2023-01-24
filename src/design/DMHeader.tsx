@@ -2,8 +2,7 @@ import styled from "styled-components";
 import { receiverTheme } from "@/design/receiverTheme";
 import { BackIcon } from "@/design/BackIcon";
 import { StatusIcon } from "@/design/StatusIcon";
-import { ENSName } from "@/design/ENSName";
-import { LensIcon } from "@/design/LensIcon";
+import * as ENSName from "@/design/ENSName";
 import { AddressHeader } from "@/design/AddressHeader";
 import { PinIcon } from "@/design/PinIcon";
 import { ButtonMinimize } from "@/design/ButtonMinimize";
@@ -61,14 +60,12 @@ export const DMHeader = ({
   ENSname,
   addressHeader,
   pinned,
-  hasLENSicon,
 }: {
   src: string;
   hasLoaded: boolean;
   ENSname: string;
   addressHeader: string;
   pinned: boolean;
-  hasLENSicon: boolean;
 }) => {
   return (
     <Root>
@@ -77,13 +74,7 @@ export const DMHeader = ({
         <StatusIcon size={"lg"} src={src} isLoading={!hasLoaded} />
         <UserDetails>
           <NameAndIcon>
-            <ENSName
-              size={"md"}
-              monoFont={false}
-              isLoading={!hasLoaded}
-              ENSname={ENSname}
-            />
-            {hasLENSicon && <LensIcon isLoading={!hasLoaded} />}
+            <ENSName.EnsNameMd>{ENSname}</ENSName.EnsNameMd>
           </NameAndIcon>
           <AddressHeader isLoading={!hasLoaded} addressHeader={addressHeader} />
         </UserDetails>

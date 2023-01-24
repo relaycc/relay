@@ -8,6 +8,7 @@ export const Root = styled.nav`
   border-radius: 0px 0px 14px 14px;
   width: 100%;
   height: 80px;
+  min-height: 80px;
   border-top: 1px solid #eaecf0;
   margin-top: 1rem;
 `;

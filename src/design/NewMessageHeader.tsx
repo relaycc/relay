@@ -1,11 +1,7 @@
 import styled from "styled-components";
-import { CloseIcon } from "./CloseIcon";
+export { CloseIcon } from "./CloseIcon";
 
-interface NewMessageHeaderProps {
-  handleCloseClick: () => unknown;
-}
-
-const Container = styled.div`
+export const Root = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -15,12 +11,12 @@ const Container = styled.div`
     0px 1px 2px rgba(16, 24, 40, 0.06);
 `;
 
-const Title = styled.div`
+export const Title = styled.div`
   font-size: 24px;
   font-weight: 700;
 `;
 
-const Button = styled.button`
+export const Button = styled.button`
   background-color: transparent;
   border-radius: 50%;
   cursor: pointer;
@@ -30,15 +26,15 @@ const Button = styled.button`
   place-content: center;
 `;
 
-export const NewMessageHeader = ({
-  handleCloseClick,
-}: NewMessageHeaderProps) => {
-  return (
-    <Container>
-      <Title>New Message</Title>
-      <Button onClick={handleCloseClick}>
-        <CloseIcon />
-      </Button>
-    </Container>
-  );
-};
+// export export const NewMessageHeader = ({
+//   handleCloseClick,
+// }: NewMessageHeaderProps) => {
+//   return (
+//     <Container>
+//       <Title>New Message</Title>
+//       <Button onClick={handleCloseClick}>
+//         <CloseIcon />
+//       </Button>
+//     </Container>
+//   );
+// };

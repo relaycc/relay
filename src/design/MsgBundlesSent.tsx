@@ -1,12 +1,13 @@
-import styled from 'styled-components';
-import { receiverTheme } from '@/design/receiverTheme';
-import { textXsRegular } from '@/design/typography';
-import { Time } from '@/design/Time';
-import { MsgPreview } from '@/design/MsgPreview';
-import { ENSName } from '@/design/ENSName';
+import styled from "styled-components";
+import { receiverTheme } from "@/design/receiverTheme";
+import { textXsRegular } from "@/design/typography";
+import { StatusIcon } from "@/design/StatusIcon";
+import * as Time from "@/design/Time";
+import { MsgPreview } from "@/design/MsgPreview";
+import * as ENSName from "@/design/ENSName";
+
 import { EthAddress } from '@relaycc/xmtp-hooks';
 import { Avatar } from '@/components/Avatar';
-
 const Root = styled.div`
   display: flex;
   justify-content: flex-start;
@@ -25,7 +26,7 @@ const FirstMsgContainer = styled.div`
   padding: 0 1rem;
 
   :hover {
-    background-color: ${receiverTheme.colors.gray['100']};
+    background-color: ${receiverTheme.colors.gray["100"]};
   }
 `;
 
@@ -34,7 +35,7 @@ const RestOfTheMessages = styled(FirstMsgContainer)`
   border-top: 2px solid #ffffff;
 
   :hover {
-    background-color: ${receiverTheme.colors.gray['100']};
+    background-color: ${receiverTheme.colors.gray["100"]};
   }
 `;
 
@@ -54,7 +55,7 @@ const HoveredTimeContainer = styled.div`
 const XxsSizedTime = styled.div`
   ${textXsRegular};
   font-size: 0.5rem;
-  color: ${receiverTheme.colors.gray['400']};
+  color: ${receiverTheme.colors.gray["400"]};
 `;
 
 const StatusIconContainer = styled.div`
@@ -108,13 +109,8 @@ export const MsgBundlesSent = ({
         </StatusIconContainer>
         <MiddlePart>
           <NameAndDate>
-            <ENSName
-              size={'lg'}
-              monoFont={true}
-              isLoading={isLoading}
-              ENSname={ensName}
-            />
-            <Time time={messages[0].time} isLoading={isLoading} />
+            <ENSName.EnsNameMonofontLg>{ensName}</ENSName.EnsNameMonofontLg>
+            <Time.Root>{messages[0].time}</Time.Root>
           </NameAndDate>
           <MsgContainer>
             <MsgPreview isLoading={isLoading} msg={messages[0].content} />

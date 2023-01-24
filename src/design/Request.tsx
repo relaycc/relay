@@ -3,8 +3,8 @@ import { receiverTheme } from "@/design/receiverTheme";
 import { Checkbox, CheckboxSvg } from "@/design/Checkbox";
 import { StatusIcon } from "@/design/StatusIcon";
 import { textSmallRegular } from "@/design/typography";
-import { Time } from "@/design/Time";
-import { ENSName } from "@/design/ENSName";
+import * as Time from "@/design/Time";
+import * as ENSName from "@/design/ENSName";
 
 const Root = styled.div`
   display: flex;
@@ -101,18 +101,13 @@ export const Request = ({
         <StatusIcon size={"lg"} src={statusIcon} isLoading={!hasLoaded} />
         <RequestDetails>
           <NameContainer>
-            <ENSName
-              size={"md"}
-              monoFont={true}
-              isLoading={!hasLoaded}
-              ENSname={ENSname}
-            />
+            <ENSName.EnsNameMonofontMd>{ENSname}</ENSName.EnsNameMonofontMd>
           </NameContainer>
           <Message>{messageDetails[0].message}</Message>
         </RequestDetails>
       </Wrapper>
       <TimeWrapper>
-        <Time isLoading={!hasLoaded} time={messageDetails[0].time} />
+        <Time.Root>{messageDetails[0].time}</Time.Root>
       </TimeWrapper>
     </Root>
   );

@@ -15,7 +15,7 @@ import { useEnsAvatar } from '@/hooks/useEnsAvatar';
 export interface AvatarProps {
   handle: string | null | undefined;
   onClick: () => unknown;
-  size?: 'sm' | 'md' | 'lg' | 'xl';
+  size: "sm" | "md" | "lg" | "xl";
 }
 
 export const Avatar: FunctionComponent<AvatarProps> = ({
@@ -29,9 +29,9 @@ export const Avatar: FunctionComponent<AvatarProps> = ({
 
   const AvatarElement = useMemo(() => {
     switch (size) {
-      case 'sm':
+      case "sm":
         return AvatarSm;
-      case 'md':
+      case "md":
         return AvatarMd;
       case 'lg':
         return AvatarLg;
@@ -44,14 +44,14 @@ export const Avatar: FunctionComponent<AvatarProps> = ({
 
   const blockie = useMemo(() => {
     switch (size) {
-      case 'sm':
+      case "sm":
         return {
           component: BlockieSm,
-          seed: handle || 'no address',
+          seed: handle || "no address",
           size: 10,
           scale: 2.5,
         };
-      case 'md':
+      case "md":
         return {
           component: BlockieMd,
           seed: handle || 'no address',
