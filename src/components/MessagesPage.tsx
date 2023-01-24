@@ -3,27 +3,27 @@ import React, {
   useCallback,
   useMemo,
   useState,
-} from "react";
-import { useConnectedWallet } from "@/hooks/useConnectedWallet";
+} from 'react';
+import { useConnectedWallet } from '@/hooks/useConnectedWallet';
+import { AnimatePresence } from 'framer-motion';
 import {
   Conversation,
   EthAddress,
   useDirectMessage,
   useConversations,
-} from "@relaycc/xmtp-hooks";
-import { useRedirectWhenNotSignedIn } from "@/hooks/useRedirectWhenNotSignedInt";
-import * as HomeHeader from "@/design/HomeHeader";
-import * as MessagePreview from "@/design/MessagePreview";
-import styled, { css } from "styled-components";
-import { useRelayId } from "@/hooks/useRelayId";
-import { isEnsName } from "@/lib/isEnsName";
-import { getDisplayDate } from "@/lib/getDisplayDate";
-import { useRouter } from "next/router";
-import { FooterNav } from "./FooterNav";
-import * as Nav from "@/design/Nav";
-import { Search } from "@/design/Search";
-import { NewMessage } from "./NewMessage";
-import { setSeconds } from "date-fns";
+} from '@relaycc/xmtp-hooks';
+import { useRedirectWhenNotSignedIn } from '@/hooks/useRedirectWhenNotSignedInt';
+import * as HomeHeader from '@/design/HomeHeader';
+import * as MessagePreview from '@/design/MessagePreview';
+import styled, { css } from 'styled-components';
+import { useRelayId } from '@/hooks/useRelayId';
+import { isEnsName } from '@/lib/isEnsName';
+import { getDisplayDate } from '@/lib/getDisplayDate';
+import { useRouter } from 'next/router';
+import { FooterNav } from './FooterNav';
+import * as Nav from '@/design/Nav';
+import { Search } from '@/design/Search';
+import { NewMessage } from './NewMessage';
 
 const Root = styled.div`
   height: 700px;
@@ -142,10 +142,10 @@ export const MessagesPage: FunctionComponent<IMessagesPageProps> = () => {
   });
 
   const navigateToProfile = useCallback(() => {
-    router.push("/receiver/profile");
+    router.push('/receiver/profile');
   }, [router]);
 
-  useRedirectWhenNotSignedIn("/receiver/messages");
+  useRedirectWhenNotSignedIn('/receiver/messages');
 
   const filteredConversations = useMemo(() => {
     if (!searchInput) {
@@ -178,7 +178,7 @@ export const MessagesPage: FunctionComponent<IMessagesPageProps> = () => {
       </HomeHeader.Root>
       <SearchWrapper>
         <Search
-          placeholder={"Search for an ETH address"}
+          placeholder={'Search for an ETH address'}
           onChange={(e: any) => {
             // TODO: Not sure why isn't getting the type inference here.
             setSearchInput(e.target.value);
@@ -215,9 +215,15 @@ export const MessagesPage: FunctionComponent<IMessagesPageProps> = () => {
         })()}
       </ConversationList>
       <FooterNav />
-      {showNewMessage && (
-        <NewMessage doClose={() => setShowNewMessage(false)} />
-      )}
+
+      <AnimatePresence>
+        {showNewMessage && (
+          <NewMessage
+            clientAddress={connectedWallet?.address as EthAddress}
+            doClose={() => setShowNewMessage(false)}
+          />
+        )}
+      </AnimatePresence>
     </Root>
   );
 };
@@ -266,8 +272,8 @@ const Chats: FunctionComponent<{
           <MessagePreview.NameAndIcons>
             <MessagePreview.ENSName.EnsNameMonofontMd>
               {ensName}
-              {conversation.context?.conversationId.includes("lens.dev") &&
-                " 🌿"}
+              {conversation.context?.conversationId.includes('lens.dev') &&
+                ' 🌿'}
             </MessagePreview.ENSName.EnsNameMonofontMd>
           </MessagePreview.NameAndIcons>
           <MessagePreview.MessageDetails>
