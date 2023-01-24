@@ -22,6 +22,8 @@ import { MsgBox } from "@/design/MsgBox";
 import { MsgBundlesSent } from "@/design/MsgBundlesSent";
 import { Avatar } from "./Avatar";
 import { getDisplayDate } from "@/lib/getDisplayDate";
+import * as Toast from "@/design/Toast";
+import { ToastPosition } from "@/pages/receiver/profile";
 
 const Root = styled.div`
   height: 700px;
@@ -62,7 +64,7 @@ export const DirectMessagesPage: FunctionComponent<{}> = () => {
     conversation: { peerAddress },
   });
   const relayId = useRelayId({ handle: peerAddress });
-
+  const [showFailureToast, setShowFailureToast] = useState(false);
   // TODO:Aaron Need a hook to get ens name or lens name or erh address if none exists
   const ensName = useMemo(() => {
     if (isEnsName(relayId.ens.data)) {
@@ -151,7 +153,9 @@ export const DirectMessagesPage: FunctionComponent<{}> = () => {
     },
     []
   );
-
+  const toggleFailureToast = useCallback(() => {
+    setShowFailureToast(!showFailureToast);
+  }, [showFailureToast]);
   const handleSend = useCallback(() => {
     if (
       !messages?.data ||
@@ -161,10 +165,16 @@ export const DirectMessagesPage: FunctionComponent<{}> = () => {
     ) {
       return;
     }
-    sendMessage.mutate({
-      content: msgValue,
-      conversation: messages.data[0].conversation,
-    });
+    try {
+      sendMessage.mutate({
+        content: msgValue,
+        conversation: messages.data[0].conversation,
+      });
+    } catch (e) {
+      toggleFailureToast();
+      console.log(e);
+    }
+
     setMsgValue("");
   }, [msgValue, messages]);
 
@@ -207,6 +217,24 @@ export const DirectMessagesPage: FunctionComponent<{}> = () => {
         handleSend={handleSend}
       />
       <FooterNav />
+      {showFailureToast && (
+        <ToastPosition>
+          <Toast.Failure.Card
+            initial={{ opacity: 0.2 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.2 }}
+          >
+            <Toast.Failure.AlertIcon />
+            <Toast.Failure.Column>
+              <Toast.Failure.Title>Failed to Send Message</Toast.Failure.Title>
+              <Toast.Failure.Subtitle>
+                Check connection and try again.
+              </Toast.Failure.Subtitle>
+            </Toast.Failure.Column>
+            <Toast.Failure.ExitIcon onClick={toggleFailureToast} />
+          </Toast.Failure.Card>
+        </ToastPosition>
+      )}
     </Root>
   );
 };
