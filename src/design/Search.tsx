@@ -1,16 +1,10 @@
+import { useState, ComponentProps } from "react";
 import styled from "styled-components";
 import { receiverTheme } from "@/design/receiverTheme";
 import { textSmallRegular } from "@/design/typography";
 import { Magnifier } from "@/design/Magnifier";
 
-const Root = styled.div`
-  display: flex;
-
-  width: 100%;
-  //width: 360px;
-`;
-
-const Wrapper = styled.div`
+export const Root = styled.div`
   display: flex;
   justify-content: space-evenly;
   align-items: center;
@@ -22,7 +16,7 @@ const Wrapper = styled.div`
   width: 100%;
 `;
 
-const Input = styled.input`
+export const Input = styled.input`
   ${textSmallRegular};
   background-color: ${receiverTheme.colors.gray["100"]};
   color: ${receiverTheme.colors.gray["900"]};
@@ -40,22 +34,12 @@ const Input = styled.input`
   width: 94%;
 `;
 
-export const Search = ({ active }: { active: boolean }) => {
-  if (active) {
-    return (
-      <Root>
-        <Wrapper>
-          <Magnifier />
-          <Input placeholder={"Search Receiver"} />
-        </Wrapper>
-      </Root>
-    );
-  }
+export const Search = (props: ComponentProps<typeof Input>) => {
+  const [active, setActive] = useState<boolean>(false);
   return (
-    <Root>
-      <Wrapper>
-        <Input placeholder={"Search Receiver"} />
-      </Wrapper>
+    <Root onFocus={() => setActive(true)} onBlur={() => setActive(false)}>
+      {active || <Magnifier />}
+      <Input {...props} />
     </Root>
   );
 };

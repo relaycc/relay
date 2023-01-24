@@ -22,6 +22,7 @@
     "@types/react-dom": "18.0.10",
     "@xmtp/xmtp-js": "^7.7.4",
     "comlink": "^4.3.1",
+    "date-fns": "^2.29.3",
     "eslint": "8.31.0",
     "eslint-config-next": "13.1.2",
     "ethers": "^5.7.2",

@@ -27,7 +27,7 @@ const ImageMarginRight = styled(Image)`
 const Row = styled.div`
   display: flex;
   align-items: center;
-  padding: 16px;
+  padding: 0 1rem;
   background-color: ${(props) => props.theme.colors.gray["25"]};
 `;
 

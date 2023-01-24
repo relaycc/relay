@@ -2,8 +2,8 @@ import styled from "styled-components";
 import { receiverTheme } from "@/design/receiverTheme";
 import { textXsRegular } from "@/design/typography";
 import { StatusIcon } from "@/design/StatusIcon";
-import { Time } from "@/design/Time";
-import { ENSName } from "@/design/ENSName";
+import * as Time from "@/design/Time";
+import * as ENSName from "@/design/ENSName";
 import { MsgPreview } from "@/design/MsgPreview";
 
 const Root = styled.div`
@@ -101,13 +101,8 @@ export const MsgBundlesReceived = ({
         </StatusIconContainer>
         <MiddlePart>
           <NameAndDate>
-            <ENSName
-              size={"lg"}
-              monoFont={true}
-              isLoading={isLoading}
-              ENSname={ensName}
-            />
-            <Time isLoading={isLoading} time={messages[0].time} />
+            <ENSName.EnsNameMonofontLg>{ensName}</ENSName.EnsNameMonofontLg>
+            <Time.Root>{messages[0].time}</Time.Root>
           </NameAndDate>
           <MsgContainer>
             <MsgPreview isLoading={isLoading} msg={messages[0].message} />

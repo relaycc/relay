@@ -99,9 +99,9 @@ export const NewMessage = ({ doClose }: { doClose: () => unknown }) => {
 
   return (
     <Root
-      initial={{ maxHeight: 0 }}
+      initial={{ maxHeight: "0" }}
       animate={{ maxHeight: "100vh" }}
-      transition={{ duration: 0.5 }}
+      transition={{ duration: 0.3 }}
     >
       <HeaderWrapper>
         <NewMessageHeader.Root>
