@@ -153,7 +153,12 @@ export const DirectMessagesPage: FunctionComponent<{}> = () => {
   );
 
   const handleSend = useCallback(() => {
-    if (!messages?.data || !messages.data.length) {
+    if (
+      !messages?.data ||
+      !messages.data.length ||
+      msgValue.length === 0 ||
+      msgValue.trim().length === 0
+    ) {
       return;
     }
     sendMessage.mutate({
