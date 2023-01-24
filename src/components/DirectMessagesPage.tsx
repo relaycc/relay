@@ -25,46 +25,27 @@ import { getDisplayDate } from "@/lib/getDisplayDate";
 import * as Toast from "@/design/Toast";
 import { ToastPosition } from "@/pages/receiver/profile";
 
-const Root = styled.div`
-  height: 700px;
-  width: 400px;
-  border-radius: 4px;
-  margin: 6rem auto;
-  box-shadow: 0px 4px 32px rgba(16, 24, 40, 0.12);
-  border-radius: 14px;
-  position: relative;
-  display: flex;
-  flex-direction: column;
+export interface MessagesBucketProps {
+  bucket: {
+    peerAddress: string;
+    messages: Message[];
+  };
+}
 
-  ${Nav.Root} {
-    margin-top: auto;
-  }
-`;
-
-const HeadWrapper = styled.div`
-  margin-top: 1rem;
-`;
-
-const ScrollContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  height: 100%;
-  overflow-y: auto;
-  padding-bottom: 0.5rem;
-`;
+type MessageBucket = MessagesBucketProps["bucket"];
 
 export const DirectMessagesPage: FunctionComponent<{}> = () => {
   useRedirectWhenNotSignedIn("/receiver/messages");
-  const connectedWallet = useConnectedWallet((s) => s.connectedWallet);
+  const [showFailureToast, setShowFailureToast] = useState(false);
+  const [msgValue, setMsgValue] = useState<string>("");
   const router = useRouter();
   const peerAddress = router.query.handle as EthAddress;
+  const connectedWallet = useConnectedWallet((s) => s.connectedWallet);
   const { messages, sendMessage } = useDirectMessage({
     clientAddress: connectedWallet?.address as EthAddress,
     conversation: { peerAddress },
   });
   const relayId = useRelayId({ handle: peerAddress });
-  const [showFailureToast, setShowFailureToast] = useState(false);
   // TODO:Aaron Need a hook to get ens name or lens name or erh address if none exists
   const ensName = useMemo(() => {
     if (isEnsName(relayId.ens.data)) {
@@ -75,16 +56,6 @@ export const DirectMessagesPage: FunctionComponent<{}> = () => {
       return peerAddress;
     }
   }, [peerAddress, relayId]);
-
-  const parseMessage = useCallback((message: Message) => {
-    return {
-      id: message.id,
-      senderAddress: message.senderAddress,
-      content: message.content,
-      conversation: message.conversation,
-      time: getDisplayDate(message.sent),
-    };
-  }, []);
 
   const parsedMessages = useMemo(() => {
     if (!messages?.data) {
@@ -98,47 +69,6 @@ export const DirectMessagesPage: FunctionComponent<{}> = () => {
       }
     });
   }, [messages]);
-
-  const getMessageBuckets = (messages: Message[]): MessageBucket[] => {
-    const buckets: MessageBucket[] = [];
-    const currentBucket = () => buckets[0];
-    const currentSender = () => currentBucket()?.peerAddress;
-    const currentMessage = () => currentBucket()?.messages[0];
-    const currentSent = () => currentMessage()?.sent;
-
-    for (const message of messages) {
-      const shouldStartNewBucket = () => {
-        if (currentBucket() === undefined) {
-          return true;
-        }
-        if (currentSender() !== message.senderAddress) {
-          return true;
-        }
-        if (currentSent()) {
-          if (isFiveMinuteDifference(currentSent(), message.sent)) {
-            return true;
-          }
-        }
-      };
-
-      if (shouldStartNewBucket()) {
-        buckets.unshift({
-          peerAddress: message.senderAddress,
-          messages: [message],
-        });
-      } else {
-        buckets[0].messages.push(message);
-      }
-    }
-
-    return buckets;
-  };
-
-  const isFiveMinuteDifference = (a: Date, b: Date): boolean => {
-    return Math.abs(a.getTime() - b.getTime()) > 300000;
-  };
-
-  const [msgValue, setMsgValue] = useState<string>("");
 
   const messageBuckets = useMemo(() => {
     if (!parsedMessages) {
@@ -173,6 +103,7 @@ export const DirectMessagesPage: FunctionComponent<{}> = () => {
     } catch (e) {
       toggleFailureToast();
       console.log(e);
+      return;
     }
 
     setMsgValue("");
@@ -239,15 +170,6 @@ export const DirectMessagesPage: FunctionComponent<{}> = () => {
   );
 };
 
-export interface MessagesBucketProps {
-  bucket: {
-    peerAddress: string;
-    messages: Message[];
-  };
-}
-
-type MessageBucket = MessagesBucketProps["bucket"];
-
 const ListMessages: FunctionComponent<
   MessagesBucketProps & { peerAddress: string } & { isGray: boolean }
 > = ({ bucket, peerAddress, isGray }) => {
@@ -288,3 +210,80 @@ const ListMessages: FunctionComponent<
     />
   );
 };
+
+const parseMessage = (message: Message) => {
+  return {
+    id: message.id,
+    senderAddress: message.senderAddress,
+    content: message.content,
+    conversation: message.conversation,
+    time: getDisplayDate(message.sent),
+  };
+};
+
+const isFiveMinuteDifference = (a: Date, b: Date): boolean => {
+  return Math.abs(a.getTime() - b.getTime()) > 300000;
+};
+
+const getMessageBuckets = (messages: Message[]): MessageBucket[] => {
+  const buckets: MessageBucket[] = [];
+  const currentBucket = () => buckets[0];
+  const currentSender = () => currentBucket()?.peerAddress;
+  const currentMessage = () => currentBucket()?.messages[0];
+  const currentSent = () => currentMessage()?.sent;
+
+  for (const message of messages) {
+    const shouldStartNewBucket = () => {
+      if (currentBucket() === undefined) {
+        return true;
+      }
+      if (currentSender() !== message.senderAddress) {
+        return true;
+      }
+      if (currentSent()) {
+        if (isFiveMinuteDifference(currentSent(), message.sent)) {
+          return true;
+        }
+      }
+    };
+
+    if (shouldStartNewBucket()) {
+      buckets.unshift({
+        peerAddress: message.senderAddress,
+        messages: [message],
+      });
+    } else {
+      buckets[0].messages.push(message);
+    }
+  }
+
+  return buckets;
+};
+
+const Root = styled.div`
+  height: 700px;
+  width: 400px;
+  margin: 6rem auto;
+  box-shadow: 0px 4px 32px rgba(16, 24, 40, 0.12);
+  border-radius: 14px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+
+  ${Nav.Root} {
+    margin-top: auto;
+  }
+`;
+
+const HeadWrapper = styled.div`
+  margin-top: 1rem;
+`;
+
+const ScrollContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  overflow-y: auto;
+  padding-bottom: 0.5rem;
+`;
