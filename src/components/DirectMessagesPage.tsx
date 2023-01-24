@@ -36,7 +36,7 @@ import { CloseIcon } from "@/design/CloseIcon";
 import { getShortenedAddress } from "@/lib/getShortenedAddress";
 import { MessageInput } from "@/design/MsgBox";
 // import * as MsgBundles from "@/design/MsgBundles";
-import { MsgPreview } from "@/design/MsgPreview";
+import * as MsgPreview from "@/design/MsgPreview";
 
 export interface MessagesBucketProps {
   bucket: {
@@ -265,10 +265,19 @@ const ListMessages: FunctionComponent<
               </MsgBundles.Time.Root>
             </MsgBundles.NameAndDate>
             <MsgBundles.MsgContainer>
-              <MsgPreview
-                isLoading={false}
-                msg={[...bucket.messages].reverse()[0].content}
-              />
+              {!bucket.messages ? (
+                <MsgPreview.MsgContainer>
+                  <MsgPreview.MsgLoading />
+                </MsgPreview.MsgContainer>
+              ) : (
+                <MsgPreview.MsgContainer>
+                  {[...bucket.messages].reverse()[0].content}
+                </MsgPreview.MsgContainer>
+              )}
+              {/*<MsgPreview*/}
+              {/*  isLoading={false}*/}
+              {/*  msg={[...bucket.messages].reverse()[0].content}*/}
+              {/*/>*/}
             </MsgBundles.MsgContainer>
           </MsgBundles.UserAndMessage>
         </MsgBundles.FirstMsgContainer>
@@ -281,7 +290,15 @@ const ListMessages: FunctionComponent<
               <MsgBundles.HoveredTimeContainer>
                 <MsgBundles.XxsSizedTime>{i.time}</MsgBundles.XxsSizedTime>
               </MsgBundles.HoveredTimeContainer>
-              <MsgPreview isLoading={false} msg={i.content} />
+              {!bucket.messages ? (
+                <MsgPreview.MsgContainer>
+                  <MsgPreview.MsgLoading />
+                </MsgPreview.MsgContainer>
+              ) : (
+                <MsgPreview.MsgContainer>{i.content}</MsgPreview.MsgContainer>
+              )}
+
+              {/*<MsgPreview isLoading={false} msg={i.content} />*/}
             </MsgBundles.RestOfTheMessages>
           ))}
       </MsgBundles.Root>
@@ -319,10 +336,20 @@ const ListMessages: FunctionComponent<
             </MsgBundles.Time.Root>
           </MsgBundles.NameAndDate>
           <MsgBundles.MsgContainer>
-            <MsgPreview
-              isLoading={false}
-              msg={[...bucket.messages].reverse()[0].content}
-            />
+            {!bucket.messages ? (
+              <MsgPreview.MsgContainer>
+                <MsgPreview.MsgLoading />
+              </MsgPreview.MsgContainer>
+            ) : (
+              <MsgPreview.MsgContainer>
+                {[...bucket.messages].reverse()[0].content}
+              </MsgPreview.MsgContainer>
+            )}
+
+            {/*<MsgPreview*/}
+            {/*  isLoading={false}*/}
+            {/*  msg={[...bucket.messages].reverse()[0].content}*/}
+            {/*/>*/}
           </MsgBundles.MsgContainer>
         </MsgBundles.UserAndMessage>
       </MsgBundles.FirstMsgContainer>
@@ -335,7 +362,15 @@ const ListMessages: FunctionComponent<
             <MsgBundles.HoveredTimeContainer>
               <MsgBundles.XxsSizedTime>{i.time}</MsgBundles.XxsSizedTime>
             </MsgBundles.HoveredTimeContainer>
-            <MsgPreview isLoading={false} msg={i.content} />
+            {!bucket.messages ? (
+              <MsgPreview.MsgContainer>
+                <MsgPreview.MsgLoading />
+              </MsgPreview.MsgContainer>
+            ) : (
+              <MsgPreview.MsgContainer>{i.content}</MsgPreview.MsgContainer>
+            )}
+
+            {/*<MsgPreview isLoading={false} msg={i.content} />*/}
           </MsgBundles.RestOfTheMessages>
         ))}
     </MsgBundles.Root>
