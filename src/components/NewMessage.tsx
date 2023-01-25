@@ -1,12 +1,21 @@
-import { MsgBox } from "@/design/MsgBox";
+import * as MsgBox from "@/design/MsgBox";
 import * as NewMsgInput from "@/design/NewMsgInput";
 import * as Toast from "@/design/Toast";
 import * as NewMessageHeader from "@/design/NewMessageHeader";
 import styled from "styled-components";
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { textMdSemiBold, textSmallRegular } from "@/design/typography";
 import { receiverTheme } from "@/design/receiverTheme";
 import { motion } from "framer-motion";
+import {
+  EthAddress,
+  isEthAddress,
+  useFetchPeerOnNetwork,
+  useSendMessage,
+} from "@relaycc/xmtp-hooks";
+import { useRouter } from "next/router";
+import { isEnsName } from "@/lib/isEnsName";
+import { useAddressFromEns } from "@/hooks/useAddressFromEns";
 
 const Root = styled(motion.div)`
   display: flex;
@@ -78,12 +87,101 @@ const ToastPosition = styled.div`
   left: 1rem;
 `;
 
-export const NewMessage = ({ doClose }: { doClose: () => unknown }) => {
+export const NewMessage = ({
+  doClose,
+  clientAddress,
+}: {
+  doClose: () => unknown;
+  clientAddress: EthAddress;
+}) => {
   const [showFailureToast, setShowFailureToast] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [inputIsFocused, setInputIsFocused] = useState<boolean>(false);
+  const [messageInputIsFocused, setMessageInputIsFocused] =
+    useState<boolean>(false);
   const [inputValue, setInputValue] = useState<string | null>(null);
   const [isAddressValid, setIsAddressValid] = useState<boolean | null>(null);
+  const [peerAddress, setPeerAddress] = useState<EthAddress | null>(null);
+  const [inputMessage, setInputMessage] = useState<string>("");
+  const [ethAddress, setEthAddress] = useState<EthAddress | null>(null);
+  const [isAddressLoading, setIsAddressLoading] = useState<boolean>(false);
+
+  const router = useRouter();
+  const inputRef = useRef(null);
+  const sendMessage = useSendMessage({ clientAddress });
+
+  const { data: isOnNetwork, isLoading: isOnNetworkLoading } =
+    useFetchPeerOnNetwork({
+      clientAddress,
+      peerAddress: ethAddress,
+    });
+
+  const { data: ethFromEns } = useAddressFromEns({
+    handle: inputValue,
+  });
+
+  const validate = useCallback(() => {
+    setIsAddressLoading(true);
+    if (!isEnsName(inputValue) && !isEthAddress(inputValue)) {
+      setIsAddressValid(false);
+      setIsAddressLoading(false);
+      return;
+    }
+
+    if (isEnsName(inputValue) && ethFromEns) {
+      setEthAddress(ethFromEns);
+    } else if (isEthAddress(inputValue)) {
+      setEthAddress(inputValue as EthAddress);
+    }
+  }, [inputValue, ethFromEns]);
+
+  useEffect(() => {
+    if (!ethAddress) {
+      return;
+    }
+
+    if (isOnNetwork === undefined || isOnNetworkLoading) {
+      setIsAddressValid(null);
+      return;
+    }
+    if (!isOnNetwork) {
+      setIsAddressValid(false);
+    } else {
+      setIsAddressValid(true);
+      setPeerAddress(ethAddress);
+      inputRef?.current && (inputRef.current as HTMLInputElement).focus();
+    }
+    setIsAddressLoading(false);
+  }, [ethAddress, isOnNetwork, isOnNetworkLoading]);
+
+  const send = useCallback(async () => {
+    if (!sendMessage?.mutate || !isOnNetwork || !peerAddress || !inputMessage) {
+      return;
+    }
+    try {
+      setIsLoading(true);
+      await sendMessage.mutateAsync({
+        conversation: {
+          peerAddress,
+        },
+        content: inputMessage,
+      });
+      setIsLoading(false);
+      setInputValue("");
+      router.push(`/receiver/dm/${peerAddress}`);
+    } catch {
+      triggerFailureToast();
+    }
+  }, [sendMessage, inputMessage, peerAddress]);
+
+  const handleKeyDown = useCallback(
+    (event: React.KeyboardEvent<HTMLDivElement>) => {
+      if (event.key === "Enter") {
+        send();
+      }
+    },
+    [send]
+  );
 
   const triggerFailureToast = useCallback(() => {
     setShowFailureToast(true);
@@ -100,7 +198,8 @@ export const NewMessage = ({ doClose }: { doClose: () => unknown }) => {
   return (
     <Root
       initial={{ maxHeight: "0" }}
-      animate={{ maxHeight: "100vh" }}
+      animate={{ top: "1rem", maxHeight: "100vh" }}
+      exit={{ top: "100%" }}
       transition={{ duration: 0.3 }}
     >
       <HeaderWrapper>
@@ -136,9 +235,12 @@ export const NewMessage = ({ doClose }: { doClose: () => unknown }) => {
             value={inputValue || ""}
             placeholder="Enter ENS name or address"
           />
-          <NewMsgInput.IconContainer>
+          <NewMsgInput.IconContainer
+            onMouseDown={(e) => e.preventDefault()}
+            onClick={validate}
+          >
             {(() => {
-              if (isLoading) {
+              if (isAddressLoading) {
                 return <NewMsgInput.LoaderAnimGeneral />;
               } else if (inputIsFocused) {
                 return <NewMsgInput.AddIconActive>+</NewMsgInput.AddIconActive>;
@@ -160,7 +262,33 @@ export const NewMessage = ({ doClose }: { doClose: () => unknown }) => {
         )}
       </Main>
       <MsgBoxWrapper>
-        <MsgBox active={false} />
+        <MsgBox.Root
+          onFocus={() => setMessageInputIsFocused(true)}
+          onBlur={() => setMessageInputIsFocused(false)}
+        >
+          <MsgBox.MessageInput
+            onKeyDown={handleKeyDown}
+            ref={inputRef}
+            onChange={(e) => {
+              setInputMessage(e.target.value);
+              clearFailureToast();
+            }}
+            autoFocus={true}
+            value={inputMessage}
+            placeholder="Type a Message"
+          />
+          <MsgBox.IconContainer onClick={send}>
+            {(() => {
+              if (isLoading) {
+                return <MsgBox.LoaderAnimGeneral />;
+              } else if (messageInputIsFocused) {
+                return <MsgBox.ArrowUpCircle active={true} />;
+              } else {
+                return <MsgBox.ArrowUpCircle active={false} />;
+              }
+            })()}
+          </MsgBox.IconContainer>
+        </MsgBox.Root>
       </MsgBoxWrapper>
 
       {showFailureToast && (

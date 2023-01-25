@@ -1,9 +1,8 @@
 import styled from "styled-components";
 import { receiverTheme } from "@/design/receiverTheme";
-import { DropdownIcon } from "@/design/DropdownIcon";
 import { textSmallBold } from "@/design/typography";
 
-const Root = styled.div`
+export const Root = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -15,16 +14,16 @@ const Root = styled.div`
   width: 100%;
 `;
 
-const Label = styled.div`
+export const Label = styled.div`
   ${textSmallBold};
   color: ${receiverTheme.colors.gray["900"]};
 `;
 
-export const IgnoredMsg = ({ label }: { label: string }) => {
-  return (
-    <Root>
-      <Label>{label}</Label>
-      <DropdownIcon isOpen={false} />
-    </Root>
-  );
-};
+// export const IgnoredMsg = ({ label }: { label: string }) => {
+//   return (
+//     <Root>
+//       <Label>{label}</Label>
+//       <DropdownIcon isOpen={false} />
+//     </Root>
+//   );
+// };

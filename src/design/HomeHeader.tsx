@@ -1,7 +1,7 @@
 import styled from "styled-components";
-export { Compose } from "@/design/Compose";
 import { receiverTheme } from "@/design/receiverTheme";
 import { displayXsBold } from "@/design/typography";
+export * as Compose from "@/design/Compose"
 export { Avatar } from "@/components/Avatar";
 
 export const Root = styled.div`

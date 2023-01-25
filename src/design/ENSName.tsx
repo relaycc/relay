@@ -1,10 +1,10 @@
-import styled, {css} from "styled-components";
+import styled, { css } from "styled-components";
 import {
-    spaceMonoMdBold,
-    textMdSemiBold,
-    textXlSemibold,
+  spaceMonoMdBold,
+  textMdSemiBold,
+  textXlSemibold,
 } from "@/design/typography";
-import {receiverTheme} from "@/design/receiverTheme";
+import { receiverTheme } from "@/design/receiverTheme";
 
 const name = css`
   color: ${receiverTheme.colors.gray["900"]};
@@ -15,7 +15,12 @@ const name = css`
 `;
 
 const loadingName = css`
-  background: linear-gradient(90deg, #F1EFEF -24.18%, #F9F8F8 50.26%, #E7E5E5 114.84%);
+  background: linear-gradient(
+    90deg,
+    #f1efef -24.18%,
+    #f9f8f8 50.26%,
+    #e7e5e5 114.84%
+  );
   mix-blend-mode: multiply;
   border-radius: 6px;
 `;
@@ -38,6 +43,10 @@ const monoFontLg = css`
 
 const monoFontMd = css`
   font-size: 0.875rem;
+`;
+
+const primaryColor = css`
+  color: ${receiverTheme.colors.primary["500"]};
 `;
 
 export const EnsNameLg = styled.div`
@@ -86,4 +95,12 @@ export const LoadingEnsNameMonofontMd = styled.div`
   ${md};
   ${monoFont};
   ${monoFontMd};
+`;
+
+export const EnsNameMonofontLgColored = styled.div`
+  ${name};
+  ${lg};
+  ${monoFont};
+  ${monoFontLg};
+  ${primaryColor};
 `;
