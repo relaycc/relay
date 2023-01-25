@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import {receiverTheme} from "@/design/receiverTheme";
-import {textXsRegular} from "@/design/typography";
+import { receiverTheme } from "@/design/receiverTheme";
+import { textXsRegular } from "@/design/typography";
 
 export * as Time from "@/design/Time";
 export * as MsgPreview from "@/design/MsgPreview";
@@ -13,13 +13,7 @@ export const Root = styled.div`
   flex-direction: column;
   background-color: #ffffff;
   margin-top: 1.4rem;
-
   width: 100%;
-  min-height: 2.75rem;
-
-  :hover {
-    background-color: ${receiverTheme.colors.gray["100"]};
-  }
 `;
 
 export const FirstMsgContainer = styled.div`
