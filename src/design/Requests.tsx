@@ -1,61 +1,91 @@
 import styled from "styled-components";
-import Image from "next/image";
-import { textXsMedium, textMdSemiBold, textSmallRegular } from "./typography";
+import {textSmallRegular} from "./typography";
+import {receiverTheme} from "@/design/receiverTheme";
 
-export const Requests = () => {
-  return (
-    <Row>
-      <ImageMarginRight
-        src="/message-requests.png"
-        alt="message requests"
-        width={40}
-        height={40}
-      />
-      <Column>
-        <Title>Message Requests</Title>
-        <Subtitle>From xyz.eth, faris.eth...</Subtitle>
-      </Column>
-      <Unread>3 Unread</Unread>
-    </Row>
-  );
-};
+export {MsgRequestsIcon} from "@/design/MsgRequestsIcon";
+export * as MsgPreview from "@/design/MsgPreview";
+export * as Badge from "@/design/Badge";
+export * as ENSName from "@/design/ENSName";
 
-const ImageMarginRight = styled(Image)`
-  margin-right: 16px;
-`;
 
-const Row = styled.div`
+export const Root = styled.div`
   display: flex;
   align-items: center;
-  padding: 0 1rem;
-  background-color: ${(props) => props.theme.colors.gray["25"]};
+  justify-content: space-between;
+  padding: 1rem;
+  column-gap: 16px;
+  background-color: ${receiverTheme.colors.gray["25"]};
+  height: 4.5rem;
+
+  width: 100%;
 `;
 
-const Column = styled.div`
+export const Wrapper = styled.div`
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  padding: 0;
+  column-gap: 24px;
+
+  max-width: 80%;
+`;
+
+export const RequestDetails = styled.div`
   display: flex;
   flex-direction: column;
-  flex-grow: 1;
-  margin: 0;
-  padding: 0;
+  justify-content: space-evenly;
+  align-items: flex-start;
 `;
 
-const Title = styled.h4`
-  ${textMdSemiBold}
-  color: ${(props) => props.theme.colors.gray["900"]};
+
+export const StyledMsgRequest = styled(MsgPreview.MsgContainer)`
+  ${textSmallRegular};
+  color: ${receiverTheme.colors.gray["500"]};
   margin: 0;
   padding: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+
+  max-width: 80%;
 `;
 
-const Subtitle = styled.h5`
-  ${textSmallRegular}
-  color: ${(props) => props.theme.colors.gray["500"]};
-  margin: 0;
-  padding: 0;
-`;
 
-const Unread = styled.h6`
-  ${textXsMedium}
-  border-radius: 8px;
-  background-color: ${(props) => props.theme.colors.gray["100"]};
-  color: ${(props) => props.theme.colors.gray["700"]};
-`;
+// export default function Requests() {
+//     const existingRequest = useState(false);
+//     const existingUnreadReq = useState(false);
+//
+//     return (
+//         <Root>
+//             <Wrapper>
+//                 <MsgRequestsIcon/>
+//                 <RequestDetails>
+//
+//                     if (isLoading){
+//                         return  <ENSName.LoadingEnsNameLg />
+//                     } else {
+//                         return <ENSName.EnsNameMd> Message Requests </ENSName.EnsNameMd>
+//                     }
+//
+//                     {existingRequest &&
+//                         if (isLoading){
+//                             return <MsgPreview.MsgLoading/>
+//                         } else {
+//                         return <StyledMsgRequest>   From me and her and him and they and ....   </StyledMsgRequest>
+//                         }
+//                     }
+//                 </RequestDetails>
+//             </Wrapper>
+//
+//             {existingUnreadReq &&
+//                 if (isLoading){
+//                     return  <Badge hasLoaded={false} label={"unread"} color={"purple"} dot={true}/>
+//                 } else {
+//                     return <Badge hasLoaded={true} label={"unread"} color={"purple"} dot={true}/>
+//                 }
+//             }
+//
+//         </Root>
+//
+//     )
+// }
