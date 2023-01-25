@@ -1,12 +1,12 @@
 import styled from "styled-components";
 import { receiverTheme } from "@/design/receiverTheme";
-import { Checkbox } from "@/design/Checkbox";
-import { StatusIcon } from "@/design/StatusIcon";
+export * as Time from "@/design/Time";
+export * as ENSName from "@/design/ENSName";
+export * as Avatar from "@/components/Avatar";
+import * as MsgPreview from "@/design/MsgPreview";
 import { textSmallRegular } from "@/design/typography";
-import * as Time from "@/design/Time";
-import * as ENSName from "@/design/ENSName";
 
-const Root = styled.div`
+export const Root = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -19,7 +19,7 @@ const Root = styled.div`
   :hover {
     background-color: ${receiverTheme.colors.gray["200"]};
 
-   svg {
+    svg {
       rect {
         fill: ${receiverTheme.colors.gray["200"]};
       }
@@ -49,7 +49,7 @@ const Root = styled.div`
   }
 `;
 
-const Wrapper = styled.div`
+export const RequestDetails = styled.div`
   display: flex;
   justify-content: space-evenly;
   align-items: center;
@@ -59,7 +59,7 @@ const Wrapper = styled.div`
   max-width: 80%;
 `;
 
-const RequestDetails = styled.div`
+export const MsgDetails = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
@@ -67,48 +67,15 @@ const RequestDetails = styled.div`
   max-width: 55%;
 `;
 
-const NameContainer = styled.div`
+export const NameContainer = styled.div`
   max-width: 100%;
 `;
 
-const Message = styled.div`
+export const StyledMsgPreview = styled(MsgPreview.MsgContainer)`
   ${textSmallRegular};
-  color: ${receiverTheme.colors.gray["400"]};
 `;
 
-const TimeWrapper = styled.div`
+export const TimeWrapper = styled.div`
   display: flex;
   justify-content: flex-end;
 `;
-
-export const Request = ({
-  isEditing,
-  ENSname,
-  statusIcon,
-  messageDetails,
-  hasLoaded,
-}: {
-  isEditing: boolean;
-  ENSname: string;
-  statusIcon: string;
-  messageDetails: Array<{ message: string; time: string }>;
-  hasLoaded: boolean;
-}) => {
-  return (
-    <Root>
-      <Wrapper>
-        {isEditing && <Checkbox selected={false} />}
-        <StatusIcon size={"lg"} src={statusIcon} isLoading={!hasLoaded} />
-        <RequestDetails>
-          <NameContainer>
-            <ENSName.EnsNameMonofontMd>{ENSname}</ENSName.EnsNameMonofontMd>
-          </NameContainer>
-          <Message>{messageDetails[0].message}</Message>
-        </RequestDetails>
-      </Wrapper>
-      <TimeWrapper>
-        <Time.Root>{messageDetails[0].time}</Time.Root>
-      </TimeWrapper>
-    </Root>
-  );
-};

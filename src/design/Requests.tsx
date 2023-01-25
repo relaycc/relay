@@ -1,12 +1,11 @@
 import styled from "styled-components";
-import {textSmallRegular} from "./typography";
-import {receiverTheme} from "@/design/receiverTheme";
+import { textSmallRegular } from "./typography";
+import { receiverTheme } from "@/design/receiverTheme";
 
-export {MsgRequestsIcon} from "@/design/MsgRequestsIcon";
-export * as MsgPreview from "@/design/MsgPreview";
+export { MsgRequestsIcon } from "@/design/MsgRequestsIcon";
+import * as MsgPreview from "@/design/MsgPreview";
 export * as Badge from "@/design/Badge";
 export * as ENSName from "@/design/ENSName";
-
 
 export const Root = styled.div`
   display: flex;
@@ -37,7 +36,6 @@ export const RequestDetails = styled.div`
   align-items: flex-start;
 `;
 
-
 export const StyledMsgRequest = styled(MsgPreview.MsgContainer)`
   ${textSmallRegular};
   color: ${receiverTheme.colors.gray["500"]};
@@ -49,43 +47,3 @@ export const StyledMsgRequest = styled(MsgPreview.MsgContainer)`
 
   max-width: 80%;
 `;
-
-
-// export default function Requests() {
-//     const existingRequest = useState(false);
-//     const existingUnreadReq = useState(false);
-//
-//     return (
-//         <Root>
-//             <Wrapper>
-//                 <MsgRequestsIcon/>
-//                 <RequestDetails>
-//
-//                     if (isLoading){
-//                         return  <ENSName.LoadingEnsNameLg />
-//                     } else {
-//                         return <ENSName.EnsNameMd> Message Requests </ENSName.EnsNameMd>
-//                     }
-//
-//                     {existingRequest &&
-//                         if (isLoading){
-//                             return <MsgPreview.MsgLoading/>
-//                         } else {
-//                         return <StyledMsgRequest>   From me and her and him and they and ....   </StyledMsgRequest>
-//                         }
-//                     }
-//                 </RequestDetails>
-//             </Wrapper>
-//
-//             {existingUnreadReq &&
-//                 if (isLoading){
-//                     return  <Badge hasLoaded={false} label={"unread"} color={"purple"} dot={true}/>
-//                 } else {
-//                     return <Badge hasLoaded={true} label={"unread"} color={"purple"} dot={true}/>
-//                 }
-//             }
-//
-//         </Root>
-//
-//     )
-// }
