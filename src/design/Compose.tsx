@@ -1,8 +1,7 @@
 import { ComponentProps } from "react";
 import styled from "styled-components";
 import { receiverTheme } from "@/design/receiverTheme";
-
-const Compose = styled((props: ComponentProps<"svg">) => (
+export const Compose = styled((props: ComponentProps<"svg">) => (
   <svg
     width="40"
     height="40"
