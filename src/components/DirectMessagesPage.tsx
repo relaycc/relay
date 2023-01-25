@@ -7,7 +7,6 @@ import React, {
   useState,
 } from "react";
 import styled from "styled-components";
-import { format } from "date-fns";
 import * as ENSName from "@/design/ENSName";
 export * as Time from "@/design/Time";
 
@@ -23,20 +22,17 @@ import * as MsgBundles from "@/design/MsgBundles";
 import { useRelayId } from "@/hooks/useRelayId";
 import { isEnsName } from "@/lib/isEnsName";
 import * as MsgBox from "@/design/MsgBox";
-import { MsgBundlesSent } from "@/design/MsgBundlesSent";
 import { Avatar } from "./Avatar";
 import { getDisplayDate } from "@/lib/getDisplayDate";
 import * as Toast from "@/design/Toast";
-import { ToastPosition } from "@/pages/receiver/profile";
 import { BackIcon } from "@/design/BackIcon";
 import { UserDetails } from "@/design/DMHeader";
-import { PinIcon } from "@/design/PinIcon";
 import { ButtonMinimize } from "@/design/ButtonMinimize";
 import { CloseIcon } from "@/design/CloseIcon";
 import { getShortenedAddress } from "@/lib/getShortenedAddress";
-import { MessageInput } from "@/design/MsgBox";
-// import * as MsgBundles from "@/design/MsgBundles";
 import * as MsgPreview from "@/design/MsgPreview";
+import { Pinned, Unpinned } from "@/design/PinIcon";
+import { Active, Inactive } from "@/design/ArrowUpCircle";
 
 export interface MessagesBucketProps {
   bucket: {
@@ -59,6 +55,8 @@ export const DirectMessagesPage: FunctionComponent<{}> = () => {
     clientAddress: connectedWallet?.address as EthAddress,
     conversation: { peerAddress },
   });
+  // TODO Wire in the logic for pinning conversation
+  const pinned = false;
   const relayId = useRelayId({ handle: peerAddress });
   // TODO:Aaron Need a hook to get ens name or lens name or erh address if none exists
   const ensName = useMemo(() => {
@@ -165,7 +163,7 @@ export const DirectMessagesPage: FunctionComponent<{}> = () => {
           </UserDetails>
         </DMHeader.LeftSide>
         <DMHeader.RightSide>
-          <PinIcon pinned={false} hasLoaded={!!peerAddress} />
+          <PinWrapper>{pinned ? <Pinned /> : <Unpinned />}</PinWrapper>
           <ButtonMinimize />
           <CloseIcon />
         </DMHeader.RightSide>
@@ -194,7 +192,7 @@ export const DirectMessagesPage: FunctionComponent<{}> = () => {
           onKeyDown={onEnter}
         />
         <MsgBox.IconContainer>
-          <MsgBox.ArrowUpCircle active={!sending} handleClick={handleSend} />
+          {!sending ? <Active onClick={handleSend} /> : <Inactive />}
         </MsgBox.IconContainer>
       </MsgBox.Root>
 
@@ -241,7 +239,6 @@ const ListMessages: FunctionComponent<
       return handle;
     }
   }, [handle, relayId]);
-  console.log("some", bucket.messages);
   if (peerAddress === bucket.messages[0].senderAddress) {
     return (
       <MsgBundles.Root>
@@ -261,7 +258,6 @@ const ListMessages: FunctionComponent<
 
               <MsgBundles.Time.Root>
                 {[...bucket.messages].reverse()[0].time}
-                {/*{getDisplayDate([...bucket.messages].reverse()[0].sent)}*/}
               </MsgBundles.Time.Root>
             </MsgBundles.NameAndDate>
             <MsgBundles.MsgContainer>
@@ -274,10 +270,6 @@ const ListMessages: FunctionComponent<
                   {[...bucket.messages].reverse()[0].content}
                 </MsgPreview.MsgContainer>
               )}
-              {/*<MsgPreview*/}
-              {/*  isLoading={false}*/}
-              {/*  msg={[...bucket.messages].reverse()[0].content}*/}
-              {/*/>*/}
             </MsgBundles.MsgContainer>
           </MsgBundles.UserAndMessage>
         </MsgBundles.FirstMsgContainer>
@@ -297,21 +289,10 @@ const ListMessages: FunctionComponent<
               ) : (
                 <MsgPreview.MsgContainer>{i.content}</MsgPreview.MsgContainer>
               )}
-
-              {/*<MsgPreview isLoading={false} msg={i.content} />*/}
             </MsgBundles.RestOfTheMessages>
           ))}
       </MsgBundles.Root>
     );
-
-    // return (
-    //   <MsgBundlesReceived
-    //     ensName={ensName}
-    //     isLoading={false}
-    //     messages={[...bucket.messages].reverse()}
-    //     isGray={isGray}
-    //   />
-    // );
   }
   return (
     <MsgBundles.Root>
@@ -328,11 +309,7 @@ const ListMessages: FunctionComponent<
             <ENSName.EnsNameMonofontLg>{ensName}</ENSName.EnsNameMonofontLg>
 
             <MsgBundles.Time.Root>
-              <MsgBundles.XxsSizedTime>
-                {[...bucket.messages].reverse()[0].time}
-              </MsgBundles.XxsSizedTime>
-
-              {/*{getDisplayDate([...bucket.messages].reverse()[0].sent)}*/}
+              {[...bucket.messages].reverse()[0].time}
             </MsgBundles.Time.Root>
           </MsgBundles.NameAndDate>
           <MsgBundles.MsgContainer>
@@ -345,11 +322,6 @@ const ListMessages: FunctionComponent<
                 {[...bucket.messages].reverse()[0].content}
               </MsgPreview.MsgContainer>
             )}
-
-            {/*<MsgPreview*/}
-            {/*  isLoading={false}*/}
-            {/*  msg={[...bucket.messages].reverse()[0].content}*/}
-            {/*/>*/}
           </MsgBundles.MsgContainer>
         </MsgBundles.UserAndMessage>
       </MsgBundles.FirstMsgContainer>
@@ -369,8 +341,6 @@ const ListMessages: FunctionComponent<
             ) : (
               <MsgPreview.MsgContainer>{i.content}</MsgPreview.MsgContainer>
             )}
-
-            {/*<MsgPreview isLoading={false} msg={i.content} />*/}
           </MsgBundles.RestOfTheMessages>
         ))}
     </MsgBundles.Root>
@@ -452,4 +422,14 @@ const ScrollContainer = styled.div`
   height: 100%;
   overflow-y: auto;
   padding-bottom: 0.5rem;
+`;
+const ToastPosition = styled.div`
+  position: absolute;
+  bottom: 2rem;
+  left: 1rem;
+`;
+const PinWrapper = styled.div`
+  display: flex;
+  height: 100%;
+  align-items: center;
 `;
