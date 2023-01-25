@@ -1,9 +1,9 @@
-import styled from "styled-components";
-import { receiverTheme } from "@/design/receiverTheme";
-import { textSmallRegular } from "@/design/typography";
-export * as Time from "@/design/Time";
-export * as ENSName from "@/design/ENSName";
-export { Avatar } from "@/components/Avatar";
+import styled from 'styled-components';
+import { receiverTheme } from '@/design/receiverTheme';
+import { textSmallRegular } from '@/design/typography';
+export * as Time from '@/design/Time';
+export * as ENSName from '@/design/ENSName';
+export { Avatar } from '@/components/Avatar';
 
 export const Root = styled.div`
   display: flex;
@@ -17,10 +17,10 @@ export const Root = styled.div`
   background: #ffffff;
 
   :hover {
-    background-color: ${receiverTheme.colors.gray["200"]};
+    background-color: ${receiverTheme.colors.gray['200']};
   }
   :active {
-    background-color: ${receiverTheme.colors.gray["300"]};
+    background-color: ${receiverTheme.colors.gray['300']};
   }
 `;
 
@@ -52,10 +52,14 @@ export const NameAndIcons = styled.div`
 
 export const MessageDetails = styled.div`
   ${textSmallRegular};
-  color: ${receiverTheme.colors.gray["400"]};
+  color: ${receiverTheme.colors.gray['400']};
   display: flex;
-  overflow: hidden;
   width: 100%;
+
+  overflow: clip;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  max-width: 15rem;
 `;
 
 export const StyledTime = styled.div`

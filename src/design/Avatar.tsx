@@ -28,9 +28,19 @@ const xl = css`
   width: 75px;
 `;
 
+const xxxl = css`
+  height: 120px;
+  width: 120px;
+`;
+
 export const AvatarXl = styled(motion.img)`
   ${avatar};
   ${xl};
+`;
+
+export const Avatar3Xl = styled(motion.img)`
+  ${avatar};
+  ${xxxl};
 `;
 
 export const AvatarLg = styled(motion.img)`
@@ -66,4 +76,9 @@ export const BlockieLg = styled(Blockies)`
 export const BlockieXl = styled(Blockies)`
   ${avatar};
   ${xl};
+`;
+
+export const Blockie3Xl = styled(Blockies)`
+  ${avatar};
+  ${xxxl};
 `;

@@ -1,17 +1,17 @@
-import styled, { css } from "styled-components";
+import styled, { css } from 'styled-components';
 import {
   spaceMonoMdBold,
   textMdSemiBold,
   textXlSemibold,
-} from "@/design/typography";
-import { receiverTheme } from "@/design/receiverTheme";
+} from '@/design/typography';
+import { receiverTheme } from '@/design/receiverTheme';
 
 const name = css`
-  color: ${receiverTheme.colors.gray["900"]};
+  color: ${receiverTheme.colors.gray['900']};
   overflow: clip;
   white-space: nowrap;
   text-overflow: ellipsis;
-  max-width: 80%;
+  max-width: 15rem;
 `;
 
 const loadingName = css`
@@ -46,7 +46,7 @@ const monoFontMd = css`
 `;
 
 const primaryColor = css`
-  color: ${receiverTheme.colors.primary["500"]};
+  color: ${receiverTheme.colors.primary['500']};
 `;
 
 export const EnsNameLg = styled.div`
