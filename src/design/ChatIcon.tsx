@@ -1,8 +1,8 @@
 import { ComponentProps } from "react";
-import styled, { css } from "styled-components";
-const Svg = styled.svg<{ active: boolean }>`
-  ${({ active }) => (active ? css`` : css``)}
-`;
+import styled from "styled-components";
+import { receiverTheme } from "@/design/receiverTheme";
+
+
 const Base = styled((props: ComponentProps<"svg">) => (
   <svg
     width="40"
@@ -16,7 +16,6 @@ const Base = styled((props: ComponentProps<"svg">) => (
       d="M3.31182 25.7748C2.49106 23.9808 2 21.8243 2 19.2426C2 13.6765 4.27898 9.96649 7.55571 7.58324C10.915 5.13991 15.4652 4 20 4C24.5348 4 29.085 5.13991 32.4443 7.58324C35.721 9.96649 38 13.6765 38 19.2426C38 24.8088 35.721 28.5188 32.4443 30.902C29.085 33.3454 24.5348 34.4853 20 34.4853C18.6391 34.4853 17.267 34.3821 15.921 34.1687C15.0381 34.0286 14.0906 34.0066 13.1315 34.1866L4.28386 35.8457C3.75979 35.944 3.30002 35.4847 3.39841 34.9599L4.12172 31.1019C4.48652 29.1562 4.00633 27.2932 3.31182 25.7748Z"
       stroke="#98A2B3"
       strokeWidth="4"
-      // fill={active ? "#4236c7" : "#ffffff"}
       strokeLinecap="round"
       strokeLinejoin="round"
     />
@@ -30,7 +29,6 @@ const Base = styled((props: ComponentProps<"svg">) => (
     />
     <path
       d="M21.3792 19.2424C21.3792 20.0042 20.7616 20.6219 19.9999 20.6219C19.2383 20.6219 18.6206 20.0042 18.6206 19.2424C18.6206 18.4807 19.2383 17.863 19.9999 17.863C20.7616 17.863 21.3792 18.4807 21.3792 19.2424Z"
-      // fill="#98A2B3"
       stroke="#98A2B3"
       strokeWidth="2.75862"
       strokeLinecap="round"
@@ -54,6 +52,46 @@ const Base = styled((props: ComponentProps<"svg">) => (
 
 export const Active = styled(Base)`
   path {
+    fill: ${receiverTheme.colors.primary["500"]};
+    stroke: #4236c7;
+  }
+  path:nth-of-type(2) {
+    fill: ${receiverTheme.colors.primary["500"]};
+    stroke: #ffffff;
+  }
+  path:nth-of-type(3) {
+    stroke: #ffffff;
+  }
+  path:nth-of-type(4) {
+    fill: ${receiverTheme.colors.primary["500"]};
+    stroke: #ffffff;
+  }
+  path:nth-of-type(5) {
+    fill: ${receiverTheme.colors.primary["500"]};
+    stroke: ${receiverTheme.colors.primary["500"]};
+  }
+`;
+
+export const Inactive = styled(Base)`
+  :hover {
+    path {
+      transition: fill 150ms ease-in;
+      fill: #ffffff;
+      stroke: ${receiverTheme.colors.primary["500"]};
+    }
+  }
+`;
+
+export const ChatIcon = styled(Base)<{active:boolean}>`
+  :hover {
+    path {
+      transition: fill 150ms ease-in;
+      fill: #ffffff;
+      stroke: #4236c7;
+    }
+  }
+${({active})=>active && css`
+  path {
     fill: "#4236c7";
     stroke: #4236c7;
   }
@@ -72,14 +110,5 @@ export const Active = styled(Base)`
     fill: "#4236c7";
     stroke: #4236c7;
   }
-`;
-
-export const Inactive = styled(Base)`
-  :hover {
-    path {
-      transition: fill 150ms ease-in;
-      fill: #ffffff;
-      stroke: #4236c7;
-    }
-  }
-`;
+`}
+`

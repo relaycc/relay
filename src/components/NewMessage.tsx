@@ -3,10 +3,19 @@ import * as NewMsgInput from "@/design/NewMsgInput";
 import * as Toast from "@/design/Toast";
 import * as NewMessageHeader from "@/design/NewMessageHeader";
 import styled from "styled-components";
-import {useCallback, useState} from "react";
-import {textMdSemiBold, textSmallRegular} from "@/design/typography";
-import {receiverTheme} from "@/design/receiverTheme";
-import {motion} from "framer-motion";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { textMdSemiBold, textSmallRegular } from "@/design/typography";
+import { receiverTheme } from "@/design/receiverTheme";
+import { motion } from "framer-motion";
+import {
+  EthAddress,
+  isEthAddress,
+  useFetchPeerOnNetwork,
+  useSendMessage,
+} from "@relaycc/xmtp-hooks";
+import { useRouter } from "next/router";
+import { isEnsName } from "@/lib/isEnsName";
+import { useAddressFromEns } from "@/hooks/useAddressFromEns";
 
 const Root = styled(motion.div)`
   display: flex;
@@ -78,139 +87,228 @@ const ToastPosition = styled.div`
   left: 1rem;
 `;
 
-export const NewMessage = ({doClose}: { doClose: () => unknown }) => {
-    const [showFailureToast, setShowFailureToast] = useState<boolean>(false);
-    const [isLoading, setIsLoading] = useState<boolean>(false);
-    const [inputIsFocused, setInputIsFocused] = useState<boolean>(false);
-    const [inputValue, setInputValue] = useState<string | null>(null);
-    const [isAddressValid, setIsAddressValid] = useState<boolean | null>(null);
+export const NewMessage = ({
+  doClose,
+  clientAddress,
+}: {
+  doClose: () => unknown;
+  clientAddress: EthAddress;
+}) => {
+  const [showFailureToast, setShowFailureToast] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [inputIsFocused, setInputIsFocused] = useState<boolean>(false);
+  const [messageInputIsFocused, setMessageInputIsFocused] =
+    useState<boolean>(false);
+  const [inputValue, setInputValue] = useState<string | null>(null);
+  const [isAddressValid, setIsAddressValid] = useState<boolean | null>(null);
+  const [peerAddress, setPeerAddress] = useState<EthAddress | null>(null);
+  const [inputMessage, setInputMessage] = useState<string>("");
+  const [ethAddress, setEthAddress] = useState<EthAddress | null>(null);
+  const [isAddressLoading, setIsAddressLoading] = useState<boolean>(false);
 
-    const [inputMessage, setInputMessage] = useState<string | null>(null);
+  const router = useRouter();
+  const inputRef = useRef(null);
+  const sendMessage = useSendMessage({ clientAddress });
 
+  const { data: isOnNetwork, isLoading: isOnNetworkLoading } =
+    useFetchPeerOnNetwork({
+      clientAddress,
+      peerAddress: ethAddress,
+    });
 
-    const triggerFailureToast = useCallback(() => {
-        setShowFailureToast(true);
+  const { data: ethFromEns } = useAddressFromEns({
+    handle: inputValue,
+  });
 
-        setTimeout(() => {
-            setShowFailureToast(false);
-        }, 3000);
-    }, []);
+  const validate = useCallback(() => {
+    setIsAddressLoading(true);
+    if (!isEnsName(inputValue) && !isEthAddress(inputValue)) {
+      setIsAddressValid(false);
+      setIsAddressLoading(false);
+      return;
+    }
 
-    const clearFailureToast = useCallback(() => {
-        setShowFailureToast(false);
-    }, [setShowFailureToast]);
+    if (isEnsName(inputValue) && ethFromEns) {
+      setEthAddress(ethFromEns);
+    } else if (isEthAddress(inputValue)) {
+      setEthAddress(inputValue as EthAddress);
+    }
+  }, [inputValue, ethFromEns]);
 
-    return (
-        <Root
-            initial={{maxHeight: "0"}}
-            animate={{maxHeight: "100vh"}}
-            transition={{duration: 0.3}}
+  useEffect(() => {
+    if (!ethAddress) {
+      return;
+    }
+
+    if (isOnNetwork === undefined || isOnNetworkLoading) {
+      setIsAddressValid(null);
+      return;
+    }
+    if (!isOnNetwork) {
+      setIsAddressValid(false);
+    } else {
+      setIsAddressValid(true);
+      setPeerAddress(ethAddress);
+      inputRef?.current && (inputRef.current as HTMLInputElement).focus();
+    }
+    setIsAddressLoading(false);
+  }, [ethAddress, isOnNetwork, isOnNetworkLoading]);
+
+  const send = useCallback(async () => {
+    if (!sendMessage?.mutate || !isOnNetwork || !peerAddress || !inputMessage) {
+      return;
+    }
+    try {
+      setIsLoading(true);
+      await sendMessage.mutateAsync({
+        conversation: {
+          peerAddress,
+        },
+        content: inputMessage,
+      });
+      setIsLoading(false);
+      setInputValue("");
+      router.push(`/receiver/dm/${peerAddress}`);
+    } catch {
+      triggerFailureToast();
+    }
+  }, [sendMessage, inputMessage, peerAddress]);
+
+  const handleKeyDown = useCallback(
+    (event: React.KeyboardEvent<HTMLDivElement>) => {
+      if (event.key === "Enter") {
+        send();
+      }
+    },
+    [send]
+  );
+
+  const triggerFailureToast = useCallback(() => {
+    setShowFailureToast(true);
+
+    setTimeout(() => {
+      setShowFailureToast(false);
+    }, 3000);
+  }, []);
+
+  const clearFailureToast = useCallback(() => {
+    setShowFailureToast(false);
+  }, [setShowFailureToast]);
+
+  return (
+    <Root
+      initial={{ maxHeight: "0" }}
+      animate={{ top: "1rem", maxHeight: "100vh" }}
+      exit={{ top: "100%" }}
+      transition={{ duration: 0.3 }}
+    >
+      <HeaderWrapper>
+        <NewMessageHeader.Root>
+          <NewMessageHeader.Title>New Message</NewMessageHeader.Title>
+          <NewMessageHeader.Button>
+            <NewMessageHeader.CloseIcon onClick={doClose} />
+          </NewMessageHeader.Button>
+        </NewMessageHeader.Root>
+      </HeaderWrapper>
+      <UnstyledForm
+        onSubmit={(e) => {
+          e.preventDefault();
+          setIsLoading(true);
+          setTimeout(() => {
+            setIsAddressValid(false);
+            setIsLoading(false);
+          }, 3000);
+        }}
+      >
+        <NewMsgInput.Root
+          onFocus={() => setInputIsFocused(true)}
+          onBlur={() => setInputIsFocused(false)}
         >
-            <HeaderWrapper>
-                <NewMessageHeader.Root>
-                    <NewMessageHeader.Title>New Message</NewMessageHeader.Title>
-                    <NewMessageHeader.Button>
-                        <NewMessageHeader.CloseIcon onClick={doClose}/>
-                    </NewMessageHeader.Button>
-                </NewMessageHeader.Root>
-            </HeaderWrapper>
-            <UnstyledForm
-                onSubmit={(e) => {
-                    e.preventDefault();
-                    setIsLoading(true);
-                    setTimeout(() => {
-                        setIsAddressValid(false);
-                        setIsLoading(false);
-                    }, 3000);
-                }}
-            >
-                <NewMsgInput.Root
-                    onFocus={() => setInputIsFocused(true)}
-                    onBlur={() => setInputIsFocused(false)}
-                >
-                    <NewMsgInput.To>To: </NewMsgInput.To>
-                    <NewMsgInput.TextInput
-                        onChange={(e) => {
-                            setInputValue(e.target.value);
-                            setIsAddressValid(null);
-                            clearFailureToast();
-                        }}
-                        autoFocus={true}
-                        value={inputValue || ""}
-                        placeholder="Enter ENS name or address"
-                    />
-                    <NewMsgInput.IconContainer>
-                        {(() => {
-                            if (isLoading) {
-                                return <NewMsgInput.LoaderAnimGeneral/>;
-                            } else if (inputIsFocused) {
-                                return <NewMsgInput.AddIconActive>+</NewMsgInput.AddIconActive>;
-                            } else {
-                                return <NewMsgInput.AddIcon>+</NewMsgInput.AddIcon>;
-                            }
-                        })()}
-                    </NewMsgInput.IconContainer>
-                </NewMsgInput.Root>
-            </UnstyledForm>
-            <Main>
-                {isAddressValid === false && (
-                    <NoResultText>
-                        <NoResultTitle>No result found</NoResultTitle>
-                        <NoResultSubtitle>
-                            Please enter a valid ENS, Lens, or Address
-                        </NoResultSubtitle>
-                    </NoResultText>
-                )}
-            </Main>
-            <MsgBoxWrapper>
+          <NewMsgInput.To>To: </NewMsgInput.To>
+          <NewMsgInput.TextInput
+            onChange={(e) => {
+              setInputValue(e.target.value);
+              setIsAddressValid(null);
+              clearFailureToast();
+            }}
+            autoFocus={true}
+            value={inputValue || ""}
+            placeholder="Enter ENS name or address"
+          />
+          <NewMsgInput.IconContainer
+            onMouseDown={(e) => e.preventDefault()}
+            onClick={validate}
+          >
+            {(() => {
+              if (isAddressLoading) {
+                return <NewMsgInput.LoaderAnimGeneral />;
+              } else if (inputIsFocused) {
+                return <NewMsgInput.AddIconActive>+</NewMsgInput.AddIconActive>;
+              } else {
+                return <NewMsgInput.AddIcon>+</NewMsgInput.AddIcon>;
+              }
+            })()}
+          </NewMsgInput.IconContainer>
+        </NewMsgInput.Root>
+      </UnstyledForm>
+      <Main>
+        {isAddressValid === false && (
+          <NoResultText>
+            <NoResultTitle>No result found</NoResultTitle>
+            <NoResultSubtitle>
+              Please enter a valid ENS, Lens, or Address
+            </NoResultSubtitle>
+          </NoResultText>
+        )}
+      </Main>
+      <MsgBoxWrapper>
+        <MsgBox.Root
+          onFocus={() => setMessageInputIsFocused(true)}
+          onBlur={() => setMessageInputIsFocused(false)}
+        >
+          <MsgBox.MessageInput
+            onKeyDown={handleKeyDown}
+            ref={inputRef}
+            onChange={(e) => {
+              setInputMessage(e.target.value);
+              clearFailureToast();
+            }}
+            autoFocus={true}
+            value={inputMessage}
+            placeholder="Type a Message"
+          />
+          <MsgBox.IconContainer onClick={send}>
+            {(() => {
+              if (isLoading) {
+                return <MsgBox.LoaderAnimGeneral />;
+              } else if (messageInputIsFocused) {
+                return <MsgBox.ArrowUpCircle active={true} />;
+              } else {
+                return <MsgBox.ArrowUpCircle active={false} />;
+              }
+            })()}
+          </MsgBox.IconContainer>
+        </MsgBox.Root>
+      </MsgBoxWrapper>
 
-                <MsgBox.Root
-                    onFocus={() => setInputIsFocused(true)}
-                    onBlur={() => setInputIsFocused(false)}
-                >
-                    <MsgBox.MessageInput
-                        onChange={(e) => {
-                            setInputMessage(e.target.value);
-                            clearFailureToast();
-                        }}
-                        autoFocus={true}
-                        value={inputMessage || ""}
-                        placeholder="Type a Message"
-                    />
-                    <MsgBox.IconContainer>
-                        {(() => {
-                            if (isLoading) {
-                                return <MsgBox.LoaderAnimGeneral/>;
-                            } else if (inputIsFocused) {
-                                return <MsgBox.ArrowUpCircle active={true}/>;
-                            } else {
-                                return <MsgBox.ArrowUpCircle active={false}/>;
-                            }
-                        })()}
-                    </MsgBox.IconContainer>
-                </MsgBox.Root>
-
-            </MsgBoxWrapper>
-
-            {showFailureToast && (
-                <ToastPosition>
-                    <Toast.Failure.Card
-                        initial={{opacity: 0.2}}
-                        animate={{opacity: 1}}
-                        transition={{duration: 0.2}}
-                    >
-                        <Toast.Failure.AlertIcon/>
-                        <Toast.Failure.Column>
-                            <Toast.Failure.Title>Failed to Send Message</Toast.Failure.Title>
-                            <Toast.Failure.Subtitle>
-                                Check connection and try again.
-                            </Toast.Failure.Subtitle>
-                        </Toast.Failure.Column>
-                        <Toast.Failure.ExitIcon onClick={clearFailureToast}/>
-                    </Toast.Failure.Card>
-                </ToastPosition>
-            )}
-        </Root>
-    );
+      {showFailureToast && (
+        <ToastPosition>
+          <Toast.Failure.Card
+            initial={{ opacity: 0.2 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.2 }}
+          >
+            <Toast.Failure.AlertIcon />
+            <Toast.Failure.Column>
+              <Toast.Failure.Title>Failed to Send Message</Toast.Failure.Title>
+              <Toast.Failure.Subtitle>
+                Check connection and try again.
+              </Toast.Failure.Subtitle>
+            </Toast.Failure.Column>
+            <Toast.Failure.ExitIcon onClick={clearFailureToast} />
+          </Toast.Failure.Card>
+        </ToastPosition>
+      )}
+    </Root>
+  );
 };
-
