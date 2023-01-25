@@ -1,11 +1,5 @@
 import styled from "styled-components";
 import { receiverTheme } from "@/design/receiverTheme";
-import { BackIcon } from "@/design/BackIcon";
-import { StatusIcon } from "@/design/StatusIcon";
-import * as ENSName from "@/design/ENSName";
-import { PinIcon } from "@/design/PinIcon";
-import { ButtonMinimize } from "@/design/ButtonMinimize";
-import { CloseIcon } from "@/design/CloseIcon";
 export * as AddressHeader from "@/design/AddressHeader";
 import { useCallback } from "react";
 import { Avatar } from "@/components/Avatar";

@@ -1,8 +1,7 @@
 import styled from "styled-components";
 import { receiverTheme } from "@/design/receiverTheme";
 import { displayXsBold } from "@/design/typography";
-import { BackIcon } from "@/design/BackIcon";
-import { Edit } from "@/design/Edit";
+
 
 export const Container = styled.div`
   display: flex;
