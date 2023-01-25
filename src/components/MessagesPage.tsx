@@ -24,6 +24,7 @@ import { FooterNav } from './FooterNav';
 import * as Nav from '@/design/Nav';
 import { Search } from '@/design/Search';
 import { NewMessage } from './NewMessage';
+import * as Skeleton from '@/design/Skeleton';
 
 const Root = styled.div`
   height: 700px;
@@ -60,68 +61,15 @@ const ConversationList = styled.ol`
   scrollbar-width: none;
 `;
 
-const loadingGradient = css`
-  background: linear-gradient(
-    90deg,
-    #f1efef -24.18%,
-    #f9f8f8 50.26%,
-    #e7e5e5 114.84%
-  );
-  border-radius: 6px;
-  height: 100%;
-  width: 100%;
-`;
-
-const LoadingCircle = styled.div`
-  ${loadingGradient};
-  height: 40px;
-  width: 40px;
-  min-width: 40px;
-  border-radius: 100%;
-`;
-
-const LoadingTitle = styled.div`
-  ${loadingGradient};
-  height: 1rem;
-  width: 96px;
-`;
-
-const LoadingSubtitle = styled.div`
-  ${loadingGradient};
-  height: 1rem;
-  width: 231px;
-`;
-
-const LoadingRoot = styled.div`
-  display: flex;
-  height: 4.5rem;
-  padding: 1rem;
-`;
-
-const LoadingColumn = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  margin-left: 1.5rem;
-`;
-
-const LoadingTime = styled.div`
-  ${loadingGradient};
-  height: 0.75rem;
-  align-self: center;
-  width: 54px;
-  margin-left: 1rem;
-`;
-
 const Loading = () => (
-  <LoadingRoot>
-    <LoadingCircle />
-    <LoadingColumn>
-      <LoadingTitle />
-      <LoadingSubtitle />
-    </LoadingColumn>
-    <LoadingTime />
-  </LoadingRoot>
+  <Skeleton.LoadingRoot>
+    <Skeleton.LoadingCircle />
+    <Skeleton.LoadingColumn>
+      <Skeleton.LoadingTitle />
+      <Skeleton.LoadingSubtitle />
+    </Skeleton.LoadingColumn>
+    <Skeleton.LoadingTime />
+  </Skeleton.LoadingRoot>
 );
 
 interface IMessagesPageProps {}
@@ -172,7 +120,9 @@ export const MessagesPage: FunctionComponent<IMessagesPageProps> = () => {
             onClick={navigateToProfile}
           />
           {connectedWallet ? (
-            <HomeHeader.Compose.Active onClick={() => setShowNewMessage(true)} />
+            <HomeHeader.Compose.Active
+              onClick={() => setShowNewMessage(true)}
+            />
           ) : (
             <HomeHeader.Compose.Inactive onClick={() => null} />
           )}

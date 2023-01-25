@@ -1,10 +1,12 @@
 import React, { FunctionComponent, useRef, useMemo } from 'react';
 import { useInView } from '@/hooks/useInView';
 import {
+  Avatar3Xl,
   AvatarLg,
   AvatarMd,
   AvatarSm,
   AvatarXl,
+  Blockie3Xl,
   BlockieLg,
   BlockieMd,
   BlockieSm,
@@ -15,7 +17,7 @@ import { useEnsAvatar } from '@/hooks/useEnsAvatar';
 export interface AvatarProps {
   handle: string | null | undefined;
   onClick: () => unknown;
-  size: "sm" | "md" | "lg" | "xl";
+  size: 'sm' | 'md' | 'lg' | 'xl' | 'xxxl';
 }
 
 export const Avatar: FunctionComponent<AvatarProps> = ({
@@ -29,14 +31,16 @@ export const Avatar: FunctionComponent<AvatarProps> = ({
 
   const AvatarElement = useMemo(() => {
     switch (size) {
-      case "sm":
+      case 'sm':
         return AvatarSm;
-      case "md":
+      case 'md':
         return AvatarMd;
       case 'lg':
         return AvatarLg;
       case 'xl':
         return AvatarXl;
+      case 'xxxl':
+        return Avatar3Xl;
       default:
         throw new Error('Invalid Avatar size');
     }
@@ -44,14 +48,14 @@ export const Avatar: FunctionComponent<AvatarProps> = ({
 
   const blockie = useMemo(() => {
     switch (size) {
-      case "sm":
+      case 'sm':
         return {
           component: BlockieSm,
-          seed: handle || "no address",
+          seed: handle || 'no address',
           size: 10,
           scale: 2.5,
         };
-      case "md":
+      case 'md':
         return {
           component: BlockieMd,
           seed: handle || 'no address',
@@ -71,6 +75,13 @@ export const Avatar: FunctionComponent<AvatarProps> = ({
           seed: handle || 'no address',
           size: 10,
           scale: 7.5,
+        };
+      case 'xxxl':
+        return {
+          component: Blockie3Xl,
+          seed: handle || 'no address',
+          size: 10,
+          scale: 12,
         };
       default:
         throw new Error('Invalid Avatar size');
