@@ -1,8 +1,8 @@
-import styled from "styled-components";
-import { receiverTheme } from "@/design/receiverTheme";
 import { ComponentProps } from "react";
+import { receiverTheme } from "./receiverTheme";
+import styled from "styled-components";
 
-const ArrowUpCircle = styled((props: ComponentProps<"svg">) =>(
+const ArrowUpCircle = styled((props: ComponentProps<"svg">) => (
   <svg
     width="24"
     height="24"

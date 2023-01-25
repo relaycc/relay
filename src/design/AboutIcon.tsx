@@ -1,7 +1,7 @@
 import { ComponentProps } from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
-const AboutIcon = styled((props: ComponentProps<"svg">) => (
+const Base = styled((props: ComponentProps<"svg">) => (
   <svg
     width="40"
     height="40"
@@ -25,7 +25,7 @@ const AboutIcon = styled((props: ComponentProps<"svg">) => (
   </svg>
 ))``;
 
-export const Active = styled(AboutIcon)`
+export const Active = styled(Base)`
   circle:first-child {
     fill: #4236c7;
     stroke: #4236c7;
@@ -39,7 +39,7 @@ export const Active = styled(AboutIcon)`
   }
 `;
 
-export const Inactive = styled(AboutIcon)`
+export const Inactive = styled(Base)`
   :hover {
     circle {
       transition: stroke 150ms ease-out;
@@ -50,4 +50,12 @@ export const Inactive = styled(AboutIcon)`
       fill: #4236c7;
     }
   }
+`;
+
+
+export const AboutIcon = styled(Base)<{active:boolean}>`
+  ${({active})=> active && css`
+    ${Active}
+  `}
+  ${Inactive}
 `;
