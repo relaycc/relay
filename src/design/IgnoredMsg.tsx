@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import { receiverTheme } from "@/design/receiverTheme";
-import { DropdownIcon } from "@/design/DropdownIcon";
 import { textSmallBold } from "@/design/typography";
 
 export const Root = styled.div`

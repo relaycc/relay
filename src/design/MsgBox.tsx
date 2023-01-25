@@ -3,7 +3,7 @@ import {receiverTheme} from "@/design/receiverTheme";
 import {textSmallRegular} from "@/design/typography";
 
 export {LoaderAnimGeneral} from "@/design/LoaderAnimGeneral";
-export {ArrowUpCircle} from "@/design/ArrowUpCircle";
+export * as ArrowUpCircle from "@/design/ArrowUpCircle";
 
 
 export const Root = styled.div`
@@ -38,4 +38,5 @@ export const IconContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
 `;

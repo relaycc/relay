@@ -3,34 +3,33 @@ import React, {
   useCallback,
   useMemo,
   useState,
-} from "react";
-import { useConnectedWallet } from "@/hooks/useConnectedWallet";
+} from 'react';
+import { useConnectedWallet } from '@/hooks/useConnectedWallet';
+import { AnimatePresence } from 'framer-motion';
 import {
   Conversation,
   EthAddress,
   useDirectMessage,
   useConversations,
-} from "@relaycc/xmtp-hooks";
-import { useRedirectWhenNotSignedIn } from "@/hooks/useRedirectWhenNotSignedInt";
-import * as HomeHeader from "@/design/HomeHeader";
-import * as MessagePreview from "@/design/MessagePreview";
-import styled, { css } from "styled-components";
-import { useRelayId } from "@/hooks/useRelayId";
-import { isEnsName } from "@/lib/isEnsName";
-import { getDisplayDate } from "@/lib/getDisplayDate";
-import { useRouter } from "next/router";
-import { FooterNav } from "./FooterNav";
-import * as Nav from "@/design/Nav";
-import { Search } from "@/design/Search";
-import { NewMessage } from "./NewMessage";
-import { setSeconds } from "date-fns";
+} from '@relaycc/xmtp-hooks';
+import { useRedirectWhenNotSignedIn } from '@/hooks/useRedirectWhenNotSignedInt';
+import * as HomeHeader from '@/design/HomeHeader';
+import * as MessagePreview from '@/design/MessagePreview';
+import styled, { css } from 'styled-components';
+import { useRelayId } from '@/hooks/useRelayId';
+import { isEnsName } from '@/lib/isEnsName';
+import { getDisplayDate } from '@/lib/getDisplayDate';
+import { useRouter } from 'next/router';
+import { FooterNav } from './FooterNav';
+import * as Nav from '@/design/Nav';
+import { Search } from '@/design/Search';
+import { NewMessage } from './NewMessage';
 
 const Root = styled.div`
   height: 700px;
   width: 400px;
-  border-radius: 4px;
   margin: 6rem auto;
-  box-shadow: 0px 4px 32px rgba(16, 24, 40, 0.12);
+  box-shadow: 0 4px 32px rgba(16, 24, 40, 0.12);
   border-radius: 14px;
   position: relative;
   display: flex;
@@ -74,7 +73,7 @@ const loadingGradient = css`
 `;
 
 const LoadingCircle = styled.div`
-  ${loadingGradient}
+  ${loadingGradient};
   height: 40px;
   width: 40px;
   min-width: 40px;
@@ -82,13 +81,13 @@ const LoadingCircle = styled.div`
 `;
 
 const LoadingTitle = styled.div`
-  ${loadingGradient}
+  ${loadingGradient};
   height: 1rem;
   width: 96px;
 `;
 
 const LoadingSubtitle = styled.div`
-  ${loadingGradient}
+  ${loadingGradient};
   height: 1rem;
   width: 231px;
 `;
@@ -97,7 +96,6 @@ const LoadingRoot = styled.div`
   display: flex;
   height: 4.5rem;
   padding: 1rem;
-  display: flex;
 `;
 
 const LoadingColumn = styled.div`
@@ -108,7 +106,7 @@ const LoadingColumn = styled.div`
 `;
 
 const LoadingTime = styled.div`
-  ${loadingGradient}
+  ${loadingGradient};
   height: 0.75rem;
   align-self: center;
   width: 54px;
@@ -142,10 +140,10 @@ export const MessagesPage: FunctionComponent<IMessagesPageProps> = () => {
   });
 
   const navigateToProfile = useCallback(() => {
-    router.push("/receiver/profile");
+    router.push('/receiver/profile');
   }, [router]);
 
-  useRedirectWhenNotSignedIn("/receiver/messages");
+  useRedirectWhenNotSignedIn('/receiver/messages');
 
   const filteredConversations = useMemo(() => {
     if (!searchInput) {
@@ -173,12 +171,16 @@ export const MessagesPage: FunctionComponent<IMessagesPageProps> = () => {
             size="sm"
             onClick={navigateToProfile}
           />
-          <HomeHeader.Compose onClick={() => setShowNewMessage(true)} />
+          {connectedWallet ? (
+            <HomeHeader.Compose.Active onClick={() => setShowNewMessage(true)} />
+          ) : (
+            <HomeHeader.Compose.Inactive onClick={() => null} />
+          )}
         </HomeHeader.IconContainer>
       </HomeHeader.Root>
       <SearchWrapper>
         <Search
-          placeholder={"Search for an ETH address"}
+          placeholder={'Search for an ETH address'}
           onChange={(e: any) => {
             // TODO: Not sure why isn't getting the type inference here.
             setSearchInput(e.target.value);
@@ -215,9 +217,15 @@ export const MessagesPage: FunctionComponent<IMessagesPageProps> = () => {
         })()}
       </ConversationList>
       <FooterNav />
-      {showNewMessage && (
-        <NewMessage doClose={() => setShowNewMessage(false)} />
-      )}
+
+      <AnimatePresence>
+        {showNewMessage && (
+          <NewMessage
+            clientAddress={connectedWallet?.address as EthAddress}
+            doClose={() => setShowNewMessage(false)}
+          />
+        )}
+      </AnimatePresence>
     </Root>
   );
 };
@@ -266,8 +274,8 @@ const Chats: FunctionComponent<{
           <MessagePreview.NameAndIcons>
             <MessagePreview.ENSName.EnsNameMonofontMd>
               {ensName}
-              {conversation.context?.conversationId.includes("lens.dev") &&
-                " 🌿"}
+              {conversation.context?.conversationId.includes('lens.dev') &&
+                ' 🌿'}
             </MessagePreview.ENSName.EnsNameMonofontMd>
           </MessagePreview.NameAndIcons>
           <MessagePreview.MessageDetails>

@@ -1,6 +1,19 @@
 import { ComponentProps } from "react";
 import styled from "styled-components";
 
+export const LoadingImg = styled.div`
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  background: linear-gradient(
+          90deg,
+            #f1efef -24.18%,
+          #f9f8f8 50.26%,
+          #e7e5e5 114.84%
+  );
+  mix-blend-mode: multiply;
+`;
+
 export const LogoutIcon = styled((props: ComponentProps<"svg">) => (
   <svg
     width="40"
