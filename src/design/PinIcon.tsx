@@ -1,17 +1,9 @@
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 import { receiverTheme } from "@/design/receiverTheme";
+import { ComponentProps } from "react";
 
-const Svg = styled.svg<{ pinned: boolean }>`
-  ${({ pinned }) =>
-    pinned &&
-    css`
-      path {
-        fill: ${receiverTheme.colors.gray["900"]};
-      }
-    `};
-`;
 
-const LoadingImg = styled.div`
+export const LoadingImg = styled.div`
   width: 2.5rem;
   height: 2.5rem;
   border-radius: 50%;
@@ -21,23 +13,17 @@ const LoadingImg = styled.div`
     #f9f8f8 50.26%,
     #e7e5e5 114.84%
   );
+  mix-blend-mode: multiply;
 `;
 
-export const PinIcon = ({
-  pinned,
-  hasLoaded,
-}: {
-  pinned: boolean;
-  hasLoaded: boolean;
-}) =>
-  hasLoaded ? (
-    <Svg
-      pinned={pinned}
+const PinIcon = styled((props: ComponentProps<"svg">)=>(
+    <svg
       width="24"
       height="24"
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      {...props}
     >
       <path
         d="M8.75 7.75L7.75 4.75H16.25L15.25 7.75V10C18.25 11 18.25 14.25 18.25 14.25H5.75C5.75 14.25 5.75 11 8.75 10V7.75Z"
@@ -53,7 +39,17 @@ export const PinIcon = ({
         strokeLinecap="round"
         strokeLinejoin="round"
       />
-    </Svg>
-  ) : (
-    <LoadingImg />
-  );
+    </svg>
+  ))`
+  cursor: pointer`;
+
+export const Pinned = styled(PinIcon)`
+  path {
+    fill: ${receiverTheme.colors.gray["900"]};
+  }
+`;
+
+export const Unpinned = styled(PinIcon)`
+  `;
+
+

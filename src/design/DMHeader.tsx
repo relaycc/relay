@@ -1,14 +1,8 @@
 import styled from "styled-components";
 import { receiverTheme } from "@/design/receiverTheme";
-import { BackIcon } from "@/design/BackIcon";
-import { StatusIcon } from "@/design/StatusIcon";
-import * as ENSName from "@/design/ENSName";
-import { AddressHeader } from "@/design/AddressHeader";
-import { PinIcon } from "@/design/PinIcon";
-import { ButtonMinimize } from "@/design/ButtonMinimize";
-import { CloseIcon } from "@/design/CloseIcon";
+export * as AddressHeader from "@/design/AddressHeader";
 
-const Root = styled.div`
+export const Root = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -21,7 +15,7 @@ const Root = styled.div`
   width: 100%;
 `;
 
-const LeftSide = styled.div`
+export const LeftSide = styled.div`
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -29,7 +23,7 @@ const LeftSide = styled.div`
   max-width: 65%;
 `;
 
-const UserDetails = styled.div`
+export const UserDetails = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -38,7 +32,7 @@ const UserDetails = styled.div`
   row-gap: 0.25rem;
 `;
 
-const NameAndIcon = styled.div`
+export const NameAndIcon = styled.div`
   display: flex;
   align-items: center;
   justify-content: flex-start;
@@ -47,43 +41,43 @@ const NameAndIcon = styled.div`
   width: 100%;
 `;
 
-const RightSide = styled.div`
+export const RightSide = styled.div`
   display: flex;
   height: 2.5rem;
 
   width: 30%;
 `;
 
-export const DMHeader = ({
-  src,
-  hasLoaded,
-  ENSname,
-  addressHeader,
-  pinned,
-}: {
-  src: string;
-  hasLoaded: boolean;
-  ENSname: string;
-  addressHeader: string;
-  pinned: boolean;
-}) => {
-  return (
-    <Root>
-      <LeftSide>
-        <BackIcon />
-        <StatusIcon size={"lg"} src={src} isLoading={!hasLoaded} />
-        <UserDetails>
-          <NameAndIcon>
-            <ENSName.EnsNameMd>{ENSname}</ENSName.EnsNameMd>
-          </NameAndIcon>
-          <AddressHeader isLoading={!hasLoaded} addressHeader={addressHeader} />
-        </UserDetails>
-      </LeftSide>
-      <RightSide>
-        <PinIcon pinned={pinned} hasLoaded={!hasLoaded} />
-        <ButtonMinimize />
-        <CloseIcon />
-      </RightSide>
-    </Root>
-  );
-};
+// export const DMHeader = ({
+//   src,
+//   hasLoaded,
+//   ENSname,
+//   addressHeader,
+//   pinned,
+// }: {
+//   src: string;
+//   hasLoaded: boolean;
+//   ENSname: string;
+//   addressHeader: string;
+//   pinned: boolean;
+// }) => {
+//   return (
+//     <Root>
+//       <LeftSide>
+//         <BackIcon />
+//         <StatusIcon size={"lg"} src={src} isLoading={!hasLoaded} />
+//         <UserDetails>
+//           <NameAndIcon>
+//             <ENSName.EnsNameMd>{ENSname}</ENSName.EnsNameMd>
+//           </NameAndIcon>
+//           <AddressHeader isLoading={!hasLoaded} addressHeader={addressHeader} />
+//         </UserDetails>
+//       </LeftSide>
+//       <RightSide>
+//         <PinIcon pinned={pinned} hasLoaded={!hasLoaded} />
+//         <ButtonMinimize />
+//         <CloseIcon />
+//       </RightSide>
+//     </Root>
+//   );
+// };

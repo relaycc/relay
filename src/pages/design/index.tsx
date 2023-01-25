@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { AddressHeader } from "@/design/AddressHeader";
+//import { AddressHeader } from "@/design/AddressHeader";
 import { ButtonView } from "@/design/ButtonView";
 
 const VERY_LONG_TEXT =
@@ -18,11 +18,11 @@ export default function Design() {
           <FigmaLink>Link Here</FigmaLink>
         </ComponentSectionHeader>
         <Receiver>
-          <AddressHeader isLoading={true} addressHeader={""} />
-          <AddressHeader isLoading={false} addressHeader={EMPTY_TEXT} />
-          <AddressHeader isLoading={false} addressHeader={SHORT_TEXT} />
-          <AddressHeader isLoading={false} addressHeader={MEDIUM_TEXT} />
-          <AddressHeader isLoading={false} addressHeader={VERY_LONG_TEXT} />
+          {/*<AddressHeader isLoading={true} addressHeader={""} />*/}
+          {/*<AddressHeader isLoading={false} addressHeader={EMPTY_TEXT} />*/}
+          {/*<AddressHeader isLoading={false} addressHeader={SHORT_TEXT} />*/}
+          {/*<AddressHeader isLoading={false} addressHeader={MEDIUM_TEXT} />*/}
+          {/*<AddressHeader isLoading={false} addressHeader={VERY_LONG_TEXT} />*/}
         </Receiver>
       </ComponentSection>
       <ComponentSection>

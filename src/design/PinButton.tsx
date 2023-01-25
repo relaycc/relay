@@ -1,39 +1,16 @@
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 import { receiverTheme } from "@/design/receiverTheme";
+import { ComponentProps } from "react";
 
-const Svg = styled.svg<{ pinned: boolean }>`
-  ${({ pinned }) =>
-    pinned &&
-    css`
-      path {
-        transition: fill 150ms ease-in;
-        fill: ${receiverTheme.colors.gray["900"]};
-      }
-    `};
 
-  :hover {
-    rect {
-      transition: fill 150ms ease-in;
-      fill: ${receiverTheme.colors.gray["200"]};
-    }
-  }
-
-  :active {
-    rect {
-      transition: fill 150ms ease-in;
-      fill: #${receiverTheme.colors.gray["300"]};
-    }
-  }
-`;
-
-export const PinButton = ({ pinned }: { pinned: boolean }) => (
-  <Svg
-    pinned={pinned}
+const PinButton = styled((props: ComponentProps<"svg">)=>(
+  <svg
     width="40"
     height="40"
     viewBox="0 0 40 40"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
+    {...props}
   >
     <rect width="40" height="40" rx="20" fill="white" />
     <path
@@ -50,5 +27,43 @@ export const PinButton = ({ pinned }: { pinned: boolean }) => (
       strokeLinecap="round"
       strokeLinejoin="round"
     />
-  </Svg>
-);
+  </svg>
+))`
+  cursor: pointer;
+  `;
+
+export const Pinned = styled(PinButton)`
+  :hover {
+    rect {
+      transition: fill 150ms ease-in;
+      fill: ${receiverTheme.colors.gray["200"]};
+    }
+  }
+
+  :active {
+    rect {
+      transition: fill 150ms ease-in;
+      fill: ${receiverTheme.colors.gray["300"]};
+    }
+  }
+  path {
+    transition: fill 150ms ease-in;
+    fill: ${receiverTheme.colors.gray["900"]};
+  }
+`;
+
+export const Unpinned = styled(PinButton)`
+  :hover {
+    rect {
+      transition: fill 150ms ease-in;
+      fill: ${receiverTheme.colors.gray["200"]};
+    }
+  }
+
+  :active {
+    rect {
+      transition: fill 150ms ease-in;
+      fill: ${receiverTheme.colors.gray["300"]};
+    }
+  }
+`;

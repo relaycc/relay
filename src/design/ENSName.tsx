@@ -13,6 +13,18 @@ const name = css`
   text-overflow: ellipsis;
   max-width: 80%;
 `;
+
+const loadingName = css`
+  background: linear-gradient(
+    90deg,
+    #f1efef -24.18%,
+    #f9f8f8 50.26%,
+    #e7e5e5 114.84%
+  );
+  mix-blend-mode: multiply;
+  border-radius: 6px;
+`;
+
 const lg = css`
   ${textXlSemibold};
 `;
@@ -31,6 +43,10 @@ const monoFontLg = css`
 
 const monoFontMd = css`
   font-size: 0.875rem;
+`;
+
+const primaryColor = css`
+  color: ${receiverTheme.colors.primary["500"]};
 `;
 
 export const EnsNameLg = styled.div`
@@ -55,4 +71,36 @@ export const EnsNameMonofontMd = styled.div`
   ${md};
   ${monoFont};
   ${monoFontMd};
+`;
+
+export const LoadingEnsNameLg = styled.div`
+  ${loadingName};
+  ${lg};
+`;
+
+export const LoadingEnsNameMd = styled.div`
+  ${loadingName};
+  ${md};
+`;
+
+export const LoadingEnsNameMonofontLg = styled.div`
+  ${loadingName};
+  ${lg};
+  ${monoFont};
+  ${monoFontLg};
+`;
+
+export const LoadingEnsNameMonofontMd = styled.div`
+  ${loadingName};
+  ${md};
+  ${monoFont};
+  ${monoFontMd};
+`;
+
+export const EnsNameMonofontLgColored = styled.div`
+  ${name};
+  ${lg};
+  ${monoFont};
+  ${monoFontLg};
+  ${primaryColor};
 `;

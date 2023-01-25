@@ -1,12 +1,10 @@
 import styled from "styled-components";
-import {receiverTheme} from "@/design/receiverTheme";
-import {Checkbox, CheckboxSvg} from "@/design/Checkbox";
-import {textSmallRegular} from "@/design/typography";
-
+import { receiverTheme } from "@/design/receiverTheme";
 export * as Time from "@/design/Time";
 export * as ENSName from "@/design/ENSName";
 export * as Avatar from "@/components/Avatar";
-export * as MsgPreview from "@/design/MsgPreview"
+import * as MsgPreview from "@/design/MsgPreview";
+import { textSmallRegular } from "@/design/typography";
 
 export const Root = styled.div`
   display: flex;
@@ -21,7 +19,7 @@ export const Root = styled.div`
   :hover {
     background-color: ${receiverTheme.colors.gray["200"]};
 
-    ${CheckboxSvg} {
+    svg {
       rect {
         fill: ${receiverTheme.colors.gray["200"]};
       }
@@ -39,7 +37,7 @@ export const Root = styled.div`
   :active {
     background-color: ${receiverTheme.colors.gray["300"]};
 
-    ${CheckboxSvg} {
+    svg {
       rect {
         fill: ${receiverTheme.colors.gray["300"]};
       }
@@ -81,41 +79,3 @@ export const TimeWrapper = styled.div`
   display: flex;
   justify-content: flex-end;
 `;
-
-// export const Request = ({
-//                             isEditing,
-//                             ENSname,
-//                             statusIcon,
-//                             messageDetails,
-//                             hasLoaded,
-//                         }: {
-//     isEditing: boolean;
-//     ENSname: string;
-//     statusIcon: string;
-//     messageDetails: Array<{ message: string; time: string }>;
-//     hasLoaded: boolean;
-// }) => {
-//     return (
-//         <Root>
-//             <RequestDetails>
-
-//                 {isEditing && <Checkbox selected={false}/>}
-
-//                 <Avatar handle={''} onClick={() => {
-//                 }} size={"lg"}/>
-
-//                 <MsgDetails>
-//                     <NameContainer>
-//                         <ENSName.EnsNameMonofontMd>{ENSname}</ENSName.EnsNameMonofontMd>
-//                     </NameContainer>
-//                     <StyledMsgPreview>{messageDetails[0].message}</StyledMsgPreview>
-//                 </MsgDetails>
-
-//             </RequestDetails>
-
-//             <TimeWrapper>
-//                 <Time.Root>{messageDetails[0].time}</Time.Root>
-//             </TimeWrapper>
-//         </Root>
-//     );
-// };
