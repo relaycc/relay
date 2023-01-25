@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { receiverTheme } from "@/design/receiverTheme";
-import { Checkbox, CheckboxSvg } from "@/design/Checkbox";
+import { Checkbox } from "@/design/Checkbox";
 import { StatusIcon } from "@/design/StatusIcon";
 import { textSmallRegular } from "@/design/typography";
 import * as Time from "@/design/Time";
@@ -19,7 +19,7 @@ const Root = styled.div`
   :hover {
     background-color: ${receiverTheme.colors.gray["200"]};
 
-    ${CheckboxSvg} {
+   svg {
       rect {
         fill: ${receiverTheme.colors.gray["200"]};
       }
@@ -37,7 +37,7 @@ const Root = styled.div`
   :active {
     background-color: ${receiverTheme.colors.gray["300"]};
 
-    ${CheckboxSvg} {
+    svg {
       rect {
         fill: ${receiverTheme.colors.gray["300"]};
       }

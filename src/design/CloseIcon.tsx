@@ -1,5 +1,6 @@
 import { ComponentProps } from "react";
 import styled from "styled-components";
+import { receiverTheme } from "@/design/receiverTheme";
 
 export const CloseIcon = styled((props: ComponentProps<"svg">) => (
   <svg
@@ -20,20 +21,19 @@ export const CloseIcon = styled((props: ComponentProps<"svg">) => (
     />
   </svg>
 ))`
-  width: 2.5rem;
-  height: 2.5rem;
-
+  cursor: pointer;
+ 
   :hover {
     rect {
       transition: fill 150ms ease-in;
-      fill: #f2f4f7;
+      fill: ${receiverTheme.colors.gray["100"]};
     }
   }
 
   :active {
     rect {
       transition: fill 150ms ease-in;
-      fill: #d5d0dd;
+      fill: ${receiverTheme.colors.gray["300"]};
     }
   }
 `;

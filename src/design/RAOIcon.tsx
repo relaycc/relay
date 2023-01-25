@@ -1,28 +1,17 @@
 import styled from "styled-components";
+import { ComponentProps } from "react";
 
-const Svg = styled.svg`
 
-    width: 2.625rem;
-    height: 2.625rem;
-  
-  :hover {
-    transition: all 100ms ease-out;
-    width: 2.875rem;
-    height: 2.875rem;
-  }
+export const RAOIcon = styled((props: ComponentProps<"svg">) =>(
 
-  :active {
-    transition: all 100ms ease-out;
-    width: 2.25rem;
-    height: 2.25rem;
-  }
-`;
-
-export const RAOIcon = () => {
-
-    return(
-
-        <Svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg
+          width="48"
+          height="48"
+          viewBox="0 0 48 48"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          {...props}
+        >
             <g filter="url(#filter0_dd_445_10450)">
                 <rect x="3.00002" y="2" width="41.8182" height="42" rx="20.9091" fill="white"/>
                 <path d="M19.25 20.4445L24.5 25.6945L29.75 20.4445" stroke="#1C0F90" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"/>
@@ -73,10 +62,22 @@ export const RAOIcon = () => {
                     <stop offset="0.995673" stopColor="#4A1A7F" stopOpacity="0.1"/>
                 </linearGradient>
             </defs>
-        </Svg>
+        </svg>
 
 
 
-    )
+    ))`
+    width: 2.625rem;
+    height: 2.625rem;
 
-}
+    :hover {
+        transition: all 100ms ease-out;
+        width: 2.875rem;
+        height: 2.875rem;
+    }
+
+    :active {
+        transition: all 100ms ease-out;
+        width: 2.25rem;
+        height: 2.25rem;
+    }`;
