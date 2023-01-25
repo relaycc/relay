@@ -69,25 +69,12 @@ export const DirectMessagesPage: FunctionComponent<{}> = () => {
     }
   }, [peerAddress, relayId]);
 
-  const parsedMessages = useMemo(() => {
-    if (!messages?.data) {
-      return [];
-    }
-    return messages.data.map((message) => {
-      if (parseMessage) {
-        return parseMessage(message);
-      } else {
-        return message;
-      }
-    });
-  }, [messages]);
-
   const messageBuckets = useMemo(() => {
-    if (!parsedMessages) {
+    if (!messages.data) {
       return [];
     }
-    return getMessageBuckets(parsedMessages);
-  }, [parsedMessages]);
+    return getMessageBuckets(messages.data);
+  }, [messages]);
 
   const handleChange = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -257,7 +244,7 @@ const ListMessages: FunctionComponent<
               </ENSName.EnsNameMonofontLgColored>
 
               <MsgBundles.Time.Root>
-                {[...bucket.messages].reverse()[0].time}
+                {getDisplayDate([...bucket.messages].reverse()[0].sent)}
               </MsgBundles.Time.Root>
             </MsgBundles.NameAndDate>
             <MsgBundles.MsgContainer>
@@ -267,7 +254,7 @@ const ListMessages: FunctionComponent<
                 </MsgPreview.MsgContainer>
               ) : (
                 <MsgPreview.MsgContainer>
-                  {[...bucket.messages].reverse()[0].content}
+                  {[...bucket.messages].reverse()[0].content as String}
                 </MsgPreview.MsgContainer>
               )}
             </MsgBundles.MsgContainer>
@@ -280,14 +267,18 @@ const ListMessages: FunctionComponent<
           .map((i, index) => (
             <MsgBundles.RestOfTheMessages key={index}>
               <MsgBundles.HoveredTimeContainer>
-                <MsgBundles.XxsSizedTime>{i.time}</MsgBundles.XxsSizedTime>
+                <MsgBundles.XxsSizedTime>
+                  {getDisplayDate(i.sent)}
+                </MsgBundles.XxsSizedTime>
               </MsgBundles.HoveredTimeContainer>
               {!bucket.messages ? (
                 <MsgPreview.MsgContainer>
                   <MsgPreview.MsgLoading />
                 </MsgPreview.MsgContainer>
               ) : (
-                <MsgPreview.MsgContainer>{i.content}</MsgPreview.MsgContainer>
+                <MsgPreview.MsgContainer>
+                  {i.content as String}
+                </MsgPreview.MsgContainer>
               )}
             </MsgBundles.RestOfTheMessages>
           ))}
@@ -309,7 +300,7 @@ const ListMessages: FunctionComponent<
             <ENSName.EnsNameMonofontLg>{ensName}</ENSName.EnsNameMonofontLg>
 
             <MsgBundles.Time.Root>
-              {[...bucket.messages].reverse()[0].time}
+              {getDisplayDate([...bucket.messages].reverse()[0].sent)}
             </MsgBundles.Time.Root>
           </MsgBundles.NameAndDate>
           <MsgBundles.MsgContainer>
@@ -319,7 +310,7 @@ const ListMessages: FunctionComponent<
               </MsgPreview.MsgContainer>
             ) : (
               <MsgPreview.MsgContainer>
-                {[...bucket.messages].reverse()[0].content}
+                {[...bucket.messages].reverse()[0].content as String}
               </MsgPreview.MsgContainer>
             )}
           </MsgBundles.MsgContainer>
@@ -332,29 +323,23 @@ const ListMessages: FunctionComponent<
         .map((i, index) => (
           <MsgBundles.RestOfTheMessages key={index}>
             <MsgBundles.HoveredTimeContainer>
-              <MsgBundles.XxsSizedTime>{i.time}</MsgBundles.XxsSizedTime>
+              <MsgBundles.XxsSizedTime>
+                {getDisplayDate(i.sent)}
+              </MsgBundles.XxsSizedTime>
             </MsgBundles.HoveredTimeContainer>
             {!bucket.messages ? (
               <MsgPreview.MsgContainer>
                 <MsgPreview.MsgLoading />
               </MsgPreview.MsgContainer>
             ) : (
-              <MsgPreview.MsgContainer>{i.content}</MsgPreview.MsgContainer>
+              <MsgPreview.MsgContainer>
+                {i.content as String}
+              </MsgPreview.MsgContainer>
             )}
           </MsgBundles.RestOfTheMessages>
         ))}
     </MsgBundles.Root>
   );
-};
-
-const parseMessage = (message: Message) => {
-  return {
-    id: message.id,
-    senderAddress: message.senderAddress,
-    content: message.content,
-    conversation: message.conversation,
-    time: getDisplayDate(message.sent),
-  };
 };
 
 const isFiveMinuteDifference = (a: Date, b: Date): boolean => {
