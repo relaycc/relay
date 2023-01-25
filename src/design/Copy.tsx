@@ -59,6 +59,7 @@ const Button = styled.button<{ isClicked: boolean }>`
   transition: background-color 150ms ease-in;
   pointer-events: ${({ isClicked }) => (isClicked ? "none" : "visible")};
 
+  cursor: pointer;
   :hover {
     background-color: #eaecf0;
 

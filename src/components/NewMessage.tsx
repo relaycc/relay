@@ -1,21 +1,21 @@
-import * as MsgBox from '@/design/MsgBox';
-import * as NewMsgInput from '@/design/NewMsgInput';
-import * as Toast from '@/design/Toast';
-import * as NewMessageHeader from '@/design/NewMessageHeader';
-import styled from 'styled-components';
-import { useCallback, useEffect, useRef, useState } from 'react';
-import { textMdSemiBold, textSmallRegular } from '@/design/typography';
-import { receiverTheme } from '@/design/receiverTheme';
-import { motion } from 'framer-motion';
+import * as MsgBox from "@/design/MsgBox";
+import * as NewMsgInput from "@/design/NewMsgInput";
+import * as Toast from "@/design/Toast";
+import * as NewMessageHeader from "@/design/NewMessageHeader";
+import styled from "styled-components";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { textMdSemiBold, textSmallRegular } from "@/design/typography";
+import { receiverTheme } from "@/design/receiverTheme";
+import { motion } from "framer-motion";
 import {
   EthAddress,
   isEthAddress,
   useFetchPeerOnNetwork,
   useSendMessage,
-} from '@relaycc/xmtp-hooks';
-import { useRouter } from 'next/router';
-import { isEnsName } from '@/lib/isEnsName';
-import { useAddressFromEns } from '@/hooks/useAddressFromEns';
+} from "@relaycc/xmtp-hooks";
+import { useRouter } from "next/router";
+import { isEnsName } from "@/lib/isEnsName";
+import { useAddressFromEns } from "@/hooks/useAddressFromEns";
 
 const Root = styled(motion.div)`
   display: flex;
@@ -40,14 +40,14 @@ const UnstyledForm = styled.form`
 
 const HeaderWrapper = styled.div`
   width: 100%;
-  border-bottom: 1px solid ${receiverTheme.colors.gray['200']};
+  border-bottom: 1px solid ${receiverTheme.colors.gray["200"]};
 `;
 
 const Main = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  border-bottom: 1px solid ${receiverTheme.colors.gray['200']};
+  border-bottom: 1px solid ${receiverTheme.colors.gray["200"]};
 
   height: 32rem;
   width: 100%;
@@ -67,13 +67,13 @@ const NoResultText = styled.div`
 
 const NoResultTitle = styled.div`
   ${textMdSemiBold};
-  color: ${receiverTheme.colors.gray['900']};
+  color: ${receiverTheme.colors.gray["900"]};
   text-align: center;
 `;
 
 const NoResultSubtitle = styled.div`
   ${textSmallRegular};
-  color: ${receiverTheme.colors.gray['400']};
+  color: ${receiverTheme.colors.gray["400"]};
   text-align: center;
 `;
 
@@ -102,7 +102,7 @@ export const NewMessage = ({
   const [inputValue, setInputValue] = useState<string | null>(null);
   const [isAddressValid, setIsAddressValid] = useState<boolean | null>(null);
   const [peerAddress, setPeerAddress] = useState<EthAddress | null>(null);
-  const [inputMessage, setInputMessage] = useState<string>('');
+  const [inputMessage, setInputMessage] = useState<string>("");
   const [ethAddress, setEthAddress] = useState<EthAddress | null>(null);
   const [isAddressLoading, setIsAddressLoading] = useState<boolean>(false);
 
@@ -167,7 +167,7 @@ export const NewMessage = ({
         content: inputMessage,
       });
       setIsLoading(false);
-      setInputValue('');
+      setInputValue("");
       router.push(`/receiver/dm/${peerAddress}`);
     } catch {
       triggerFailureToast();
@@ -176,7 +176,7 @@ export const NewMessage = ({
 
   const handleKeyDown = useCallback(
     (event: React.KeyboardEvent<HTMLDivElement>) => {
-      if (event.key === 'Enter') {
+      if (event.key === "Enter") {
         send();
       }
     },
@@ -197,10 +197,11 @@ export const NewMessage = ({
 
   return (
     <Root
-      initial={{ maxHeight: '0' }}
-      animate={{ top: '1rem', maxHeight: '100vh' }}
-      exit={{ top: '100%' }}
-      transition={{ duration: 0.3 }}>
+      initial={{ maxHeight: "0" }}
+      animate={{ top: "1rem", maxHeight: "100vh" }}
+      exit={{ top: "100%" }}
+      transition={{ duration: 0.3 }}
+    >
       <HeaderWrapper>
         <NewMessageHeader.Root>
           <NewMessageHeader.Title>New Message</NewMessageHeader.Title>
@@ -217,10 +218,12 @@ export const NewMessage = ({
             setIsAddressValid(false);
             setIsLoading(false);
           }, 3000);
-        }}>
+        }}
+      >
         <NewMsgInput.Root
           onFocus={() => setInputIsFocused(true)}
-          onBlur={() => setInputIsFocused(false)}>
+          onBlur={() => setInputIsFocused(false)}
+        >
           <NewMsgInput.To>To: </NewMsgInput.To>
           <NewMsgInput.TextInput
             onChange={(e) => {
@@ -229,12 +232,13 @@ export const NewMessage = ({
               clearFailureToast();
             }}
             autoFocus={true}
-            value={inputValue || ''}
+            value={inputValue || ""}
             placeholder="Enter ENS name or address"
           />
           <NewMsgInput.IconContainer
             onMouseDown={(e) => e.preventDefault()}
-            onClick={validate}>
+            onClick={validate}
+          >
             {(() => {
               if (isAddressLoading) {
                 return <NewMsgInput.LoaderAnimGeneral />;
@@ -260,7 +264,8 @@ export const NewMessage = ({
       <MsgBoxWrapper>
         <MsgBox.Root
           onFocus={() => setMessageInputIsFocused(true)}
-          onBlur={() => setMessageInputIsFocused(false)}>
+          onBlur={() => setMessageInputIsFocused(false)}
+        >
           <MsgBox.MessageInput
             onKeyDown={handleKeyDown}
             ref={inputRef}
@@ -291,7 +296,8 @@ export const NewMessage = ({
           <Toast.Failure.Card
             initial={{ opacity: 0.2 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 0.2 }}>
+            transition={{ duration: 0.2 }}
+          >
             <Toast.Failure.AlertIcon />
             <Toast.Failure.Column>
               <Toast.Failure.Title>Failed to Send Message</Toast.Failure.Title>
