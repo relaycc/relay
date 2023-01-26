@@ -2,9 +2,12 @@ import styled from "styled-components";
 
 const Container = styled.div`
   background-image: url("/gradients.png");
-  width: 1440px;
+  width: 100%;
+  max-width: 1440px;
   height: 633px;
+  margin-bottom: 12rem;
   z-index: 0;
+  position: relative;
 `
 
 const Headertxt = styled.div`

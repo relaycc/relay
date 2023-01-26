@@ -9,9 +9,7 @@ export const Root = styled.div`
   display: flex;
   justify-content: center;
   height: 23.438rem;
-
   width: 100%;
-  //width: 1440px;
 `;
 
 export const StyledBckgr = styled(FooterBackground)`
@@ -21,21 +19,18 @@ export const StyledBckgr = styled(FooterBackground)`
 
 export const Wrapper = styled.div`
   position: absolute;
-
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   height: 23.438rem;
-  padding-top: 3rem;
-
-  width: 86.7%;
-  //width: 1249px;
+  padding: 3rem;
+  width: 100%;
+  max-width: 1440px;
 `;
 
 export const LinkContainer = styled.div`
   display: flex;
   justify-content: space-between;
-
   height: 13.188rem;
 `;
 
@@ -54,7 +49,6 @@ export const LinkTitle = styled.div`
   font-weight: 900;
   font-size: 20px;
   line-height: 27px;
-
   color: #ffffff;
   margin-bottom: 0.5rem;
 `;
@@ -64,7 +58,6 @@ export const SignOff = styled.div`
   justify-content: space-between;
   align-items: center;
   border-top: 1px solid ${receiverTheme.colors.gray["500"]};
-
   height: 5.75rem;
 `;
 export const Copyright = styled.div`
@@ -72,7 +65,6 @@ export const Copyright = styled.div`
   font-weight: 900;
   font-size: 20px;
   line-height: 27px;
-
   color: #ffffff;
 `;
 
@@ -81,7 +73,6 @@ export default function Footer() {
         <Root>
             <StyledBckgr/>
             <Wrapper>
-
                 <LinkContainer>
                     <LinkColumn>
                         <LinkTitle>Products</LinkTitle>
@@ -98,10 +89,8 @@ export default function Footer() {
                         <LinkTitle>About</LinkTitle>
                         <FooterLink>Careers</FooterLink>
                     </LinkColumn>
-
                     <LinkColumn>
                         <LinkTitle>Join the Community</LinkTitle>
-
                         <CommunityLinkItems>
                             <LogoSocialMedia.Logowrap>
                                 <LogoSocialMedia.Discord/>
@@ -120,10 +109,8 @@ export default function Footer() {
                                 <LogoSocialMedia.Label>Mirror</LogoSocialMedia.Label>
                             </LogoSocialMedia.Logowrap>
                         </CommunityLinkItems>
-
                     </LinkColumn>
                 </LinkContainer>
-
                 <SignOff>
                     <Logo.Logowrap>
                         <Logo.LogomarkWhite/>
@@ -131,7 +118,6 @@ export default function Footer() {
                     </Logo.Logowrap>
                     <Copyright>Copyright © 2022</Copyright>
                 </SignOff>
-
             </Wrapper>
         </Root>
     )
