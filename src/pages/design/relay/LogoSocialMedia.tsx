@@ -8,6 +8,7 @@ export const Logowrap = styled.div`
   height: 2.5rem;
   column-gap: 0.5rem;
   align-items: center;
+  cursor: pointer;
 `;
 
 export const Discord = styled((props: ComponentProps<"svg">) => (

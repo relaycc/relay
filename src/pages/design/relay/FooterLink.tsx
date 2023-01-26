@@ -8,6 +8,7 @@ export const FooterLink = styled.div`
   line-height: 22px;
 
   color: ${receiverTheme.colors.gray["300"]};
+  cursor: pointer;
 
   :hover {
     color: ${receiverTheme.colors.accent["300"]};
