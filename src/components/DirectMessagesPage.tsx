@@ -4,34 +4,35 @@ import React, {
   useCallback,
   useEffect,
   useMemo,
-  useState,
-} from 'react';
-import styled from 'styled-components';
-import * as ENSName from '@/design/ENSName';
-export * as Time from '@/design/Time';
-import * as Nav from '@/design/Nav';
-import * as DMHeader from '@/design/DMHeader';
-import { FooterNav } from './FooterNav';
-import { useRouter } from 'next/router';
-import { useRedirectWhenNotSignedIn } from '@/hooks/useRedirectWhenNotSignedInt';
-import { useConnectedWallet } from '@/hooks/useConnectedWallet';
-import { EthAddress, Message, useDirectMessage } from '@relaycc/xmtp-hooks';
-import * as MsgBundles from '@/design/MsgBundles';
-import { useRelayId } from '@/hooks/useRelayId';
-import { isEnsName } from '@/lib/isEnsName';
-import * as MsgBox from '@/design/MsgBox';
-import { Avatar } from './Avatar';
-import { getDisplayDate } from '@/lib/getDisplayDate';
-import * as Toast from '@/design/Toast';
-import { BackIcon } from '@/design/BackIcon';
-import { UserDetails } from '@/design/DMHeader';
-import { ButtonMinimize } from '@/design/ButtonMinimize';
-import { CloseIcon } from '@/design/CloseIcon';
-import { getShortenedAddress } from '@/lib/getShortenedAddress';
-import * as MsgPreview from '@/design/MsgPreview';
-import { Pinned, Unpinned } from '@/design/PinIcon';
-import { textSmallRegular } from '@/design/typography';
-import * as Skeleton from '@/design/Skeleton';
+  useState
+} from "react";
+import styled from "styled-components";
+import * as ENSName from "@/design/ENSName";
+
+export * as Time from "@/design/Time";
+import * as Nav from "@/design/Nav";
+import * as DMHeader from "@/design/DMHeader";
+import { FooterNav } from "./FooterNav";
+import { useRouter } from "next/router";
+import { useRedirectWhenNotSignedIn } from "@/hooks/useRedirectWhenNotSignedInt";
+import { useConnectedWallet } from "@/hooks/useConnectedWallet";
+import { EthAddress, Message, useDirectMessage } from "@relaycc/xmtp-hooks";
+import * as MsgBundles from "@/design/MsgBundles";
+import { useRelayId } from "@/hooks/useRelayId";
+import { isEnsName } from "@/lib/isEnsName";
+import * as MsgBox from "@/design/MsgBox";
+import { Avatar } from "./Avatar";
+import { getDisplayDate } from "@/lib/getDisplayDate";
+import * as Toast from "@/design/Toast";
+import { BackIcon } from "@/design/BackIcon";
+import { UserDetails } from "@/design/DMHeader";
+import { ButtonMinimize } from "@/design/ButtonMinimize";
+import { CloseIcon } from "@/design/CloseIcon";
+import { truncateAddress } from "@/lib/truncateAddress";
+import * as MsgPreview from "@/design/MsgPreview";
+import { Pinned, Unpinned } from "@/design/PinIcon";
+import { textSmallRegular } from "@/design/typography";
+import * as Skeleton from "@/design/Skeleton";
 
 export interface MessagesBucketProps {
   bucket: {
@@ -40,47 +41,32 @@ export interface MessagesBucketProps {
   };
 }
 
-type MessageBucket = MessagesBucketProps['bucket'];
+type MessageBucket = MessagesBucketProps["bucket"];
 
-const Loading = () => (
-  <Skeleton.LoadingRootDirect>
-    <Skeleton.LoadingCircle />
-    <Skeleton.LoadingColumn>
-      <Skeleton.LoadingRow>
-        <Skeleton.LoadingTitle />
-        <Skeleton.LoadingTime />
-      </Skeleton.LoadingRow>
-      <Skeleton.LoadingSubtitle />
-    </Skeleton.LoadingColumn>
-  </Skeleton.LoadingRootDirect>
-);
 
 export const DirectMessagesPage: FunctionComponent<{}> = () => {
-  useRedirectWhenNotSignedIn('/receiver/messages');
+  useRedirectWhenNotSignedIn("/receiver/messages");
   const [showFailureToast, setShowFailureToast] = useState(false);
-  const [sending, setSending] = useState(false);
-  const [msgValue, setMsgValue] = useState<string>('');
+  const [msgBoxActive, setMsgBoxActive] = useState(false);
+  const [msgValue, setMsgValue] = useState<string>("");
   const router = useRouter();
   const peerAddress = router.query.handle as EthAddress;
   const connectedWallet = useConnectedWallet((s) => s.connectedWallet);
   const { messages, sendMessage } = useDirectMessage({
     clientAddress: connectedWallet?.address as EthAddress,
-    conversation: { peerAddress },
+    conversation: { peerAddress }
   });
-  // TODO Wire in the logic for pinning conversation
-  const pinned = false;
+
   const relayId = useRelayId({ handle: peerAddress });
-  // TODO:Aaron Need a hook to get ens name or lens name or erh address if none exists
   const ensName = useMemo(() => {
     if (isEnsName(relayId.ens.data)) {
       return relayId.ens.data;
     } else if (relayId.ens.isLoading) {
-      return 'Loading...';
+      return "Loading...";
     } else {
       return peerAddress;
     }
   }, [peerAddress, relayId]);
-  console.log({ ensName });
 
   const messageBuckets = useMemo(() => {
     if (!messages.data) {
@@ -98,6 +84,9 @@ export const DirectMessagesPage: FunctionComponent<{}> = () => {
   const toggleFailureToast = useCallback(() => {
     setShowFailureToast(!showFailureToast);
   }, [showFailureToast]);
+  const toggleMsgBoxActive = useCallback(() => {
+    setMsgBoxActive(!msgBoxActive);
+  }, [msgBoxActive]);
   const handleSend = useCallback(() => {
     if (
       !messages?.data ||
@@ -108,31 +97,28 @@ export const DirectMessagesPage: FunctionComponent<{}> = () => {
       return;
     }
     try {
-      setSending(true);
       sendMessage.mutate({
         content: msgValue,
-        conversation: messages.data[0].conversation,
+        conversation: messages.data[0].conversation
       });
     } catch (e) {
-      setSending(false);
-
       toggleFailureToast();
       console.log(e);
       return;
     }
-    setMsgValue('');
-    setSending(false);
+    setMsgValue("");
   }, [msgValue, messages]);
+  const messageCount = useMemo(() => messages.data?.length, [messages]);
   const onEnter: KeyboardEventHandler<HTMLInputElement> = useCallback(
     (event) => {
-      if (event.key === 'Enter') {
+      if (event.key === "Enter") {
         handleSend();
       }
     },
     [handleSend]
   );
   useEffect(() => {
-    const chat = document.getElementById('chatScroll');
+    const chat = document.getElementById("chatScroll");
     if (!chat) {
       return;
     }
@@ -141,6 +127,9 @@ export const DirectMessagesPage: FunctionComponent<{}> = () => {
   const navigateBack = useCallback(() => {
     router.push(`/receiver/messages`);
   }, [router]);
+  useEffect(() => {
+    console.log({ msgBoxActive });
+  }, [msgBoxActive]);
   return (
     <Root>
       <DMHeader.Root>
@@ -156,56 +145,58 @@ export const DirectMessagesPage: FunctionComponent<{}> = () => {
                 <DMHeader.AddressHeader.LoadingDiv />
               ) : (
                 <DMHeader.AddressHeader.Container>
-                  {getShortenedAddress(peerAddress)}
+                  {truncateAddress(peerAddress)}
                 </DMHeader.AddressHeader.Container>
               )}
             </DMHeader.AddressHeader.Root>
           </UserDetails>
         </DMHeader.LeftSide>
         <DMHeader.RightSide>
-          <PinWrapper>{pinned ? <Pinned /> : <Unpinned />}</PinWrapper>
+          {/* TODO Pinned for later implementation */}
+          {/*<PinWrapper>{pinned ? <Pinned /> : <Unpinned />}</PinWrapper>*/}
           <ButtonMinimize />
           <CloseIcon />
         </DMHeader.RightSide>
       </DMHeader.Root>
 
       <ScrollContainer id="chatScroll">
-        <HeadWrapper>
+        {messageCount && messageCount < 25 && <HeadWrapper>
           <Avatar handle={peerAddress} onClick={() => null} size="xxxl" />
           <ENSName.EnsNameMd>{ensName}</ENSName.EnsNameMd>
           <Text>
             The very beginning of your end-to-end encrypted conversation
           </Text>
         </HeadWrapper>
-        <MessagesWrapper>
-          {messages.isLoading || !messageBuckets ? (
-            <>
-              <Loading />
-              <Loading />
-            </>
-          ) : (
-            messageBuckets.map((bucket, idx) => {
-              return (
-                <ListMessages
-                  key={`${bucket.peerAddress}_${idx}`}
-                  peerAddress={peerAddress}
-                  bucket={bucket}
-                />
-              );
-            })
-          )}
-        </MessagesWrapper>
+        }<MessagesWrapper>
+        {messages.isLoading || !messageBuckets ? (
+          <>
+            <Loading />
+            <Loading />
+          </>
+        ) : (
+          messageBuckets.map((bucket, idx) => {
+            return (
+              <ListMessages
+                key={`${bucket.peerAddress}_${idx}`}
+                peerAddress={peerAddress}
+                bucket={bucket}
+              />
+            );
+          })
+        )}
+      </MessagesWrapper>
       </ScrollContainer>
       <MsgBoxWrapper>
         <MsgBox.Root>
           <MsgBox.MessageInput
             onChange={handleChange}
             value={msgValue}
-            placeholder={'Type a Message'}
+            placeholder={"Type a Message"}
             onKeyDown={onEnter}
+            onFocus={toggleMsgBoxActive} onBlur={toggleMsgBoxActive}
           />
           <MsgBox.IconContainer>
-            <MsgBox.ArrowUpCircle active={!sending} onClick={handleSend} />
+            <MsgBox.ArrowUpCircle active={msgBoxActive} onClick={handleSend} />
           </MsgBox.IconContainer>
         </MsgBox.Root>
       </MsgBoxWrapper>
@@ -231,12 +222,13 @@ export const DirectMessagesPage: FunctionComponent<{}> = () => {
   );
 };
 
-const ListMessages: FunctionComponent<
-  MessagesBucketProps & { peerAddress: string } & {}
-> = ({ bucket, peerAddress }) => {
+const ListMessages: FunctionComponent<MessagesBucketProps & { peerAddress: string } & {}> = ({
+                                                                                               bucket,
+                                                                                               peerAddress
+                                                                                             }) => {
   const handle = useMemo(() => {
     if (!bucket || !bucket.messages.length) {
-      return '';
+      return "";
     }
     return bucket.messages[0].senderAddress as string;
   }, [bucket]);
@@ -246,7 +238,7 @@ const ListMessages: FunctionComponent<
     if (isEnsName(relayId.ens.data)) {
       return relayId.ens.data;
     } else if (relayId.ens.isLoading) {
-      return 'Loading...';
+      return "Loading...";
     } else {
       return handle;
     }
@@ -258,8 +250,9 @@ const ListMessages: FunctionComponent<
           <MsgBundles.StatusIconContainer>
             <Avatar
               handle={[...bucket.messages].reverse()[0].senderAddress}
-              onClick={() => {}}
-              size={'md'}
+              onClick={() => {
+              }}
+              size={"md"}
             />
           </MsgBundles.StatusIconContainer>
           <MsgBundles.UserAndMessage>
@@ -314,8 +307,9 @@ const ListMessages: FunctionComponent<
         <MsgBundles.StatusIconContainer>
           <Avatar
             handle={[...bucket.messages].reverse()[0].senderAddress}
-            onClick={() => {}}
-            size={'md'}
+            onClick={() => {
+            }}
+            size={"md"}
           />
         </MsgBundles.StatusIconContainer>
         <MsgBundles.UserAndMessage>
@@ -396,7 +390,7 @@ const getMessageBuckets = (messages: Message[]): MessageBucket[] => {
     if (shouldStartNewBucket()) {
       buckets.unshift({
         peerAddress: message.senderAddress,
-        messages: [message],
+        messages: [message]
       });
     } else {
       buckets[0].messages.push(message);
@@ -406,6 +400,18 @@ const getMessageBuckets = (messages: Message[]): MessageBucket[] => {
   return buckets;
 };
 
+const Loading = () => (
+  <Skeleton.LoadingRootDirect>
+    <Skeleton.LoadingCircle />
+    <Skeleton.LoadingColumn>
+      <Skeleton.LoadingRow>
+        <Skeleton.LoadingTitle />
+        <Skeleton.LoadingTime />
+      </Skeleton.LoadingRow>
+      <Skeleton.LoadingSubtitle />
+    </Skeleton.LoadingColumn>
+  </Skeleton.LoadingRootDirect>
+);
 const Root = styled.div`
   height: 700px;
   width: 400px;
@@ -445,7 +451,7 @@ const HeadWrapper = styled.div`
 
 const Text = styled.div`
   margin-top: 1rem;
-  color: ${({ theme }) => theme.colors.gray['500']};
+  color: ${({ theme }) => theme.colors.gray["500"]};
   text-align: center;
   max-width: 251px;
   ${textSmallRegular};
@@ -461,7 +467,8 @@ const ScrollContainer = styled.div`
   overflow-y: auto;
   overflow-x: hidden;
   padding-bottom: 0.5rem;
-  border-bottom: 1px solid ${({ theme }) => theme.colors.gray['200']};
+  border-bottom: 1px solid ${({ theme }) => theme.colors.gray["200"]};
+
   &::-webkit-scrollbar {
     display: none;
   }

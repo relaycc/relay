@@ -2,29 +2,30 @@ import React, {
   FunctionComponent,
   useCallback,
   useMemo,
-  useState,
-} from 'react';
-import { useConnectedWallet } from '@/hooks/useConnectedWallet';
-import { AnimatePresence } from 'framer-motion';
+  useState
+} from "react";
+import { useConnectedWallet } from "@/hooks/useConnectedWallet";
+import { AnimatePresence } from "framer-motion";
 import {
   Conversation,
   EthAddress,
   useDirectMessage,
-  useConversations,
-} from '@relaycc/xmtp-hooks';
-import { useRedirectWhenNotSignedIn } from '@/hooks/useRedirectWhenNotSignedInt';
-import * as HomeHeader from '@/design/HomeHeader';
-import * as MessagePreview from '@/design/MessagePreview';
-import styled, { css } from 'styled-components';
-import { useRelayId } from '@/hooks/useRelayId';
-import { isEnsName } from '@/lib/isEnsName';
-import { getDisplayDate } from '@/lib/getDisplayDate';
-import { useRouter } from 'next/router';
-import { FooterNav } from './FooterNav';
-import * as Nav from '@/design/Nav';
-import { Search } from '@/design/Search';
-import { NewMessage } from './NewMessage';
-import * as Skeleton from '@/design/Skeleton';
+  useConversations
+} from "@relaycc/xmtp-hooks";
+import { useRedirectWhenNotSignedIn } from "@/hooks/useRedirectWhenNotSignedInt";
+import * as HomeHeader from "@/design/HomeHeader";
+import * as MessagePreview from "@/design/MessagePreview";
+import styled, { css } from "styled-components";
+import { useRelayId } from "@/hooks/useRelayId";
+import { isEnsName } from "@/lib/isEnsName";
+import { getDisplayDate } from "@/lib/getDisplayDate";
+import { useRouter } from "next/router";
+import { FooterNav } from "./FooterNav";
+import * as Nav from "@/design/Nav";
+import { Search } from "@/design/Search";
+import { NewMessage } from "./NewMessage";
+import * as Skeleton from "@/design/Skeleton";
+import { truncateAddress } from "@/lib/truncateAddress";
 
 const Root = styled.div`
   height: 700px;
@@ -54,9 +55,11 @@ const ConversationList = styled.ol`
   padding: 0;
   padding-inline-end: 0;
   margin-inline-end: 0;
+
   &::-webkit-scrollbar {
     display: none;
   }
+
   -ms-overflow-style: none;
   scrollbar-width: none;
 `;
@@ -72,7 +75,8 @@ const Loading = () => (
   </Skeleton.LoadingRoot>
 );
 
-interface IMessagesPageProps {}
+interface IMessagesPageProps {
+}
 
 export const MessagesPage: FunctionComponent<IMessagesPageProps> = () => {
   const router = useRouter();
@@ -82,16 +86,16 @@ export const MessagesPage: FunctionComponent<IMessagesPageProps> = () => {
   const {
     data: conversations,
     isLoading,
-    isError,
+    isError
   } = useConversations({
-    clientAddress: connectedWallet?.address as EthAddress,
+    clientAddress: connectedWallet?.address as EthAddress
   });
 
   const navigateToProfile = useCallback(() => {
-    router.push('/receiver/profile');
+    router.push("/receiver/profile");
   }, [router]);
 
-  useRedirectWhenNotSignedIn('/receiver/messages');
+  useRedirectWhenNotSignedIn("/receiver/messages");
 
   const filteredConversations = useMemo(() => {
     if (!searchInput) {
@@ -130,7 +134,7 @@ export const MessagesPage: FunctionComponent<IMessagesPageProps> = () => {
       </HomeHeader.Root>
       <SearchWrapper>
         <Search
-          placeholder={'Search for an ETH address'}
+          placeholder={"Search for an ETH address"}
           onChange={(e: any) => {
             // TODO: Not sure why isn't getting the type inference here.
             setSearchInput(e.target.value);
@@ -186,11 +190,11 @@ const Chats: FunctionComponent<{
 }> = ({ conversation, address }) => {
   const router = useRouter();
   const {
-    messages: { data, isError, isLoading },
+    messages: { data, isError, isLoading }
   } = useDirectMessage({
     clientAddress: address,
     conversation,
-    stream: false,
+    stream: false
   });
 
   const lastMessage = data?.[0];
@@ -199,8 +203,8 @@ const Chats: FunctionComponent<{
   const ensName = useMemo(() => {
     if (isEnsName(relayId.ens.data)) {
       return relayId.ens.data;
-    } else {
-      return relayId.address.data;
+    } else if (relayId.address.data) {
+      return truncateAddress(relayId.address.data as string);
     }
   }, [relayId]);
 
@@ -224,8 +228,8 @@ const Chats: FunctionComponent<{
           <MessagePreview.NameAndIcons>
             <MessagePreview.ENSName.EnsNameMonofontMd>
               {ensName}
-              {conversation.context?.conversationId.includes('lens.dev') &&
-                ' 🌿'}
+              {conversation.context?.conversationId.includes("lens.dev") &&
+                " 🌿"}
             </MessagePreview.ENSName.EnsNameMonofontMd>
           </MessagePreview.NameAndIcons>
           <MessagePreview.MessageDetails>

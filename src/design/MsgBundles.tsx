@@ -1,11 +1,11 @@
-import styled from 'styled-components';
-import { receiverTheme } from '@/design/receiverTheme';
-import { textXsRegular } from '@/design/typography';
+import styled from "styled-components";
+import { receiverTheme } from "@/design/receiverTheme";
+import { textXsRegular } from "@/design/typography";
 
-export * as Time from '@/design/Time';
-export * as MsgPreview from '@/design/MsgPreview';
-export * as ENSName from '@/design/ENSName';
-export * as Avatar from '@/components/Avatar';
+export * as Time from "@/design/Time";
+export * as MsgPreview from "@/design/MsgPreview";
+export * as ENSName from "@/design/ENSName";
+export * as Avatar from "@/components/Avatar";
 
 export const Root = styled.div`
   display: flex;
@@ -19,11 +19,12 @@ export const Root = styled.div`
 export const FirstMsgContainer = styled.div`
   display: flex;
   justify-content: flex-start;
+  align-items: center;
   column-gap: 0.5rem;
-  padding: 0.125rem 1rem;
+  padding: 0 1rem;
 
   :hover {
-    background-color: ${receiverTheme.colors.gray['100']};
+    background-color: ${receiverTheme.colors.gray["100"]};
   }
 `;
 
@@ -32,7 +33,7 @@ export const RestOfTheMessages = styled(FirstMsgContainer)`
   border-top: 2px solid #ffffff;
 
   :hover {
-    background-color: ${receiverTheme.colors.gray['100']};
+    background-color: ${receiverTheme.colors.gray["100"]};
   }
 `;
 
@@ -55,7 +56,7 @@ export const HoveredTimeContainer = styled.div`
 export const XxsSizedTime = styled.div`
   ${textXsRegular};
   font-size: 0.37rem;
-  color: ${receiverTheme.colors.gray['400']};
+  color: ${receiverTheme.colors.gray["400"]};
 `;
 
 export const StatusIconContainer = styled.div`
