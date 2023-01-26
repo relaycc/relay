@@ -1,0 +1,15 @@
+import styled from "styled-components";
+import {receiverTheme} from "@/design/receiverTheme";
+
+export const FooterLink = styled.div`
+  font-style: normal;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 22px;
+
+  color: ${receiverTheme.colors.gray["300"]};
+
+  :hover {
+    color: ${receiverTheme.colors.accent["300"]};
+  }
+`;
