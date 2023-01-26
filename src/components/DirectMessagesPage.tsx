@@ -127,9 +127,6 @@ export const DirectMessagesPage: FunctionComponent<{}> = () => {
   const navigateBack = useCallback(() => {
     router.push(`/receiver/messages`);
   }, [router]);
-  useEffect(() => {
-    console.log({ msgBoxActive: inputIsFocused });
-  }, [inputIsFocused]);
   return (
     <Root>
       <DMHeader.Root>
