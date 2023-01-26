@@ -8,6 +8,8 @@ import * as Chevron from "./Chevron";
 import { RobotLensIcon } from "./RobotLensIcon";
 import { CardLens } from "./CardLens";
 import Footer from "./Footer";
+import { Logomark } from "./Logo";
+import { CardsWrapper, DirectoryCard } from "./DirectoryCard";
 
 const Main = styled.main`
   display: flex;
@@ -205,6 +207,11 @@ export const Page: FunctionComponent<{
               </DirectoryHeader.Directory>
             </DirectoryHeader.Directories>
           </DirectoryHeader.Nav>
+
+          {/* Cards starting here */}
+          <CardsWrapper>
+            <DirectoryCard/>
+          </CardsWrapper>
         </DirectoryHeader.Root>
           {children}
         <Footer/>

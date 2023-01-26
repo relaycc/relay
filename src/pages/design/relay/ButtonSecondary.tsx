@@ -6,8 +6,7 @@ export const SecondaryButton = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 138px;
-  height: 40px;
+  width: 100%;
   font-weight: 600;
   font-size: 14px;
   line-height: 20px;
