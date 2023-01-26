@@ -4,7 +4,7 @@ import {
   isLensName,
   useLaunch,
 } from "@relaycc/receiver";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { useRouter } from "next/router";
 import { IconSwap } from "./icons/IconSwap";
 import { IconWallet } from "./icons/IconWallet";
@@ -15,7 +15,7 @@ import {
   useChainModal,
   useConnectModal,
 } from "@rainbow-me/rainbowkit";
-import { useAccount, useNetwork } from "wagmi";
+import { useAccount, useNetwork, useEnsName } from "wagmi";
 import { IconSearch } from "./icons/IconSearch";
 import Image from "next/image";
 import Link from "next/link";
@@ -36,6 +36,19 @@ export const NavBarConversations = ({
   const account = useAccount();
   const launch = useLaunch();
   const router = useRouter();
+
+  const { data: ensName } = useEnsName({ address: account.address });
+  const displayName = useMemo(() => {
+    if (!account.isConnected) {
+      return "Connect A Wallet";
+    } else if (typeof ensName === "string") {
+      return ensName;
+    } else if (typeof account.address === "string") {
+      return `${account.address.slice(0, 8)}...${account.address.slice(-4)}`;
+    } else {
+      throw new Error("Invalid account state");
+    }
+  }, [account.address, account.isConnected, ensName]);
 
   return (
     <nav className="xl:flex items-end grid grid-cols-2 gap-4 mb-6 mt-5">
@@ -79,7 +92,7 @@ export const NavBarConversations = ({
       </div>
 
       <div className="flex justify-end items-center gap-4 xl:order-3 order-2 ml-6 md:w-auto xs:w-full">
-    <ul className="ml-auto flex items-center font-bold gap-4 text-indigo-900 mr-2 min-w-24">
+        <ul className="ml-auto flex items-center font-bold gap-4 text-indigo-900 mr-2 min-w-24">
           <a
             className="text-xl hidden md:flex hover:underline"
             href={"https://twitter.com/relay_eth"}
@@ -104,9 +117,12 @@ export const NavBarConversations = ({
           >
             Mirror
           </a>
-          <a 
+          <a
             className="xs:hidden sm:flex hover:underline"
-            href="https://github.com/relaycc" target="_blank" rel="noreferrer">
+            href="https://github.com/relaycc"
+            target="_blank"
+            rel="noreferrer"
+          >
             <Github />
           </a>
         </ul>
@@ -119,9 +135,8 @@ export const NavBarConversations = ({
           className={`btn bg-[#857EEA] hover:bg-[#2f24c4] lg:w-[319px] border-none rounded-md text-white`}
         >
           <div className="flex flex-row flex-grow items-center justify-between bg-#2f24c4">
-            {account.isConnected && typeof account.address === "string"
-              ? account.address.slice(0, 8) + "..." + account.address.slice(-4)
-              : "Connect A Wallet"}
+            {displayName}
+
             {account.isConnected ? (
               <IconSwap onClick={() => null} />
             ) : (
