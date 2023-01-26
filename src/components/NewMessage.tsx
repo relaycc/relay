@@ -257,7 +257,8 @@ export const NewMessage = ({
           <NoResultText>
             <NoResultTitle>No result found</NoResultTitle>
             <NoResultSubtitle>
-              Please enter a valid ENS, Lens, or Address
+              {/* TODO Dont forget to update this text when we support Lens as well, design says enter "ENS, Lens or Address"*/}
+              Please enter a valid ENS or Address
             </NoResultSubtitle>
           </NoResultText>
         )}
