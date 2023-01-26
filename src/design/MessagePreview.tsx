@@ -1,9 +1,10 @@
-import styled from 'styled-components';
-import { receiverTheme } from '@/design/receiverTheme';
-import { textSmallRegular } from '@/design/typography';
-export * as Time from '@/design/Time';
-export * as ENSName from '@/design/ENSName';
-export { Avatar } from '@/components/Avatar';
+import styled from "styled-components";
+import { receiverTheme } from "@/design/receiverTheme";
+import { textSmallRegular } from "@/design/typography";
+
+export * as Time from "@/design/Time";
+export * as ENSName from "@/design/ENSName";
+export { Avatar } from "@/components/Avatar";
 
 export const Root = styled.div`
   display: flex;
@@ -12,15 +13,15 @@ export const Root = styled.div`
   padding: 1rem;
   height: 4.5rem;
   cursor: pointer;
-
   width: 100%;
   background: #ffffff;
 
   :hover {
-    background-color: ${receiverTheme.colors.gray['200']};
+    background-color: ${receiverTheme.colors.gray["200"]};
   }
+
   :active {
-    background-color: ${receiverTheme.colors.gray['300']};
+    background-color: ${receiverTheme.colors.gray["300"]};
   }
 `;
 
@@ -30,9 +31,6 @@ export const Wrapper = styled.div`
   align-items: center;
   padding: 0;
   column-gap: 24px;
-
-  min-width: 65%;
-  max-width: 80%;
 `;
 
 export const MsgDetails = styled.div`
@@ -40,7 +38,7 @@ export const MsgDetails = styled.div`
   flex-direction: column;
   justify-content: space-evenly;
   align-items: flex-start;
-  max-width: 70%;
+  max-width: 10rem;
 `;
 
 export const NameAndIcons = styled.div`
@@ -52,7 +50,7 @@ export const NameAndIcons = styled.div`
 
 export const MessageDetails = styled.div`
   ${textSmallRegular};
-  color: ${receiverTheme.colors.gray['400']};
+  color: ${receiverTheme.colors.gray["400"]};
   display: flex;
   width: 100%;
 
