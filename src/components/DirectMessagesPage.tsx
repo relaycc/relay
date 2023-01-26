@@ -4,7 +4,7 @@ import React, {
   useCallback,
   useEffect,
   useMemo,
-  useState
+  useState,
 } from "react";
 import styled from "styled-components";
 import * as ENSName from "@/design/ENSName";
@@ -43,7 +43,6 @@ export interface MessagesBucketProps {
 
 type MessageBucket = MessagesBucketProps["bucket"];
 
-
 export const DirectMessagesPage: FunctionComponent<{}> = () => {
   useRedirectWhenNotSignedIn("/receiver/messages");
   const [showFailureToast, setShowFailureToast] = useState(false);
@@ -54,7 +53,7 @@ export const DirectMessagesPage: FunctionComponent<{}> = () => {
   const connectedWallet = useConnectedWallet((s) => s.connectedWallet);
   const { messages, sendMessage } = useDirectMessage({
     clientAddress: connectedWallet?.address as EthAddress,
-    conversation: { peerAddress }
+    conversation: { peerAddress },
   });
 
   const relayId = useRelayId({ handle: peerAddress });
@@ -99,7 +98,7 @@ export const DirectMessagesPage: FunctionComponent<{}> = () => {
     try {
       sendMessage.mutate({
         content: msgValue,
-        conversation: messages.data[0].conversation
+        conversation: messages.data[0].conversation,
       });
     } catch (e) {
       toggleFailureToast();
@@ -157,31 +156,33 @@ export const DirectMessagesPage: FunctionComponent<{}> = () => {
       </DMHeader.Root>
 
       <ScrollContainer id="chatScroll">
-        {messageCount && messageCount < 25 && <HeadWrapper>
-          <Avatar handle={peerAddress} onClick={() => null} size="xxxl" />
-          <ENSName.EnsNameMd>{ensName}</ENSName.EnsNameMd>
-          <Text>
-            The very beginning of your end-to-end encrypted conversation
-          </Text>
-        </HeadWrapper>
-        }<MessagesWrapper>
-        {messages.isLoading || !messageBuckets ? (
-          <>
-            <Loading />
-            <Loading />
-          </>
-        ) : (
-          messageBuckets.map((bucket, idx) => {
-            return (
-              <ListMessages
-                key={`${bucket.peerAddress}_${idx}`}
-                peerAddress={peerAddress}
-                bucket={bucket}
-              />
-            );
-          })
+        {messageCount && messageCount < 25 && (
+          <HeadWrapper>
+            <Avatar handle={peerAddress} onClick={() => null} size="xxxl" />
+            <ENSName.EnsNameMd>{ensName}</ENSName.EnsNameMd>
+            <Text>
+              The very beginning of your end-to-end encrypted conversation
+            </Text>
+          </HeadWrapper>
         )}
-      </MessagesWrapper>
+        <MessagesWrapper>
+          {messages.isLoading || !messageBuckets ? (
+            <>
+              <Loading />
+              <Loading />
+            </>
+          ) : (
+            messageBuckets.map((bucket, idx) => {
+              return (
+                <ListMessages
+                  key={`${bucket.peerAddress}_${idx}`}
+                  peerAddress={peerAddress}
+                  bucket={bucket}
+                />
+              );
+            })
+          )}
+        </MessagesWrapper>
       </ScrollContainer>
       <MsgBoxWrapper>
         <MsgBox.Root>
@@ -190,10 +191,14 @@ export const DirectMessagesPage: FunctionComponent<{}> = () => {
             value={msgValue}
             placeholder={"Type a Message"}
             onKeyDown={onEnter}
-            onFocus={toggleInputIsFocused} onBlur={toggleInputIsFocused}
+            onFocus={toggleInputIsFocused}
+            onBlur={toggleInputIsFocused}
           />
           <MsgBox.IconContainer>
-            <MsgBox.ArrowUpCircle active={inputIsFocused} onClick={handleSend} />
+            <MsgBox.ArrowUpCircle
+              active={inputIsFocused}
+              onClick={handleSend}
+            />
           </MsgBox.IconContainer>
         </MsgBox.Root>
       </MsgBoxWrapper>
@@ -203,7 +208,8 @@ export const DirectMessagesPage: FunctionComponent<{}> = () => {
           <Toast.Failure.Card
             initial={{ opacity: 0.2 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 0.2 }}>
+            transition={{ duration: 0.2 }}
+          >
             <Toast.Failure.AlertIcon />
             <Toast.Failure.Column>
               <Toast.Failure.Title>Failed to Send Message</Toast.Failure.Title>
@@ -219,10 +225,9 @@ export const DirectMessagesPage: FunctionComponent<{}> = () => {
   );
 };
 
-const ListMessages: FunctionComponent<MessagesBucketProps & { peerAddress: string } & {}> = ({
-                                                                                               bucket,
-                                                                                               peerAddress
-                                                                                             }) => {
+const ListMessages: FunctionComponent<
+  MessagesBucketProps & { peerAddress: string } & {}
+> = ({ bucket, peerAddress }) => {
   const handle = useMemo(() => {
     if (!bucket || !bucket.messages.length) {
       return "";
@@ -247,8 +252,7 @@ const ListMessages: FunctionComponent<MessagesBucketProps & { peerAddress: strin
           <MsgBundles.StatusIconContainer>
             <Avatar
               handle={[...bucket.messages].reverse()[0].senderAddress}
-              onClick={() => {
-              }}
+              onClick={() => {}}
               size={"md"}
             />
           </MsgBundles.StatusIconContainer>
@@ -304,8 +308,7 @@ const ListMessages: FunctionComponent<MessagesBucketProps & { peerAddress: strin
         <MsgBundles.StatusIconContainer>
           <Avatar
             handle={[...bucket.messages].reverse()[0].senderAddress}
-            onClick={() => {
-            }}
+            onClick={() => {}}
             size={"md"}
           />
         </MsgBundles.StatusIconContainer>
@@ -387,7 +390,7 @@ const getMessageBuckets = (messages: Message[]): MessageBucket[] => {
     if (shouldStartNewBucket()) {
       buckets.unshift({
         peerAddress: message.senderAddress,
-        messages: [message]
+        messages: [message],
       });
     } else {
       buckets[0].messages.push(message);

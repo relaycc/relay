@@ -2,7 +2,7 @@ import React, {
   FunctionComponent,
   useCallback,
   useMemo,
-  useState
+  useState,
 } from "react";
 import { useConnectedWallet } from "@/hooks/useConnectedWallet";
 import { AnimatePresence } from "framer-motion";
@@ -10,7 +10,7 @@ import {
   Conversation,
   EthAddress,
   useDirectMessage,
-  useConversations
+  useConversations,
 } from "@relaycc/xmtp-hooks";
 import { useRedirectWhenNotSignedIn } from "@/hooks/useRedirectWhenNotSignedInt";
 import * as HomeHeader from "@/design/HomeHeader";
@@ -75,8 +75,7 @@ const Loading = () => (
   </Skeleton.LoadingRoot>
 );
 
-interface IMessagesPageProps {
-}
+interface IMessagesPageProps {}
 
 export const MessagesPage: FunctionComponent<IMessagesPageProps> = () => {
   const router = useRouter();
@@ -86,9 +85,9 @@ export const MessagesPage: FunctionComponent<IMessagesPageProps> = () => {
   const {
     data: conversations,
     isLoading,
-    isError
+    isError,
   } = useConversations({
-    clientAddress: connectedWallet?.address as EthAddress
+    clientAddress: connectedWallet?.address as EthAddress,
   });
 
   const navigateToProfile = useCallback(() => {
@@ -190,11 +189,11 @@ const Chats: FunctionComponent<{
 }> = ({ conversation, address }) => {
   const router = useRouter();
   const {
-    messages: { data, isError, isLoading }
+    messages: { data, isError, isLoading },
   } = useDirectMessage({
     clientAddress: address,
     conversation,
-    stream: false
+    stream: false,
   });
 
   const lastMessage = data?.[0];

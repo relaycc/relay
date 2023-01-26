@@ -10,7 +10,7 @@ import {
   BlockieLg,
   BlockieMd,
   BlockieSm,
-  BlockieXl
+  BlockieXl,
 } from "@/design/Avatar";
 import { useEnsAvatar } from "@/hooks/useEnsAvatar";
 
@@ -21,10 +21,10 @@ export interface AvatarProps {
 }
 
 export const Avatar: FunctionComponent<AvatarProps> = ({
-                                                         handle,
-                                                         onClick,
-                                                         size
-                                                       }) => {
+  handle,
+  onClick,
+  size,
+}) => {
   const ref = useRef(null);
   const isInView = useInView(ref);
   const ensAvatar = useEnsAvatar({ handle, wait: !isInView });
@@ -53,35 +53,35 @@ export const Avatar: FunctionComponent<AvatarProps> = ({
           component: BlockieSm,
           seed: handle || "no address",
           size: 10,
-          scale: 2.5
+          scale: 2.5,
         };
       case "md":
         return {
           component: BlockieMd,
           seed: handle || "no address",
           size: 10,
-          scale: 4
+          scale: 4,
         };
       case "lg":
         return {
           component: BlockieLg,
           seed: handle || "no address",
           size: 10,
-          scale: 5
+          scale: 5,
         };
       case "xl":
         return {
           component: BlockieXl,
           seed: handle || "no address",
           size: 10,
-          scale: 7.5
+          scale: 7.5,
         };
       case "xxxl":
         return {
           component: Blockie3Xl,
           seed: handle || "no address",
           size: 10,
-          scale: 12
+          scale: 12,
         };
       default:
         throw new Error("Invalid Avatar size");
@@ -93,7 +93,8 @@ export const Avatar: FunctionComponent<AvatarProps> = ({
       <div
         ref={ref}
         onClick={onClick}
-        style={{ opacity: ensAvatar.isLoading ? 0.2 : 1, display: "flex" }}>
+        style={{ opacity: ensAvatar.isLoading ? 0.2 : 1, display: "flex" }}
+      >
         <blockie.component
           seed={blockie.seed}
           size={blockie.size}
