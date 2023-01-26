@@ -63,7 +63,10 @@ export const RequestsPage: FunctionComponent<{}> = () => {
 
   useRedirectWhenNotSignedIn("/receiver/requests");
 
-  const toggleEditing = useCallback(() => setEditing(!editing), [editing]);
+  const toggleEditing = useCallback(() => {
+    setEditing(!editing);
+    setSelected([]);
+  }, [editing]);
 
   const navigateBack = useCallback(() => {
     router.push(`/receiver/messages`);
@@ -127,7 +130,8 @@ export const RequestsPage: FunctionComponent<{}> = () => {
             initial={{ maxHeight: "0" }}
             animate={{ top: "1rem", maxHeight: "32rem" }}
             exit={{ top: "100%" }}
-            transition={{ duration: 0.3 }}>
+            transition={{ duration: 0.3 }}
+          >
             {isLoading ? (
               <>
                 <Loading />
@@ -322,7 +326,8 @@ const FailToast: FunctionComponent<{
       <Toast.Failure.Card
         initial={{ opacity: 0.2 }}
         animate={{ opacity: 1 }}
-        transition={{ duration: 0.2 }}>
+        transition={{ duration: 0.2 }}
+      >
         <Toast.Failure.AlertIcon />
         <Toast.Failure.Column>
           <Toast.Failure.Title>

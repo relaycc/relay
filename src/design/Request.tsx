@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { receiverTheme } from "@/design/receiverTheme";
+
 export * as Time from "@/design/Time";
 export * as ENSName from "@/design/ENSName";
 export * as Avatar from "@/components/Avatar";
@@ -44,6 +45,34 @@ export const Root = styled.div`
 
       path {
         stroke: ${receiverTheme.colors.gray["300"]};
+      }
+    }
+  }
+`;
+export const MsgRequestsRoot = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  height: 4.5rem;
+  cursor: pointer;
+  width: 100%;
+  background: ${receiverTheme.colors.gray["50"]};
+
+  :hover {
+    background-color: ${receiverTheme.colors.gray["200"]};
+
+    svg {
+      rect {
+        fill: ${receiverTheme.colors.gray["200"]};
+      }
+
+      path {
+        stroke: ${receiverTheme.colors.gray["200"]};
+      }
+
+      path:first-child {
+        stroke: ${receiverTheme.colors.gray["900"]};
       }
     }
   }

@@ -1,6 +1,7 @@
 import React, {
   FunctionComponent,
   useCallback,
+  useEffect,
   useMemo,
   useState,
 } from "react";
@@ -18,6 +19,9 @@ import { NewMessage } from "./NewMessage";
 import * as Skeleton from "@/design/Skeleton";
 import { useReadWriteValue } from "@/hooks/useReadWriteValue";
 import { ChatsPreview } from "./ChatsPreview";
+import RequestPreview from "@/components/RequestPreview";
+import { useEnsName } from "@/hooks/useEnsName";
+import { isEnsName } from "@/lib/isEnsName";
 
 const Root = styled.div`
   height: 700px;
@@ -47,9 +51,11 @@ const ConversationList = styled.ol`
   padding: 0;
   padding-inline-end: 0;
   margin-inline-end: 0;
+
   &::-webkit-scrollbar {
     display: none;
   }
+
   -ms-overflow-style: none;
   scrollbar-width: none;
 `;
@@ -72,8 +78,29 @@ export const MessagesPage: FunctionComponent<IMessagesPageProps> = () => {
   const [searchInput, setSearchInput] = useState<string | null>(null);
   const [showNewMessage, setShowNewMessage] = useState<boolean>(false);
   const connectedWallet = useConnectedWallet((s) => s.connectedWallet);
-  const { acceptedConversations: conversations, isLoading } = useReadWriteValue(
-    { clientAddress: connectedWallet?.address as EthAddress }
+  const {
+    acceptedConversations: conversations,
+    isLoading,
+    requestedConversations,
+  } = useReadWriteValue({
+    clientAddress: connectedWallet?.address as EthAddress,
+  });
+
+  const requestCount = useMemo(
+    () => requestedConversations.length,
+    [requestedConversations]
+  );
+
+  const requestingNames = useMemo(
+    () =>
+      requestedConversations.map((i) => {
+        if (isEnsName(i.peerAddress)) {
+          return i.peerAddress;
+        }
+        // @ts-ignore
+        return i.peerAddress.slice(0, 6) + "..." + i.peerAddress.slice(-4);
+      }),
+    [requestedConversations]
   );
 
   const navigateToProfile = useCallback(() => {
@@ -143,15 +170,20 @@ export const MessagesPage: FunctionComponent<IMessagesPageProps> = () => {
               </>
             );
           } else {
-            return filteredConversations?.map((convo, index) => {
-              return (
-                <ChatsPreview
-                  key={index}
-                  conversation={convo}
-                  address={connectedWallet?.address as EthAddress}
-                />
-              );
-            });
+            return (
+              <>
+                <RequestPreview count={requestCount} names={requestingNames} />
+                {filteredConversations?.map((convo, index) => {
+                  return (
+                    <ChatsPreview
+                      key={index}
+                      conversation={convo}
+                      address={connectedWallet?.address as EthAddress}
+                    />
+                  );
+                })}
+              </>
+            );
           }
         })()}
       </ConversationList>

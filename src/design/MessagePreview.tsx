@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { receiverTheme } from "@/design/receiverTheme";
 import { textSmallRegular } from "@/design/typography";
+
 export * as Time from "@/design/Time";
 export * as ENSName from "@/design/ENSName";
 export { Avatar } from "@/components/Avatar";
@@ -12,13 +13,13 @@ export const Root = styled.div`
   padding: 1rem;
   height: 4.5rem;
   cursor: pointer;
-
   width: 100%;
   background: #ffffff;
 
   :hover {
     background-color: ${receiverTheme.colors.gray["200"]};
   }
+
   :active {
     background-color: ${receiverTheme.colors.gray["300"]};
   }
