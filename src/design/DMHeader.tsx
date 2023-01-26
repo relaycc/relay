@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { receiverTheme } from "@/design/receiverTheme";
+
 export * as AddressHeader from "@/design/AddressHeader";
 import { useCallback } from "react";
 import { Avatar } from "@/components/Avatar";
@@ -47,7 +48,7 @@ export const NameAndIcon = styled.div`
 export const RightSide = styled.div`
   display: flex;
   height: 2.5rem;
-
+  justify-content: right;
   width: 30%;
 `;
 

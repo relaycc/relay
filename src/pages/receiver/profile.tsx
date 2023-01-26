@@ -14,7 +14,7 @@ import { useRedirectWhenNotSignedIn } from "@/hooks/useRedirectWhenNotSignedInt"
 import * as XmtpStatus from "@/design/XmtpStatus";
 import * as Header from "@/design/HeaderSimple";
 import { FooterNav } from "@/components/FooterNav";
-import { getShortenedAddress } from "@/lib/getShortenedAddress";
+import { truncateAddress } from "@/lib/truncateAddress";
 
 const Receiver = styled.div`
   height: 700px;
@@ -172,7 +172,7 @@ export default function Profile() {
                 {connectedWallet?.address ? (
                   <Connected.AddressHeader.Root>
                     <Connected.AddressHeader.Container>
-                      {getShortenedAddress(connectedWallet.address)}
+                      {truncateAddress(connectedWallet.address)}
                     </Connected.AddressHeader.Container>
                   </Connected.AddressHeader.Root>
                 ) : (
