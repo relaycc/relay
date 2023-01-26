@@ -7,7 +7,6 @@ const VERY_LONG_TEXT =
 const MEDIUM_TEXT = "Medium text that might be truncated.";
 const SHORT_TEXT = "Short text";
 const EMPTY_TEXT = "";
-import { Loader } from "@/design/Loader";
 
 export default function Design() {
   return (
