@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-//When using this component make sure to use a container with the height, width and border radius of the component it's Loading
+//When using this component make sure to use a container with the height, width and border radius of the component it's Loading along with overflow:hidden
 
 export const Loader = styled.div`
   width: 100%;
