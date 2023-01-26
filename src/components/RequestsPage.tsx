@@ -1,6 +1,7 @@
 import React, {
   FunctionComponent,
   useCallback,
+  useMemo,
   useEffect,
   useState,
 } from "react";
@@ -15,7 +16,7 @@ import { FooterNav } from "./FooterNav";
 import { useRouter } from "next/router";
 import { BackIcon } from "@/design/BackIcon";
 import * as HomeHeader from "@/design/HomeHeader";
-import { Active, Editing, Inactive } from "@/design/Edit";
+import { Active, Editing } from "@/design/Edit";
 import * as MessagePreview from "@/design/MessagePreview";
 import { Checkbox } from "@/design/Checkbox";
 import { InfoToastContainer, InfoToastDescription } from "@/design/InfoToast";
@@ -23,29 +24,61 @@ import { InfoToastIcon } from "@/design/InfoToastIcon";
 import * as Toast from "@/design/Toast";
 import { AnimatePresence, motion } from "framer-motion";
 import { ButtonView } from "@/design/ButtonView";
+import {
+  Conversation,
+  EthAddress,
+  useDirectMessage,
+} from "@relaycc/xmtp-hooks";
+import { useConnectedWallet } from "@/hooks/useConnectedWallet";
+import { useRedirectWhenNotSignedIn } from "@/hooks/useRedirectWhenNotSignedInt";
+import { useReadWriteValue } from "@/hooks/useReadWriteValue";
+import { useRelayId } from "@/hooks/useRelayId";
+import { isEnsName } from "@/lib/isEnsName";
+import { getDisplayDate } from "@/lib/getDisplayDate";
+import { Loading } from "./MessagesPage";
 
 export const RequestsPage: FunctionComponent<{}> = () => {
+  const connectedWallet = useConnectedWallet((state) => state.connectedWallet);
   const router = useRouter();
-  const navigateBack = useCallback(() => {
-    router.push(`/receiver/messages`);
-  }, [router]);
   const [editing, setEditing] = useState(false);
   const [showIgnored, setShowIgnored] = useState(false);
+  const [showToast, setShowToast] = useState(false);
+  const [selected, setSelected] = useState<Conversation[]>([]);
+
+  const {
+    requestedConversations,
+    ignoredConversations,
+    acceptConversations,
+    ignoreConversations,
+    unIgnoreConversations,
+    isLoading,
+  } = useReadWriteValue({
+    clientAddress: connectedWallet?.address as EthAddress,
+  });
+
   const toggleIgnored = useCallback(
     () => setShowIgnored(!showIgnored),
     [showIgnored]
   );
-  const [showToast, setShowToast] = useState(false);
+
+  useRedirectWhenNotSignedIn("/receiver/requests");
 
   const toggleEditing = useCallback(() => setEditing(!editing), [editing]);
+
+  const navigateBack = useCallback(() => {
+    router.push(`/receiver/messages`);
+  }, [router]);
+
   const handleAccept = useCallback(() => {
     setEditing(false);
-    console.log("shouldHandleAccept");
-  }, []);
+    acceptConversations({ conversations: selected });
+  }, [selected]);
+
   const handleIgnore = useCallback(() => {
     setEditing(false);
-    console.log("shouldHandleIgnore");
-  }, []);
+    ignoreConversations({ conversations: selected });
+  }, [selected]);
+
   return (
     <Root>
       <HomeHeader.Root>
@@ -64,16 +97,25 @@ export const RequestsPage: FunctionComponent<{}> = () => {
         </InfoToastDescription>
       </InfoToastContainer>
       <ScrollContainer>
-        <RequestedChat editing={editing} handleAccept={handleAccept} />
-        <RequestedChat editing={editing} handleAccept={handleAccept} />
-        <RequestedChat editing={editing} handleAccept={handleAccept} />
-        <RequestedChat editing={editing} handleAccept={handleAccept} />
-        <RequestedChat editing={editing} handleAccept={handleAccept} />
-        <RequestedChat editing={editing} handleAccept={handleAccept} />
-        <RequestedChat editing={editing} handleAccept={handleAccept} />
-        <RequestedChat editing={editing} handleAccept={handleAccept} />
-        <RequestedChat editing={editing} handleAccept={handleAccept} />
-        <RequestedChat editing={editing} handleAccept={handleAccept} />
+        {isLoading ? (
+          <>
+            <Loading />
+            <Loading />
+          </>
+        ) : (
+          requestedConversations.map((convo) => {
+            return (
+              <RequestedChat
+                selected={selected}
+                setSelected={setSelected}
+                address={connectedWallet?.address as EthAddress}
+                conversation={convo}
+                editing={editing}
+                handleAccept={handleAccept}
+              />
+            );
+          })
+        )}
       </ScrollContainer>
       <IgnoredMsg.Root onClick={toggleIgnored}>
         <IgnoredMsg.Label>Ignored Messages</IgnoredMsg.Label>
@@ -85,12 +127,26 @@ export const RequestsPage: FunctionComponent<{}> = () => {
             initial={{ maxHeight: "0" }}
             animate={{ top: "1rem", maxHeight: "32rem" }}
             exit={{ top: "100%" }}
-            transition={{ duration: 0.3 }}
-          >
-            <IgnoredChat />
-            <IgnoredChat />
-            <IgnoredChat />
-            <IgnoredChat />
+            transition={{ duration: 0.3 }}>
+            {isLoading ? (
+              <>
+                <Loading />
+                <Loading />
+              </>
+            ) : (
+              ignoredConversations.map((convo) => {
+                return (
+                  <IgnoredChat
+                    selected={selected}
+                    setSelected={setSelected}
+                    address={connectedWallet?.address as EthAddress}
+                    conversation={convo}
+                    editing={editing}
+                    handleUnignore={unIgnoreConversations}
+                  />
+                );
+              })
+            )}
           </IgnoredRoot>
         </AnimatePresence>
       )}
@@ -121,16 +177,56 @@ export const RequestsPage: FunctionComponent<{}> = () => {
 };
 
 const RequestedChat: FunctionComponent<{
+  setSelected: React.Dispatch<React.SetStateAction<Conversation[]>>;
+  selected: Conversation[];
+  address: EthAddress;
+  conversation: Conversation;
   editing: boolean;
   handleAccept: () => void;
-}> = ({ editing, handleAccept }) => {
-  const [selected, setSelected] = useState(false);
-  const toggleSelected = useCallback(() => setSelected(!selected), [selected]);
-  useEffect(() => setSelected(false), [editing]);
+}> = ({
+  editing,
+  handleAccept,
+  conversation,
+  address,
+  setSelected,
+  selected,
+}) => {
+  const toggleSelected = useCallback(() => {
+    if (selected.includes(conversation)) {
+      setSelected(selected.filter((convo) => convo !== conversation));
+      return;
+    }
+    setSelected([...selected, conversation]);
+  }, [selected]);
+
+  const {
+    messages: { data, isError, isLoading },
+  } = useDirectMessage({
+    clientAddress: address,
+    conversation,
+    stream: false,
+  });
+
+  const lastMessage = data?.[0];
+
+  const relayId = useRelayId({ handle: conversation.peerAddress });
+
+  const ensName = useMemo(() => {
+    if (isEnsName(relayId.ens.data)) {
+      return relayId.ens.data;
+    } else {
+      return relayId.address.data;
+    }
+  }, [relayId]);
+
+  if (isLoading || isError) {
+    return null;
+  }
+
   return (
     <MessagePreview.Root onClick={toggleSelected}>
       <MessagePreview.Wrapper>
-        {editing && <Checkbox selected={selected} />}
+        {editing && <Checkbox selected={selected.includes(conversation)} />}
         <MessagePreview.Avatar
           handle={"peerAddress"}
           onClick={() => null}
@@ -139,25 +235,56 @@ const RequestedChat: FunctionComponent<{
         <MessagePreview.MsgDetails>
           <MessagePreview.NameAndIcons>
             <MessagePreview.ENSName.EnsNameMonofontMd>
-              {"ensName"}
+              {ensName}
             </MessagePreview.ENSName.EnsNameMonofontMd>
           </MessagePreview.NameAndIcons>
           <MessagePreview.MessageDetails>
-            {"Request message"}
+            {lastMessage?.content as string}
           </MessagePreview.MessageDetails>
         </MessagePreview.MsgDetails>
       </MessagePreview.Wrapper>
       <MessagePreview.StyledTime>
-        <Time.Root>{"11:30 am"} </Time.Root>
+        <Time.Root>{getDisplayDate(lastMessage?.sent as Date)} </Time.Root>
       </MessagePreview.StyledTime>
     </MessagePreview.Root>
   );
 };
 
-const IgnoredChat: FunctionComponent<{}> = ({}) => {
+const IgnoredChat: FunctionComponent<{
+  address: EthAddress;
+  conversation: Conversation;
+  handleUnignore: ({ conversation }: { conversation: Conversation }) => void;
+}> = ({ conversation, address, handleUnignore }) => {
+  const {
+    messages: { data, isError, isLoading },
+  } = useDirectMessage({
+    clientAddress: address,
+    conversation,
+    stream: false,
+  });
+
   const handleRestoreChat = useCallback(() => {
-    console.log("should handle restoring this chat to requested");
-  }, []);
+    if (!conversation) {
+      return;
+    }
+    handleUnignore({ conversation });
+  }, [conversation]);
+
+  const lastMessage = data?.[0];
+
+  const relayId = useRelayId({ handle: conversation.peerAddress });
+
+  const ensName = useMemo(() => {
+    if (isEnsName(relayId.ens.data)) {
+      return relayId.ens.data;
+    } else {
+      return relayId.address.data;
+    }
+  }, [relayId]);
+
+  if (isLoading || isError) {
+    return null;
+  }
   return (
     <Request.Root>
       <MessagePreview.Wrapper>
@@ -172,16 +299,16 @@ const IgnoredChat: FunctionComponent<{}> = ({}) => {
         <MessagePreview.MsgDetails>
           <MessagePreview.NameAndIcons>
             <MessagePreview.ENSName.EnsNameMonofontMd>
-              {"ensName"}
+              {ensName}
             </MessagePreview.ENSName.EnsNameMonofontMd>
           </MessagePreview.NameAndIcons>
           <MessagePreview.MessageDetails>
-            {"Request message"}
+            {lastMessage?.content as string}
           </MessagePreview.MessageDetails>
         </MessagePreview.MsgDetails>
       </MessagePreview.Wrapper>
       <MessagePreview.StyledTime>
-        <Time.Root>{"11:30 am"} </Time.Root>
+        <Time.Root>{getDisplayDate(lastMessage?.sent as Date)} </Time.Root>
       </MessagePreview.StyledTime>
     </Request.Root>
   );
@@ -195,8 +322,7 @@ const FailToast: FunctionComponent<{
       <Toast.Failure.Card
         initial={{ opacity: 0.2 }}
         animate={{ opacity: 1 }}
-        transition={{ duration: 0.2 }}
-      >
+        transition={{ duration: 0.2 }}>
         <Toast.Failure.AlertIcon />
         <Toast.Failure.Column>
           <Toast.Failure.Title>
