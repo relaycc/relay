@@ -24,10 +24,6 @@ export default function Design() {
           {/*<AddressHeader isLoading={false} addressHeader={SHORT_TEXT} />*/}
           {/*<AddressHeader isLoading={false} addressHeader={MEDIUM_TEXT} />*/}
           {/*<AddressHeader isLoading={false} addressHeader={VERY_LONG_TEXT} />*/}
-          <div style={{height: '50px', width:"50px", borderRadius:"50px", overflow: 'hidden'}}>
-
-          <Loader />
-          </div>
         </Receiver>
       </ComponentSection>
       <ComponentSection>
