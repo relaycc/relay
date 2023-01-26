@@ -13,6 +13,12 @@ export const Root = styled.div`
   width: 100%;
   //width: 1440px;
 `;
+
+export const StyledBckgr = styled(FooterBackground)`
+  width: 100%;
+  justify-self: center;
+`;
+
 export const Wrapper = styled.div`
   position: absolute;
 
@@ -70,10 +76,10 @@ export const Copyright = styled.div`
   color: #ffffff;
 `;
 
-export const Footer = () => {
+export default function Footer() {
     return (
         <Root>
-            <FooterBackground/>
+            <StyledBckgr/>
             <Wrapper>
 
                 <LinkContainer>
