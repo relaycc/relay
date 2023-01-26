@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@rainbow-me/rainbowkit": "^0.6.0",
-    "@relaycc/receiver": "^0.1.75",
+    "@relaycc/receiver": "^0.1.76",
     "@supabase/supabase-js": "^2.4.0",
     "@xmtp/proto": "3.4",
     "encoding": "^0.1.13",
