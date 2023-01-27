@@ -48,6 +48,7 @@ function MyApp({ Component, pageProps }: AppProps) {
     <PlausibleProvider>
       <Head>
         <title>Relay</title>
+        <link rel="shortcut icon" type="image/png" href="/favicon.ico" />
       </Head>
       <WagmiConfig client={wagmiClient}>
         <RainbowKitProvider chains={chains}>
