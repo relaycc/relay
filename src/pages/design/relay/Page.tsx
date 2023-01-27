@@ -13,6 +13,11 @@ import * as Showcase from "./Showcase";
 import * as Chevron from "./Chevron";
 import Footer from "./Footer";
 import { CardsWrapper, DirectoryCard } from "./DirectoryCard";
+import { Logo } from "@/pages/design/relay/Logo";
+import { NavLink } from "@/pages/design/relay/LinkProducts";
+import { LinkCommunity } from "@/pages/design/relay/LinkCommunity";
+import { IconGithub } from "@/pages/design/relay/IconGithub";
+import { PrimaryButton } from "@/pages/design/relay/ButtonPrimary";
 
 const Main = styled.main`
   display: flex;
@@ -27,17 +32,33 @@ const Root = styled.div`
   align-items: center;
   width: 100%;
   max-width: 1440px;
+  position: relative;
   overflow: hidden;
 `;
 
 const ShowcaseWrapper = styled.div`
   position: absolute;
+  left: 2%;
+  right: 2%;
   top: 336px;
 `;
 
 const ShowcaseInnerWrapper = styled.div`
   position: relative;
   z-index: 0;
+`;
+
+const NavWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 80px;
+`;
+
+const NavInnerWrapper = styled.div`
+  display: flex;
+  gap: 24px;
 `;
 
 export interface Project {
@@ -84,6 +105,15 @@ export const Page: FunctionComponent<{
     <Main>
       <Root>
         {navBar}
+        <NavWrapper>
+          <Logo />
+          <NavInnerWrapper>
+            <NavLink />
+            <LinkCommunity />
+            <IconGithub />
+            <PrimaryButton>Address</PrimaryButton>
+          </NavInnerWrapper>
+        </NavWrapper>
         <Header />
         <ShowcaseWrapper>
           <ShowcaseInnerWrapper>

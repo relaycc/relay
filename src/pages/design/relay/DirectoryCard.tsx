@@ -44,7 +44,7 @@ const Root = styled(motion.div)`
   cursor: pointer;
   background: #FFFFFF;
   border: 1px solid ${(props) => props.theme.colors.gray["200"]};
-  box-shadow: 0px 1px 3px rgba(16, 24, 40, 0.1), 0px 1px 2px rgba(16, 24, 40, 0.06);
+  box-shadow: 0 1px 3px rgba(16, 24, 40, 0.1), 0 1px 2px rgba(16, 24, 40, 0.06);
   border-radius: 8px;
   
   position: relative;
@@ -65,8 +65,8 @@ const Root = styled(motion.div)`
 
 export const CardsWrapper = styled(motion.div)`
   display: grid;
-  min-width: 100%;
   grid-template-columns: repeat(auto-fit, minmax(252px, 1fr));
+  width: 100%;
   gap: 1rem;
 `;
 
@@ -74,42 +74,42 @@ export const DirectoryCard = () => {
   const [isOpen, setIsOpen] = useState(false);
   return (
     <Root
-      onMouseOver={()=>setIsOpen(true)}
+      onMouseOver={() => setIsOpen(true)}
       onMouseLeave={() => setIsOpen(false)}
     >
       <Head
-      initial={{}}
-      animate={ isOpen && {flexDirection: "row-reverse"}}
-      transition={{ delay: 0.5 }}
+        initial={{}}
+        animate={isOpen && { flexDirection: "row-reverse" }}
+        transition={{ delay: 0.5 }}
       >
-        <Logomark width={120} height={120}/>
-        <CardTitle>
-          Dashboard of Creator Economy Stats
-        </CardTitle>
+        <Logomark width={120} height={120} />
+        <CardTitle>Dashboard of Creator Economy Stats</CardTitle>
       </Head>
-      {isOpen &&
+      {isOpen && (
         <>
           <Content
             initial={{ opacity: 0, scale: 0 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.5 }}
-          >content</Content>
+          >
+            content
+          </Content>
           <Feet
             initial={{ opacity: 0, scale: 0 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.5 }}
           >
             <SecondaryButton>
-              <ExternalLinkIcon/>
+              <ExternalLinkIcon />
               Visit
             </SecondaryButton>
             <PrimaryButton>
-              <ChatIcon/>
+              <ChatIcon />
               Message
             </PrimaryButton>
           </Feet>
         </>
-      }
+      )}
     </Root>
-)
-}
+  );
+};
