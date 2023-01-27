@@ -1,13 +1,13 @@
 import styled from "styled-components";
 // import { AddressHeader } from "@/design/AddressHeader";
 import { ButtonView } from "@/design/ButtonView";
-import * as MenuLinkMobile from "./relay/MenuLinkMobile";
-  "Very long text that will be truncated. This is the longest text of all time and I can't believe that it's overlfowing the container.";
+import * as MenuLinkMobile from "../../design/relay/MenuLinkMobile";
+("Very long text that will be truncated. This is the longest text of all time and I can't believe that it's overlfowing the container.");
 const MEDIUM_TEXT = "Medium text that might be truncated.";
 const SHORT_TEXT = "Short text";
 const EMPTY_TEXT = "";
-import {NavLink} from "./relay/LinkProducts";
-import { DropDownMenuMobile } from "./relay/DropdownMenuMobile";
+import { NavLink } from "../../design/relay/LinkProducts";
+import { DropDownMenuMobile } from "../../design/relay/DropdownMenuMobile";
 
 export default function Design() {
   return (
@@ -23,7 +23,7 @@ export default function Design() {
         </Receiver>
       </ComponentSection>
       <ComponentSection>
-    <MenuLinkMobile.Github />
+        <MenuLinkMobile.Github />
       </ComponentSection>
     </CenteredFlexColumn>
   );
@@ -60,4 +60,3 @@ const CenteredFlexColumn = styled.div`
   flex-direction: column;
   align-items: center;
 `;
-

@@ -7,12 +7,7 @@ import { mainnet, polygon, optimism, arbitrum } from "wagmi/chains";
 import { publicProvider } from "wagmi/providers/public";
 import "@rainbow-me/rainbowkit/styles.css";
 import { XmtpProvider } from "@relaycc/xmtp-hooks";
-
-import {
-  ConnectButton,
-  getDefaultWallets,
-  RainbowKitProvider,
-} from "@rainbow-me/rainbowkit";
+import { getDefaultWallets, RainbowKitProvider } from "@rainbow-me/rainbowkit";
 
 export const { chains, provider } = configureChains(
   [mainnet, polygon, optimism, arbitrum],
@@ -47,7 +42,6 @@ export default function App({ Component, pageProps }: AppProps) {
             } else {
               return (
                 <XmtpProvider config={{ worker: worker as Worker }}>
-                  <ConnectButton />
                   <Component {...pageProps} />
                 </XmtpProvider>
               );

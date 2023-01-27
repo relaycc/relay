@@ -29,6 +29,18 @@ export const Slides = styled(motion.div)`
   overflow: visible;
 `;
 
+export const Wrapper = styled.div`
+  position: absolute;
+  left: 2%;
+  right: 2%;
+  top: 336px;
+`;
+
+export const InnerWrapper = styled.div`
+  position: relative;
+  z-index: 0;
+`;
+
 export const Ellipse = styled.div`
   position: absolute;
   width: 1416px;

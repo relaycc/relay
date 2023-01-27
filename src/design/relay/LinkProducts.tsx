@@ -28,22 +28,22 @@ export const NavLink = () => {
   );
 };
 
-const NavDropdown = styled.div`
+export const NavDropdown = styled.div`
   display: flex;
   align-items: center;
   gap: 6px;
 `;
 
-const Title = styled.span`
+export const Title = styled.span`
   font-size: 16px;
   font-weight: 500;
 `;
 
-const Svg = styled.svg`
+export const Svg = styled.svg`
   transform: translateY(1px);
 `;
 
-const LinkContainer = styled.ul`
+export const LinkContainer = styled.ul`
   list-style: none;
   background: #efeefb;
   width: 145px;
@@ -53,4 +53,4 @@ const LinkContainer = styled.ul`
   gap: 8px;
   padding: 16px;
 `;
-const LinkItem = styled.li``;
+export const LinkItem = styled.li``;

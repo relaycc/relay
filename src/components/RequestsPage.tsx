@@ -109,6 +109,7 @@ export const RequestsPage: FunctionComponent<{}> = () => {
           requestedConversations.map((convo) => {
             return (
               <RequestedChat
+                key={`${convo.peerAddress}-${convo.context?.conversationId}`}
                 selected={selected}
                 setSelected={setSelected}
                 address={connectedWallet?.address as EthAddress}
@@ -141,11 +142,9 @@ export const RequestsPage: FunctionComponent<{}> = () => {
               ignoredConversations.map((convo) => {
                 return (
                   <IgnoredChat
-                    selected={selected}
-                    setSelected={setSelected}
+                    key={`${convo.peerAddress}-${convo.context?.conversationId}`}
                     address={connectedWallet?.address as EthAddress}
                     conversation={convo}
-                    editing={editing}
                     handleUnignore={unIgnoreConversations}
                   />
                 );
@@ -320,7 +319,7 @@ const IgnoredChat: FunctionComponent<{
 
 const FailToast: FunctionComponent<{
   clearToast: () => void;
-}> = (clearToast) => {
+}> = ({ clearToast }) => {
   return (
     <ToastPosition>
       <Toast.Failure.Card

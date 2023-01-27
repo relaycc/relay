@@ -24,7 +24,6 @@ const CardLabel = styled.label`
   font-size: 20px;
   line-height: 27px;
   color: ${(props) => props.theme.colors.gray["900"]};
-}
 `;
 
 const CardLabelWrapper = styled(motion.div)<{ textColor: string }>`
@@ -83,7 +82,10 @@ const Card: FunctionComponent<CardProps> = ({
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 0.5 }}
         >
-          <CardLabel>{`Message the ${company} 🤖`}</CardLabel>
+          <CardLabel>
+            {`Message the ${company}`}
+            <span style={{ fontSize: "2rem" }}> 🤖</span>
+          </CardLabel>
         </CardLabelWrapper>
       )}
     </Root>
