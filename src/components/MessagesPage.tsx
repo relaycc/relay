@@ -1,7 +1,6 @@
 import React, {
   FunctionComponent,
   useCallback,
-  useEffect,
   useMemo,
   useState,
 } from "react";
@@ -11,6 +10,7 @@ import { EthAddress } from "@relaycc/xmtp-hooks";
 import { useRedirectWhenNotSignedIn } from "@/hooks/useRedirectWhenNotSignedInt";
 import * as HomeHeader from "@/design/HomeHeader";
 import styled from "styled-components";
+import { isEnsName } from "@/lib/isEnsName";
 import { useRouter } from "next/router";
 import { FooterNav } from "./FooterNav";
 import * as Nav from "@/design/Nav";
@@ -20,8 +20,6 @@ import * as Skeleton from "@/design/Skeleton";
 import { useReadWriteValue } from "@/hooks/useReadWriteValue";
 import { ChatsPreview } from "./ChatsPreview";
 import RequestPreview from "@/components/RequestPreview";
-import { useEnsName } from "@/hooks/useEnsName";
-import { isEnsName } from "@/lib/isEnsName";
 
 const Root = styled.div`
   height: 700px;
@@ -153,7 +151,6 @@ export const MessagesPage: FunctionComponent<IMessagesPageProps> = () => {
           }}
         />
       </SearchWrapper>
-      {/* <Requests /> */}
       <ConversationList>
         {(() => {
           if (isLoading) {

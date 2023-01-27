@@ -13,6 +13,7 @@ import { Avatar } from "@/components/Avatar";
 import { useRelayId } from "@/hooks/useRelayId";
 import { isEnsName } from "@/lib/isEnsName";
 import { useRedirectWhenSignedIn } from "@/hooks/useRedirectWhenSignedIn";
+import { truncateAddress } from "@/lib/truncateAddress";
 
 const Receiver = styled.div`
   height: 700px;
@@ -130,13 +131,12 @@ export default function SignIn() {
                 {connectedWallet?.address ? (
                   <Connected.AddressHeader.Root>
                     <Connected.AddressHeader.Container>
-                      {connectedWallet.address.slice(0, 5)}...
-                      {connectedWallet.address.slice(connectedWallet.address.length - 4, Infinity)}
+                      {truncateAddress(connectedWallet.address)}
                     </Connected.AddressHeader.Container>
                   </Connected.AddressHeader.Root>
                 ) : (
                   <Connected.AddressHeader.Root>
-                    <Connected.AddressHeader.LoadingDiv/>
+                    <Connected.AddressHeader.LoadingDiv />
                   </Connected.AddressHeader.Root>
                 )}
               </Connected.UserDetails>
