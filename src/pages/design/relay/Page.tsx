@@ -1,14 +1,17 @@
-import { FunctionComponent, ReactNode, useEffect, useRef, useState } from "react";
+import {
+  FunctionComponent,
+  ReactNode,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import styled from "styled-components";
 import * as Card from "./Card";
 import * as DirectoryHeader from "./DirectoryHeader";
 import { Header } from "./Header";
 import * as Showcase from "./Showcase";
 import * as Chevron from "./Chevron";
-import { RobotLensIcon } from "./RobotLensIcon";
-import { CardLens } from "./CardLens";
 import Footer from "./Footer";
-import { Logomark } from "./Logo";
 import { CardsWrapper, DirectoryCard } from "./DirectoryCard";
 
 const Main = styled.main`
@@ -30,7 +33,7 @@ const Root = styled.div`
 const ShowcaseWrapper = styled.div`
   position: absolute;
   top: 336px;
-`
+`;
 
 const ShowcaseInnerWrapper = styled.div`
   position: relative;
@@ -59,7 +62,7 @@ export interface Project {
     | "zk"
     | "daotool"
     | "infrastructure";
-};
+}
 
 export const Page: FunctionComponent<{
   children: ReactNode;
@@ -70,8 +73,11 @@ export const Page: FunctionComponent<{
   const [width, setWidth] = useState(0);
   const showcaseRef = useRef();
 
-  useEffect(()=>{
-    showcaseRef?.current && setWidth(showcaseRef.current.scrollWidth - showcaseRef.current.offsetWidth)
+  useEffect(() => {
+    showcaseRef?.current &&
+      setWidth(
+        showcaseRef.current.scrollWidth - showcaseRef.current.offsetWidth
+      );
   }, []);
 
   return (
@@ -85,33 +91,30 @@ export const Page: FunctionComponent<{
               <Chevron.ChevronLeftActive />
               <Showcase.MotionRoot ref={showcaseRef}>
                 <Showcase.Slides
-                  drag='x'
-                  dragConstraints={{right: 0 , left: -width}}
+                  drag="x"
+                  dragConstraints={{ right: 0, left: -width }}
                 >
-                  <CardLens/>
-                  <CardLens/>
-                  <CardLens/>
-                  <CardLens/>
-                  <CardLens/>
-                  <CardLens/>
-                  <CardLens/>
-                  <CardLens/>
-                  <CardLens/>
-                  <CardLens/>
-                  <CardLens/>
-                  <CardLens/>
+                  <Card.Lens />
+                  <Card.Opensea />
+                  <Card.Ens />
+                  <Card.Poap />
+                  <Card.Xmtp />
+                  <Card.Lit />
+                  <Card.Uniswap />
+                  <Card.Alchemy />
+                  <Card.Metamask />
+                  <Card.Gitcoin />
+                  <Card.SushiSwap />
                 </Showcase.Slides>
               </Showcase.MotionRoot>
               <Chevron.ChevronRightActive />
             </Showcase.Root>
-            <Showcase.Ellipse/>
+            <Showcase.Ellipse />
           </ShowcaseInnerWrapper>
         </ShowcaseWrapper>
         <DirectoryHeader.Root>
-          <DirectoryHeader.Title>
-            Directory
-          </DirectoryHeader.Title>
-          <DirectoryHeader.Search.Search placeholder={"Search Directory"}/>
+          <DirectoryHeader.Title>Directory</DirectoryHeader.Title>
+          <DirectoryHeader.Search.Search placeholder={"Search Directory"} />
           <DirectoryHeader.Nav>
             <DirectoryHeader.Directories>
               <DirectoryHeader.Directory
@@ -210,11 +213,11 @@ export const Page: FunctionComponent<{
 
           {/* Cards starting here */}
           <CardsWrapper>
-            <DirectoryCard/>
+            <DirectoryCard />
           </CardsWrapper>
         </DirectoryHeader.Root>
-          {children}
-        <Footer/>
+        {children}
+        <Footer />
       </Root>
     </Main>
   );
