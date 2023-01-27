@@ -1,12 +1,13 @@
 import styled from "styled-components";
-//import { AddressHeader } from "@/design/AddressHeader";
+// import { AddressHeader } from "@/design/AddressHeader";
 import { ButtonView } from "@/design/ButtonView";
-
-const VERY_LONG_TEXT =
+import * as MenuLinkMobile from "./relay/MenuLinkMobile";
   "Very long text that will be truncated. This is the longest text of all time and I can't believe that it's overlfowing the container.";
 const MEDIUM_TEXT = "Medium text that might be truncated.";
 const SHORT_TEXT = "Short text";
 const EMPTY_TEXT = "";
+import {NavLink} from "./relay/LinkProducts";
+import { DropDownMenuMobile } from "./relay/DropdownMenuMobile";
 
 export default function Design() {
   return (
@@ -18,27 +19,11 @@ export default function Design() {
           <FigmaLink>Link Here</FigmaLink>
         </ComponentSectionHeader>
         <Receiver>
-          {/*<AddressHeader isLoading={true} addressHeader={""} />*/}
-          {/*<AddressHeader isLoading={false} addressHeader={EMPTY_TEXT} />*/}
-          {/*<AddressHeader isLoading={false} addressHeader={SHORT_TEXT} />*/}
-          {/*<AddressHeader isLoading={false} addressHeader={MEDIUM_TEXT} />*/}
-          {/*<AddressHeader isLoading={false} addressHeader={VERY_LONG_TEXT} />*/}
+          <DropDownMenuMobile />
         </Receiver>
       </ComponentSection>
       <ComponentSection>
-        <ComponentSectionHeader>
-          <ComponentSectionTitle>ButtonView</ComponentSectionTitle>
-          <FigmaLink>Link Here</FigmaLink>
-        </ComponentSectionHeader>
-        <Receiver>
-          <ButtonView
-            hierarchy={"primary"}
-            size={"sm"}
-            label={""}
-            handleClick={() => null}
-            disabled={false}
-          />
-        </Receiver>
+    <MenuLinkMobile.Github />
       </ComponentSection>
     </CenteredFlexColumn>
   );
@@ -75,3 +60,4 @@ const CenteredFlexColumn = styled.div`
   flex-direction: column;
   align-items: center;
 `;
+

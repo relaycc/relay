@@ -6,26 +6,20 @@ import React, {
 } from "react";
 import { useConnectedWallet } from "@/hooks/useConnectedWallet";
 import { AnimatePresence } from "framer-motion";
-import {
-  Conversation,
-  EthAddress,
-  useDirectMessage,
-  useConversations,
-} from "@relaycc/xmtp-hooks";
+import { EthAddress } from "@relaycc/xmtp-hooks";
 import { useRedirectWhenNotSignedIn } from "@/hooks/useRedirectWhenNotSignedInt";
 import * as HomeHeader from "@/design/HomeHeader";
-import * as MessagePreview from "@/design/MessagePreview";
-import styled, { css } from "styled-components";
-import { useRelayId } from "@/hooks/useRelayId";
+import styled from "styled-components";
 import { isEnsName } from "@/lib/isEnsName";
-import { getDisplayDate } from "@/lib/getDisplayDate";
 import { useRouter } from "next/router";
 import { FooterNav } from "./FooterNav";
 import * as Nav from "@/design/Nav";
 import { Search } from "@/design/Search";
 import { NewMessage } from "./NewMessage";
 import * as Skeleton from "@/design/Skeleton";
-import { truncateAddress } from "@/lib/truncateAddress";
+import { useReadWriteValue } from "@/hooks/useReadWriteValue";
+import { ChatsPreview } from "./ChatsPreview";
+import RequestPreview from "@/components/RequestPreview";
 
 const Root = styled.div`
   height: 700px;
@@ -64,7 +58,7 @@ const ConversationList = styled.ol`
   scrollbar-width: none;
 `;
 
-const Loading = () => (
+export const Loading = () => (
   <Skeleton.LoadingRoot>
     <Skeleton.LoadingCircle />
     <Skeleton.LoadingColumn>
@@ -83,12 +77,29 @@ export const MessagesPage: FunctionComponent<IMessagesPageProps> = () => {
   const [showNewMessage, setShowNewMessage] = useState<boolean>(false);
   const connectedWallet = useConnectedWallet((s) => s.connectedWallet);
   const {
-    data: conversations,
+    acceptedConversations: conversations,
     isLoading,
-    isError,
-  } = useConversations({
+    requestedConversations,
+  } = useReadWriteValue({
     clientAddress: connectedWallet?.address as EthAddress,
   });
+
+  const requestCount = useMemo(
+    () => requestedConversations.length,
+    [requestedConversations]
+  );
+
+  const requestingNames = useMemo(
+    () =>
+      requestedConversations.map((i) => {
+        if (isEnsName(i.peerAddress)) {
+          return i.peerAddress;
+        }
+        // @ts-ignore
+        return i.peerAddress.slice(0, 6) + "..." + i.peerAddress.slice(-4);
+      }),
+    [requestedConversations]
+  );
 
   const navigateToProfile = useCallback(() => {
     router.push("/receiver/profile");
@@ -140,7 +151,6 @@ export const MessagesPage: FunctionComponent<IMessagesPageProps> = () => {
           }}
         />
       </SearchWrapper>
-      {/* <Requests /> */}
       <ConversationList>
         {(() => {
           if (isLoading) {
@@ -157,15 +167,20 @@ export const MessagesPage: FunctionComponent<IMessagesPageProps> = () => {
               </>
             );
           } else {
-            return filteredConversations?.map((convo, index) => {
-              return (
-                <Chats
-                  key={index}
-                  conversation={convo}
-                  address={connectedWallet?.address as EthAddress}
-                />
-              );
-            });
+            return (
+              <>
+                <RequestPreview count={requestCount} names={requestingNames} />
+                {filteredConversations?.map((convo, index) => {
+                  return (
+                    <ChatsPreview
+                      key={index}
+                      conversation={convo}
+                      address={connectedWallet?.address as EthAddress}
+                    />
+                  );
+                })}
+              </>
+            );
           }
         })()}
       </ConversationList>
@@ -180,79 +195,5 @@ export const MessagesPage: FunctionComponent<IMessagesPageProps> = () => {
         )}
       </AnimatePresence>
     </Root>
-  );
-};
-
-const Chats: FunctionComponent<{
-  conversation: Conversation;
-  address: EthAddress;
-}> = ({ conversation, address }) => {
-  const router = useRouter();
-  const {
-    messages: { data, isError, isLoading },
-  } = useDirectMessage({
-    clientAddress: address,
-    conversation,
-    stream: false,
-  });
-
-  const lastMessage = data?.[0];
-  const relayId = useRelayId({ handle: conversation.peerAddress });
-
-  const ensName = useMemo(() => {
-    if (isEnsName(relayId.ens.data)) {
-      return relayId.ens.data;
-    } else if (relayId.address.data) {
-      return truncateAddress(relayId.address.data as string);
-    }
-  }, [relayId]);
-
-  const navigateToDm = useCallback(() => {
-    router.push(`/receiver/dm/${conversation.peerAddress}`);
-  }, [conversation.peerAddress, router]);
-
-  if (isLoading || isError) {
-    return null;
-  }
-
-  return (
-    <MessagePreview.Root onClick={navigateToDm}>
-      <MessagePreview.Wrapper>
-        <MessagePreview.Avatar
-          handle={conversation.peerAddress}
-          onClick={() => null}
-          size="md"
-        />
-        <MessagePreview.MsgDetails>
-          <MessagePreview.NameAndIcons>
-            <MessagePreview.ENSName.EnsNameMonofontMd>
-              {ensName}
-              {conversation.context?.conversationId.includes("lens.dev") &&
-                " 🌿"}
-            </MessagePreview.ENSName.EnsNameMonofontMd>
-          </MessagePreview.NameAndIcons>
-          <MessagePreview.MessageDetails>
-            {(() => {
-              try {
-                return `${lastMessage?.content}`;
-              } catch {
-                return null;
-              }
-            })()}
-          </MessagePreview.MessageDetails>
-        </MessagePreview.MsgDetails>
-      </MessagePreview.Wrapper>
-      <MessagePreview.StyledTime>
-        <MessagePreview.Time.Root>
-          {(() => {
-            try {
-              return getDisplayDate(lastMessage?.sent as Date);
-            } catch {
-              return null;
-            }
-          })()}
-        </MessagePreview.Time.Root>
-      </MessagePreview.StyledTime>
-    </MessagePreview.Root>
   );
 };
