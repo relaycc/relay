@@ -1,7 +1,6 @@
 import { ComponentProps } from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { receiverTheme } from "@/design/receiverTheme";
-
 
 const Base = styled((props: ComponentProps<"svg">) => (
   <svg
@@ -82,7 +81,7 @@ export const Inactive = styled(Base)`
   }
 `;
 
-export const ChatIcon = styled(Base)<{active:boolean}>`
+export const ChatIcon = styled(Base)<{ active: boolean }>`
   :hover {
     path {
       transition: fill 150ms ease-in;
@@ -90,25 +89,27 @@ export const ChatIcon = styled(Base)<{active:boolean}>`
       stroke: #4236c7;
     }
   }
-${({active})=>active && css`
-  path {
-    fill: "#4236c7";
-    stroke: #4236c7;
-  }
-  path:nth-of-type(2) {
-    fill: "#4236c7";
-    stroke: #ffffff;
-  }
-  path:nth-of-type(3) {
-    stroke: #ffffff;
-  }
-  path:nth-of-type(4) {
-    fill: "#4236c7";
-    stroke: #ffffff;
-  }
-  path:nth-of-type(5) {
-    fill: "#4236c7";
-    stroke: #4236c7;
-  }
-`}
-`
+  ${({ active }) =>
+    active &&
+    css`
+      path {
+        fill: "#4236c7";
+        stroke: #4236c7;
+      }
+      path:nth-of-type(2) {
+        fill: "#4236c7";
+        stroke: #ffffff;
+      }
+      path:nth-of-type(3) {
+        stroke: #ffffff;
+      }
+      path:nth-of-type(4) {
+        fill: "#4236c7";
+        stroke: #ffffff;
+      }
+      path:nth-of-type(5) {
+        fill: "#4236c7";
+        stroke: #4236c7;
+      }
+    `}
+`;
