@@ -1,115 +1,177 @@
-import { motion } from "framer-motion";
-import { useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
+import { useState, useCallback } from "react";
 import styled from "styled-components";
-import { PrimaryButton } from "./ButtonPrimary";
-import { SecondaryButton } from "./ButtonSecondary";
+import { ButtonPrimary } from "./ButtonPrimary";
+import { ButtonSecondary } from "./ButtonSecondary";
 import { ChatIcon } from "./ChatIcon";
 import { ExternalLinkIcon } from "./ExternalLinkIcon";
-import { Logomark } from "./Logo";
+import Image from "next/image";
+import { textXsMedium, textSmallRegular } from "../typography";
 
-const Head = styled(motion.div)`
+const Description = styled(motion.p)`
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-`;
-
-const Content = styled(motion.div)`
-  display: flex;
-`;
-
-const Feet = styled(motion.div)`
-  display: flex;
-  gap: 1rem;
+  ${textSmallRegular}
+  color: ${(p) => p.theme.colors.gray["500"]};
+  margin-top: 1rem;
 `;
 
 const CardTitle = styled(motion.div)`
   font-style: normal;
   font-weight: 700;
   font-size: 24px;
+  text-align: left;
   line-height: 29px;
-  text-align: center;
   color: ${(props) => props.theme.colors.gray["900"]};
-}
 `;
 
+export const CardsWrapper = styled(motion.div)`
+  width: 100%;
+  gap: 1rem;
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  flex-wrap: wrap;
+`;
+
+const DescriptionHeader = styled.p`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 0.5rem;
+`;
+
+const Category = styled.div`
+  ${textXsMedium}
+  background-color: ${(p) => p.theme.colors.primary["100"]};
+  color: ${(p) => p.theme.colors.primary["700"]};
+  border-radius: 1rem;
+  height: 22px;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  display: flex;
+  align-items: center;
+  margin-right: auto;
+`;
+
+const FlexRow = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-self: flex-end;
+`;
+
+export const DirectoryCard = ({
+  logo,
+  delay,
+  name,
+  description,
+  category,
+  url,
+}: {
+  name: string;
+  logo: string;
+  delay?: number;
+  description?: string;
+  category: string;
+  url: string;
+}) => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  return (
+    <Root
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ delay: delay || 0 }}
+      onMouseOver={() => setIsOpen(true)}
+      onMouseLeave={() => setIsOpen(false)}
+    >
+      <AnimatePresence>
+        {isOpen || (
+          <LogoRoot
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+          >
+            <Image
+              src={sanitizeLogo(logo)}
+              width={128}
+              height={128}
+              alt="logo"
+            />
+            <CardTitle>{name}</CardTitle>
+          </LogoRoot>
+        )}
+      </AnimatePresence>
+      {isOpen && (
+        <DescriptionRoot
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ delay: 0.3 }}
+        >
+          <DescriptionHeader>
+            <CardTitle>{name}</CardTitle>
+            <Image src={sanitizeLogo(logo)} width={64} height={64} alt="logo" />
+          </DescriptionHeader>
+          <Category>{category}</Category>
+          <Description>{description}</Description>
+          <FlexRow style={{ marginTop: "auto" }}>
+            <ButtonSecondary
+              as="a"
+              href={url}
+              target="_blank"
+              rel="noreferrer"
+              style={{ marginRight: "11px", width: "91px" }}
+            >
+              <ExternalLinkIcon />
+              Visit
+            </ButtonSecondary>
+            <ButtonPrimary>
+              <ChatIcon />
+              Message
+            </ButtonPrimary>
+          </FlexRow>
+        </DescriptionRoot>
+      )}
+    </Root>
+  );
+};
+
 const Root = styled(motion.div)`
+  width: 252px;
+  height: 330px;
+  padding: 14px;
+  cursor: pointer;
+  background: #ffffff;
+  border: 1px solid ${(props) => props.theme.colors.gray["200"]};
+  box-shadow: 0 1px 3px rgba(16, 24, 40, 0.1), 0 1px 2px rgba(16, 24, 40, 0.06);
+  border-radius: 8px;
+  position: relative;
+`;
+
+const LogoRoot = styled(motion.div)`
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 252px;
-  height: 330px;
-  padding: 1rem;
-  cursor: pointer;
-  background: #FFFFFF;
-  border: 1px solid ${(props) => props.theme.colors.gray["200"]};
-  box-shadow: 0 1px 3px rgba(16, 24, 40, 0.1), 0 1px 2px rgba(16, 24, 40, 0.06);
-  border-radius: 8px;
-  
-  position: relative;
-
-  transition: all 100ms ease-in;
-  
-   :hover {
-     background: #EFEEFB;
-     border: 1px solid #EAECF0;
-     justify-content: space-between;
-     
-     ${CardTitle} {
-       text-align: left;
-     }
-   }
-  } 
-`;
-
-export const CardsWrapper = styled(motion.div)`
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(252px, 1fr));
-  width: 100%;
   gap: 1rem;
+  background: #ffffff;
+  height: 100%;
+  width: 100%;
 `;
 
-export const DirectoryCard = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  return (
-    <Root
-      onMouseOver={() => setIsOpen(true)}
-      onMouseLeave={() => setIsOpen(false)}
-    >
-      <Head
-        initial={{}}
-        animate={isOpen && { flexDirection: "row-reverse" }}
-        transition={{ delay: 0.5 }}
-      >
-        <Logomark width={120} height={120} />
-        <CardTitle>Dashboard of Creator Economy Stats</CardTitle>
-      </Head>
-      {isOpen && (
-        <>
-          <Content
-            initial={{ opacity: 0, scale: 0 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.5 }}
-          >
-            content
-          </Content>
-          <Feet
-            initial={{ opacity: 0, scale: 0 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.5 }}
-          >
-            <SecondaryButton>
-              <ExternalLinkIcon />
-              Visit
-            </SecondaryButton>
-            <PrimaryButton>
-              <ChatIcon />
-              Message
-            </PrimaryButton>
-          </Feet>
-        </>
-      )}
-    </Root>
-  );
+const DescriptionRoot = styled(motion.div)`
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+`;
+
+const sanitizeLogo = (logo: string) => {
+  if (logo.startsWith("/")) {
+    return logo;
+  } else {
+    return "/" + logo;
+  }
 };

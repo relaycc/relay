@@ -1,7 +1,6 @@
 import { useState, ComponentProps } from "react";
 import styled from "styled-components";
 import { receiverTheme } from "@/design/receiverTheme";
-import { textSmallRegular } from "@/design/typography";
 import { Magnifier } from "@/design/Magnifier";
 
 const Root = styled.div`
@@ -14,8 +13,8 @@ const Root = styled.div`
   padding: 8px 16px;
   gap: 10px;
   border-radius: 0.5rem;
-  background: #FFFFFF;
-  border: 1px solid #D0D5DD;
+  background: #ffffff;
+  border: 1px solid #d0d5dd;
 `;
 
 const Input = styled.input`
@@ -23,7 +22,7 @@ const Input = styled.input`
   font-weight: 500;
   font-size: 14px;
   line-height: 19px;
-  background: #FFFFFF;
+  background: #ffffff;
   color: ${receiverTheme.colors.gray["900"]};
   border: hidden;
   width: 100%;
@@ -35,7 +34,6 @@ const Input = styled.input`
   ::placeholder {
     color: ${receiverTheme.colors.gray["400"]};
   }
-
 `;
 
 export const Search = (props: ComponentProps<typeof Input>) => {

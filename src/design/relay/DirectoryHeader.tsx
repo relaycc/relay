@@ -7,9 +7,8 @@ export const Title = styled.div`
   font-size: 40px;
   line-height: 54px;
   text-align: center;
-  /* Gray/900 */
-  color: #101828; 
-`
+  color: ${(props) => props.theme.colors.gray["900"]};
+`;
 
 export const Root = styled.div`
   display: flex;
@@ -28,7 +27,7 @@ export const Directories = styled.ul`
   flex-direction: row;
 `;
 
-export const Directory = styled.button`
+const Directory = styled.button`
   display: flex;
   align-items: center;
   padding: 8px 16px;
@@ -43,20 +42,19 @@ export const Directory = styled.button`
   border: 2px solid white;
   background-color: white;
   transition: all 100ms ease-out;
-
-  :hover {
-    transition: all 100ms ease-in;
-    background: ${(props) => props.theme.colors.primary["100"]};;
-    border: 2px solid ${(props) => props.theme.colors.primary["300"] };
-  }
-  :active {
-    transition: all 100ms ease-in;
-    background: ${(props) => props.theme.colors.primary["300"] };;
-    border: 2px solid ${(props) => props.theme.colors.primary["300"] };
-    color: white;
-  }
 `;
 
+export const Active = styled(Directory)`
+  transition: all 100ms ease-in;
+  background: ${(props) => props.theme.colors.primary["300"]};
+  border: 2px solid ${(props) => props.theme.colors.primary["300"]};
+  color: white;
+`;
 
-
-
+export const Inactive = styled(Directory)`
+  :hover {
+    transition: all 100ms ease-in;
+    background: ${(props) => props.theme.colors.primary["100"]};
+    border: 2px solid ${(props) => props.theme.colors.primary["300"]};
+  }
+`;

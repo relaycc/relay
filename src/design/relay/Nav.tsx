@@ -7,6 +7,7 @@ export const Root = styled.div`
   align-items: center;
   flex-direction: row;
   width: 100%;
+  padding: 2rem;
   height: 80px;
 `;
 
@@ -16,6 +17,7 @@ export const InnerWrapper = styled.div`
 `;
 
 export const NavLink = styled.div`
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -23,8 +25,25 @@ export const NavLink = styled.div`
   font-weight: 500;
   font-size: 16px;
   line-height: 22px;
+  height: 40px;
   cursor: pointer;
   :hover {
     color: ${(p) => p.theme.colors.primary["500"]};
   }
+`;
+
+export const DropdownCard = styled.div`
+  position: relative;
+  overflow: hidden;
+  flex-direction: column;
+  justify-content: center;
+  margin-top: 0.5rem;
+  color: ${(p) => p.theme.colors.gray["900"]};
+  box-shadow: 0 4px 8px -2px rgba(16, 24, 40, 0.1),
+    0px 2px 4px -2px rgba(16, 24, 40, 0.06);
+  border-radius: 8px;
+  padding: 8px;
+  background-color: #efeefb;
+  min-height: 2.8rem;
+  width: 9rem;
 `;

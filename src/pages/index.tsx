@@ -1,11 +1,5 @@
 import Head from "next/head";
-import {
-  FunctionComponent,
-  ReactNode,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import * as Card from "@/design/relay/Card";
 import * as DirectoryHeader from "@/design/relay/DirectoryHeader";
@@ -14,17 +8,22 @@ import * as Chevron from "@/design/relay/Chevron";
 import Footer from "@/design/relay/Footer";
 import { CardsWrapper, DirectoryCard } from "@/design/relay/DirectoryCard";
 import { Logo } from "@/design/relay/Logo";
-import { NavLink } from "@/design/relay/LinkProducts";
-import { LinkCommunity } from "@/design/relay/LinkCommunity";
 import { IconGithub } from "@/design/relay/IconGithub";
 import * as Nav from "@/design/relay/Nav";
 import * as Showcase from "@/design/relay/Showcase";
+import { client } from "@/lib/supabase/client";
+import { isProject, Project, CATEGORIES } from "@/lib/supabase/project";
 
 export const FullWidthPage = styled.main`
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
   width: 100vw;
+  min-height: 100vh;
+  background-image: url("/gradients.png");
+  background-size: 100% 400px;
+  background-repeat: no-repeat;
+  background-position: top 80px left 0;
 `;
 
 export const ContentColumn = styled.div`
@@ -32,38 +31,54 @@ export const ContentColumn = styled.div`
   flex-direction: column;
   align-items: center;
   width: 100%;
-  max-width: 1440px;
-  position: relative;
-  overflow: hidden;
+  max-width: calc(252px * 5 + 64px);
+  flex-grow: 1;
 `;
 
-export interface Project {
-  id: string;
-  name: string;
-  url: string;
-  logo: string;
-  handle: string | null;
-  description: string;
-  sort: number;
-  category:
-    | "general"
-    | "new"
-    | "venture"
-    | "lens"
-    | "identity"
-    | "events"
-    | "music"
-    | "impactdao"
-    | "defi"
-    | "dao"
-    | "zk"
-    | "daotool"
-    | "infrastructure";
-}
+const ContentColumnNarrow = styled.div`
+  max-width: 1376px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 330px;
+  margin-bottom: 3rem;
+`;
+const FlexWrapRow = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  min-width: 100%;
+`;
 
-export default function Relay() {
+const DropdownRoot = styled.div`
+  position: relative;
+`;
+
+const DropdownCardHidden = styled(Nav.DropdownCard)`
+  position: absolute;
+  display: none;
+  height: 200px;
+  :hover {
+    display: flex;
+  }
+`;
+
+const Dropdown = () => {
+  return (
+    <DropdownRoot>
+      <Nav.NavLink>Community</Nav.NavLink>
+      <DropdownCardHidden>hey</DropdownCardHidden>
+    </DropdownRoot>
+  );
+};
+
+export default function Relay({ projects }: { projects: Project[] }) {
   const [width, setWidth] = useState(0);
   const showcaseRef = useRef<HTMLDivElement>(null);
+  const [activeCategory, setActiveCategory] =
+    useState<Project["category"]>("general");
+  const [searchInput, setSearchInput] = useState<string | null>(null);
 
   useEffect(() => {
     showcaseRef?.current &&
@@ -71,6 +86,19 @@ export default function Relay() {
         showcaseRef.current.scrollWidth - showcaseRef.current.offsetWidth
       );
   }, []);
+
+  const filteredProjects = projects.filter((project) => {
+    return (
+      project.category === activeCategory &&
+      (() => {
+        if (searchInput === null) {
+          return true;
+        } else {
+          return project.name.toLowerCase().includes(searchInput.toLowerCase());
+        }
+      })()
+    );
+  });
 
   return (
     <>
@@ -138,113 +166,102 @@ export default function Relay() {
               <Showcase.Ellipse />
             </Showcase.InnerWrapper>
           </Showcase.Wrapper>
-          <DirectoryHeader.Root>
-            <DirectoryHeader.Title>Directory</DirectoryHeader.Title>
-            <DirectoryHeader.Search.Search placeholder={"Search Directory"} />
+          <DirectoryHeader.Root style={{ maxWidth: "max-content" }}>
+            <DirectoryHeader.Title>Explore Web3 on Relay</DirectoryHeader.Title>
+            <DirectoryHeader.Search.Search
+              onChange={(e: any) => {
+                setSearchInput(e.target.value);
+              }}
+              value={searchInput || ""}
+              placeholder={"Search for projects..."}
+            />
             <DirectoryHeader.Nav>
               <DirectoryHeader.Directories>
-                <DirectoryHeader.Directory
-                  onClick={() => {
-                    //setCategory("general");
-                  }}
-                >
-                  General
-                </DirectoryHeader.Directory>
-                <DirectoryHeader.Directory
-                  onClick={() => {
-                    //setCategory("new");
-                  }}
-                >
-                  New
-                </DirectoryHeader.Directory>
-                <DirectoryHeader.Directory
-                  onClick={() => {
-                    //setCategory("venture");
-                  }}
-                >
-                  Venture
-                </DirectoryHeader.Directory>
-                <DirectoryHeader.Directory
-                  onClick={() => {
-                    //setCategory("lens");
-                  }}
-                >
-                  Lens
-                </DirectoryHeader.Directory>
-                <DirectoryHeader.Directory
-                  onClick={() => {
-                    //setCategory("music");
-                  }}
-                >
-                  Music
-                </DirectoryHeader.Directory>
-                <DirectoryHeader.Directory
-                  onClick={() => {
-                    //setCategory("events");
-                  }}
-                >
-                  Events
-                </DirectoryHeader.Directory>
-                <DirectoryHeader.Directory
-                  onClick={() => {
-                    //setCategory("infrastructure");
-                  }}
-                >
-                  Infrastructure
-                </DirectoryHeader.Directory>
-                <DirectoryHeader.Directory
-                  onClick={() => {
-                    //setCategory("impactdao");
-                  }}
-                >
-                  ImpactDAO
-                </DirectoryHeader.Directory>
-                <DirectoryHeader.Directory
-                  onClick={() => {
-                    //setCategory("identity");
-                  }}
-                >
-                  Identity
-                </DirectoryHeader.Directory>
-                <DirectoryHeader.Directory
-                  onClick={() => {
-                    //setCategory("dao");
-                  }}
-                >
-                  DAO
-                </DirectoryHeader.Directory>
-                <DirectoryHeader.Directory
-                  onClick={() => {
-                    //setCategory("defi");
-                  }}
-                >
-                  DeFi
-                </DirectoryHeader.Directory>
-                <DirectoryHeader.Directory
-                  onClick={() => {
-                    //setCategory("zk");
-                  }}
-                >
-                  ZK
-                </DirectoryHeader.Directory>
-                <DirectoryHeader.Directory
-                  onClick={() => {
-                    //setCategory("daotool");
-                  }}
-                >
-                  DAO Tools
-                </DirectoryHeader.Directory>
+                {CATEGORIES.map((category) => {
+                  return (
+                    <DirectoryHeaderItem
+                      key={category}
+                      category={category}
+                      isActive={category === activeCategory}
+                      onClick={() => setActiveCategory(category)}
+                    />
+                  );
+                })}
               </DirectoryHeader.Directories>
             </DirectoryHeader.Nav>
 
-            {/* Cards starting here */}
-            <CardsWrapper>
-              <DirectoryCard />
-            </CardsWrapper>
+            <ContentColumnNarrow>
+              <FlexWrapRow>
+                {filteredProjects.map((project, i) => (
+                  <DirectoryCard
+                    url={project.url}
+                    name={project.name}
+                    delay={i * 0.05}
+                    key={project.id}
+                    logo={project.logo}
+                    description={project.description}
+                    category={activeCategory}
+                  />
+                ))}
+              </FlexWrapRow>
+            </ContentColumnNarrow>
           </DirectoryHeader.Root>
-          <Footer />
         </ContentColumn>
+        <Footer />
       </FullWidthPage>
     </>
   );
 }
+
+export const getServerSideProps = async (): Promise<{
+  props: {
+    projects: Project[];
+  };
+}> => {
+  const { data, error } = await client
+    .from("projects")
+    .select("*")
+    .order("sort", { ascending: true });
+
+  const processed = (() => {
+    if (data === null) {
+      console.warn('Data fetched for projects is null, returning empty array"');
+      return [];
+    } else if (error !== null) {
+      console.error("Error fetching projects", error);
+      return [];
+    } else {
+      return data.filter(isProject);
+    }
+  })();
+
+  return {
+    props: {
+      projects: processed,
+    },
+  };
+};
+
+const DirectoryHeaderItem = ({
+  isActive,
+  onClick,
+  category,
+}: {
+  isActive: boolean;
+  onClick: () => unknown;
+  category: string;
+}) => {
+  if (isActive) {
+    return (
+      <DirectoryHeader.Active onClick={onClick}>
+        {category}
+      </DirectoryHeader.Active>
+    );
+  } else {
+    return (
+      <DirectoryHeader.Inactive onClick={onClick}>
+        {category}
+      </DirectoryHeader.Inactive>
+    );
+  }
+};

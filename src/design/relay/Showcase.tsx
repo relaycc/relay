@@ -5,12 +5,12 @@ export const Root = styled.div`
   display: flex;
   align-items: center;
   max-width: 1392px;
-  padding: 24px 0;
+  padding: 1rem 0;
   border-radius: 16px;
   justify-content: center;
   background: ${(props) => props.theme.colors.gray["25"]};
-  margin-top: 3rem;
-  margin-bottom: 3rem;
+  margin-top: 1rem;
+  margin-bottom: 6rem;
   overflow: hidden;
 
   svg {
@@ -29,12 +29,7 @@ export const Slides = styled(motion.div)`
   overflow: visible;
 `;
 
-export const Wrapper = styled.div`
-  position: absolute;
-  left: 2%;
-  right: 2%;
-  top: 336px;
-`;
+export const Wrapper = styled.div``;
 
 export const InnerWrapper = styled.div`
   position: relative;

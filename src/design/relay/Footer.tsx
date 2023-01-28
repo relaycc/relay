@@ -9,7 +9,10 @@ export const Root = styled.div`
   display: flex;
   justify-content: center;
   height: 23.438rem;
+  background-image: url("/footer-bg.png");
+  background-position: center;
   width: 100%;
+  overflow-x: hidden;
 `;
 
 export const StyledBckgr = styled(FooterBackground)`
@@ -18,7 +21,6 @@ export const StyledBckgr = styled(FooterBackground)`
 `;
 
 export const Wrapper = styled.div`
-  position: absolute;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -58,7 +60,8 @@ export const SignOff = styled.div`
   justify-content: space-between;
   align-items: center;
   border-top: 1px solid ${receiverTheme.colors.gray["500"]};
-  height: 5.75rem;
+  min-height: 6rem;
+  margin-top: 1.5rem;
 `;
 export const Copyright = styled.div`
   font-style: normal;
@@ -71,7 +74,6 @@ export const Copyright = styled.div`
 export default function Footer() {
   return (
     <Root>
-      <StyledBckgr />
       <Wrapper>
         <LinkContainer>
           <LinkColumn>
