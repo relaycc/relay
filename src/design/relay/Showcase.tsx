@@ -4,13 +4,12 @@ import styled from "styled-components";
 export const Root = styled.div`
   display: flex;
   align-items: center;
-  max-width: 1392px;
-  padding: 1rem 0;
+  max-width: 1323px;
   border-radius: 16px;
   justify-content: center;
-  background: ${(props) => props.theme.colors.gray["25"]};
+  background: none;
   margin-top: 1rem;
-  margin-bottom: 6rem;
+  margin-bottom: 4rem;
   overflow: hidden;
 
   svg {
@@ -25,7 +24,7 @@ export const MotionRoot = styled(motion.div)`
 export const Slides = styled(motion.div)`
   display: flex;
   gap: 18px;
-  background: ${(props) => props.theme.colors.gray["25"]};
+  background: none;
   overflow: visible;
 `;
 

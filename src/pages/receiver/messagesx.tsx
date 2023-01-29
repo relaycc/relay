@@ -15,7 +15,7 @@ export default function Messages() {
   const myAddress = connectedWallet?.address.toLowerCase() as EthAddress;
   const { messages, sendMessage } = useDirectMessage({
     clientAddress: connectedWallet?.address as EthAddress,
-    conversation: { peerAddress:"0x3AE8348229C8fd6EEAa0CB718AfEc166DFB4FE17" },
+    conversation: { peerAddress: "0x3AE8348229C8fd6EEAa0CB718AfEc166DFB4FE17" },
   });
   useRedirectWhenNotSignedIn("/receiver/messages");
   return (

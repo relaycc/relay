@@ -1,11 +1,9 @@
 import styled from "styled-components";
 export * as Search from "./Search";
+import { textXxlBlack } from "../typography";
 
 export const Title = styled.div`
-  font-style: normal;
-  font-weight: 900;
-  font-size: 40px;
-  line-height: 54px;
+  ${textXxlBlack};
   text-align: center;
   color: ${(props) => props.theme.colors.gray["900"]};
 `;

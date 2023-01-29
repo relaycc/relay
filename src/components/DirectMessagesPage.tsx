@@ -10,11 +10,7 @@ import styled from "styled-components";
 import * as ENSName from "@/design/ENSName";
 
 export * as Time from "@/design/Time";
-import * as Nav from "@/design/Nav";
 import * as DMHeader from "@/design/DMHeader";
-import { FooterNav } from "./FooterNav";
-import { useRouter } from "next/router";
-import { useRedirectWhenNotSignedIn } from "@/hooks/useRedirectWhenNotSignedInt";
 import { useConnectedWallet } from "@/hooks/useConnectedWallet";
 import { EthAddress, Message, useDirectMessage } from "@relaycc/xmtp-hooks";
 import * as MsgBundles from "@/design/MsgBundles";
@@ -33,6 +29,11 @@ import * as MsgPreview from "@/design/MsgPreview";
 import { Pinned, Unpinned } from "@/design/PinIcon";
 import { textSmallRegular } from "@/design/typography";
 import * as Skeleton from "@/design/Skeleton";
+import {
+  useReceiverWindow,
+  useRedirectWhenNotSignedIn,
+} from "@/hooks/useReceiverWindow";
+import { Conversation } from "@relaycc/xmtp-hooks";
 
 export interface MessagesBucketProps {
   bucket: {
@@ -43,13 +44,14 @@ export interface MessagesBucketProps {
 
 type MessageBucket = MessagesBucketProps["bucket"];
 
-export const DirectMessagesPage: FunctionComponent<{}> = () => {
-  useRedirectWhenNotSignedIn("/receiver/messages");
+export const DirectMessagesPage: FunctionComponent<{
+  conversation: Conversation;
+}> = ({ conversation }) => {
   const [showFailureToast, setShowFailureToast] = useState(false);
   const [inputIsFocused, setInputIsFocused] = useState(false);
   const [msgValue, setMsgValue] = useState<string>("");
-  const router = useRouter();
-  const peerAddress = router.query.handle as EthAddress;
+  const { page, setPage } = useReceiverWindow();
+  const peerAddress = conversation.peerAddress as EthAddress;
   const connectedWallet = useConnectedWallet((s) => s.connectedWallet);
   const { messages, sendMessage } = useDirectMessage({
     clientAddress: connectedWallet?.address as EthAddress,
@@ -87,22 +89,13 @@ export const DirectMessagesPage: FunctionComponent<{}> = () => {
     setInputIsFocused(!inputIsFocused);
   }, [inputIsFocused]);
   const handleSend = useCallback(() => {
-    if (
-      !messages?.data ||
-      !messages.data.length ||
-      msgValue.length === 0 ||
-      msgValue.trim().length === 0
-    ) {
-      return;
-    }
     try {
       sendMessage.mutate({
         content: msgValue,
-        conversation: messages.data[0].conversation,
+        conversation: { peerAddress },
       });
     } catch (e) {
       toggleFailureToast();
-      console.log(e);
       return;
     }
     setMsgValue("");
@@ -124,10 +117,10 @@ export const DirectMessagesPage: FunctionComponent<{}> = () => {
     chat.scrollTop = chat.scrollHeight;
   }, [messages]);
   const navigateBack = useCallback(() => {
-    router.push(`/receiver/messages`);
-  }, [router]);
+    setPage({ id: "messages" });
+  }, [setPage]);
   return (
-    <Root>
+    <>
       <DMHeader.Root>
         <DMHeader.LeftSide>
           <BackIcon onClick={navigateBack} />
@@ -151,12 +144,12 @@ export const DirectMessagesPage: FunctionComponent<{}> = () => {
           {/* TODO Pinned for later implementation */}
           {/*<PinWrapper>{pinned ? <Pinned /> : <Unpinned />}</PinWrapper>*/}
           <ButtonMinimize />
-          <CloseIcon />
+          <CloseIcon onClick={() => setPage(null)} />
         </DMHeader.RightSide>
       </DMHeader.Root>
 
       <ScrollContainer id="chatScroll">
-        {messageCount && messageCount < 25 && (
+        {messageCount !== undefined && messageCount < 25 && (
           <HeadWrapper>
             <Avatar handle={peerAddress} onClick={() => null} size="xxxl" />
             <ENSName.EnsNameMd>{ensName}</ENSName.EnsNameMd>
@@ -196,13 +189,12 @@ export const DirectMessagesPage: FunctionComponent<{}> = () => {
           />
           <MsgBox.IconContainer>
             <MsgBox.ArrowUpCircle
-              active={inputIsFocused}
+              isActive={inputIsFocused}
               onClick={handleSend}
             />
           </MsgBox.IconContainer>
         </MsgBox.Root>
       </MsgBoxWrapper>
-      <FooterNav />
       {showFailureToast && (
         <ToastPosition>
           <Toast.Failure.Card
@@ -221,7 +213,7 @@ export const DirectMessagesPage: FunctionComponent<{}> = () => {
           </Toast.Failure.Card>
         </ToastPosition>
       )}
-    </Root>
+    </>
   );
 };
 
@@ -412,20 +404,6 @@ const Loading = () => (
     </Skeleton.LoadingColumn>
   </Skeleton.LoadingRootDirect>
 );
-const Root = styled.div`
-  height: 700px;
-  width: 400px;
-  margin: 6rem auto;
-  box-shadow: 0px 4px 32px rgba(16, 24, 40, 0.12);
-  border-radius: 14px;
-  position: relative;
-  display: flex;
-  flex-direction: column;
-
-  ${Nav.Root} {
-    margin-top: auto;
-  }
-`;
 
 const MessagesWrapper = styled.div`
   display: flex;

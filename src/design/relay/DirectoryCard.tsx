@@ -1,5 +1,5 @@
-import { AnimatePresence, motion } from "framer-motion";
-import { useState, useCallback } from "react";
+import { useMemo, useRef } from "react";
+import { motion } from "framer-motion";
 import styled from "styled-components";
 import { ButtonPrimary } from "./ButtonPrimary";
 import { ButtonSecondary } from "./ButtonSecondary";
@@ -7,6 +7,12 @@ import { ChatIcon } from "./ChatIcon";
 import { ExternalLinkIcon } from "./ExternalLinkIcon";
 import Image from "next/image";
 import { textXsMedium, textSmallRegular } from "../typography";
+import { type } from "os";
+import { isEnsName } from "@/lib/isEnsName";
+import { EthAddress, isEthAddress } from "@relaycc/xmtp-hooks";
+import { useRelayId } from "@/hooks/useRelayId";
+import { useGoToDm, useReceiverWindow } from "@/hooks/useReceiverWindow";
+import { useInView } from "@/hooks/useInView";
 
 const Description = styled(motion.p)`
   display: flex;
@@ -33,7 +39,7 @@ export const CardsWrapper = styled(motion.div)`
   flex-wrap: wrap;
 `;
 
-const DescriptionHeader = styled.p`
+const DescriptionHeader = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -68,6 +74,7 @@ export const DirectoryCard = ({
   description,
   category,
   url,
+  handle,
 }: {
   name: string;
   logo: string;
@@ -75,66 +82,59 @@ export const DirectoryCard = ({
   description?: string;
   category: string;
   url: string;
+  handle?: string | null;
 }) => {
-  const [isOpen, setIsOpen] = useState(false);
+  const goToDm = useGoToDm();
+  const ref = useRef<HTMLDivElement>(null);
+  const id = useRelayId({ handle });
 
   return (
     <Root
+      ref={ref}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ delay: delay || 0 }}
-      onMouseOver={() => setIsOpen(true)}
-      onMouseLeave={() => setIsOpen(false)}
     >
-      <AnimatePresence>
-        {isOpen || (
-          <LogoRoot
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.2 }}
+      <DescriptionRoot
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        transition={{ delay: 0.3 }}
+      >
+        <DescriptionHeader>
+          <CardTitle>{name}</CardTitle>
+          <Image
+            src={sanitizeLogo(logo)}
+            width={64}
+            height={64}
+            alt="logo"
+            style={{ borderRadius: "4px" }}
+          />
+        </DescriptionHeader>
+        <Category>{category}</Category>
+        <Description>{description}</Description>
+        <FlexRow style={{ marginTop: "auto" }}>
+          <ButtonSecondary
+            as="a"
+            href={url}
+            target="_blank"
+            rel="noreferrer"
+            style={{ marginRight: "11px", width: "91px" }}
           >
-            <Image
-              src={sanitizeLogo(logo)}
-              width={128}
-              height={128}
-              alt="logo"
-            />
-            <CardTitle>{name}</CardTitle>
-          </LogoRoot>
-        )}
-      </AnimatePresence>
-      {isOpen && (
-        <DescriptionRoot
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ delay: 0.3 }}
-        >
-          <DescriptionHeader>
-            <CardTitle>{name}</CardTitle>
-            <Image src={sanitizeLogo(logo)} width={64} height={64} alt="logo" />
-          </DescriptionHeader>
-          <Category>{category}</Category>
-          <Description>{description}</Description>
-          <FlexRow style={{ marginTop: "auto" }}>
-            <ButtonSecondary
-              as="a"
-              href={url}
-              target="_blank"
-              rel="noreferrer"
-              style={{ marginRight: "11px", width: "91px" }}
-            >
-              <ExternalLinkIcon />
-              Visit
-            </ButtonSecondary>
-            <ButtonPrimary>
-              <ChatIcon />
-              Message
-            </ButtonPrimary>
-          </FlexRow>
-        </DescriptionRoot>
-      )}
+            <ExternalLinkIcon />
+            Visit
+          </ButtonSecondary>
+          <ButtonPrimary
+            onClick={() => {
+              goToDm({ peerAddress: id.address.data as EthAddress });
+            }}
+            disabled={typeof id.address.data !== "string"}
+          >
+            <ChatIcon />
+            Message
+          </ButtonPrimary>
+        </FlexRow>
+      </DescriptionRoot>
     </Root>
   );
 };
@@ -143,23 +143,11 @@ const Root = styled(motion.div)`
   width: 252px;
   height: 330px;
   padding: 14px;
-  cursor: pointer;
   background: #ffffff;
   border: 1px solid ${(props) => props.theme.colors.gray["200"]};
   box-shadow: 0 1px 3px rgba(16, 24, 40, 0.1), 0 1px 2px rgba(16, 24, 40, 0.06);
   border-radius: 8px;
   position: relative;
-`;
-
-const LogoRoot = styled(motion.div)`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 1rem;
-  background: #ffffff;
-  height: 100%;
-  width: 100%;
 `;
 
 const DescriptionRoot = styled(motion.div)`
@@ -174,4 +162,11 @@ const sanitizeLogo = (logo: string) => {
   } else {
     return "/" + logo;
   }
+};
+
+const isLensName = (name: unknown) => {
+  if (typeof name !== "string") {
+    return false;
+  }
+  return name.endsWith(".lens") && name.length > 10;
 };

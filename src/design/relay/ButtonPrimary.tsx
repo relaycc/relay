@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { receiverTheme } from "@/design/receiverTheme";
 
 export const ButtonPrimary = styled.button`
   display: flex;
@@ -13,11 +12,15 @@ export const ButtonPrimary = styled.button`
   gap: 8px;
   border: none;
   cursor: pointer;
-  background: ${receiverTheme.colors.primary[500]};
+  background: ${(p) => p.theme.colors.primary[500]};
   color: #ffffff;
   border-radius: 8px;
 
   :active {
-    background-color: ${receiverTheme.colors.primary[700]};
+    background-color: ${(p) => p.theme.colors.primary[700]};
+  }
+
+  :disabled {
+    background-color: ${(p) => p.theme.colors.gray[300]};
   }
 `;

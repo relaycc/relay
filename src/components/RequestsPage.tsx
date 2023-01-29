@@ -13,7 +13,6 @@ import * as DropdownIcon from "@/design/DropdownIcon";
 import * as Request from "@/design/Request";
 
 import { FooterNav } from "./FooterNav";
-import { useRouter } from "next/router";
 import { BackIcon } from "@/design/BackIcon";
 import * as HomeHeader from "@/design/HomeHeader";
 import { Active, Editing } from "@/design/Edit";
@@ -30,16 +29,16 @@ import {
   useDirectMessage,
 } from "@relaycc/xmtp-hooks";
 import { useConnectedWallet } from "@/hooks/useConnectedWallet";
-import { useRedirectWhenNotSignedIn } from "@/hooks/useRedirectWhenNotSignedInt";
 import { useReadWriteValue } from "@/hooks/useReadWriteValue";
 import { useRelayId } from "@/hooks/useRelayId";
 import { isEnsName } from "@/lib/isEnsName";
 import { getDisplayDate } from "@/lib/getDisplayDate";
 import { Loading } from "./MessagesPage";
+import { useGoToMessages } from "@/hooks/useReceiverWindow";
 
 export const RequestsPage: FunctionComponent<{}> = () => {
+  const goToMessages = useGoToMessages();
   const connectedWallet = useConnectedWallet((state) => state.connectedWallet);
-  const router = useRouter();
   const [editing, setEditing] = useState(false);
   const [showIgnored, setShowIgnored] = useState(false);
   const [showToast, setShowToast] = useState(false);
@@ -61,16 +60,10 @@ export const RequestsPage: FunctionComponent<{}> = () => {
     [showIgnored]
   );
 
-  useRedirectWhenNotSignedIn("/receiver/requests");
-
   const toggleEditing = useCallback(() => {
     setEditing(!editing);
     setSelected([]);
   }, [editing]);
-
-  const navigateBack = useCallback(() => {
-    router.push(`/receiver/messages`);
-  }, [router]);
 
   const handleAccept = useCallback(() => {
     setEditing(false);
@@ -83,9 +76,9 @@ export const RequestsPage: FunctionComponent<{}> = () => {
   }, [selected]);
 
   return (
-    <Root>
+    <>
       <HomeHeader.Root>
-        <BackIcon onClick={navigateBack} />
+        <BackIcon onClick={goToMessages} />
         <HomeHeader.Title>Requests</HomeHeader.Title>
         {editing ? (
           <Editing onClick={toggleEditing} />
@@ -175,7 +168,7 @@ export const RequestsPage: FunctionComponent<{}> = () => {
       </ButtonRow>
       <FooterNav />
       {showToast && <FailToast clearToast={() => setShowToast(false)} />}
-    </Root>
+    </>
   );
 };
 
@@ -342,20 +335,6 @@ const FailToast: FunctionComponent<{
   );
 };
 
-const Root = styled.div`
-  height: 700px;
-  width: 400px;
-  margin: 6rem auto;
-  box-shadow: 0px 4px 32px rgba(16, 24, 40, 0.12);
-  border-radius: 14px;
-  position: relative;
-  display: flex;
-  flex-direction: column;
-
-  ${Nav.Root} {
-    margin-top: auto;
-  }
-`;
 const IgnoredRoot = styled(motion.div)`
   display: flex;
   align-self: flex-end;

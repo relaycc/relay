@@ -1,7 +1,7 @@
-import { useQuery } from '@tanstack/react-query';
-import { alchemyProvider } from '@/lib/alchemyProvider';
-import { isEnsName } from '@/lib/isEnsName';
-import { getAddress } from 'ethers/lib/utils.js';
+import { useQuery } from "@tanstack/react-query";
+import { alchemyProvider } from "@/lib/alchemyProvider";
+import { isEnsName } from "@/lib/isEnsName";
+import { getAddress } from "ethers/lib/utils.js";
 
 export const useAddressFromEns = ({
   handle,
@@ -11,19 +11,18 @@ export const useAddressFromEns = ({
   wait?: boolean;
 }) => {
   return useQuery(
-    ['address from ens', handle],
+    ["address from ens", handle],
     async () => {
-      if (!isEnsName(handle)) {
-        return null;
-      } else {
-        const fetchedAddress = await alchemyProvider.resolveName(handle);
-        if (fetchedAddress === null) {
-          return null;
-        } else {
-          return getAddress(fetchedAddress);
-        }
-      }
+      return fetchAddressFromEns(handle);
     },
     { enabled: wait !== false }
   );
+};
+
+export const fetchAddressFromEns = async (ensName?: string | null) => {
+  if (!isEnsName(ensName)) {
+    return null;
+  } else {
+    return alchemyProvider.resolveName(ensName);
+  }
 };

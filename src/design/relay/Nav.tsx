@@ -2,13 +2,28 @@ import styled from "styled-components";
 export * from "@/design/relay/ButtonPrimary";
 export * from "@/design/relay/Chevron";
 
-export const Root = styled.div`
+const Root = styled.div`
   display: flex;
   align-items: center;
   flex-direction: row;
   width: 100%;
   padding: 2rem;
   height: 80px;
+`;
+
+export const RootDesktop = styled(Root)`
+  display: none;
+  @media (min-width: 768px) {
+    display: flex;
+  }
+`;
+
+export const RootMobile = styled(Root)`
+  display: flex;
+  @media (min-width: 768px) {
+    display: none;
+  }
+  justify-content: space-between;
 `;
 
 export const InnerWrapper = styled.div`

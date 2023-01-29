@@ -1,5 +1,5 @@
-import { DirectMessagesPage } from '@/components/DirectMessagesPage';
-import { NextPage } from 'next';
+import { DirectMessagesPage } from "@/components/DirectMessagesPage";
+import { NextPage } from "next";
 
 const DirectMessage: NextPage = () => {
   return <DirectMessagesPage />;

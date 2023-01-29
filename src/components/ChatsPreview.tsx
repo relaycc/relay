@@ -9,12 +9,13 @@ import { useRouter } from "next/router";
 import { FunctionComponent, useCallback, useMemo } from "react";
 import * as MessagePreview from "@/design/MessagePreview";
 import { getDisplayDate } from "@/lib/getDisplayDate";
+import { useReceiverWindow, useGoToDm } from "@/hooks/useReceiverWindow";
 
 export const ChatsPreview: FunctionComponent<{
   conversation: Conversation;
   address: EthAddress;
 }> = ({ conversation, address }) => {
-  const router = useRouter();
+  const goToDm = useGoToDm();
   const {
     messages: { data, isError, isLoading },
   } = useDirectMessage({
@@ -22,7 +23,6 @@ export const ChatsPreview: FunctionComponent<{
     conversation,
     stream: false,
   });
-
   const lastMessage = data?.[0];
   const relayId = useRelayId({ handle: conversation.peerAddress });
 
@@ -34,16 +34,12 @@ export const ChatsPreview: FunctionComponent<{
     }
   }, [relayId]);
 
-  const navigateToDm = useCallback(() => {
-    router.push(`/receiver/dm/${conversation.peerAddress}`);
-  }, [conversation.peerAddress, router]);
-
   if (isLoading || isError) {
     return null;
   }
 
   return (
-    <MessagePreview.Root onClick={navigateToDm}>
+    <MessagePreview.Root onClick={() => goToDm(conversation)}>
       <MessagePreview.Wrapper>
         <MessagePreview.Avatar
           handle={conversation.peerAddress}
