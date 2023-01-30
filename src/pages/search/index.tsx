@@ -3,7 +3,6 @@ import {
   FunctionComponent,
   useCallback,
   useEffect,
-  useMemo,
   useRef,
   useState,
 } from "react";
@@ -23,7 +22,7 @@ import Image from "next/image";
 import { ConnectButton } from "@/components/ConnectButton";
 import { NextRouter, useRouter } from "next/router";
 import { ReceiverWindow } from "@/components/ReceiverWindow";
-import { useGoToDm, useReceiverWindow } from "@/hooks/useReceiverWindow";
+import { useGoToDm, useToggle } from "@/hooks/useReceiverWindow";
 import { ROBOT_ADDRESSES } from "@/lib/robot-addresses";
 import { DropdownItem } from "@/design/relay/DropdownItem";
 import { Sidebar } from "@/design/relay/Sidebar";
@@ -33,6 +32,7 @@ import * as Chevron from "@/design/relay/Chevron";
 export default function Relay({ projects }: { projects: Project[] }) {
   const router = useRouter();
   const goToDm = useGoToDm();
+  const toggleReceiver = useToggle();
   const activeCategory = (router.query.category ||
     "general") as Project["category"];
   const setActiveCategory = (category: Project["category"]) =>
@@ -52,11 +52,9 @@ export default function Relay({ projects }: { projects: Project[] }) {
     setShowProducts(false);
   }, [showCommunity]);
   const [sidebar, setSidebar] = useState<boolean>(false);
-  const { setPage } = useReceiverWindow();
   const showcaseClick = useShowcaseClick();
 
   useEffect(() => {
-    setPage({ id: "sign" });
     showcaseRef?.current &&
       setWidth(
         showcaseRef.current.scrollWidth - showcaseRef.current.offsetWidth

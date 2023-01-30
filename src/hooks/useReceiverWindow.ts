@@ -49,6 +49,20 @@ export const useGoToDm = () => {
   );
 };
 
+export const useToggle = () => {
+  const { page, setPage } = useReceiverWindow();
+  return useCallback(
+    (pageToToggle: Page) => {
+      if (page === null) {
+        setPage(pageToToggle);
+      } else {
+        setPage(null);
+      }
+    },
+    [page, setPage]
+  );
+};
+
 export const useRedirectWhenNotSignedIn = () => {
   const { page, setPage } = useReceiverWindow();
   const { address, isConnected } = useAccount();
