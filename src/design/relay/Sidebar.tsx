@@ -52,7 +52,8 @@ export const Sidebar: FunctionComponent<{
             exit={{
               x: "100%",
             }}
-            transition={{ type: "spring", bounce: 0, duration: 0.4 }}>
+            transition={{ type: "spring", bounce: 0, duration: 0.4 }}
+          >
             <Header>
               <Title>Categories</Title>
               <CloseIcon onClick={() => setSidebar(false)} />
@@ -62,14 +63,18 @@ export const Sidebar: FunctionComponent<{
                 if (category === activeCategory) {
                   return (
                     <DirectoryHeader.MobileActive
-                      onClick={() => setActiveCategory(category)}>
+                      key={category}
+                      onClick={() => setActiveCategory(category)}
+                    >
                       {category}
                     </DirectoryHeader.MobileActive>
                   );
                 } else {
                   return (
                     <DirectoryHeader.MobileInactive
-                      onClick={() => setActiveCategory(category)}>
+                      key={category}
+                      onClick={() => setActiveCategory(category)}
+                    >
                       {category}
                     </DirectoryHeader.MobileInactive>
                   );
