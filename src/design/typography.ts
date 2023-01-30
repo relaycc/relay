@@ -49,6 +49,14 @@ export const textXxlBlack = css`
   line-height: 54px;
 `;
 
+export const textXlBlack = css`
+  ${black};
+  font-style: normal;
+  font-weight: 900;
+  font-size: 32px;
+  line-height: 43.2px;
+`;
+
 export const textXlSemibold = css`
   font-size: 20px;
   font-weight: 600;
