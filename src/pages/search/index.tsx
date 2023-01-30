@@ -9,10 +9,8 @@ import {
 import styled from "styled-components";
 import * as Card from "@/design/relay/Card";
 import * as DirectoryHeader from "@/design/relay/DirectoryHeader";
-import { Header } from "@/design/relay/Header";
-import * as Chevron from "@/design/relay/Chevron";
 import Footer from "@/design/relay/Footer";
-import { CardsWrapper, DirectoryCard } from "@/design/relay/DirectoryCard";
+import { DirectoryCard } from "@/design/relay/DirectoryCard";
 import { Logo } from "@/design/relay/Logo";
 import { IconGithub } from "@/design/relay/IconGithub";
 import * as Nav from "@/design/relay/Nav";
@@ -27,7 +25,7 @@ import { ReceiverWindow } from "@/components/ReceiverWindow";
 import { useGoToDm, useReceiverWindow } from "@/hooks/useReceiverWindow";
 import { ROBOT_ADDRESSES } from "@/lib/robot-addresses";
 import { DropdownItem } from "@/design/relay/DropdownItem";
-import { useOutsideClick } from "@/hooks/useOutsideClick";
+import { useShowcaseClick } from "@/lib/plausible/useShowcaseClick";
 
 export default function Relay({ projects }: { projects: Project[] }) {
   const router = useRouter();
@@ -51,6 +49,7 @@ export default function Relay({ projects }: { projects: Project[] }) {
     setShowProducts(false);
   }, [showCommunity]);
   const { setPage } = useReceiverWindow();
+  const showcaseClick = useShowcaseClick();
 
   useEffect(() => {
     setPage({ id: "sign" });
@@ -140,67 +139,100 @@ export default function Relay({ projects }: { projects: Project[] }) {
                     dragConstraints={{ right: 0, left: -width }}
                   >
                     <Card.Card
-                      handleClick={() => goToDm(ROBOT_ADDRESSES.lens)}
+                      handleClick={() => {
+                        showcaseClick(ROBOT_ADDRESSES.lens.peerAddress);
+                        goToDm(ROBOT_ADDRESSES.lens);
+                      }}
                       icon={<Card.LensIcon />}
                       initialBgColor="#ABFD2C"
                       animateBgColor="#EFFFD6"
                     />
                     <Card.Card
-                      handleClick={() => goToDm(ROBOT_ADDRESSES.opensea)}
+                      handleClick={() => {
+                        showcaseClick(ROBOT_ADDRESSES.opensea.peerAddress);
+                        goToDm(ROBOT_ADDRESSES.opensea);
+                      }}
                       icon={<Card.OpenseaIcon />}
                       initialBgColor="#2081E2"
                       animateBgColor="#DCE3F9"
                     />
                     <Card.Card
-                      handleClick={() => goToDm(ROBOT_ADDRESSES.ens)}
+                      handleClick={() => {
+                        showcaseClick(ROBOT_ADDRESSES.ens.peerAddress);
+                        goToDm(ROBOT_ADDRESSES.ens);
+                      }}
                       icon={<Card.Ens />}
                       initialBgColor="#689EF6"
                       animateBgColor="#D8DFFD"
                     />
                     <Card.Card
-                      handleClick={() => goToDm(ROBOT_ADDRESSES.poap)}
+                      handleClick={() => {
+                        showcaseClick(ROBOT_ADDRESSES.poap.peerAddress);
+                        goToDm(ROBOT_ADDRESSES.poap);
+                      }}
                       icon={<Card.Poap />}
                       initialBgColor="#9E6EF6"
                       animateBgColor="#DDD6FF"
                     />
                     <Card.Card
-                      handleClick={() => goToDm(ROBOT_ADDRESSES.xmtp)}
+                      handleClick={() => {
+                        showcaseClick(ROBOT_ADDRESSES.xmtp.peerAddress);
+                        goToDm(ROBOT_ADDRESSES.xmtp);
+                      }}
                       icon={<Card.Xmtp />}
                       initialBgColor="#5A2895"
                       animateBgColor="#E9D6FF"
                     />
                     <Card.Card
-                      handleClick={() => goToDm(ROBOT_ADDRESSES.litprotocol)}
+                      handleClick={() => {
+                        showcaseClick(ROBOT_ADDRESSES.litprotocol.peerAddress);
+                        goToDm(ROBOT_ADDRESSES.litprotocol);
+                      }}
                       icon={<Card.Lit />}
                       initialBgColor="#ECA368"
                       animateBgColor="#FBE9DB"
                     />
                     <Card.Card
-                      handleClick={() => goToDm(ROBOT_ADDRESSES.uniswap)}
+                      handleClick={() => {
+                        showcaseClick(ROBOT_ADDRESSES.uniswap.peerAddress);
+                        goToDm(ROBOT_ADDRESSES.uniswap);
+                      }}
                       icon={<Card.Uniswap />}
                       initialBgColor="#FE007A"
                       animateBgColor="#FFD6EA"
                     />
                     <Card.Card
-                      handleClick={() => goToDm(ROBOT_ADDRESSES.alchemy)}
+                      handleClick={() => {
+                        showcaseClick(ROBOT_ADDRESSES.alchemy.peerAddress);
+                        goToDm(ROBOT_ADDRESSES.alchemy);
+                      }}
                       icon={<Card.Alchemy />}
                       initialBgColor="#4609FA"
                       animateBgColor="#E1D7FE"
                     />
                     <Card.Card
-                      handleClick={() => goToDm(ROBOT_ADDRESSES.metamask)}
+                      handleClick={() => {
+                        showcaseClick(ROBOT_ADDRESSES.metamask.peerAddress);
+                        goToDm(ROBOT_ADDRESSES.metamask);
+                      }}
                       icon={<Card.Metamask />}
                       initialBgColor="#233447"
                       animateBgColor="#E4EAF2"
                     />
                     <Card.Card
-                      handleClick={() => goToDm(ROBOT_ADDRESSES.gitcoin)}
+                      handleClick={() => {
+                        showcaseClick(ROBOT_ADDRESSES.gitcoin.peerAddress);
+                        goToDm(ROBOT_ADDRESSES.gitcoin);
+                      }}
                       icon={<Card.Gitcoin />}
                       initialBgColor="#63DCA2"
                       animateBgColor="#DEF7EB"
                     />
                     <Card.Card
-                      handleClick={() => goToDm(ROBOT_ADDRESSES.sushiswap)}
+                      handleClick={() => {
+                        showcaseClick(ROBOT_ADDRESSES.opensea.peerAddress);
+                        goToDm(ROBOT_ADDRESSES.opensea);
+                      }}
                       icon={<Card.SushiSwap />}
                       initialBgColor="#0E0F23"
                       animateBgColor="#E2E3F3"
@@ -359,10 +391,10 @@ const ProductsDropdown: FunctionComponent<{
     },
     [router]
   );
-  const ref = useRef(null);
+  const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const handleClickOutside = (event) => {
+    const handleClickOutside = (event: any) => {
       if (ref.current && !ref.current.contains(event.target)) {
         toggleDropdown();
       }
@@ -408,10 +440,10 @@ const CommunityDropdown: FunctionComponent<{
     },
     [router]
   );
-  const ref = useRef(null);
+  const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const handleClickOutside = (event) => {
+    const handleClickOutside = (event: any) => {
       if (ref.current && !ref.current.contains(event.target)) {
         toggleDropdown();
       }
