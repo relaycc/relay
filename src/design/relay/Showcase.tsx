@@ -4,13 +4,30 @@ import styled from "styled-components";
 export const Root = styled.div`
   display: flex;
   align-items: center;
-  max-width: 1323px;
+  max-width: 1412px;
   border-radius: 16px;
   justify-content: center;
   background: none;
   margin-top: 1rem;
   margin-bottom: 4rem;
   overflow: hidden;
+  @media (max-width: 1400px) {
+    display: flex;
+    width: 1143px;
+  }
+  @media (max-width: 1143px) {
+    display: flex;
+    width: 874px;
+  }
+  @media (max-width: 874px) {
+    display: flex;
+    width: 605px;
+  }
+  @media (max-width: 605px) {
+    display: flex;
+    width: 336px;
+    box-shadow: 0px 4px 24px rgba(151, 71, 255, 0.4);
+  }
 
   svg {
     min-width: 40px;
@@ -58,4 +75,20 @@ export const Ellipse = styled.div`
   );
   filter: blur(100px);
   z-index: -1;
+  @media (max-width: 1400px) {
+    display: flex;
+    width: 1143px;
+  }
+  @media (max-width: 1143px) {
+    display: flex;
+    width: 874px;
+  }
+  @media (max-width: 874px) {
+    display: flex;
+    width: 605px;
+  }
+  @media (max-width: 605px) {
+    //display: none;
+    width: 400px;
+  }
 `;

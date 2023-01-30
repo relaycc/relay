@@ -3,6 +3,7 @@ import {
   FunctionComponent,
   useCallback,
   useEffect,
+  useMemo,
   useRef,
   useState,
 } from "react";
@@ -71,7 +72,33 @@ export default function Relay({ projects }: { projects: Project[] }) {
       })()
     );
   });
+  const scrollAmount = useCallback(
+    (left?: boolean) => {
+      if (left && showcaseRef && showcaseRef.current) {
+        return -showcaseRef.current.clientWidth - 14;
+      } else if (showcaseRef && showcaseRef.current) {
+        return showcaseRef.current.clientWidth + 14;
+      }
+      if (left) {
+        return -270;
+      }
+      return 270;
+    },
+    [showcaseRef, window]
+  );
 
+  const scrollRight = useCallback(() => {
+    showcaseRef?.current?.scrollBy({
+      left: scrollAmount(),
+      behavior: "smooth",
+    });
+  }, [showcaseRef]);
+  const scrollLeft = useCallback(() => {
+    showcaseRef?.current?.scrollBy({
+      left: scrollAmount(true),
+      behavior: "smooth",
+    });
+  }, [showcaseRef]);
   return (
     <>
       <Head>
@@ -133,6 +160,7 @@ export default function Relay({ projects }: { projects: Project[] }) {
           <Showcase.Wrapper>
             <Showcase.InnerWrapper>
               <Showcase.Root>
+                <Chevron.ChevronLeftActive onClick={scrollLeft} />
                 <Showcase.MotionRoot ref={showcaseRef}>
                   <Showcase.Slides
                     drag="x"
@@ -239,6 +267,7 @@ export default function Relay({ projects }: { projects: Project[] }) {
                     />
                   </Showcase.Slides>
                 </Showcase.MotionRoot>
+                <Chevron.ChevronRightActive onClick={scrollRight} />
               </Showcase.Root>
               <Showcase.Ellipse />
             </Showcase.InnerWrapper>
