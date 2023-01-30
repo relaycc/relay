@@ -1,5 +1,11 @@
 import Head from "next/head";
-import { useCallback, useEffect, useRef, useState } from "react";
+import {
+  FunctionComponent,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import styled from "styled-components";
 import * as Card from "@/design/relay/Card";
 import * as DirectoryHeader from "@/design/relay/DirectoryHeader";
@@ -16,65 +22,12 @@ import { isProject, Project, CATEGORIES } from "@/lib/supabase/project";
 import * as MenuMobile from "@/design/relay/MenuMobile";
 import Image from "next/image";
 import { ConnectButton } from "@/components/ConnectButton";
-import { useRouter } from "next/router";
+import { NextRouter, useRouter } from "next/router";
 import { ReceiverWindow } from "@/components/ReceiverWindow";
 import { useGoToDm, useReceiverWindow } from "@/hooks/useReceiverWindow";
 import { ROBOT_ADDRESSES } from "@/lib/robot-addresses";
-
-export const FullWidthPage = styled.main`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100vw;
-  min-height: 100vh;
-`;
-
-export const ContentColumn = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-  max-width: calc(252px * 5 + 64px);
-  flex-grow: 1;
-`;
-
-const ContentColumnNarrow = styled.div`
-  max-width: 1376px;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  min-height: 330px;
-  margin-bottom: 3rem;
-`;
-const FlexWrapRow = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
-  min-width: 100%;
-`;
-
-const DropdownRoot = styled.div`
-  position: relative;
-`;
-
-const DropdownCardHidden = styled(Nav.DropdownCard)`
-  position: absolute;
-  display: none;
-  height: 200px;
-  :hover {
-    display: flex;
-  }
-`;
-
-const Dropdown = () => {
-  return (
-    <DropdownRoot>
-      <Nav.NavLink>Community</Nav.NavLink>
-      <DropdownCardHidden>hey</DropdownCardHidden>
-    </DropdownRoot>
-  );
-};
+import { DropdownItem } from "@/design/relay/DropdownItem";
+import { useOutsideClick } from "@/hooks/useOutsideClick";
 
 export default function Relay({ projects }: { projects: Project[] }) {
   const router = useRouter();
@@ -87,6 +40,16 @@ export default function Relay({ projects }: { projects: Project[] }) {
   const showcaseRef = useRef<HTMLDivElement>(null);
   const [searchInput, setSearchInput] = useState<string | null>(null);
   const [showMenu, setShowMenu] = useState(false);
+  const [showProducts, setShowProducts] = useState(false);
+  const [showCommunity, setShowCommunity] = useState(false);
+  const toggleProducts = useCallback(() => {
+    setShowProducts(!showProducts);
+    setShowCommunity(false);
+  }, [showProducts]);
+  const toggleCommunity = useCallback(() => {
+    setShowCommunity(!showCommunity);
+    setShowProducts(false);
+  }, [showCommunity]);
   const { setPage } = useReceiverWindow();
 
   useEffect(() => {
@@ -122,14 +85,32 @@ export default function Relay({ projects }: { projects: Project[] }) {
         <ContentColumn>
           <Nav.RootDesktop>
             <Logo />
-            <Nav.NavLink style={{ marginLeft: "auto", marginRight: "1.5rem" }}>
-              Products
-              <Nav.ChevronDownActive />
-            </Nav.NavLink>
-            <Nav.NavLink>
-              Community
-              <Nav.ChevronDownActive />
-            </Nav.NavLink>
+            {showProducts ? (
+              <ProductsDropdown
+                toggleDropdown={toggleProducts}
+                router={router}
+              />
+            ) : (
+              <Nav.NavLink
+                style={{ marginLeft: "auto", marginRight: "1.5rem" }}
+                onClick={toggleProducts}
+              >
+                Products
+                <Nav.ChevronDownActive />
+              </Nav.NavLink>
+            )}
+            {showCommunity ? (
+              <CommunityDropdown
+                toggleDropdown={toggleCommunity}
+                router={router}
+              />
+            ) : (
+              <Nav.NavLink onClick={toggleCommunity}>
+                Community
+                <Nav.ChevronDownActive />
+              </Nav.NavLink>
+            )}
+
             <a
               href="https://github.com/relaycc"
               target="_blank"
@@ -367,3 +348,168 @@ const DirectoryHeaderItem = ({
     );
   }
 };
+
+const ProductsDropdown: FunctionComponent<{
+  toggleDropdown: () => void;
+  router: NextRouter;
+}> = ({ toggleDropdown, router }) => {
+  const handleNav = useCallback(
+    (url: string) => {
+      router.push(url);
+    },
+    [router]
+  );
+  const ref = useRef(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (ref.current && !ref.current.contains(event.target)) {
+        toggleDropdown();
+      }
+    };
+    document.addEventListener("click", handleClickOutside, true);
+    return () => {
+      document.removeEventListener("click", handleClickOutside, true);
+    };
+  }, [ref, toggleDropdown]);
+  // TODO Use handle nav with appropriate links
+
+  return (
+    <ProductsRoot ref={ref}>
+      <Nav.NavLinkActive onClick={toggleDropdown}>
+        Products <Nav.ChevronDownColored />
+      </Nav.NavLinkActive>
+      <ProductsCard>
+        <DropdownItem
+          onClick={() => {
+            alert("add link in code");
+          }}
+        >
+          Receiver
+        </DropdownItem>
+        <DropdownItem
+          onClick={() => {
+            alert("add link in code");
+          }}
+        >
+          Directory
+        </DropdownItem>
+      </ProductsCard>
+    </ProductsRoot>
+  );
+};
+const CommunityDropdown: FunctionComponent<{
+  toggleDropdown: () => void;
+  router: NextRouter;
+}> = ({ toggleDropdown, router }) => {
+  const handleNav = useCallback(
+    (url: string) => {
+      router.push(url);
+    },
+    [router]
+  );
+  const ref = useRef(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (ref.current && !ref.current.contains(event.target)) {
+        toggleDropdown();
+      }
+    };
+    document.addEventListener("click", handleClickOutside, true);
+    return () => {
+      document.removeEventListener("click", handleClickOutside, true);
+    };
+  }, [ref, toggleDropdown]);
+  // TODO Use handle nav with appropriate links
+  return (
+    <CommunityRoot ref={ref}>
+      <Nav.NavLink onClick={toggleDropdown}>
+        Community <Nav.ChevronDownColored />
+      </Nav.NavLink>
+      <CommunityCard>
+        <DropdownItem
+          onClick={() => {
+            alert("add link in code");
+          }}
+        >
+          Discord
+        </DropdownItem>
+        <DropdownItem
+          onClick={() => {
+            alert("add link in code");
+          }}
+        >
+          Twitter
+        </DropdownItem>
+        <DropdownItem
+          onClick={() => {
+            alert("add link in code");
+          }}
+        >
+          Lens
+        </DropdownItem>
+        <DropdownItem
+          onClick={() => {
+            alert("add link in code");
+          }}
+        >
+          Mirror
+        </DropdownItem>
+      </CommunityCard>
+    </CommunityRoot>
+  );
+};
+
+export const FullWidthPage = styled.main`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100vw;
+  min-height: 100vh;
+`;
+
+export const ContentColumn = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: calc(252px * 5 + 64px);
+  flex-grow: 1;
+`;
+
+const ContentColumnNarrow = styled.div`
+  max-width: 1376px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 330px;
+  margin-bottom: 3rem;
+`;
+const FlexWrapRow = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  min-width: 100%;
+`;
+
+const CommunityRoot = styled.div`
+  position: relative;
+`;
+const ProductsRoot = styled.div`
+  position: relative;
+  margin-left: auto;
+  margin-right: 1.5rem;
+`;
+
+const CommunityCard = styled(Nav.DropdownCard)`
+  position: absolute;
+  left: -17px;
+  z-index: 1;
+`;
+const ProductsCard = styled(Nav.DropdownCard)`
+  position: absolute;
+  left: -26px;
+  z-index: 1;
+`;

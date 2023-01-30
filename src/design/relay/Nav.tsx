@@ -1,4 +1,5 @@
 import styled from "styled-components";
+
 export * from "@/design/relay/ButtonPrimary";
 export * from "@/design/relay/Chevron";
 
@@ -42,11 +43,24 @@ export const NavLink = styled.div`
   line-height: 22px;
   height: 40px;
   cursor: pointer;
+
   :hover {
     color: ${(p) => p.theme.colors.primary["500"]};
   }
 `;
-
+export const NavLinkActive = styled.div`
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 7rem;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 22px;
+  height: 40px;
+  cursor: pointer;
+  color: ${(p) => p.theme.colors.primary["500"]};
+`;
 export const DropdownCard = styled.div`
   position: relative;
   overflow: hidden;
