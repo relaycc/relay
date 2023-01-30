@@ -276,7 +276,9 @@ export default function Relay({ projects }: { projects: Project[] }) {
             </Showcase.InnerWrapper>
           </Showcase.Wrapper>
           <DirectoryHeader.Root style={{ maxWidth: "100%" }}>
-            <DirectoryHeader.Title>Explore Web3 on Relay</DirectoryHeader.Title>
+            <DirectoryHeader.Title style={{ marginTop: "4rem" }}>
+              Explore Web3 on Relay
+            </DirectoryHeader.Title>
             <DirectoryHeader.Search.Search
               onChange={(e: any) => {
                 setSearchInput(e.target.value);

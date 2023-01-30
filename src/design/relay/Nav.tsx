@@ -74,5 +74,4 @@ export const DropdownCard = styled.div`
   padding: 8px;
   background-color: #efeefb;
   min-height: 2.8rem;
-  width: 9rem;
 `;

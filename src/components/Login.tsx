@@ -13,31 +13,10 @@ import { Avatar } from "@/components/Avatar";
 import { useRelayId } from "@/hooks/useRelayId";
 import { isEnsName } from "@/lib/isEnsName";
 import { truncateAddress } from "@/lib/truncateAddress";
-import { motion } from "framer-motion";
 import {
   useReceiverWindow,
   useRedirectWhenSignedIn,
 } from "@/hooks/useReceiverWindow";
-
-export const Window = styled(motion.div)`
-  position: fixed;
-  overflow: hidden;
-  right: 6rem;
-  bottom: 1rem;
-  margin: 0;
-  padding: 0;
-  box-shadow: 0px 4px 32px rgba(16, 24, 40, 0.12);
-`;
-
-export const Receiver = styled(motion.div)`
-  width: 400px;
-  height: 700px;
-  border-radius: 14px;
-  background-color: #ffffff;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-`;
 
 const Container = styled.div`
   display: flex;
@@ -104,7 +83,7 @@ export const Login = () => {
   useRedirectWhenSignedIn();
 
   return (
-    <Receiver>
+    <>
       <Container>
         <LogoSection>
           <Logo style={{ marginBottom: "2.813rem" }} />
@@ -202,6 +181,6 @@ export const Login = () => {
           </Toast.Failure.Card>
         </ToastPosition>
       )}
-    </Receiver>
+    </>
   );
 };
