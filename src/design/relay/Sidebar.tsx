@@ -22,7 +22,11 @@ const Header = styled.div`
   align-items: center;
 `;
 
-const Title = styled.div``;
+const Title = styled.div`
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 21.6px;
+`;
 
 const DirectoryWrapper = styled.div`
   display: flex;
