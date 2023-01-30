@@ -9,10 +9,8 @@ import {
 import styled from "styled-components";
 import * as Card from "@/design/relay/Card";
 import * as DirectoryHeader from "@/design/relay/DirectoryHeader";
-import { Header } from "@/design/relay/Header";
-import * as Chevron from "@/design/relay/Chevron";
 import Footer from "@/design/relay/Footer";
-import { CardsWrapper, DirectoryCard } from "@/design/relay/DirectoryCard";
+import { DirectoryCard } from "@/design/relay/DirectoryCard";
 import { Logo } from "@/design/relay/Logo";
 import { IconGithub } from "@/design/relay/IconGithub";
 import * as Nav from "@/design/relay/Nav";
@@ -28,6 +26,29 @@ import { useGoToDm, useReceiverWindow } from "@/hooks/useReceiverWindow";
 import { ROBOT_ADDRESSES } from "@/lib/robot-addresses";
 import { DropdownItem } from "@/design/relay/DropdownItem";
 import { useOutsideClick } from "@/hooks/useOutsideClick";
+import { Sidebar } from "@/design/relay/Sidebar";
+
+const DropdownRoot = styled.div`
+  position: relative;
+`;
+
+const DropdownCardHidden = styled(Nav.DropdownCard)`
+  position: absolute;
+  display: none;
+  height: 200px;
+  :hover {
+    display: flex;
+  }
+`;
+
+const Dropdown = () => {
+  return (
+    <DropdownRoot>
+      <Nav.NavLink>Community</Nav.NavLink>
+      <DropdownCardHidden>hey</DropdownCardHidden>
+    </DropdownRoot>
+  );
+};
 
 export default function Relay({ projects }: { projects: Project[] }) {
   const router = useRouter();
@@ -50,6 +71,7 @@ export default function Relay({ projects }: { projects: Project[] }) {
     setShowCommunity(!showCommunity);
     setShowProducts(false);
   }, [showCommunity]);
+  const [sidebar, setSidebar] = useState<boolean>(false);
   const { setPage } = useReceiverWindow();
 
   useEffect(() => {
@@ -93,8 +115,7 @@ export default function Relay({ projects }: { projects: Project[] }) {
             ) : (
               <Nav.NavLink
                 style={{ marginLeft: "auto", marginRight: "1.5rem" }}
-                onClick={toggleProducts}
-              >
+                onClick={toggleProducts}>
                 Products
                 <Nav.ChevronDownActive />
               </Nav.NavLink>
@@ -114,8 +135,7 @@ export default function Relay({ projects }: { projects: Project[] }) {
             <a
               href="https://github.com/relaycc"
               target="_blank"
-              rel="noreferrer"
-            >
+              rel="noreferrer">
               <IconGithub
                 style={{ height: "2rem", width: "2rem", margin: "1.5rem" }}
               />
@@ -127,8 +147,7 @@ export default function Relay({ projects }: { projects: Project[] }) {
             <MenuMobile.MenuIcon onClick={() => setShowMenu(true)} />
           </Nav.RootMobile>
           <DirectoryHeader.Root
-            style={{ maxWidth: "max-content", marginTop: "3rem" }}
-          >
+            style={{ maxWidth: "max-content", marginTop: "3rem" }}>
             <DirectoryHeader.Title>Try ChatGPT for Web3</DirectoryHeader.Title>
           </DirectoryHeader.Root>
           <Showcase.Wrapper>
@@ -137,8 +156,7 @@ export default function Relay({ projects }: { projects: Project[] }) {
                 <Showcase.MotionRoot ref={showcaseRef}>
                   <Showcase.Slides
                     drag="x"
-                    dragConstraints={{ right: 0, left: -width }}
-                  >
+                    dragConstraints={{ right: 0, left: -width }}>
                     <Card.Card
                       handleClick={() => goToDm(ROBOT_ADDRESSES.lens)}
                       icon={<Card.LensIcon />}
@@ -211,7 +229,7 @@ export default function Relay({ projects }: { projects: Project[] }) {
               <Showcase.Ellipse />
             </Showcase.InnerWrapper>
           </Showcase.Wrapper>
-          <DirectoryHeader.Root style={{ maxWidth: "max-content" }}>
+          <DirectoryHeader.Root style={{ maxWidth: "100%" }}>
             <DirectoryHeader.Title>Explore Web3 on Relay</DirectoryHeader.Title>
             <DirectoryHeader.Search.Search
               onChange={(e: any) => {
@@ -235,6 +253,33 @@ export default function Relay({ projects }: { projects: Project[] }) {
               </DirectoryHeader.Directories>
             </DirectoryHeader.Nav>
           </DirectoryHeader.Root>
+          <DirectoryHeader.MobileRoot style={{ maxWidth: "100%" }}>
+            <DirectoryHeader.Title>Directory</DirectoryHeader.Title>
+            <DirectoryHeader.SearchWrapper>
+              <DirectoryHeader.Search.Search
+                onChange={(e: any) => {
+                  setSearchInput(e.target.value);
+                }}
+                value={searchInput || ""}
+                placeholder={"Search for projects..."}
+              />
+              <DirectoryHeader.MenuIcon onClick={() => setSidebar(true)} />
+            </DirectoryHeader.SearchWrapper>
+            <DirectoryHeader.Nav>
+              <DirectoryHeader.Directories>
+                {CATEGORIES.map((category) => {
+                  return (
+                    <DirectoryHeaderItem
+                      key={category}
+                      category={category}
+                      isActive={category === activeCategory}
+                      onClick={() => setActiveCategory(category)}
+                    />
+                  );
+                })}
+              </DirectoryHeader.Directories>
+            </DirectoryHeader.Nav>
+          </DirectoryHeader.MobileRoot>
           <ContentColumnNarrow style={{ minHeight: "100vh" }}>
             <FlexWrapRow>
               {filteredProjects.map((project, i) => (
@@ -285,6 +330,9 @@ export default function Relay({ projects }: { projects: Project[] }) {
           </MenuMobile.Overlay>
         )}
         <ReceiverWindow />
+        <Sidebar
+          {...{ sidebar, setSidebar, activeCategory, setActiveCategory }}
+        />
       </FullWidthPage>
     </>
   );
@@ -383,15 +431,13 @@ const ProductsDropdown: FunctionComponent<{
         <DropdownItem
           onClick={() => {
             alert("add link in code");
-          }}
-        >
+          }}>
           Receiver
         </DropdownItem>
         <DropdownItem
           onClick={() => {
             alert("add link in code");
-          }}
-        >
+          }}>
           Directory
         </DropdownItem>
       </ProductsCard>
@@ -431,29 +477,25 @@ const CommunityDropdown: FunctionComponent<{
         <DropdownItem
           onClick={() => {
             alert("add link in code");
-          }}
-        >
+          }}>
           Discord
         </DropdownItem>
         <DropdownItem
           onClick={() => {
             alert("add link in code");
-          }}
-        >
+          }}>
           Twitter
         </DropdownItem>
         <DropdownItem
           onClick={() => {
             alert("add link in code");
-          }}
-        >
+          }}>
           Lens
         </DropdownItem>
         <DropdownItem
           onClick={() => {
             alert("add link in code");
-          }}
-        >
+          }}>
           Mirror
         </DropdownItem>
       </CommunityCard>
@@ -485,13 +527,33 @@ const ContentColumnNarrow = styled.div`
   flex-direction: column;
   align-items: center;
   min-height: 330px;
-  margin-bottom: 3rem;
+  padding-bottom: 3rem;
+  background: ${({ theme }) => theme.colors.gray["200"]};
+
+  @media screen and (min-width: 400px) {
+    background: initial;
+  }
 `;
 const FlexWrapRow = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
-  min-width: 100%;
+  display: grid;
+  grid-auto-flow: row;
+  justify-content: center;
+  width: 100%;
+  max-width: 1344px;
+  height: auto;
+  padding: 0 1rem;
+  grid-template-columns: initial;
+  grid-gap: 0.5rem;
+
+  @media screen and (min-width: 400px) {
+    grid-gap: 1rem;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 250px));
+    padding: 0 2rem;
+  }
+
+  @media screen and (min-width: 1400px) {
+    padding: 0;
+  }
 `;
 
 const CommunityRoot = styled.div`
