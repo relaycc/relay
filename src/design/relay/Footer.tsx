@@ -25,25 +25,78 @@ export const Wrapper = styled.div`
   flex-direction: column;
   justify-content: space-between;
   height: 23.438rem;
-  padding: 3rem;
   width: 100%;
   max-width: 1440px;
+  padding: 2rem 2rem 1rem 2rem;
+
+  @media screen and (min-width: 625px) {
+    padding: 3rem;
+  }
 `;
 
 export const LinkContainer = styled.div`
-  display: flex;
+  display: grid;
+  grid-template-areas:
+    "products resources"
+    "products about"
+    "community community";
+  grid-row-gap: 1rem;
   justify-content: space-between;
-  height: 13.188rem;
+  height: 100%;
+
+  @media screen and (min-width: 625px) {
+    height: 13.188rem;
+    grid-template-areas: "products resources about community";
+  }
 `;
 
 export const LinkColumn = styled.div`
   display: flex;
   flex-direction: column;
-  row-gap: 1rem;
+  row-gap: 0.75rem;
+
+  @media screen and (min-width: 625px) {
+    row-gap: 1rem;
+  }
+`;
+
+const LinkColumnProducts = styled(LinkColumn)`
+  grid-area: products;
+`;
+
+const LinkColumnResources = styled(LinkColumn)`
+  grid-area: resources;
+`;
+
+const LinkColumnAbout = styled(LinkColumn)`
+  grid-area: about;
+`;
+
+const LinkColumnCommunity = styled(LinkColumn)`
+  margin-top: 1.25rem;
+  grid-area: community;
+
+  @media screen and (min-width: 625px) {
+    margin-top: 0;
+  }
 `;
 
 export const CommunityLinkItems = styled(LinkColumn)`
-  row-gap: 0;
+  row-gap: 1rem;
+  flex-direction: row;
+  justify-content: center;
+  ${LogoSocialMedia.Logowrap} {
+    width: 3.5rem;
+  }
+
+  @media screen and (min-width: 625px) {
+    flex-direction: column;
+    row-gap: 0;
+
+    ${LogoSocialMedia.Logowrap} {
+      width: 7rem;
+    }
+  }
 `;
 
 export const LinkTitle = styled.div`
@@ -55,20 +108,54 @@ export const LinkTitle = styled.div`
   margin-bottom: 0.5rem;
 `;
 
+const LinkTitleCommunity = styled(LinkTitle)`
+  display: none;
+
+  @media screen and (min-width: 625px) {
+    display: block;
+  }
+`;
+
 export const SignOff = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
   border-top: 1px solid ${receiverTheme.colors.gray["500"]};
-  min-height: 6rem;
-  margin-top: 1.5rem;
+  min-height: 3.6875rem;
+  margin-top: 1.25rem;
+
+  ${Logo.Logowrap} {
+    height: initial;
+  }
+
+  @media screen and (min-width: 625px) {
+    margin-top: 1.5rem;
+    min-height: 5.75rem;
+
+    ${Logo.Logowrap} {
+      height: 2.75rem;
+    }
+  }
 `;
 export const Copyright = styled.div`
   font-style: normal;
   font-weight: 900;
-  font-size: 20px;
-  line-height: 27px;
   color: #ffffff;
+  font-size: 16px;
+  line-height: 21.6px;
+
+  @media screen and (min-width: 625px) {
+    font-size: 20px;
+    line-height: 27px;
+  }
+`;
+
+const Label = styled(LogoSocialMedia.Label)`
+  display: none;
+
+  @media screen and (min-width: 625px) {
+    display: block;
+  }
 `;
 
 export default function Footer() {
@@ -76,42 +163,42 @@ export default function Footer() {
     <Root>
       <Wrapper>
         <LinkContainer>
-          <LinkColumn>
+          <LinkColumnProducts>
             <LinkTitle>Products</LinkTitle>
             <FooterLink>Receiver</FooterLink>
             <FooterLink>Robot</FooterLink>
             <FooterLink>Directory</FooterLink>
-          </LinkColumn>
-          <LinkColumn>
+          </LinkColumnProducts>
+          <LinkColumnResources>
             <LinkTitle>Resources</LinkTitle>
             <FooterLink>XMTP</FooterLink>
             <FooterLink>Docs</FooterLink>
-          </LinkColumn>
-          <LinkColumn>
+          </LinkColumnResources>
+          <LinkColumnAbout>
             <LinkTitle>About</LinkTitle>
             <FooterLink>Careers</FooterLink>
-          </LinkColumn>
-          <LinkColumn>
-            <LinkTitle>Join the Community</LinkTitle>
+          </LinkColumnAbout>
+          <LinkColumnCommunity>
+            <LinkTitleCommunity>Join the Community</LinkTitleCommunity>
             <CommunityLinkItems>
               <LogoSocialMedia.Logowrap>
                 <LogoSocialMedia.Discord />
-                <LogoSocialMedia.Label>Discord</LogoSocialMedia.Label>
+                <Label>Discord</Label>
               </LogoSocialMedia.Logowrap>
               <LogoSocialMedia.Logowrap>
                 <LogoSocialMedia.Twitter />
-                <LogoSocialMedia.Label>Twitter</LogoSocialMedia.Label>
+                <Label>Twitter</Label>
               </LogoSocialMedia.Logowrap>
               <LogoSocialMedia.Logowrap>
                 <LogoSocialMedia.Github />
-                <LogoSocialMedia.Label>Github</LogoSocialMedia.Label>
+                <Label>Github</Label>
               </LogoSocialMedia.Logowrap>
               <LogoSocialMedia.Logowrap>
                 <LogoSocialMedia.Mirror />
-                <LogoSocialMedia.Label>Mirror</LogoSocialMedia.Label>
+                <Label>Mirror</Label>
               </LogoSocialMedia.Logowrap>
             </CommunityLinkItems>
-          </LinkColumn>
+          </LinkColumnCommunity>
         </LinkContainer>
         <SignOff>
           <Logo.Logowrap>
