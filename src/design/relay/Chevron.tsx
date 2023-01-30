@@ -47,6 +47,7 @@ export const ChevronRightActive = styled(ChevronRight)``;
 export const ChevronRightInactive = styled(ChevronRight)`
   cursor: not-allowed;
   pointer-events: none;
+
   path {
     stroke: ${(props) => props.theme.colors.gray["300"]};
   }
@@ -55,6 +56,7 @@ export const ChevronLeftActive = styled(ChevronLeft)``;
 export const ChevronLeftInactive = styled(ChevronLeft)`
   cursor: not-allowed;
   pointer-events: none;
+
   path {
     stroke: ${(props) => props.theme.colors.gray["300"]};
   }
@@ -83,5 +85,10 @@ export const ChevronDownActive = styled((props: ComponentProps<"svg">) => (
     path {
       stroke: ${(p) => p.theme.colors.primary["500"]};
     }
+  }
+`;
+export const ChevronDownColored = styled(ChevronDownActive)`
+  path {
+    stroke: ${(p) => p.theme.colors.primary["500"]};
   }
 `;
