@@ -31,7 +31,7 @@ export default function Messages() {
       <p>{`${messages.isError}`}</p>
       <h2>Is Success</h2>
       <p>{`${messages.isSuccess}`}</p>
-      <h2>Num Messgaes</h2>
+      <h2>Num Messages</h2>
       <p>{`${(messages.data || []).length}`}</p>
 
       <ol>
