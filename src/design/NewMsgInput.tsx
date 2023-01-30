@@ -3,13 +3,14 @@ import { receiverTheme } from "@/design/receiverTheme";
 export { LoaderAnimGeneral } from "@/design/LoaderAnimGeneral";
 import { textMdRegular } from "@/design/typography";
 
-export const Root = styled.div`
+export const Root = styled.div<{ isError?: boolean }>`
   height: 2.5rem;
   display: flex;
   justify-content: space-evenly;
   align-items: center;
   border-bottom: 0.5px solid ${receiverTheme.colors.gray["300"]};
   background: #ffffff;
+  background: ${(p) => (p.isError ? `${p.theme.colors.error["100"]}` : `none`)};
 `;
 
 export const To = styled.div`
@@ -19,8 +20,9 @@ export const To = styled.div`
 `;
 
 export const TextInput = styled.input`
-  ${textMdRegular};
+  background: none;
   border: hidden;
+  ${textMdRegular};
   color: ${receiverTheme.colors.gray["900"]};
   :focus {
     outline: none;

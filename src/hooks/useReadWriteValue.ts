@@ -52,8 +52,6 @@ export const useReadWriteValue = ({
     key: REQUEST_CONVERSATION_ID,
   });
 
-  console.log({ requestsObject });
-
   useEffect(() => {
     if (valueLoading || valueError) {
       return;

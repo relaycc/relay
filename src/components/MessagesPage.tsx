@@ -7,36 +7,19 @@ import React, {
 import { useConnectedWallet } from "@/hooks/useConnectedWallet";
 import { AnimatePresence } from "framer-motion";
 import { EthAddress } from "@relaycc/xmtp-hooks";
-import { useRedirectWhenNotSignedIn } from "@/hooks/useRedirectWhenNotSignedInt";
 import * as HomeHeader from "@/design/HomeHeader";
 import styled from "styled-components";
 import { isEnsName } from "@/lib/isEnsName";
-import { useRouter } from "next/router";
-import { FooterNav } from "./FooterNav";
-import * as Nav from "@/design/Nav";
 import { Search } from "@/design/Search";
 import { NewMessage } from "./NewMessage";
 import * as Skeleton from "@/design/Skeleton";
 import { useReadWriteValue } from "@/hooks/useReadWriteValue";
 import { ChatsPreview } from "./ChatsPreview";
 import RequestPreview from "@/components/RequestPreview";
-
-const Root = styled.div`
-  height: 700px;
-  width: 400px;
-  margin: 6rem auto;
-  box-shadow: 0 4px 32px rgba(16, 24, 40, 0.12);
-  border-radius: 14px;
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  overflow-y: hidden;
-  overflow-x: hidden;
-
-  ${Nav.Root} {
-    margin-top: auto;
-  }
-`;
+import {
+  useReceiverWindow,
+  useRedirectWhenNotSignedIn,
+} from "@/hooks/useReceiverWindow";
 
 const SearchWrapper = styled.div`
   padding: 0.5rem 1rem;
@@ -72,7 +55,7 @@ export const Loading = () => (
 interface IMessagesPageProps {}
 
 export const MessagesPage: FunctionComponent<IMessagesPageProps> = () => {
-  const router = useRouter();
+  // useRedirectWhenNotSignedIn();
   const [searchInput, setSearchInput] = useState<string | null>(null);
   const [showNewMessage, setShowNewMessage] = useState<boolean>(false);
   const connectedWallet = useConnectedWallet((s) => s.connectedWallet);
@@ -101,37 +84,27 @@ export const MessagesPage: FunctionComponent<IMessagesPageProps> = () => {
     [requestedConversations]
   );
 
-  const navigateToProfile = useCallback(() => {
-    router.push("/receiver/profile");
-  }, [router]);
-
-  useRedirectWhenNotSignedIn("/receiver/messages");
-
   const filteredConversations = useMemo(() => {
     if (!searchInput) {
       return conversations;
     } else {
       return conversations?.filter((convo) => {
-        const ret = convo.peerAddress
+        return convo.peerAddress
           .toLowerCase()
           .includes(searchInput.toLowerCase());
-        if (ret) {
-          console.log(convo.peerAddress);
-        }
-        return ret;
       });
     }
   }, [conversations, searchInput]);
 
   return (
-    <Root>
+    <>
       <HomeHeader.Root>
         <HomeHeader.Title>Messages</HomeHeader.Title>
         <HomeHeader.IconContainer>
           <HomeHeader.Avatar
             handle={connectedWallet?.address as EthAddress}
             size="sm"
-            onClick={navigateToProfile}
+            onClick={() => null}
           />
           {connectedWallet ? (
             <HomeHeader.Compose.Active
@@ -184,7 +157,6 @@ export const MessagesPage: FunctionComponent<IMessagesPageProps> = () => {
           }
         })()}
       </ConversationList>
-      <FooterNav />
 
       <AnimatePresence>
         {showNewMessage && (
@@ -194,6 +166,6 @@ export const MessagesPage: FunctionComponent<IMessagesPageProps> = () => {
           />
         )}
       </AnimatePresence>
-    </Root>
+    </>
   );
 };

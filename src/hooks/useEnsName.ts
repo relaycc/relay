@@ -12,12 +12,16 @@ export const useEnsName = ({
   return useQuery(
     ["ens name", handle],
     async () => {
-      if (!isEthAddress(handle)) {
-        return null;
-      } else {
-        return alchemyProvider.lookupAddress(handle);
-      }
+      return fetchEnsName(handle);
     },
     { enabled: wait !== false }
   );
+};
+
+export const fetchEnsName = async (handle?: string | null) => {
+  if (!isEthAddress(handle)) {
+    return null;
+  } else {
+    return alchemyProvider.lookupAddress(handle);
+  }
 };

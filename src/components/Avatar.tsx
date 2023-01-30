@@ -16,7 +16,7 @@ import { useEnsAvatar } from "@/hooks/useEnsAvatar";
 
 export interface AvatarProps {
   handle: string | null | undefined;
-  onClick: () => unknown;
+  onClick?: () => unknown;
   size: "sm" | "md" | "lg" | "xl" | "xxxl";
 }
 

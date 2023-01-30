@@ -6,18 +6,17 @@ import * as Badge from "@/design/Badge";
 import { getDisplayDate } from "@/lib/getDisplayDate";
 import { MsgRequestsIcon } from "@/design/Requests";
 import { useRouter } from "next/router";
+import { useGoToRequests } from "@/hooks/useReceiverWindow";
 
 const RequestPreview: FunctionComponent<{
   count: number;
   names: Array<string>;
 }> = ({ count, names }) => {
   const router = useRouter();
-  const navigateToDm = useCallback(() => {
-    router.push(`/receiver/requests`);
-  }, [router]);
+  const goToRequests = useGoToRequests();
 
   return (
-    <Request.MsgRequestsRoot onClick={navigateToDm}>
+    <Request.MsgRequestsRoot onClick={goToRequests}>
       <Request.RequestDetails>
         <MsgRequestsIcon />
         <MessagePreview.MsgDetails>

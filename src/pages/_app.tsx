@@ -7,12 +7,8 @@ import { mainnet, polygon, optimism, arbitrum } from "wagmi/chains";
 import { publicProvider } from "wagmi/providers/public";
 import "@rainbow-me/rainbowkit/styles.css";
 import { XmtpProvider } from "@relaycc/xmtp-hooks";
-
-import {
-  ConnectButton,
-  getDefaultWallets,
-  RainbowKitProvider,
-} from "@rainbow-me/rainbowkit";
+import { getDefaultWallets, RainbowKitProvider } from "@rainbow-me/rainbowkit";
+import { PlausibleProvider } from "@/lib/plausible/PlausibleProvider";
 
 export const { chains, provider } = configureChains(
   [mainnet, polygon, optimism, arbitrum],
@@ -25,7 +21,7 @@ const { connectors } = getDefaultWallets({
 });
 
 const client = createClient({
-  autoConnect: false,
+  autoConnect: true,
   provider,
   connectors,
 });
@@ -37,24 +33,25 @@ export default function App({ Component, pageProps }: AppProps) {
     setWorker(new Worker("/xmtp.js"));
   }, []);
   return (
-    <ReceiverThemeProvider>
-      <WagmiConfig client={client}>
-        <RainbowKitProvider chains={chains}>
-          <GlobalStyles />
-          {(() => {
-            if (worker === null) {
-              return null;
-            } else {
-              return (
-                <XmtpProvider config={{ worker: worker as Worker }}>
-                  <ConnectButton />
-                  <Component {...pageProps} />
-                </XmtpProvider>
-              );
-            }
-          })()}
-        </RainbowKitProvider>
-      </WagmiConfig>
-    </ReceiverThemeProvider>
+    <PlausibleProvider>
+      <ReceiverThemeProvider>
+        <WagmiConfig client={client}>
+          <RainbowKitProvider chains={chains}>
+            <GlobalStyles />
+            {(() => {
+              if (worker === null) {
+                return null;
+              } else {
+                return (
+                  <XmtpProvider config={{ worker: worker as Worker }}>
+                    <Component {...pageProps} />
+                  </XmtpProvider>
+                );
+              }
+            })()}
+          </RainbowKitProvider>
+        </WagmiConfig>
+      </ReceiverThemeProvider>
+    </PlausibleProvider>
   );
 }

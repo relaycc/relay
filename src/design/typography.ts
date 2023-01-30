@@ -1,5 +1,21 @@
 import { css } from "styled-components";
 
+const black = css`
+  font-family: "Satoshi-Black";
+`;
+
+const bold = css`
+  font-family: "Satoshi-Bold";
+`;
+
+const regular = css`
+  font-family: "Satoshi-Regular";
+`;
+
+const medium = css`
+  font-family: "Satoshi-Medium";
+`;
+
 export const spaceMonoMdBold = css`
   font-family: "Space Mono", monospace;
   font-size: 16px;
@@ -20,10 +36,17 @@ export const spaceMonoXsRegular = css`
 
 export const displayXsBold = css`
   font-size: 24px;
-  font-weight: 700;
   line-height: 32px;
-  font-style: normal;
   vertical-align: middle;
+  ${bold};
+`;
+
+export const textXxlBlack = css`
+  ${black};
+  font-style: normal;
+  font-weight: 900;
+  font-size: 40px;
+  line-height: 54px;
 `;
 
 export const textXlSemibold = css`
@@ -32,49 +55,46 @@ export const textXlSemibold = css`
   line-height: 30px;
   font-style: normal;
   vertical-align: middle;
+  ${medium};
 `;
 
 export const textMdSemiBold = css`
   font-size: 16px;
-  font-weight: 600;
   line-height: 24px;
-  font-style: normal;
   vertical-align: middle;
+  ${medium};
 `;
 
 export const textMdRegular = css`
   font-size: 16px;
-  font-weight: 400;
   line-height: 24px;
-  font-style: normal;
   vertical-align: middle;
+  ${regular};
 `;
 
 export const textSmallBold = css`
   font-size: 14px;
   line-height: 20px;
   vertical-align: middle;
-  font-weight: 700;
+  ${bold};
 `;
 
 export const textSmallRegular = css`
   font-size: 14px;
   line-height: 20px;
   vertical-align: middle;
-  font-weight: 400;
 `;
 
 export const textXsMedium = css`
   font-size: 12px;
   line-height: 18px;
-  font-weight: 500;
-  font-style: normal;
+  ${medium};
 `;
 
 export const textXsRegular = css`
   font-size: 12px;
   line-height: 18px;
-  font-weight: 400;
   font-style: normal;
   vertical-align: middle;
+  ${regular};
 `;
