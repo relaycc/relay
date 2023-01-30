@@ -1,4 +1,4 @@
-const VERCEL_URL = process.env.VERCEL_URL;
+const VERCEL_URL = process.env.NEXT_PUBLIC_VERCEL_URL;
 const VERCEL_ENV = process.env.NEXT_PUBLIC_VERCEL_ENV;
 
 export const IS_PRODUCTION_DEPLOYMENT = VERCEL_ENV === "production";
