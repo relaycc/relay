@@ -67,6 +67,28 @@ const FlexRow = styled.div`
   justify-self: flex-end;
 `;
 
+const Wrapper = styled(FlexRow)`
+  margin-top: 0;
+  gap: 0.5rem;
+
+  @media screen and (min-width: 400px) {
+    margin-top: auto;
+    gap: 1rem;
+  }
+`;
+
+const PrimaryButton = styled(ButtonPrimary)`
+  width: 100%;
+`;
+
+const SecondaryButton = styled(ButtonSecondary)`
+  width: 100%;
+
+  @media screen and (min-width: 400px) {
+    width: 91px;
+  }
+`;
+
 export const DirectoryCard = ({
   logo,
   delay,
@@ -93,14 +115,12 @@ export const DirectoryCard = ({
       ref={ref}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      transition={{ delay: delay || 0 }}
-    >
+      transition={{ delay: delay || 0 }}>
       <DescriptionRoot
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
-        transition={{ delay: 0.3 }}
-      >
+        transition={{ delay: 0.3 }}>
         <DescriptionHeader>
           <CardTitle>{name}</CardTitle>
           <Image
@@ -113,41 +133,39 @@ export const DirectoryCard = ({
         </DescriptionHeader>
         <Category>{category}</Category>
         <Description>{description}</Description>
-        <FlexRow style={{ marginTop: "auto" }}>
-          <ButtonSecondary
-            as="a"
-            href={url}
-            target="_blank"
-            rel="noreferrer"
-            style={{ marginRight: "11px", width: "91px" }}
-          >
+        <Wrapper>
+          <SecondaryButton as="a" href={url} target="_blank" rel="noreferrer">
             <ExternalLinkIcon />
             Visit
-          </ButtonSecondary>
-          <ButtonPrimary
+          </SecondaryButton>
+          <PrimaryButton
             onClick={() => {
               goToDm({ peerAddress: id.address.data as EthAddress });
             }}
-            disabled={typeof id.address.data !== "string"}
-          >
+            disabled={typeof id.address.data !== "string"}>
             <ChatIcon />
             Message
-          </ButtonPrimary>
-        </FlexRow>
+          </PrimaryButton>
+        </Wrapper>
       </DescriptionRoot>
     </Root>
   );
 };
 
 const Root = styled(motion.div)`
-  width: 252px;
-  height: 330px;
+  width: 100%;
+  height: 100%;
   padding: 14px;
   background: #ffffff;
   border: 1px solid ${(props) => props.theme.colors.gray["200"]};
   box-shadow: 0 1px 3px rgba(16, 24, 40, 0.1), 0 1px 2px rgba(16, 24, 40, 0.06);
   border-radius: 8px;
   position: relative;
+
+  @media screen and (min-width: 400px) {
+    width: 252px;
+    height: 330px;
+  }
 `;
 
 const DescriptionRoot = styled(motion.div)`
