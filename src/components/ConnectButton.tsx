@@ -11,6 +11,8 @@ import { DropdownCard } from "@/design/relay/Nav";
 import { useCopyToClipboard } from "@/hooks/useCopyToClipboard";
 import { LogoutIcon } from "@/design/relay/LogoutIcon";
 import { CopyIcon } from "@/design/relay/CopyIcon";
+import { useRelayId } from "@/hooks/useRelayId";
+import { truncateEns } from "@/lib/truncateEns";
 
 const Button = styled(ButtonPrimary)`
   min-width: 207px;
@@ -41,10 +43,13 @@ const NotConnected = () => {
 
 const Connected = ({ onClick }: { onClick: () => unknown }) => {
   const { address } = useAccount();
+  const relayId = useRelayId({ handle: address });
   return (
     <Button style={{ minWidth: "207px" }} onClick={onClick}>
       <Avatar handle={address} size="sm" onClick={() => null} />
-      {truncateAddress(address || "", 8)}
+      {typeof relayId.ens.data === "string" && truncateEns(relayId.ens.data)}
+      {typeof relayId.ens.data === "string" ||
+        truncateAddress(address || "", 8)}
     </Button>
   );
 };
