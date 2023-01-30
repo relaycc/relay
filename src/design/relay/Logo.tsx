@@ -147,8 +147,13 @@ export const Logotype = styled((props: ComponentProps<"svg">) => (
 ))``;
 
 export const LogomarkWhite = styled(Logomark)`
-  width: 44.58px;
-  height: 40.34px;
+  width: 29.72px;
+  height: 26.89px;
+
+  @media screen and (min-width: 625px) {
+    width: 44.58px;
+    height: 40.34px;
+  }
 
   path {
     fill: #ffffff;
@@ -159,8 +164,13 @@ export const LogomarkWhite = styled(Logomark)`
 `;
 
 export const LogotypeWhite = styled(Logotype)`
-  width: 92.74px;
-  height: 40.34px;
+  width: 61.83px;
+  height: 26.89px;
+
+  @media screen and (min-width: 625px) {
+    width: 92.74px;
+    height: 40.34px;
+  }
 
   path {
     fill: #ffffff;

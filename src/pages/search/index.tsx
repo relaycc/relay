@@ -29,7 +29,6 @@ import { useGoToDm, useReceiverWindow } from "@/hooks/useReceiverWindow";
 import { ROBOT_ADDRESSES } from "@/lib/robot-addresses";
 import { DropdownItem } from "@/design/relay/DropdownItem";
 import { useOutsideClick } from "@/hooks/useOutsideClick";
-import { useScroll } from "framer-motion";
 
 export default function Relay({ projects }: { projects: Project[] }) {
   const router = useRouter();
