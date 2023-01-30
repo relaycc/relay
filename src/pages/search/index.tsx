@@ -3,6 +3,7 @@ import {
   FunctionComponent,
   useCallback,
   useEffect,
+  useMemo,
   useRef,
   useState,
 } from "react";
@@ -25,7 +26,9 @@ import { ReceiverWindow } from "@/components/ReceiverWindow";
 import { useGoToDm, useReceiverWindow } from "@/hooks/useReceiverWindow";
 import { ROBOT_ADDRESSES } from "@/lib/robot-addresses";
 import { DropdownItem } from "@/design/relay/DropdownItem";
+import { Sidebar } from "@/design/relay/Sidebar";
 import { useShowcaseClick } from "@/lib/plausible/useShowcaseClick";
+import * as Chevron from "@/design/relay/Chevron";
 
 export default function Relay({ projects }: { projects: Project[] }) {
   const router = useRouter();
@@ -48,6 +51,7 @@ export default function Relay({ projects }: { projects: Project[] }) {
     setShowCommunity(!showCommunity);
     setShowProducts(false);
   }, [showCommunity]);
+  const [sidebar, setSidebar] = useState<boolean>(false);
   const { setPage } = useReceiverWindow();
   const showcaseClick = useShowcaseClick();
 
@@ -71,6 +75,34 @@ export default function Relay({ projects }: { projects: Project[] }) {
       })()
     );
   });
+
+  const scrollAmount = useCallback(
+    (left?: boolean) => {
+      if (left && showcaseRef && showcaseRef.current) {
+        return -showcaseRef.current.clientWidth - 14;
+      } else if (showcaseRef && showcaseRef.current) {
+        return showcaseRef.current.clientWidth + 14;
+      }
+      if (left) {
+        return -270;
+      }
+      return 270;
+    },
+    [showcaseRef, window]
+  );
+
+  const scrollRight = useCallback(() => {
+    showcaseRef?.current?.scrollBy({
+      left: scrollAmount(),
+      behavior: "smooth",
+    });
+  }, [showcaseRef]);
+  const scrollLeft = useCallback(() => {
+    showcaseRef?.current?.scrollBy({
+      left: scrollAmount(true),
+      behavior: "smooth",
+    });
+  }, [showcaseRef]);
 
   return (
     <>
@@ -133,6 +165,7 @@ export default function Relay({ projects }: { projects: Project[] }) {
           <Showcase.Wrapper>
             <Showcase.InnerWrapper>
               <Showcase.Root>
+                <Chevron.ChevronLeftActive onClick={scrollLeft} />
                 <Showcase.MotionRoot ref={showcaseRef}>
                   <Showcase.Slides
                     drag="x"
@@ -239,11 +272,12 @@ export default function Relay({ projects }: { projects: Project[] }) {
                     />
                   </Showcase.Slides>
                 </Showcase.MotionRoot>
+                <Chevron.ChevronRightActive onClick={scrollRight} />
               </Showcase.Root>
               <Showcase.Ellipse />
             </Showcase.InnerWrapper>
           </Showcase.Wrapper>
-          <DirectoryHeader.Root style={{ maxWidth: "max-content" }}>
+          <DirectoryHeader.Root style={{ maxWidth: "100%" }}>
             <DirectoryHeader.Title>Explore Web3 on Relay</DirectoryHeader.Title>
             <DirectoryHeader.Search.Search
               onChange={(e: any) => {
@@ -267,6 +301,33 @@ export default function Relay({ projects }: { projects: Project[] }) {
               </DirectoryHeader.Directories>
             </DirectoryHeader.Nav>
           </DirectoryHeader.Root>
+          <DirectoryHeader.MobileRoot style={{ maxWidth: "100%" }}>
+            <DirectoryHeader.Title>Directory</DirectoryHeader.Title>
+            <DirectoryHeader.SearchWrapper>
+              <DirectoryHeader.Search.Search
+                onChange={(e: any) => {
+                  setSearchInput(e.target.value);
+                }}
+                value={searchInput || ""}
+                placeholder={"Search for projects..."}
+              />
+              <DirectoryHeader.MenuIcon onClick={() => setSidebar(true)} />
+            </DirectoryHeader.SearchWrapper>
+            <DirectoryHeader.Nav>
+              <DirectoryHeader.Directories>
+                {CATEGORIES.map((category) => {
+                  return (
+                    <DirectoryHeaderItem
+                      key={category}
+                      category={category}
+                      isActive={category === activeCategory}
+                      onClick={() => setActiveCategory(category)}
+                    />
+                  );
+                })}
+              </DirectoryHeader.Directories>
+            </DirectoryHeader.Nav>
+          </DirectoryHeader.MobileRoot>
           <ContentColumnNarrow style={{ minHeight: "100vh" }}>
             <FlexWrapRow>
               {filteredProjects.map((project, i) => (
@@ -317,6 +378,9 @@ export default function Relay({ projects }: { projects: Project[] }) {
           </MenuMobile.Overlay>
         )}
         <ReceiverWindow />
+        <Sidebar
+          {...{ sidebar, setSidebar, activeCategory, setActiveCategory }}
+        />
       </FullWidthPage>
     </>
   );
@@ -517,13 +581,33 @@ const ContentColumnNarrow = styled.div`
   flex-direction: column;
   align-items: center;
   min-height: 330px;
-  margin-bottom: 3rem;
+  padding-bottom: 3rem;
+  background: ${({ theme }) => theme.colors.gray["200"]};
+
+  @media screen and (min-width: 400px) {
+    background: initial;
+  }
 `;
 const FlexWrapRow = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
-  min-width: 100%;
+  display: grid;
+  grid-auto-flow: row;
+  justify-content: center;
+  width: 100%;
+  max-width: 1344px;
+  height: auto;
+  padding: 0 1rem;
+  grid-template-columns: initial;
+  grid-gap: 0.5rem;
+
+  @media screen and (min-width: 400px) {
+    grid-gap: 1rem;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 250px));
+    padding: 0 2rem;
+  }
+
+  @media screen and (min-width: 1400px) {
+    padding: 0;
+  }
 `;
 
 const CommunityRoot = styled.div`
