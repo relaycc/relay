@@ -115,12 +115,14 @@ export const DirectoryCard = ({
       ref={ref}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      transition={{ delay: delay || 0 }}>
+      transition={{ delay: delay || 0 }}
+    >
       <DescriptionRoot
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
-        transition={{ delay: 0.3 }}>
+        transition={{ delay: 0.3 }}
+      >
         <DescriptionHeader>
           <CardTitle>{name}</CardTitle>
           <Image
@@ -142,7 +144,8 @@ export const DirectoryCard = ({
             onClick={() => {
               goToDm({ peerAddress: id.address.data as EthAddress });
             }}
-            disabled={typeof id.address.data !== "string"}>
+            disabled={typeof id.address.data !== "string"}
+          >
             <ChatIcon />
             Message
           </PrimaryButton>

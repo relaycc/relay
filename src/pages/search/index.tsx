@@ -28,6 +28,7 @@ import { ROBOT_ADDRESSES } from "@/lib/robot-addresses";
 import { DropdownItem } from "@/design/relay/DropdownItem";
 import { Sidebar } from "@/design/relay/Sidebar";
 import { useShowcaseClick } from "@/lib/plausible/useShowcaseClick";
+import * as Chevron from "@/design/relay/Chevron";
 
 export default function Relay({ projects }: { projects: Project[] }) {
   const router = useRouter();
@@ -74,6 +75,7 @@ export default function Relay({ projects }: { projects: Project[] }) {
       })()
     );
   });
+
   const scrollAmount = useCallback(
     (left?: boolean) => {
       if (left && showcaseRef && showcaseRef.current) {
@@ -101,6 +103,7 @@ export default function Relay({ projects }: { projects: Project[] }) {
       behavior: "smooth",
     });
   }, [showcaseRef]);
+
   return (
     <>
       <Head>
@@ -121,7 +124,8 @@ export default function Relay({ projects }: { projects: Project[] }) {
             ) : (
               <Nav.NavLink
                 style={{ marginLeft: "auto", marginRight: "1.5rem" }}
-                onClick={toggleProducts}>
+                onClick={toggleProducts}
+              >
                 Products
                 <Nav.ChevronDownActive />
               </Nav.NavLink>
@@ -141,7 +145,8 @@ export default function Relay({ projects }: { projects: Project[] }) {
             <a
               href="https://github.com/relaycc"
               target="_blank"
-              rel="noreferrer">
+              rel="noreferrer"
+            >
               <IconGithub
                 style={{ height: "2rem", width: "2rem", margin: "1.5rem" }}
               />
@@ -153,7 +158,8 @@ export default function Relay({ projects }: { projects: Project[] }) {
             <MenuMobile.MenuIcon onClick={() => setShowMenu(true)} />
           </Nav.RootMobile>
           <DirectoryHeader.Root
-            style={{ maxWidth: "max-content", marginTop: "3rem" }}>
+            style={{ maxWidth: "max-content", marginTop: "3rem" }}
+          >
             <DirectoryHeader.Title>Try ChatGPT for Web3</DirectoryHeader.Title>
           </DirectoryHeader.Root>
           <Showcase.Wrapper>
@@ -163,7 +169,8 @@ export default function Relay({ projects }: { projects: Project[] }) {
                 <Showcase.MotionRoot ref={showcaseRef}>
                   <Showcase.Slides
                     drag="x"
-                    dragConstraints={{ right: 0, left: -width }}>
+                    dragConstraints={{ right: 0, left: -width }}
+                  >
                     <Card.Card
                       handleClick={() => {
                         showcaseClick(ROBOT_ADDRESSES.lens.peerAddress);
@@ -472,13 +479,15 @@ const ProductsDropdown: FunctionComponent<{
         <DropdownItem
           onClick={() => {
             alert("add link in code");
-          }}>
+          }}
+        >
           Receiver
         </DropdownItem>
         <DropdownItem
           onClick={() => {
             alert("add link in code");
-          }}>
+          }}
+        >
           Directory
         </DropdownItem>
       </ProductsCard>
@@ -518,25 +527,29 @@ const CommunityDropdown: FunctionComponent<{
         <DropdownItem
           onClick={() => {
             alert("add link in code");
-          }}>
+          }}
+        >
           Discord
         </DropdownItem>
         <DropdownItem
           onClick={() => {
             alert("add link in code");
-          }}>
+          }}
+        >
           Twitter
         </DropdownItem>
         <DropdownItem
           onClick={() => {
             alert("add link in code");
-          }}>
+          }}
+        >
           Lens
         </DropdownItem>
         <DropdownItem
           onClick={() => {
             alert("add link in code");
-          }}>
+          }}
+        >
           Mirror
         </DropdownItem>
       </CommunityCard>
