@@ -7,9 +7,11 @@ export const Title = styled.div`
   ${textXlBlack};
   text-align: center;
   color: ${(props) => props.theme.colors.gray["900"]};
+  margin-top: 1rem;
 
   @media screen and (min-width: 400px) {
     ${textXxlBlack};
+    margin-top: 0;
   }
 `;
 
@@ -48,7 +50,7 @@ export const Nav = styled.nav`
   display: none;
   flex-direction: column;
   width: 100%;
-  overflow: auto;
+  padding: 0 2rem;
 
   @media screen and (min-width: 400px) {
     display: flex;
@@ -58,6 +60,8 @@ export const Nav = styled.nav`
 export const Directories = styled.ul`
   display: flex;
   flex-direction: row;
+  overflow: auto;
+  padding: 0 2rem;
 `;
 
 const Directory = styled.button`

@@ -89,6 +89,9 @@ export const Ellipse = styled.div`
   }
   @media (max-width: 605px) {
     //display: none;
-    width: 400px;
+    width: 336px;
+    height: 330px;
+    top: 0;
+    bottom: -5.76%;
   }
 `;
