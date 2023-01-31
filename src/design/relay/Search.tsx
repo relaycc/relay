@@ -7,7 +7,7 @@ import { LoaderAnimGeneral } from "../LoaderAnimGeneral";
 const Root = styled.div<{ isError?: boolean }>`
   display: flex;
   align-items: center;
-  width: 100%;
+  width: -webkit-fill-available;
   max-width: 700px;
   min-height: 40px;
   max-height: 40px;
@@ -16,8 +16,11 @@ const Root = styled.div<{ isError?: boolean }>`
   border-radius: 0.5rem;
   background: #ffffff;
   border: 1px solid #d0d5dd;
-  margin-left: 3rem;
-  margin-right: 3rem;
+
+  @media screen and (min-width: 400px) {
+    margin-left: 3rem;
+    margin-right: 3rem;
+  }
 `;
 
 export const ErrorRoot = styled(Root)`
@@ -79,8 +82,7 @@ const SearchMessage = styled((props: ComponentProps<"svg">) => {
       viewBox="0 0 22 20"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      {...props}
-    >
+      {...props}>
       <path
         d="M8.19647 16.2485C9.62684 17.5336 11.6865 18.0876 13.6669 18.0876C14.2026 18.0876 14.7441 18.047 15.2774 17.9624C15.5336 17.9218 15.795 17.9176 16.05 17.9655L19.2942 18.5738C19.9933 18.7048 20.6058 18.0923 20.4747 17.3932L20.2095 15.9788C20.1132 15.4652 20.2352 14.9411 20.4526 14.4658C20.8014 13.7035 21 12.8076 21 11.766C21 9.50431 20.0635 7.92944 18.6869 6.91724"
         stroke={receiverTheme.colors.gray["400"]}

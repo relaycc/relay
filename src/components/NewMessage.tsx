@@ -27,6 +27,10 @@ const Root = styled(motion.div)`
   position: absolute;
   left: 0;
   bottom: 0;
+
+  @media (max-width: 400px) {
+    width: 100vw;
+  }
 `;
 
 const UnstyledForm = styled.form`
@@ -157,10 +161,9 @@ export const NewMessage = ({
     <Root
       key="newMessage"
       initial={{ maxHeight: "0" }}
-      animate={{ top: "1rem", maxHeight: "100vh" }}
+      animate={{ top: "1rem", maxHeight: "99vh" }}
       exit={{ top: "100%" }}
-      transition={{ duration: 0.3 }}
-    >
+      transition={{ duration: 0.3 }}>
       <HeaderWrapper>
         <NewMessageHeader.Root>
           <NewMessageHeader.Title>New Message</NewMessageHeader.Title>
@@ -196,13 +199,11 @@ export const NewMessage = ({
               }
             }
           }
-        }}
-      >
+        }}>
         <NewMsgInput.Root
           isError={state.id === "invalid input"}
           onFocus={() => setInputIsFocused(true)}
-          onBlur={() => setInputIsFocused(false)}
-        >
+          onBlur={() => setInputIsFocused(false)}>
           <NewMsgInput.To>To: </NewMsgInput.To>
 
           <NewMsgInput.TextInput
@@ -216,8 +217,7 @@ export const NewMessage = ({
           />
           <NewMsgInput.IconContainer
             onMouseDown={(e) => e.preventDefault()}
-            onClick={() => null}
-          >
+            onClick={() => null}>
             {(() => {
               if (state.id === "loading") {
                 return <NewMsgInput.LoaderAnimGeneral />;
@@ -250,8 +250,7 @@ export const NewMessage = ({
       <MsgBoxWrapper>
         <MsgBox.Root
           onFocus={() => setMessageInputIsFocused(true)}
-          onBlur={() => setMessageInputIsFocused(false)}
-        >
+          onBlur={() => setMessageInputIsFocused(false)}>
           <MsgBox.MessageInput
             disabled={state.id !== "input has address"}
             onKeyDown={handleKeyDown}
