@@ -264,7 +264,6 @@ export default function Relay({ projects }: { projects: Project[] }) {
                       }
                     }
                   }}
-                  isMobile={true}
                 />
                 <CloseIcon onClick={toggleMobileSearch} />
               </>
