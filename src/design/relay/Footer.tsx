@@ -158,20 +158,30 @@ const Label = styled(LogoSocialMedia.Label)`
   }
 `;
 
-export default function Footer() {
+export default function Footer({
+  onClickReceiver,
+  onClickRecon,
+  onClickRobot,
+}: {
+  onClickReceiver: () => unknown;
+  onClickRecon: () => unknown;
+  onClickRobot: () => unknown;
+}) {
   return (
     <Root>
       <Wrapper>
         <LinkContainer>
           <LinkColumnProducts>
             <LinkTitle>Products</LinkTitle>
-            <FooterLink>Receiver</FooterLink>
-            <FooterLink>Robot</FooterLink>
-            <FooterLink>Directory</FooterLink>
+            <FooterLink onClick={onClickReceiver}>Receiver</FooterLink>
+            <FooterLink onClick={onClickRecon}>Recon</FooterLink>
+            <FooterLink onClick={onClickRobot}>Robot</FooterLink>
           </LinkColumnProducts>
           <LinkColumnResources>
             <LinkTitle>Resources</LinkTitle>
-            <FooterLink>XMTP</FooterLink>
+            <FooterLink href="https://xmtp.org/docs/dev-concepts/introduction">
+              XMTP
+            </FooterLink>
             <FooterLink>Docs</FooterLink>
           </LinkColumnResources>
           <LinkColumnAbout>
@@ -181,19 +191,39 @@ export default function Footer() {
           <LinkColumnCommunity>
             <LinkTitleCommunity>Join the Community</LinkTitleCommunity>
             <CommunityLinkItems>
-              <LogoSocialMedia.Logowrap>
+              <LogoSocialMedia.Logowrap
+                as="a"
+                href="https://discord.gg/relaycc"
+                target="_blank"
+                rel="noreferrer"
+              >
                 <LogoSocialMedia.Discord />
                 <Label>Discord</Label>
               </LogoSocialMedia.Logowrap>
-              <LogoSocialMedia.Logowrap>
+              <LogoSocialMedia.Logowrap
+                as="a"
+                href="https://twitter.com/relay_eth"
+                target="_blank"
+                rel="noreferrer"
+              >
                 <LogoSocialMedia.Twitter />
                 <Label>Twitter</Label>
               </LogoSocialMedia.Logowrap>
-              <LogoSocialMedia.Logowrap>
+              <LogoSocialMedia.Logowrap
+                as="a"
+                href="https://github.com/relaycc"
+                target="_blank"
+                rel="noreferrer"
+              >
                 <LogoSocialMedia.Github />
                 <Label>Github</Label>
               </LogoSocialMedia.Logowrap>
-              <LogoSocialMedia.Logowrap>
+              <LogoSocialMedia.Logowrap
+                as="a"
+                href="https://mirror.xyz/relaycc.eth"
+                target="_blank"
+                rel="noreferrer"
+              >
                 <LogoSocialMedia.Mirror />
                 <Label>Mirror</Label>
               </LogoSocialMedia.Logowrap>
@@ -201,10 +231,12 @@ export default function Footer() {
           </LinkColumnCommunity>
         </LinkContainer>
         <SignOff>
-          <Logo.Logowrap>
-            <Logo.LogomarkWhite />
-            <Logo.LogotypeWhite />
-          </Logo.Logowrap>
+          <a href="https://relay.cc">
+            <Logo.Logowrap>
+              <Logo.LogomarkWhite />
+              <Logo.LogotypeWhite />
+            </Logo.Logowrap>
+          </a>
           <Copyright>Copyright © 2022</Copyright>
         </SignOff>
       </Wrapper>
