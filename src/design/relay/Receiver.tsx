@@ -29,6 +29,10 @@ export const Launch = styled.button`
   order: 0;
   flex-grow: 0;
   cursor: pointer;
+
+  @media screen and (max-width: 400px) {
+    display: none;
+  }
 `;
 
 export const Window = styled(motion.div)`
@@ -39,6 +43,13 @@ export const Window = styled(motion.div)`
   padding: 0;
   box-shadow: 0px 4px 32px rgba(16, 24, 40, 0.12);
   border-radius: 14px;
+
+  @media screen and (max-width: 400px) {
+    right: 0;
+    bottom: 0;
+    left: 0;
+    top: 2rem;
+  }
 `;
 
 export const WindowAnimation = {
@@ -56,4 +67,12 @@ export const Receiver = styled(motion.div)`
   display: flex;
   flex-direction: column;
   overflow: hidden;
+
+  @media screen and (max-width: 400px) {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    top: 0;
+  }
 `;

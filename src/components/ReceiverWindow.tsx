@@ -14,6 +14,20 @@ export const ReceiverWindow = () => {
 
   return (
     <>
+      <Receiver.Fixed>
+        <Receiver.Launch onClick={() => toggle({ id: "messages" })}>
+          {page !== null && (
+            <Receiver.Fader {...Receiver.FadeAnimation}>
+              <Receiver.Chevron />
+            </Receiver.Fader>
+          )}
+          {page === null && (
+            <Receiver.Fader {...Receiver.FadeAnimation}>
+              <Receiver.Logo />
+            </Receiver.Fader>
+          )}
+        </Receiver.Launch>
+      </Receiver.Fixed>
       <AnimatePresence>
         {page !== null && (
           <Receiver.Window {...Receiver.WindowAnimation}>
@@ -38,20 +52,6 @@ export const ReceiverWindow = () => {
           </Receiver.Window>
         )}
       </AnimatePresence>
-      <Receiver.Fixed>
-        <Receiver.Launch onClick={() => toggle({ id: "messages" })}>
-          {page !== null && (
-            <Receiver.Fader {...Receiver.FadeAnimation}>
-              <Receiver.Chevron />
-            </Receiver.Fader>
-          )}
-          {page === null && (
-            <Receiver.Fader {...Receiver.FadeAnimation}>
-              <Receiver.Logo />
-            </Receiver.Fader>
-          )}
-        </Receiver.Launch>
-      </Receiver.Fixed>
     </>
   );
 };

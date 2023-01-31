@@ -36,7 +36,6 @@ const Root = styled(motion.div)`
   border-radius: 14px 14px 8px 8px;
   padding: 1rem;
   background: #ffffff;
-  width: 400px;
   overflow: hidden;
 `;
 
