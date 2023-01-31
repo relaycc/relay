@@ -15,14 +15,14 @@ const Root = styled.div`
 
 export const RootDesktop = styled(Root)`
   display: none;
-  @media (min-width: 360px) {
+  @media (min-width: 400px) {
     display: flex;
   }
 `;
 
 export const RootMobile = styled(Root)`
   display: flex;
-  @media (min-width: 360px) {
+  @media (min-width: 400px) {
     display: none;
   }
   justify-content: space-between;
