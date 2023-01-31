@@ -6,8 +6,6 @@ labels: bug
 assignees: ""
 ---
 
-# Details
-
 ### Describe the bug. Include a video.
 
 ### What is the expected behavior?
