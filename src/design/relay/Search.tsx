@@ -4,7 +4,7 @@ import { receiverTheme } from "@/design/receiverTheme";
 import { Magnifier } from "@/design/Magnifier";
 import { LoaderAnimGeneral } from "../LoaderAnimGeneral";
 
-const Root = styled.div<{ isError?: boolean }>`
+const Root = styled.div<{ isError?: boolean; isMobile?: boolean }>`
   display: flex;
   align-items: center;
   width: 100%;
@@ -16,8 +16,9 @@ const Root = styled.div<{ isError?: boolean }>`
   border-radius: 0.5rem;
   background: #ffffff;
   border: 1px solid #d0d5dd;
-  margin-left: 3rem;
-  margin-right: 3rem;
+  margin-right: ${(props) => (props.isMobile ? "0" : "3rem")};
+
+  margin-left: ${(props) => (props.isMobile ? "0" : "3rem")};
 `;
 
 export const ErrorRoot = styled(Root)`
@@ -49,11 +50,16 @@ export const Message = (
   props: ComponentProps<typeof Input> & {
     isError?: boolean;
     isLoading?: boolean;
+    isMobile?: boolean;
   }
 ) => {
   const [active, setActive] = useState<boolean>(false);
   return (
-    <Root onFocus={() => setActive(true)} onBlur={() => setActive(false)}>
+    <Root
+      onFocus={() => setActive(true)}
+      onBlur={() => setActive(false)}
+      isMobile={props.isMobile}
+    >
       {active || <SearchMessage />}
       {props.isLoading && <LoaderAnimGeneral />}
       <Input {...props} />

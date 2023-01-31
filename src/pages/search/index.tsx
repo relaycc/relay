@@ -37,6 +37,9 @@ import { usePriorityRobotCards } from "@/hooks/usePriorityRobotCards";
 import { EthAddress, isEthAddress } from "@relaycc/xmtp-hooks";
 import { isEnsName } from "@/lib/isEnsName";
 import { fetchAddressFromEns } from "@/hooks/useAddressFromEns";
+import { ChatIcon, ChatIconBlack } from "@/design/relay/ChatIcon";
+import { CloseIcon } from "@/design/NewMessageHeader";
+import { MobileLogo } from "@/design/MobileLogo";
 
 export default function Relay({ projects }: { projects: Project[] }) {
   const router = useRouter();
@@ -60,6 +63,7 @@ export default function Relay({ projects }: { projects: Project[] }) {
   const [showMenu, setShowMenu] = useState(false);
   const [showProducts, setShowProducts] = useState(false);
   const [showCommunity, setShowCommunity] = useState(false);
+  const [showMobileSearch, setShowMobileSearch] = useState<boolean>(false);
   const toggleProducts = useCallback(() => {
     setShowProducts(!showProducts);
     setShowCommunity(false);
@@ -68,7 +72,12 @@ export default function Relay({ projects }: { projects: Project[] }) {
     setShowCommunity(!showCommunity);
     setShowProducts(false);
   }, [showCommunity]);
+  const toggleMobileSearch = useCallback(() => {
+    console.log({ showMobileSearch });
+    setShowMobileSearch(!showMobileSearch);
+  }, [showMobileSearch]);
   const [sidebar, setSidebar] = useState<boolean>(false);
+
   const showcaseClick = useShowcaseClick();
   const directoryRef = useRef<HTMLDivElement>(null);
 
@@ -201,20 +210,73 @@ export default function Relay({ projects }: { projects: Project[] }) {
               </Nav.NavLink>
             )}
 
-            <a
-              href="https://github.com/relaycc"
-              target="_blank"
-              rel="noreferrer"
-            >
-              <IconGithub
-                style={{ height: "2rem", width: "2rem", margin: "1.5rem" }}
-              />
-            </a>
-            <ConnectButton />
+            <Nav.LogoAndNameWrapper>
+              <a
+                href="https://github.com/relaycc"
+                target="_blank"
+                rel="noreferrer"
+              >
+                <IconGithub
+                  style={{ height: "2rem", width: "2rem", margin: "1.5rem" }}
+                />
+              </a>
+              <ConnectButton />
+            </Nav.LogoAndNameWrapper>
+            <Nav.MobileMenuButtonWrapper>
+              <MenuMobile.MenuIcon onClick={() => setShowMenu(true)} />
+            </Nav.MobileMenuButtonWrapper>
           </Nav.RootDesktop>
           <Nav.RootMobile>
-            <Logo />
-            <MenuMobile.MenuIcon onClick={() => setShowMenu(true)} />
+            {showMobileSearch ? (
+              <>
+                <Nav.Message
+                  isError={messageInputIsError}
+                  isLoading={messageInputIsLoading}
+                  placeholder={"Message ENS, Lens, or 0xAddress"}
+                  onChange={(e: any) => {
+                    setMessageInputIsError(false);
+                  }}
+                  style={{ margin: "0" }}
+                  onKeyPress={async (e: any) => {
+                    if (e.key === "Enter") {
+                      if (
+                        !isEnsName(e.currentTarget.value) &&
+                        !isEthAddress(e.currentTarget.value)
+                      ) {
+                        setMessageInputIsError(true);
+                      } else {
+                        if (isEnsName(e.currentTarget.value)) {
+                          setMessageInputIsLoading(true);
+                          const address = await fetchAddressFromEns(
+                            e.currentTarget.value
+                          );
+                          setMessageInputIsLoading(false);
+                          if (typeof address === "string") {
+                            goToDm({ peerAddress: address as EthAddress });
+                            setMessageInputIsError(false);
+                          } else {
+                            setMessageInputIsError(true);
+                          }
+                        } else {
+                          goToDm({ peerAddress: e.currentTarget.value });
+                          setMessageInputIsError(false);
+                        }
+                      }
+                    }
+                  }}
+                  isMobile={true}
+                />
+                <CloseIcon onClick={toggleMobileSearch} />
+              </>
+            ) : (
+              <>
+                <MobileLogo />
+                <MenuMobile.RightWrapper>
+                  <ChatIconBlack onClick={toggleMobileSearch} />
+                  <MenuMobile.MenuIcon onClick={() => setShowMenu(true)} />
+                </MenuMobile.RightWrapper>
+              </>
+            )}
           </Nav.RootMobile>
           <DirectoryHeader.Root
             style={{ maxWidth: "max-content", marginTop: "3rem" }}
