@@ -69,6 +69,14 @@ export default function Relay({ projects }: { projects: Project[] }) {
     setShowProducts(false);
   }, [showCommunity]);
   const [sidebar, setSidebar] = useState<boolean>(false);
+  const [showCaseDragging, setShowCaseDragging] = useState<boolean>(false);
+  const showcaseDragStop = useCallback(
+    () => setTimeout(() => setShowCaseDragging(false), 200),
+    []
+  );
+  const showCaseDragStart = useCallback(() => {
+    setShowCaseDragging(true);
+  }, []);
   const showcaseClick = useShowcaseClick();
   const directoryRef = useRef<HTMLDivElement>(null);
 
@@ -229,15 +237,19 @@ export default function Relay({ projects }: { projects: Project[] }) {
                   <Showcase.Slides
                     drag="x"
                     dragConstraints={{ right: 0, left: -width }}
+                    onDragStart={showCaseDragStart}
+                    onDragEnd={showcaseDragStop}
                   >
                     {robotCards.map((robot) => (
                       <Card.Card
                         key={robot.peerAddress}
                         handleClick={() => {
-                          showcaseClick(robot.peerAddress);
-                          goToDm({
-                            peerAddress: robot.peerAddress as EthAddress,
-                          });
+                          if (!showCaseDragging) {
+                            showcaseClick(robot.peerAddress);
+                            goToDm({
+                              peerAddress: robot.peerAddress as EthAddress,
+                            });
+                          }
                         }}
                         icon={<robot.icon />}
                         initialBgColor={robot.initialBgColor}
