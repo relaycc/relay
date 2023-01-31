@@ -1,4 +1,5 @@
 import styled from "styled-components";
+
 export * from "@/design/relay/Logo";
 import * as ButtonPrimary from "@/design/relay/ButtonPrimary";
 import { motion } from "framer-motion";
@@ -37,7 +38,13 @@ export const Products = styled.h6`
   margin-bottom: 1rem;
   margin-top: 1rem;
 `;
-
+export const RightWrapper = styled.div`
+  display: flex;
+  max-width: 3.5rem;
+  flex: 1;
+  justify-content: space-between;
+  align-items: center;
+`;
 export const SocialItem = styled.div`
   font-style: normal;
   font-weight: 500;
@@ -81,7 +88,7 @@ export const ProductButton = styled.button`
 `;
 
 export const MenuIcon = styled((props: ComponentProps<"svg">) => (
-  <svg width="20" height="14" viewBox="0 0 20 14" {...props}>
+  <svg width="20" height="14" viewBox="0 0 20 14" {...props} cursor={"pointer"}>
     <path
       d="M1 7H15M1 1H19M1 13H19"
       strokeWidth="2"
