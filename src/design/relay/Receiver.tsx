@@ -69,6 +69,8 @@ export const Receiver = styled(motion.div)`
   overflow: hidden;
 
   @media screen and (max-width: 400px) {
+    width: 100vw;
+    height: 100vh;
     position: fixed;
     right: 0;
     bottom: 0;

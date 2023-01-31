@@ -19,7 +19,6 @@ export const Root = styled.div`
 export const FirstMsgContainer = styled.div`
   display: flex;
   justify-content: flex-start;
-  align-items: center;
   column-gap: 0.5rem;
   padding: 0 1rem;
 
@@ -65,6 +64,7 @@ export const StatusIconContainer = styled.div`
   justify-content: center;
   width: 2.5rem;
   height: 2.5rem;
+  padding-top: 2px;
 `;
 
 export const UserAndMessage = styled.div`
