@@ -54,6 +54,10 @@ export const useReadWriteValue = ({
     clientAddress,
     key: REQUEST_CONVERSATION_ID,
   });
+  const { mutate: write } = useWriteValue({
+    clientAddress,
+    key: REQUEST_CONVERSATION_ID,
+  });
 
   useEffect(() => {
     if (valueIsLoading || valueIsError) {
@@ -63,7 +67,8 @@ export const useReadWriteValue = ({
       setRequestsObject(JSON.parse(value as string));
       return;
     }
-  }, [value, valueIsError, valueIsLoading]);
+    write({ content: JSON.stringify({}) });
+  }, [value, valueIsError, valueIsLoading, write]);
 
   const acceptedConversations = useMemo(
     function (): Conversation[] {
@@ -146,7 +151,7 @@ export const useReadWriteValue = ({
       };
       accept({ content: JSON.stringify(newObject) });
     },
-    [requestsObject]
+    [requestsObject, accept]
   );
 
   const ignoreConversations = useCallback(
@@ -170,7 +175,7 @@ export const useReadWriteValue = ({
       };
       ignore({ content: JSON.stringify(newObject) });
     },
-    [requestsObject]
+    [requestsObject, ignore]
   );
 
   const unIgnoreConversations = useCallback(
@@ -187,7 +192,7 @@ export const useReadWriteValue = ({
       };
       unignore({ content: JSON.stringify(newObject) });
     },
-    [requestsObject]
+    [requestsObject, unignore]
   );
 
   return {

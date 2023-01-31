@@ -15,14 +15,14 @@ const Root = styled.div`
 
 export const RootDesktop = styled(Root)`
   display: none;
-  @media (min-width: 768px) {
+  @media (min-width: 400px) {
     display: flex;
   }
 `;
 
 export const RootMobile = styled(Root)`
   display: flex;
-  @media (min-width: 768px) {
+  @media (min-width: 400px) {
     display: none;
   }
   justify-content: space-between;
@@ -35,7 +35,7 @@ export const InnerWrapper = styled.div`
 
 export const NavLink = styled.div`
   position: relative;
-  display: flex;
+  display: none;
   align-items: center;
   justify-content: center;
   max-width: 7rem;
@@ -44,6 +44,9 @@ export const NavLink = styled.div`
   line-height: 22px;
   height: 40px;
   cursor: pointer;
+  @media (min-width: 950px) {
+    display: flex;
+  }
 
   :hover {
     color: ${(p) => p.theme.colors.primary["500"]};
@@ -75,4 +78,18 @@ export const DropdownCard = styled.div`
   padding: 8px;
   background-color: #efeefb;
   min-height: 2.8rem;
+`;
+export const LogoAndNameWrapper = styled.div`
+  display: none;
+  align-items: center;
+  @media (min-width: 950px) {
+    display: flex;
+  }
+`;
+export const MobileMenuButtonWrapper = styled.div`
+  display: none;
+  align-items: center;
+  @media (max-width: 949px) {
+    display: flex;
+  }
 `;

@@ -16,8 +16,10 @@ const Root = styled.div<{ isError?: boolean }>`
   border-radius: 0.5rem;
   background: #ffffff;
   border: 1px solid #d0d5dd;
-  margin-left: 3rem;
-  margin-right: 3rem;
+  @media screen and (min-width: 400px) {
+    margin-left: 3rem;
+    margin-right: 3rem;
+  }
 `;
 
 export const ErrorRoot = styled(Root)`

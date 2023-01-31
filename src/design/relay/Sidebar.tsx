@@ -10,7 +10,8 @@ const Root = styled(motion.div)`
   top: 0;
   right: 0;
   background: #fff;
-  height: 100%;
+  height: 100vh;
+  overflow-y: scroll;
   width: 220px;
   height: 100vh;
   padding: 1rem;
@@ -52,8 +53,7 @@ export const Sidebar: FunctionComponent<{
             exit={{
               x: "100%",
             }}
-            transition={{ type: "spring", bounce: 0, duration: 0.4 }}
-          >
+            transition={{ type: "spring", bounce: 0, duration: 0.4 }}>
             <Header>
               <Title>Categories</Title>
               <CloseIcon onClick={() => setSidebar(false)} />
@@ -64,8 +64,7 @@ export const Sidebar: FunctionComponent<{
                   return (
                     <DirectoryHeader.MobileActive
                       key={category}
-                      onClick={() => setActiveCategory(category)}
-                    >
+                      onClick={() => setActiveCategory(category)}>
                       {category}
                     </DirectoryHeader.MobileActive>
                   );
@@ -73,8 +72,7 @@ export const Sidebar: FunctionComponent<{
                   return (
                     <DirectoryHeader.MobileInactive
                       key={category}
-                      onClick={() => setActiveCategory(category)}
-                    >
+                      onClick={() => setActiveCategory(category)}>
                       {category}
                     </DirectoryHeader.MobileInactive>
                   );

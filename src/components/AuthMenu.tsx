@@ -24,6 +24,11 @@ const Overlay = styled(motion.div)`
   flex-direction: column;
   justify-content: flex-end;
   backdrop-filter: blur(4px);
+
+  @media (max-width: 400px) {
+    width: 100vw;
+    height: 100vh;
+  }
 `;
 
 const Root = styled(motion.div)`
@@ -79,8 +84,7 @@ export const AuthMenu = ({ doClose }: { doClose: () => unknown }) => {
         initial={{ maxHeight: "0" }}
         animate={{ maxHeight: "376px" }}
         exit={{ maxHeight: "0" }}
-        transition={{ duration: 0.2 }}
-      >
+        transition={{ duration: 0.2 }}>
         <FlexRowWide>
           <L />
           <Close
@@ -135,8 +139,7 @@ const NotConnected = () => {
             } else {
               openConnectModal();
             }
-          }}
-        >
+          }}>
           Connect
         </InitializeXmtp.Button>
       </InitializeXmtp.ButtonWrapper>
@@ -208,8 +211,7 @@ const ActuallyConnected = ({
               } else {
                 signIn({ wallet: signer, opts: { env: "production" } });
               }
-            }}
-          >
+            }}>
             {!isSigningIn && "Enable"}
             {isSigningIn && "Signing In..."}
             {isSigningIn && <InitializeXmtp.Spinner />}
@@ -237,8 +239,7 @@ const XmtpEnabled = ({ clientAddress }: { clientAddress: string }) => {
         <InitializeXmtp.Button
           onClick={() =>
             signOut({ clientAddress: clientAddress as EthAddress })
-          }
-        >
+          }>
           Sign Out
         </InitializeXmtp.Button>
       </InitializeXmtp.ButtonWrapper>
