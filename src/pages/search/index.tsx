@@ -16,30 +16,47 @@ import { IconGithub } from "@/design/relay/IconGithub";
 import * as Nav from "@/design/relay/Nav";
 import * as Showcase from "@/design/relay/Showcase";
 import { client } from "@/lib/supabase/client";
-import { isProject, Project, CATEGORIES } from "@/lib/supabase/project";
+import {
+  isProject,
+  Project,
+  CATEGORIES,
+  ProjectCategory,
+  isProjectCategory,
+} from "@/lib/supabase/project";
 import * as MenuMobile from "@/design/relay/MenuMobile";
 import Image from "next/image";
 import { ConnectButton } from "@/components/ConnectButton";
 import { NextRouter, useRouter } from "next/router";
 import { ReceiverWindow } from "@/components/ReceiverWindow";
-import { useGoToDm, useToggle } from "@/hooks/useReceiverWindow";
-import { ROBOT_ADDRESSES } from "@/lib/robot-addresses";
+import { useGoToDm } from "@/hooks/useReceiverWindow";
 import { DropdownItem } from "@/design/relay/DropdownItem";
 import { Sidebar } from "@/design/relay/Sidebar";
 import { useShowcaseClick } from "@/lib/plausible/useShowcaseClick";
 import * as Chevron from "@/design/relay/Chevron";
+import { usePriorityRobotCards } from "@/hooks/usePriorityRobotCards";
+import { EthAddress, isEthAddress } from "@relaycc/xmtp-hooks";
+import { isEnsName } from "@/lib/isEnsName";
+import { fetchAddressFromEns } from "@/hooks/useAddressFromEns";
 
 export default function Relay({ projects }: { projects: Project[] }) {
   const router = useRouter();
   const goToDm = useGoToDm();
-  const toggleReceiver = useToggle();
-  const activeCategory = (router.query.category ||
-    "general") as Project["category"];
-  const setActiveCategory = (category: Project["category"]) =>
-    router.push(`/${category}`);
+  const robotCards = usePriorityRobotCards();
+  const queryCategory = (() => {
+    if (!isProjectCategory(router.query.category)) {
+      return null;
+    } else {
+      return router.query.category;
+    }
+  })();
+  const [activeCategory, setActiveCategory] = useState<ProjectCategory>(
+    queryCategory || "general"
+  );
   const [width, setWidth] = useState(0);
   const showcaseRef = useRef<HTMLDivElement>(null);
   const [searchInput, setSearchInput] = useState<string | null>(null);
+  const [messageInputIsError, setMessageInputIsError] = useState(false);
+  const [messageInputIsLoading, setMessageInputIsLoading] = useState(false);
   const [showMenu, setShowMenu] = useState(false);
   const [showProducts, setShowProducts] = useState(false);
   const [showCommunity, setShowCommunity] = useState(false);
@@ -53,6 +70,15 @@ export default function Relay({ projects }: { projects: Project[] }) {
   }, [showCommunity]);
   const [sidebar, setSidebar] = useState<boolean>(false);
   const showcaseClick = useShowcaseClick();
+  const directoryRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (queryCategory === null || directoryRef.current === null) {
+      return;
+    } else {
+      directoryRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [queryCategory]);
 
   useEffect(() => {
     showcaseRef?.current &&
@@ -114,6 +140,41 @@ export default function Relay({ projects }: { projects: Project[] }) {
         <ContentColumn>
           <Nav.RootDesktop>
             <Logo />
+            <Nav.Message
+              isError={messageInputIsError}
+              isLoading={messageInputIsLoading}
+              placeholder={"Message ENS, Lens, or 0xAddress"}
+              onChange={(e: any) => {
+                setMessageInputIsError(false);
+              }}
+              onKeyPress={async (e: any) => {
+                if (e.key === "Enter") {
+                  if (
+                    !isEnsName(e.currentTarget.value) &&
+                    !isEthAddress(e.currentTarget.value)
+                  ) {
+                    setMessageInputIsError(true);
+                  } else {
+                    if (isEnsName(e.currentTarget.value)) {
+                      setMessageInputIsLoading(true);
+                      const address = await fetchAddressFromEns(
+                        e.currentTarget.value
+                      );
+                      setMessageInputIsLoading(false);
+                      if (typeof address === "string") {
+                        goToDm({ peerAddress: address as EthAddress });
+                        setMessageInputIsError(false);
+                      } else {
+                        setMessageInputIsError(true);
+                      }
+                    } else {
+                      goToDm({ peerAddress: e.currentTarget.value });
+                      setMessageInputIsError(false);
+                    }
+                  }
+                }
+              }}
+            />
             {showProducts ? (
               <ProductsDropdown
                 toggleDropdown={toggleProducts}
@@ -169,105 +230,20 @@ export default function Relay({ projects }: { projects: Project[] }) {
                     drag="x"
                     dragConstraints={{ right: 0, left: -width }}
                   >
-                    <Card.Card
-                      handleClick={() => {
-                        showcaseClick(ROBOT_ADDRESSES.lens.peerAddress);
-                        goToDm(ROBOT_ADDRESSES.lens);
-                      }}
-                      icon={<Card.LensIcon />}
-                      initialBgColor="#ABFD2C"
-                      animateBgColor="#EFFFD6"
-                    />
-                    <Card.Card
-                      handleClick={() => {
-                        showcaseClick(ROBOT_ADDRESSES.opensea.peerAddress);
-                        goToDm(ROBOT_ADDRESSES.opensea);
-                      }}
-                      icon={<Card.OpenseaIcon />}
-                      initialBgColor="#2081E2"
-                      animateBgColor="#DCE3F9"
-                    />
-                    <Card.Card
-                      handleClick={() => {
-                        showcaseClick(ROBOT_ADDRESSES.ens.peerAddress);
-                        goToDm(ROBOT_ADDRESSES.ens);
-                      }}
-                      icon={<Card.Ens />}
-                      initialBgColor="#689EF6"
-                      animateBgColor="#D8DFFD"
-                    />
-                    <Card.Card
-                      handleClick={() => {
-                        showcaseClick(ROBOT_ADDRESSES.poap.peerAddress);
-                        goToDm(ROBOT_ADDRESSES.poap);
-                      }}
-                      icon={<Card.Poap />}
-                      initialBgColor="#9E6EF6"
-                      animateBgColor="#DDD6FF"
-                    />
-                    <Card.Card
-                      handleClick={() => {
-                        showcaseClick(ROBOT_ADDRESSES.xmtp.peerAddress);
-                        goToDm(ROBOT_ADDRESSES.xmtp);
-                      }}
-                      icon={<Card.Xmtp />}
-                      initialBgColor="#5A2895"
-                      animateBgColor="#E9D6FF"
-                    />
-                    <Card.Card
-                      handleClick={() => {
-                        showcaseClick(ROBOT_ADDRESSES.litprotocol.peerAddress);
-                        goToDm(ROBOT_ADDRESSES.litprotocol);
-                      }}
-                      icon={<Card.Lit />}
-                      initialBgColor="#ECA368"
-                      animateBgColor="#FBE9DB"
-                    />
-                    <Card.Card
-                      handleClick={() => {
-                        showcaseClick(ROBOT_ADDRESSES.uniswap.peerAddress);
-                        goToDm(ROBOT_ADDRESSES.uniswap);
-                      }}
-                      icon={<Card.Uniswap />}
-                      initialBgColor="#FE007A"
-                      animateBgColor="#FFD6EA"
-                    />
-                    <Card.Card
-                      handleClick={() => {
-                        showcaseClick(ROBOT_ADDRESSES.alchemy.peerAddress);
-                        goToDm(ROBOT_ADDRESSES.alchemy);
-                      }}
-                      icon={<Card.Alchemy />}
-                      initialBgColor="#4609FA"
-                      animateBgColor="#E1D7FE"
-                    />
-                    <Card.Card
-                      handleClick={() => {
-                        showcaseClick(ROBOT_ADDRESSES.metamask.peerAddress);
-                        goToDm(ROBOT_ADDRESSES.metamask);
-                      }}
-                      icon={<Card.Metamask />}
-                      initialBgColor="#233447"
-                      animateBgColor="#E4EAF2"
-                    />
-                    <Card.Card
-                      handleClick={() => {
-                        showcaseClick(ROBOT_ADDRESSES.gitcoin.peerAddress);
-                        goToDm(ROBOT_ADDRESSES.gitcoin);
-                      }}
-                      icon={<Card.Gitcoin />}
-                      initialBgColor="#63DCA2"
-                      animateBgColor="#DEF7EB"
-                    />
-                    <Card.Card
-                      handleClick={() => {
-                        showcaseClick(ROBOT_ADDRESSES.opensea.peerAddress);
-                        goToDm(ROBOT_ADDRESSES.opensea);
-                      }}
-                      icon={<Card.SushiSwap />}
-                      initialBgColor="#0E0F23"
-                      animateBgColor="#E2E3F3"
-                    />
+                    {robotCards.map((robot) => (
+                      <Card.Card
+                        key={robot.peerAddress}
+                        handleClick={() => {
+                          showcaseClick(robot.peerAddress);
+                          goToDm({
+                            peerAddress: robot.peerAddress as EthAddress,
+                          });
+                        }}
+                        icon={<robot.icon />}
+                        initialBgColor={robot.initialBgColor}
+                        animateBgColor={robot.animateBgColor}
+                      />
+                    ))}
                   </Showcase.Slides>
                 </Showcase.MotionRoot>
                 <Chevron.ChevronRightActive onClick={scrollRight} />
@@ -276,7 +252,10 @@ export default function Relay({ projects }: { projects: Project[] }) {
             </Showcase.InnerWrapper>
           </Showcase.Wrapper>
           <DirectoryHeader.Root style={{ maxWidth: "100%" }}>
-            <DirectoryHeader.Title style={{ marginTop: "4rem" }}>
+            <DirectoryHeader.Title
+              ref={directoryRef}
+              style={{ marginTop: "4rem" }}
+            >
               Explore Web3 on Relay
             </DirectoryHeader.Title>
             <DirectoryHeader.Search.Search

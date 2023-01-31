@@ -1,9 +1,4 @@
-import React, {
-  FunctionComponent,
-  useCallback,
-  useMemo,
-  useState,
-} from "react";
+import React, { FunctionComponent, useMemo, useState } from "react";
 import { useConnectedWallet } from "@/hooks/useConnectedWallet";
 import { AnimatePresence } from "framer-motion";
 import { EthAddress } from "@relaycc/xmtp-hooks";
@@ -16,10 +11,14 @@ import * as Skeleton from "@/design/Skeleton";
 import { useReadWriteValue } from "@/hooks/useReadWriteValue";
 import { ChatsPreview } from "./ChatsPreview";
 import RequestPreview from "@/components/RequestPreview";
+import { AuthMenu } from "./AuthMenu";
+import { useAccount } from "wagmi";
 import {
-  useReceiverWindow,
-  useRedirectWhenNotSignedIn,
-} from "@/hooks/useReceiverWindow";
+  textSmallBold,
+  textMdSemiBold,
+  textSmallRegular,
+} from "@/design/typography";
+import { useXmtpClient } from "@relaycc/xmtp-hooks";
 
 const SearchWrapper = styled.div`
   padding: 0.5rem 1rem;
@@ -55,46 +54,32 @@ export const Loading = () => (
 interface IMessagesPageProps {}
 
 export const MessagesPage: FunctionComponent<IMessagesPageProps> = () => {
-  // useRedirectWhenNotSignedIn();
+  const { address, isConnected } = useAccount();
   const [searchInput, setSearchInput] = useState<string | null>(null);
   const [showNewMessage, setShowNewMessage] = useState<boolean>(false);
-  const connectedWallet = useConnectedWallet((s) => s.connectedWallet);
-  const {
-    acceptedConversations: conversations,
-    isLoading,
-    requestedConversations,
-  } = useReadWriteValue({
-    clientAddress: connectedWallet?.address as EthAddress,
+  const xmtpClient = useXmtpClient({
+    clientAddress: address as EthAddress,
   });
-
-  const requestCount = useMemo(
-    () => requestedConversations.length,
-    [requestedConversations]
-  );
-
-  const requestingNames = useMemo(
-    () =>
-      requestedConversations.map((i) => {
-        if (isEnsName(i.peerAddress)) {
-          return i.peerAddress;
-        }
-        // @ts-ignore
-        return i.peerAddress.slice(0, 6) + "..." + i.peerAddress.slice(-4);
-      }),
-    [requestedConversations]
-  );
+  const isSignedIn =
+    xmtpClient.data !== null &&
+    xmtpClient.data !== undefined &&
+    xmtpClient.data.address() === address;
+  const [showAuthMenu, setShowAuthMenu] = useState<boolean>(!isSignedIn);
+  const { acceptedConversations, acceptedLoading } = useReadWriteValue({
+    clientAddress: address as EthAddress,
+  });
 
   const filteredConversations = useMemo(() => {
     if (!searchInput) {
-      return conversations;
+      return acceptedConversations;
     } else {
-      return conversations?.filter((convo) => {
+      return acceptedConversations?.filter((convo) => {
         return convo.peerAddress
           .toLowerCase()
           .includes(searchInput.toLowerCase());
       });
     }
-  }, [conversations, searchInput]);
+  }, [acceptedConversations, searchInput]);
 
   return (
     <>
@@ -102,11 +87,11 @@ export const MessagesPage: FunctionComponent<IMessagesPageProps> = () => {
         <HomeHeader.Title>Messages</HomeHeader.Title>
         <HomeHeader.IconContainer>
           <HomeHeader.Avatar
-            handle={connectedWallet?.address as EthAddress}
+            handle={address as EthAddress}
             size="sm"
-            onClick={() => null}
+            onClick={() => setShowAuthMenu(true)}
           />
-          {connectedWallet ? (
+          {isConnected ? (
             <HomeHeader.Compose.Active
               onClick={() => setShowNewMessage(true)}
             />
@@ -126,7 +111,7 @@ export const MessagesPage: FunctionComponent<IMessagesPageProps> = () => {
       </SearchWrapper>
       <ConversationList>
         {(() => {
-          if (isLoading) {
+          if (acceptedLoading) {
             return (
               <>
                 <Loading />
@@ -142,13 +127,13 @@ export const MessagesPage: FunctionComponent<IMessagesPageProps> = () => {
           } else {
             return (
               <>
-                <RequestPreview count={requestCount} names={requestingNames} />
+                <RequestPreview />
                 {filteredConversations?.map((convo, index) => {
                   return (
                     <ChatsPreview
                       key={index}
                       conversation={convo}
-                      address={connectedWallet?.address as EthAddress}
+                      address={address as EthAddress}
                     />
                   );
                 })}
@@ -158,14 +143,56 @@ export const MessagesPage: FunctionComponent<IMessagesPageProps> = () => {
         })()}
       </ConversationList>
 
+      {!acceptedLoading && filteredConversations.length === 0 && (
+        <NoResultText>
+          <NoResultTitle>No messages found</NoResultTitle>
+          <NoResultSubtitle>
+            Please{" "}
+            <CreateNew onClick={() => setShowNewMessage(true)}>
+              create a new conversation
+            </CreateNew>{" "}
+            or accept a message request.
+          </NoResultSubtitle>
+        </NoResultText>
+      )}
+
       <AnimatePresence>
         {showNewMessage && (
           <NewMessage
-            clientAddress={connectedWallet?.address as EthAddress}
+            clientAddress={address as EthAddress}
             doClose={() => setShowNewMessage(false)}
           />
         )}
       </AnimatePresence>
+      {showAuthMenu && <AuthMenu doClose={() => setShowAuthMenu(false)} />}
     </>
   );
 };
+
+const NoResultText = styled.div`
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  row-gap: 4px;
+  height: 3rem;
+  margin-top: 5rem;
+`;
+
+const NoResultTitle = styled.div`
+  ${textMdSemiBold};
+  color: ${(p) => p.theme.colors.gray["900"]};
+  text-align: center;
+`;
+
+const NoResultSubtitle = styled.div`
+  width: 10rem;
+  ${textSmallRegular};
+  color: ${(p) => p.theme.colors.gray["400"]};
+  text-align: center;
+`;
+
+const CreateNew = styled.span`
+  cursor: pointer;
+  ${textSmallBold}
+  color: ${(p) => p.theme.colors.primary["500"]};
+`;

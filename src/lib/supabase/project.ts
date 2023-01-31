@@ -14,6 +14,15 @@ export const CATEGORIES = [
   "infrastructure",
 ] as const;
 
+export type ProjectCategory = (typeof CATEGORIES)[number];
+
+export const isProjectCategory = (obj: unknown): obj is ProjectCategory => {
+  if (typeof obj !== "string") {
+    return false;
+  }
+  return CATEGORIES.includes(obj as ProjectCategory);
+};
+
 export interface Project {
   id: string;
   name: string;
@@ -22,7 +31,7 @@ export interface Project {
   handle: string | null;
   description: string;
   sort: number;
-  category: typeof CATEGORIES[number];
+  category: ProjectCategory;
 }
 
 export const fromListToByCategory = (

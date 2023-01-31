@@ -52,7 +52,7 @@ export const useGoToDm = () => {
 export const useToggle = () => {
   const { page, setPage } = useReceiverWindow();
   return useCallback(
-    (pageToToggle: Page) => {
+    (pageToToggle: Page | null) => {
       if (page === null) {
         setPage(pageToToggle);
       } else {

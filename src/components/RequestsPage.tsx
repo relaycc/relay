@@ -7,12 +7,9 @@ import React, {
 } from "react";
 import styled from "styled-components";
 import * as Time from "@/design/Time";
-import * as Nav from "@/design/Nav";
 import * as IgnoredMsg from "@/design/IgnoredMsg";
 import * as DropdownIcon from "@/design/DropdownIcon";
 import * as Request from "@/design/Request";
-
-import { FooterNav } from "./FooterNav";
 import { BackIcon } from "@/design/BackIcon";
 import * as HomeHeader from "@/design/HomeHeader";
 import { Active, Editing } from "@/design/Edit";
@@ -22,37 +19,37 @@ import { InfoToastContainer, InfoToastDescription } from "@/design/InfoToast";
 import { InfoToastIcon } from "@/design/InfoToastIcon";
 import * as Toast from "@/design/Toast";
 import { AnimatePresence, motion } from "framer-motion";
-import { ButtonView } from "@/design/ButtonView";
+import { ButtonPrimaryXl, ButtonSecondaryXl } from "@/design/ButtonView";
 import {
   Conversation,
   EthAddress,
+  useConversations,
   useDirectMessage,
 } from "@relaycc/xmtp-hooks";
-import { useConnectedWallet } from "@/hooks/useConnectedWallet";
 import { useReadWriteValue } from "@/hooks/useReadWriteValue";
 import { useRelayId } from "@/hooks/useRelayId";
 import { isEnsName } from "@/lib/isEnsName";
 import { getDisplayDate } from "@/lib/getDisplayDate";
 import { Loading } from "./MessagesPage";
 import { useGoToMessages } from "@/hooks/useReceiverWindow";
+import { useAccount } from "wagmi";
 
 export const RequestsPage: FunctionComponent<{}> = () => {
   const goToMessages = useGoToMessages();
-  const connectedWallet = useConnectedWallet((state) => state.connectedWallet);
+  const { address } = useAccount();
   const [editing, setEditing] = useState(false);
   const [showIgnored, setShowIgnored] = useState(false);
   const [showToast, setShowToast] = useState(false);
   const [selected, setSelected] = useState<Conversation[]>([]);
-
   const {
-    requestedConversations,
     ignoredConversations,
     acceptConversations,
+    requestedConversations,
     ignoreConversations,
     unIgnoreConversations,
-    isLoading,
+    requestsLoading,
   } = useReadWriteValue({
-    clientAddress: connectedWallet?.address as EthAddress,
+    clientAddress: address as EthAddress,
   });
 
   const toggleIgnored = useCallback(
@@ -93,7 +90,7 @@ export const RequestsPage: FunctionComponent<{}> = () => {
         </InfoToastDescription>
       </InfoToastContainer>
       <ScrollContainer>
-        {isLoading ? (
+        {requestsLoading ? (
           <>
             <Loading />
             <Loading />
@@ -105,7 +102,7 @@ export const RequestsPage: FunctionComponent<{}> = () => {
                 key={`${convo.peerAddress}-${convo.context?.conversationId}`}
                 selected={selected}
                 setSelected={setSelected}
-                address={connectedWallet?.address as EthAddress}
+                address={address as EthAddress}
                 conversation={convo}
                 editing={editing}
                 handleAccept={handleAccept}
@@ -126,7 +123,7 @@ export const RequestsPage: FunctionComponent<{}> = () => {
             exit={{ top: "100%" }}
             transition={{ duration: 0.3 }}
           >
-            {isLoading ? (
+            {requestsLoading ? (
               <>
                 <Loading />
                 <Loading />
@@ -136,7 +133,7 @@ export const RequestsPage: FunctionComponent<{}> = () => {
                 return (
                   <IgnoredChat
                     key={`${convo.peerAddress}-${convo.context?.conversationId}`}
-                    address={connectedWallet?.address as EthAddress}
+                    address={address as EthAddress}
                     conversation={convo}
                     handleUnignore={unIgnoreConversations}
                   />
@@ -148,25 +145,16 @@ export const RequestsPage: FunctionComponent<{}> = () => {
       )}
       <ButtonRow>
         <ButtonWrapper>
-          <ButtonView
-            disabled={!editing}
-            size={"xl"}
-            hierarchy={"secondary"}
-            label={"Ignore"}
-            handleClick={handleIgnore}
-          />
+          <ButtonSecondaryXl disabled={!editing} onClick={handleIgnore}>
+            Ignore
+          </ButtonSecondaryXl>
         </ButtonWrapper>
         <ButtonWrapper>
-          <ButtonView
-            disabled={!editing}
-            size={"xl"}
-            hierarchy={"primary"}
-            label={"Accept"}
-            handleClick={handleAccept}
-          />
+          <ButtonPrimaryXl disabled={!editing} onClick={handleAccept}>
+            Accept
+          </ButtonPrimaryXl>
         </ButtonWrapper>
       </ButtonRow>
-      <FooterNav />
       {showToast && <FailToast clearToast={() => setShowToast(false)} />}
     </>
   );
@@ -235,7 +223,7 @@ const RequestedChat: FunctionComponent<{
             </MessagePreview.ENSName.EnsNameMonofontMd>
           </MessagePreview.NameAndIcons>
           <MessagePreview.MessageDetails>
-            {lastMessage?.content as string}
+            {`${lastMessage?.content}`}
           </MessagePreview.MessageDetails>
         </MessagePreview.MsgDetails>
       </MessagePreview.Wrapper>
@@ -374,6 +362,7 @@ const ToastPosition = styled.div`
 const ButtonRow = styled.div`
   display: flex;
   justify-content: space-between;
+  align-items: center;
   padding: 0.5rem 1rem 0.5rem 1rem;
   width: 100%;
   background: #ffffff;

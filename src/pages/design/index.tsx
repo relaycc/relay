@@ -1,6 +1,5 @@
 import styled from "styled-components";
 // import { AddressHeader } from "@/design/AddressHeader";
-import { ButtonView } from "@/design/ButtonView";
 import * as MenuLinkMobile from "@/design/relay/MenuLinkMobile";
 ("Very long text that will be truncated. This is the longest text of all time and I can't believe that it's overflowing the container.");
 const MEDIUM_TEXT = "Medium text that might be truncated.";

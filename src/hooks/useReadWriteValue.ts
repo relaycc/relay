@@ -22,81 +22,94 @@ interface UseReadWriteValueProps {
 export const useReadWriteValue = ({
   clientAddress,
 }: UseReadWriteValueProps) => {
-  const workerContext = useContext(XmtpContext);
-
-  // {[conversation.peerAddress + conversation.context.conversationId]: "accepted" | "ignored"}
   const [requestsObject, setRequestsObject] = useState<Record<
     string,
     RequestEnum
   > | null>(null);
 
-  const {
-    data: conversations,
-    isLoading,
-    isError,
-  } = useConversations({
+  const { data: conversations, isLoading: requestsLoading } = useConversations({
     clientAddress,
   });
 
   const {
     data: value,
-    isError: valueError,
-    isLoading: valueLoading,
+    isError: valueIsError,
+    isLoading: valueIsLoading,
   } = useReadValue({
     clientAddress,
     key: REQUEST_CONVERSATION_ID,
   });
 
-  const { mutate: write } = useWriteValue({
+  const { mutate: accept, isLoading: acceptIsLoading } = useWriteValue({
+    clientAddress,
+    key: REQUEST_CONVERSATION_ID,
+  });
+
+  const { mutate: ignore, isLoading: ignoreIsLoading } = useWriteValue({
+    clientAddress,
+    key: REQUEST_CONVERSATION_ID,
+  });
+
+  const { mutate: unignore, isLoading: unignoreIsLoading } = useWriteValue({
     clientAddress,
     key: REQUEST_CONVERSATION_ID,
   });
 
   useEffect(() => {
-    if (valueLoading || valueError) {
+    if (valueIsLoading || valueIsError) {
       return;
     }
     if (value) {
-      //write({ content: JSON.stringify({}) });
       setRequestsObject(JSON.parse(value as string));
       return;
     }
-    workerContext?.workerClient.createIdentity().then((identity) => {
-      write({ content: JSON.stringify({}) });
-    });
-  }, [value, valueError, valueLoading, write]);
+  }, [value, valueIsError, valueIsLoading]);
 
   const acceptedConversations = useMemo(
     function (): Conversation[] {
-      if (isLoading || isError || !conversations || !requestsObject) {
+      if (valueIsLoading || valueIsError || !requestsObject) {
         return [];
       }
-      return conversations.filter((convo) => {
-        const requestItem =
-          requestsObject[
-            `${convo.peerAddress}${convo?.context?.conversationId || ""}`
-          ];
-        return requestItem === RequestEnum.accepted;
+      const accepted: Conversation[] = [];
+      Object.entries(requestsObject).forEach(([key, value]) => {
+        if (value !== RequestEnum.accepted) {
+          return;
+        } else {
+          const peerAddress = key.slice(0, 42) as EthAddress;
+          const conversationId = key.slice(42);
+          accepted.push({
+            peerAddress,
+            context: { conversationId, metadata: {} },
+          });
+        }
       });
+      return accepted;
     },
-    [conversations, requestsObject, isLoading, isError]
+    [requestsObject, valueIsLoading, valueIsError]
   );
 
   const ignoredConversations = useMemo((): Conversation[] => {
-    if (isLoading || isError || !conversations || !requestsObject) {
+    if (valueIsLoading || valueIsError || !requestsObject) {
       return [];
     }
-    return conversations.filter((convo) => {
-      const requestItem =
-        requestsObject[
-          `${convo.peerAddress}${convo?.context?.conversationId || ""}`
-        ];
-      return requestItem === RequestEnum.ignored;
+    const ignored: Conversation[] = [];
+    Object.entries(requestsObject).forEach(([key, value]) => {
+      if (value !== RequestEnum.ignored) {
+        return;
+      } else {
+        const peerAddress = key.slice(0, 42) as EthAddress;
+        const conversationId = key.slice(42);
+        ignored.push({
+          peerAddress,
+          context: { conversationId, metadata: {} },
+        });
+      }
     });
-  }, [conversations, requestsObject, isLoading, isError]);
+    return ignored;
+  }, [requestsObject, valueIsLoading, valueIsError]);
 
   const requestedConversations = useMemo((): Conversation[] => {
-    if (isLoading || isError || !conversations || !requestsObject) {
+    if (valueIsLoading || valueIsError || !conversations || !requestsObject) {
       return [];
     }
 
@@ -110,7 +123,7 @@ export const useReadWriteValue = ({
         convo.context?.conversationId !== REQUEST_CONVERSATION_ID
       );
     });
-  }, [conversations, requestsObject, isLoading, isError]);
+  }, [conversations, requestsObject, valueIsLoading, valueIsError]);
 
   const acceptConversations = useCallback(
     ({ conversations }: { conversations: Conversation[] }) => {
@@ -131,7 +144,7 @@ export const useReadWriteValue = ({
         ...requestsObject,
         ...newKeys,
       };
-      write({ content: JSON.stringify(newObject) });
+      accept({ content: JSON.stringify(newObject) });
     },
     [requestsObject]
   );
@@ -155,7 +168,7 @@ export const useReadWriteValue = ({
         ...requestsObject,
         ...newKeys,
       };
-      write({ content: JSON.stringify(newObject) });
+      ignore({ content: JSON.stringify(newObject) });
     },
     [requestsObject]
   );
@@ -172,15 +185,19 @@ export const useReadWriteValue = ({
           conversation?.context?.conversationId || ""
         }`]: RequestEnum.accepted,
       };
-      write({ content: JSON.stringify(newObject) });
+      unignore({ content: JSON.stringify(newObject) });
     },
     [requestsObject]
   );
 
   return {
-    isLoading,
+    requestsLoading,
+    acceptedLoading: valueIsLoading,
     requestsObject,
     acceptConversations,
+    acceptIsLoading,
+    ignoreIsLoading,
+    unignoreIsLoading,
     ignoreConversations,
     unIgnoreConversations,
     acceptedConversations,

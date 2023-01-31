@@ -21,8 +21,8 @@ export const Launch = styled.button`
   width: 4rem;
   height: 4rem;
   background: #ffffff;
-  box-shadow: 0px 0.874999px 2.625px rgba(16, 24, 40, 0.1),
-    0px 0.874999px 1.75px rgba(16, 24, 40, 0.06);
+  box-shadow: 0px 1px 4px rgba(16, 24, 40, 0.06),
+    0px 0px 4px 1px rgba(16, 24, 40, 0.1);
   border: none;
   border-radius: 100%;
   flex: none;

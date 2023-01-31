@@ -14,7 +14,7 @@ const nextConfig = withPlausibleProxy()({
   },
   rewrites: async () => {
     return [
-      { source: "/", destination: "/search?category=general" },
+      { source: "/", destination: "/search" },
       { source: "/general", destination: "/search?category=general" },
       { source: "/music", destination: "/search?category=music" },
       { source: "/venture", destination: "/search?category=venture" },

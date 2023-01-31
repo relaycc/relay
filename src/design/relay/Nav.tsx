@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 export * from "@/design/relay/ButtonPrimary";
 export * from "@/design/relay/Chevron";
+export * from "@/design/relay/Search";
 
 const Root = styled.div`
   display: flex;

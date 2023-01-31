@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { XmtpIcon } from "@/design/XmtpIcon";
 import { textMdSemiBold, textSmallRegular } from "@/design/typography";
-import { ButtonPrimaryXxl, ButtonView } from "@/design/ButtonView";
+import { ButtonPrimaryXxl } from "@/design/ButtonView";
 import { LoaderAnimInitialization } from "@/design/LoaderAnimInitialization";
 import { AlertCircle } from "@/design/AlertCircle";
 

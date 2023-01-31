@@ -1,18 +1,38 @@
-import { FunctionComponent, useCallback, useMemo } from "react";
+import { useMemo } from "react";
 import * as MessagePreview from "@/design/MessagePreview";
 import * as Request from "@/design/Request";
-
 import * as Badge from "@/design/Badge";
-import { getDisplayDate } from "@/lib/getDisplayDate";
 import { MsgRequestsIcon } from "@/design/Requests";
-import { useRouter } from "next/router";
 import { useGoToRequests } from "@/hooks/useReceiverWindow";
+import { useReadWriteValue } from "@/hooks/useReadWriteValue";
+import { useAccount } from "wagmi";
+import { useXmtpClient, EthAddress } from "@relaycc/xmtp-hooks";
+import { LoaderAnimInitialization } from "@/design/LoaderAnimInitialization";
+import { truncateAddress } from "@/lib/truncateAddress";
+import { LoadingText } from "@/design/relay/LoadingText";
 
-const RequestPreview: FunctionComponent<{
-  count: number;
-  names: Array<string>;
-}> = ({ count, names }) => {
-  const router = useRouter();
+const RequestPreview = () => {
+  const { address } = useAccount();
+  const xmtpClient = useXmtpClient({
+    clientAddress: address as EthAddress,
+  });
+
+  const { requestedConversations, requestsLoading } = useReadWriteValue({
+    clientAddress: address as EthAddress,
+  });
+
+  const requestCount = useMemo(
+    () => requestedConversations?.length,
+    [requestedConversations?.length]
+  );
+
+  const requestingNames = useMemo(
+    () =>
+      requestedConversations.map((conversation) => {
+        return truncateAddress(conversation.peerAddress);
+      }),
+    [requestedConversations]
+  );
   const goToRequests = useGoToRequests();
 
   return (
@@ -24,13 +44,17 @@ const RequestPreview: FunctionComponent<{
             Message Requests
           </MessagePreview.ENSName.EnsNameMd>
           <MessagePreview.MessageDetails>
-            {names?.join(", ")}
+            {requestsLoading && <LoadingText />}
+            {!requestsLoading && requestingNames?.join(", ")}
           </MessagePreview.MessageDetails>
         </MessagePreview.MsgDetails>
       </Request.RequestDetails>
-      <Badge.RootPurple>
-        <Badge.LabelPurple>{`${count} requests`}</Badge.LabelPurple>
-      </Badge.RootPurple>
+      {requestsLoading && <LoaderAnimInitialization />}
+      {!requestsLoading && (
+        <Badge.RootPurple>
+          <Badge.LabelPurple>{`${requestCount} requests`}</Badge.LabelPurple>
+        </Badge.RootPurple>
+      )}
     </Request.MsgRequestsRoot>
   );
 };

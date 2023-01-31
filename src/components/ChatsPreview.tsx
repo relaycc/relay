@@ -9,7 +9,8 @@ import { useRouter } from "next/router";
 import { FunctionComponent, useCallback, useMemo } from "react";
 import * as MessagePreview from "@/design/MessagePreview";
 import { getDisplayDate } from "@/lib/getDisplayDate";
-import { useReceiverWindow, useGoToDm } from "@/hooks/useReceiverWindow";
+import { useGoToDm } from "@/hooks/useReceiverWindow";
+import { LoadingText } from "@/design/relay/LoadingText";
 
 export const ChatsPreview: FunctionComponent<{
   conversation: Conversation;
@@ -23,7 +24,6 @@ export const ChatsPreview: FunctionComponent<{
     conversation,
     stream: false,
   });
-  const lastMessage = data?.[0];
   const relayId = useRelayId({ handle: conversation.peerAddress });
 
   const ensName = useMemo(() => {
@@ -34,9 +34,7 @@ export const ChatsPreview: FunctionComponent<{
     }
   }, [relayId]);
 
-  if (isLoading || isError) {
-    return null;
-  }
+  const lastMessage = data?.[0];
 
   return (
     <MessagePreview.Root onClick={() => goToDm(conversation)}>
@@ -56,10 +54,14 @@ export const ChatsPreview: FunctionComponent<{
           </MessagePreview.NameAndIcons>
           <MessagePreview.MessageDetails>
             {(() => {
-              try {
-                return `${lastMessage?.content}`;
-              } catch {
-                return null;
+              if (isLoading) {
+                return <LoadingText />;
+              } else {
+                try {
+                  return `${lastMessage?.content || "..."}`;
+                } catch {
+                  return null;
+                }
               }
             })()}
           </MessagePreview.MessageDetails>

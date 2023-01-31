@@ -11,7 +11,6 @@ import * as ENSName from "@/design/ENSName";
 
 export * as Time from "@/design/Time";
 import * as DMHeader from "@/design/DMHeader";
-import { useConnectedWallet } from "@/hooks/useConnectedWallet";
 import { EthAddress, Message, useDirectMessage } from "@relaycc/xmtp-hooks";
 import * as MsgBundles from "@/design/MsgBundles";
 import { useRelayId } from "@/hooks/useRelayId";
@@ -22,18 +21,15 @@ import { getDisplayDate } from "@/lib/getDisplayDate";
 import * as Toast from "@/design/Toast";
 import { BackIcon } from "@/design/BackIcon";
 import { UserDetails } from "@/design/DMHeader";
-import { ButtonMinimize } from "@/design/ButtonMinimize";
 import { CloseIcon } from "@/design/CloseIcon";
 import { truncateAddress } from "@/lib/truncateAddress";
 import * as MsgPreview from "@/design/MsgPreview";
-import { Pinned, Unpinned } from "@/design/PinIcon";
 import { textSmallRegular } from "@/design/typography";
 import * as Skeleton from "@/design/Skeleton";
-import {
-  useReceiverWindow,
-  useRedirectWhenNotSignedIn,
-} from "@/hooks/useReceiverWindow";
-import { Conversation } from "@relaycc/xmtp-hooks";
+import { useReceiverWindow } from "@/hooks/useReceiverWindow";
+import { Conversation, useXmtpClient } from "@relaycc/xmtp-hooks";
+import { useAccount } from "wagmi";
+import { AuthMenu } from "./AuthMenu";
 
 export interface MessagesBucketProps {
   bucket: {
@@ -47,14 +43,22 @@ type MessageBucket = MessagesBucketProps["bucket"];
 export const DirectMessagesPage: FunctionComponent<{
   conversation: Conversation;
 }> = ({ conversation }) => {
+  const { address, isConnected } = useAccount();
+  const xmtpClient = useXmtpClient({
+    clientAddress: address as EthAddress,
+  });
+  const isSignedIn =
+    xmtpClient.data !== null &&
+    xmtpClient.data !== undefined &&
+    xmtpClient.data.address() === address;
+  const [showAuthMenu, setShowAuthMenu] = useState(!isSignedIn);
   const [showFailureToast, setShowFailureToast] = useState(false);
   const [inputIsFocused, setInputIsFocused] = useState(false);
   const [msgValue, setMsgValue] = useState<string>("");
   const { page, setPage } = useReceiverWindow();
   const peerAddress = conversation.peerAddress as EthAddress;
-  const connectedWallet = useConnectedWallet((s) => s.connectedWallet);
   const { messages, sendMessage } = useDirectMessage({
-    clientAddress: connectedWallet?.address as EthAddress,
+    clientAddress: address as EthAddress,
     conversation: { peerAddress },
   });
 
@@ -141,9 +145,6 @@ export const DirectMessagesPage: FunctionComponent<{
           </UserDetails>
         </DMHeader.LeftSide>
         <DMHeader.RightSide>
-          {/* TODO Pinned for later implementation */}
-          {/*<PinWrapper>{pinned ? <Pinned /> : <Unpinned />}</PinWrapper>*/}
-          <ButtonMinimize />
           <CloseIcon onClick={() => setPage(null)} />
         </DMHeader.RightSide>
       </DMHeader.Root>
@@ -213,6 +214,7 @@ export const DirectMessagesPage: FunctionComponent<{
           </Toast.Failure.Card>
         </ToastPosition>
       )}
+      {showAuthMenu && <AuthMenu doClose={() => setShowAuthMenu(false)} />}
     </>
   );
 };
@@ -420,7 +422,7 @@ const HeadWrapper = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-top: 1rem;
+  margin-top: 3rem;
 
   ${ENSName.EnsNameMd} {
     margin-top: 0.5rem;
