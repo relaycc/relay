@@ -37,6 +37,21 @@ import { usePriorityRobotCards } from "@/hooks/usePriorityRobotCards";
 import { EthAddress, isEthAddress } from "@relaycc/xmtp-hooks";
 import { isEnsName } from "@/lib/isEnsName";
 import { fetchAddressFromEns } from "@/hooks/useAddressFromEns";
+import { useAnimation } from "framer-motion";
+
+const translateXForElement = (element: HTMLDivElement) => {
+  const transform = element.style.transform;
+
+  if (!transform || transform.indexOf("translateX(") < 0) {
+    return 0;
+  }
+
+  const extractTranslateX = transform.match(/translateX\((-?\d+)/);
+
+  return extractTranslateX && extractTranslateX.length === 2
+    ? parseInt(extractTranslateX[1], 10)
+    : 0;
+};
 
 export default function Relay({ projects }: { projects: Project[] }) {
   const router = useRouter();
@@ -79,6 +94,32 @@ export default function Relay({ projects }: { projects: Project[] }) {
   }, []);
   const showcaseClick = useShowcaseClick();
   const directoryRef = useRef<HTMLDivElement>(null);
+  const animation = useAnimation();
+  const dragRef = useRef<HTMLDivElement>(null);
+
+  const onLeftClick = useCallback(() => {
+    if (!dragRef?.current) {
+      return;
+    }
+    const x = translateXForElement(dragRef.current);
+    const newXPosition = x - scrollAmount(true);
+
+    animation.start({
+      x: newXPosition > 0 ? 0 : newXPosition,
+    });
+  }, []);
+
+  const onRightClick = useCallback(() => {
+    if (!dragRef?.current) {
+      return;
+    }
+    const x = translateXForElement(dragRef.current);
+    const newXPosition = x - scrollAmount(false);
+
+    animation.start({
+      x: newXPosition < -width ? -width : newXPosition,
+    });
+  }, [width]);
 
   useEffect(() => {
     if (queryCategory === null || directoryRef.current === null) {
@@ -120,7 +161,7 @@ export default function Relay({ projects }: { projects: Project[] }) {
       }
       return 270;
     },
-    [showcaseRef, window]
+    [window]
   );
 
   const scrollRight = useCallback(() => {
@@ -128,13 +169,13 @@ export default function Relay({ projects }: { projects: Project[] }) {
       left: scrollAmount(),
       behavior: "smooth",
     });
-  }, [showcaseRef]);
+  }, []);
   const scrollLeft = useCallback(() => {
     showcaseRef?.current?.scrollBy({
       left: scrollAmount(true),
       behavior: "smooth",
     });
-  }, [showcaseRef]);
+  }, []);
 
   return (
     <>
@@ -191,8 +232,7 @@ export default function Relay({ projects }: { projects: Project[] }) {
             ) : (
               <Nav.NavLink
                 style={{ marginLeft: "auto", marginRight: "1.5rem" }}
-                onClick={toggleProducts}
-              >
+                onClick={toggleProducts}>
                 Products
                 <Nav.ChevronDownActive />
               </Nav.NavLink>
@@ -212,8 +252,7 @@ export default function Relay({ projects }: { projects: Project[] }) {
             <a
               href="https://github.com/relaycc"
               target="_blank"
-              rel="noreferrer"
-            >
+              rel="noreferrer">
               <IconGithub
                 style={{ height: "2rem", width: "2rem", margin: "1.5rem" }}
               />
@@ -225,21 +264,22 @@ export default function Relay({ projects }: { projects: Project[] }) {
             <MenuMobile.MenuIcon onClick={() => setShowMenu(true)} />
           </Nav.RootMobile>
           <DirectoryHeader.Root
-            style={{ maxWidth: "max-content", marginTop: "3rem" }}
-          >
+            style={{ maxWidth: "max-content", marginTop: "3rem" }}>
             <DirectoryHeader.Title>Try ChatGPT for Web3</DirectoryHeader.Title>
           </DirectoryHeader.Root>
           <Showcase.Wrapper>
             <Showcase.InnerWrapper>
               <Showcase.Root>
-                <Chevron.ChevronLeftActive onClick={scrollLeft} />
+                <Chevron.ChevronLeftActive onClick={onLeftClick} />
                 <Showcase.MotionRoot ref={showcaseRef}>
                   <Showcase.Slides
                     drag="x"
+                    ref={dragRef}
                     dragConstraints={{ right: 0, left: -width }}
                     onDragStart={showCaseDragStart}
-                    onDragEnd={showcaseDragStop}
-                  >
+                    animate={animation}
+                    transition={{ type: "spring", stiffness: 100 }}
+                    onDragEnd={showcaseDragStop}>
                     {robotCards.map((robot) => (
                       <Card.Card
                         key={robot.peerAddress}
@@ -258,7 +298,7 @@ export default function Relay({ projects }: { projects: Project[] }) {
                     ))}
                   </Showcase.Slides>
                 </Showcase.MotionRoot>
-                <Chevron.ChevronRightActive onClick={scrollRight} />
+                <Chevron.ChevronRightActive onClick={onRightClick} />
               </Showcase.Root>
               <Showcase.Ellipse />
             </Showcase.InnerWrapper>
@@ -266,8 +306,7 @@ export default function Relay({ projects }: { projects: Project[] }) {
           <DirectoryHeader.Root style={{ maxWidth: "100%" }}>
             <DirectoryHeader.Title
               ref={directoryRef}
-              style={{ marginTop: "4rem" }}
-            >
+              style={{ marginTop: "4rem" }}>
               Explore Web3 on Relay
             </DirectoryHeader.Title>
             <DirectoryHeader.Search.Search
@@ -470,15 +509,13 @@ const ProductsDropdown: FunctionComponent<{
         <DropdownItem
           onClick={() => {
             alert("add link in code");
-          }}
-        >
+          }}>
           Receiver
         </DropdownItem>
         <DropdownItem
           onClick={() => {
             alert("add link in code");
-          }}
-        >
+          }}>
           Directory
         </DropdownItem>
       </ProductsCard>
@@ -518,29 +555,25 @@ const CommunityDropdown: FunctionComponent<{
         <DropdownItem
           onClick={() => {
             alert("add link in code");
-          }}
-        >
+          }}>
           Discord
         </DropdownItem>
         <DropdownItem
           onClick={() => {
             alert("add link in code");
-          }}
-        >
+          }}>
           Twitter
         </DropdownItem>
         <DropdownItem
           onClick={() => {
             alert("add link in code");
-          }}
-        >
+          }}>
           Lens
         </DropdownItem>
         <DropdownItem
           onClick={() => {
             alert("add link in code");
-          }}
-        >
+          }}>
           Mirror
         </DropdownItem>
       </CommunityCard>
