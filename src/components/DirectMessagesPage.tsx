@@ -30,6 +30,8 @@ import { useReceiverWindow } from "@/hooks/useReceiverWindow";
 import { Conversation, useXmtpClient } from "@relaycc/xmtp-hooks";
 import { useAccount } from "wagmi";
 import { AuthMenu } from "./AuthMenu";
+import { LoadingCircle } from "@/design/Skeleton";
+import { LoaderAnimGeneral } from "@/design/MsgBox";
 
 export interface MessagesBucketProps {
   bucket: {
@@ -54,6 +56,9 @@ export const DirectMessagesPage: FunctionComponent<{
   const [showAuthMenu, setShowAuthMenu] = useState(!isSignedIn);
   const [showFailureToast, setShowFailureToast] = useState(false);
   const [inputIsFocused, setInputIsFocused] = useState(false);
+  const [messageIsSending, setMessageIsSending] = useState(false);
+  const [lastMessageId, setLastMessageId] = useState("");
+
   const [msgValue, setMsgValue] = useState<string>("");
   const { page, setPage } = useReceiverWindow();
   const peerAddress = conversation.peerAddress as EthAddress;
@@ -61,6 +66,17 @@ export const DirectMessagesPage: FunctionComponent<{
     clientAddress: address as EthAddress,
     conversation: { peerAddress },
   });
+  useEffect(() => {
+    if (!messages?.data) {
+      return;
+    }
+    const newId = messages.data[0]?.id;
+    if (messageIsSending && newId !== lastMessageId) {
+      setMessageIsSending(false);
+    }
+    console.log({ messageIsSending });
+    setLastMessageId(newId);
+  }, [messages, lastMessageId, messageIsSending]);
 
   const relayId = useRelayId({ handle: peerAddress });
   const ensName = useMemo(() => {
@@ -93,6 +109,7 @@ export const DirectMessagesPage: FunctionComponent<{
     setInputIsFocused(!inputIsFocused);
   }, [inputIsFocused]);
   const handleSend = useCallback(() => {
+    setMessageIsSending(true);
     try {
       sendMessage.mutate({
         content: msgValue,
@@ -100,6 +117,7 @@ export const DirectMessagesPage: FunctionComponent<{
       });
     } catch (e) {
       toggleFailureToast();
+      setMessageIsSending(false);
       return;
     }
     setMsgValue("");
@@ -189,10 +207,14 @@ export const DirectMessagesPage: FunctionComponent<{
             onBlur={toggleInputIsFocused}
           />
           <MsgBox.IconContainer>
-            <MsgBox.ArrowUpCircle
-              isActive={inputIsFocused}
-              onClick={handleSend}
-            />
+            {messageIsSending ? (
+              <LoaderAnimGeneral />
+            ) : (
+              <MsgBox.ArrowUpCircle
+                isActive={inputIsFocused}
+                onClick={handleSend}
+              />
+            )}
           </MsgBox.IconContainer>
         </MsgBox.Root>
       </MsgBoxWrapper>
