@@ -1,4 +1,9 @@
-import React, { FunctionComponent } from "react";
+import React, {
+  FunctionComponent,
+  useCallback,
+  useEffect,
+  useRef,
+} from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import styled from "styled-components";
 import { CATEGORIES, Project } from "@/lib/supabase/project";
@@ -15,6 +20,7 @@ const Root = styled(motion.div)`
   width: 220px;
   height: 100vh;
   padding: 1rem;
+  z-index: 2;
 `;
 
 const Header = styled.div`
@@ -35,12 +41,29 @@ const DirectoryWrapper = styled.div`
   gap: 1rem;
 `;
 
+const Overlay = styled(motion.div)`
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.35);
+  z-index: 1;
+`;
+
 export const Sidebar: FunctionComponent<{
   sidebar: boolean;
   setSidebar: React.Dispatch<React.SetStateAction<boolean>>;
   activeCategory: string;
   setActiveCategory: (category: Project["category"]) => void;
 }> = ({ sidebar, setSidebar, activeCategory, setActiveCategory }) => {
+  const closeSidebar = useCallback(() => {
+    setSidebar(false);
+  }, []);
+
   return (
     <AnimatePresence>
       {sidebar && (
@@ -53,10 +76,11 @@ export const Sidebar: FunctionComponent<{
             exit={{
               x: "100%",
             }}
-            transition={{ type: "spring", bounce: 0, duration: 0.4 }}>
+            transition={{ type: "spring", bounce: 0, duration: 0.4 }}
+          >
             <Header>
               <Title>Categories</Title>
-              <CloseIcon onClick={() => setSidebar(false)} />
+              <CloseIcon onClick={closeSidebar} />
             </Header>
             <DirectoryWrapper>
               {CATEGORIES.map((category) => {
@@ -64,7 +88,8 @@ export const Sidebar: FunctionComponent<{
                   return (
                     <DirectoryHeader.MobileActive
                       key={category}
-                      onClick={() => setActiveCategory(category)}>
+                      onClick={() => setActiveCategory(category)}
+                    >
                       {category}
                     </DirectoryHeader.MobileActive>
                   );
@@ -72,7 +97,8 @@ export const Sidebar: FunctionComponent<{
                   return (
                     <DirectoryHeader.MobileInactive
                       key={category}
-                      onClick={() => setActiveCategory(category)}>
+                      onClick={() => setActiveCategory(category)}
+                    >
                       {category}
                     </DirectoryHeader.MobileInactive>
                   );
@@ -80,6 +106,17 @@ export const Sidebar: FunctionComponent<{
               })}
             </DirectoryWrapper>
           </Root>
+          <Overlay
+            initial={{ opacity: 0 }}
+            animate={{
+              opacity: 1,
+            }}
+            exit={{
+              opacity: 0,
+            }}
+            transition={{ type: "spring", bounce: 0, duration: 0.4 }}
+            onClick={closeSidebar}
+          />
         </>
       )}
     </AnimatePresence>
