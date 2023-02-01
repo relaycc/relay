@@ -28,7 +28,7 @@ import Image from "next/image";
 import { ConnectButton } from "@/components/ConnectButton";
 import { NextRouter, useRouter } from "next/router";
 import { ReceiverWindow } from "@/components/ReceiverWindow";
-import { useGoToDm } from "@/hooks/useReceiverWindow";
+import { useGoToDm, useGoToMessages } from "@/hooks/useReceiverWindow";
 import { DropdownItem } from "@/design/relay/DropdownItem";
 import { Sidebar } from "@/design/relay/Sidebar";
 import { useShowcaseClick } from "@/lib/plausible/useShowcaseClick";
@@ -38,7 +38,7 @@ import { EthAddress, isEthAddress } from "@relaycc/xmtp-hooks";
 import { isEnsName } from "@/lib/isEnsName";
 import { fetchAddressFromEns } from "@/hooks/useAddressFromEns";
 import { useAnimation } from "framer-motion";
-import { ChatIcon, ChatIconBlack } from "@/design/relay/ChatIcon";
+import { ChatIconBlack } from "@/design/relay/ChatIcon";
 import { CloseIcon } from "@/design/NewMessageHeader";
 import { MobileLogo } from "@/design/MobileLogo";
 
@@ -59,6 +59,7 @@ const translateXForElement = (element: HTMLDivElement) => {
 export default function Relay({ projects }: { projects: Project[] }) {
   const router = useRouter();
   const goToDm = useGoToDm();
+  const goToMessages = useGoToMessages();
   const robotCards = usePriorityRobotCards();
   const queryCategory = (() => {
     if (!isProjectCategory(router.query.category)) {
@@ -72,6 +73,7 @@ export default function Relay({ projects }: { projects: Project[] }) {
   );
   const [width, setWidth] = useState(0);
   const showcaseRef = useRef<HTMLDivElement>(null);
+  const showcaseHeaderRef = useRef<HTMLDivElement>(null);
   const [searchInput, setSearchInput] = useState<string | null>(null);
   const [messageInputIsError, setMessageInputIsError] = useState(false);
   const [messageInputIsLoading, setMessageInputIsLoading] = useState(false);
@@ -129,13 +131,29 @@ export default function Relay({ projects }: { projects: Project[] }) {
     });
   }, [width]);
 
-  useEffect(() => {
-    if (queryCategory === null || directoryRef.current === null) {
+  const scrollToShowcaseHeader = useCallback(() => {
+    if (showcaseHeaderRef.current === null) {
+      return;
+    } else {
+      showcaseHeaderRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [showcaseHeaderRef]);
+
+  const scrollToDirectory = useCallback(() => {
+    if (directoryRef.current === null) {
       return;
     } else {
       directoryRef.current.scrollIntoView({ behavior: "smooth" });
     }
-  }, [queryCategory]);
+  }, [directoryRef]);
+
+  useEffect(() => {
+    if (queryCategory === null) {
+      return;
+    } else {
+      scrollToDirectory();
+    }
+  }, [queryCategory, scrollToDirectory]);
 
   useEffect(() => {
     showcaseRef?.current &&
@@ -235,12 +253,15 @@ export default function Relay({ projects }: { projects: Project[] }) {
             {showProducts ? (
               <ProductsDropdown
                 toggleDropdown={toggleProducts}
+                onClickDirectory={scrollToDirectory}
+                onClickReceiver={goToMessages}
                 router={router}
               />
             ) : (
               <Nav.NavLink
                 style={{ marginLeft: "auto", marginRight: "1.5rem" }}
-                onClick={toggleProducts}>
+                onClick={toggleProducts}
+              >
                 Products
                 <Nav.ChevronDownActive />
               </Nav.NavLink>
@@ -261,7 +282,8 @@ export default function Relay({ projects }: { projects: Project[] }) {
               <a
                 href="https://github.com/relaycc"
                 target="_blank"
-                rel="noreferrer">
+                rel="noreferrer"
+              >
                 <IconGithub
                   style={{ height: "2rem", width: "2rem", margin: "1.5rem" }}
                 />
@@ -324,7 +346,9 @@ export default function Relay({ projects }: { projects: Project[] }) {
             )}
           </Nav.RootMobile>
           <DirectoryHeader.Root
-            style={{ maxWidth: "max-content", marginTop: "3rem" }}>
+            ref={showcaseHeaderRef}
+            style={{ maxWidth: "max-content", marginTop: "3rem" }}
+          >
             <DirectoryHeader.Title>Try ChatGPT for Web3</DirectoryHeader.Title>
           </DirectoryHeader.Root>
           <Showcase.Wrapper>
@@ -339,8 +363,9 @@ export default function Relay({ projects }: { projects: Project[] }) {
                     onDragStart={showCaseDragStart}
                     animate={animation}
                     transition={{ type: "spring", stiffness: 100 }}
-                    onDragEnd={showcaseDragStop}>
-                    {robotCards.map((robot) => (
+                    onDragEnd={showcaseDragStop}
+                  >
+                    {robotCards.map((robot, i) => (
                       <Card.Card
                         key={robot.peerAddress}
                         handleClick={() => {
@@ -366,7 +391,8 @@ export default function Relay({ projects }: { projects: Project[] }) {
           <DirectoryHeader.Root style={{ maxWidth: "100%" }}>
             <DirectoryHeader.Title
               ref={directoryRef}
-              style={{ marginTop: "4rem" }}>
+              style={{ marginTop: "4rem" }}
+            >
               Explore Web3 on Relay
             </DirectoryHeader.Title>
             <DirectoryHeader.Search.Search
@@ -435,7 +461,11 @@ export default function Relay({ projects }: { projects: Project[] }) {
             </FlexWrapRow>
           </ContentColumnNarrow>
         </ContentColumn>
-        <Footer />
+        <Footer
+          onClickReceiver={goToMessages}
+          onClickRecon={scrollToDirectory}
+          onClickRobot={scrollToShowcaseHeader}
+        />
         {showMenu && (
           <MenuMobile.Overlay>
             <MenuMobile.Root initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
@@ -452,15 +482,63 @@ export default function Relay({ projects }: { projects: Project[] }) {
                 />
               </FlexRowSpaceBetween>
               <MenuMobile.Products>Products</MenuMobile.Products>
-              <MenuMobile.ProductButton>Receiver</MenuMobile.ProductButton>
-              <MenuMobile.ProductButton>Directory</MenuMobile.ProductButton>
-              <MenuMobile.ProductButton>Robot</MenuMobile.ProductButton>
+              <MenuMobile.ProductButton
+                onClick={() => {
+                  setShowMenu(false);
+                  goToMessages();
+                }}
+              >
+                Receiver
+              </MenuMobile.ProductButton>
+              <MenuMobile.ProductButton
+                onClick={() => {
+                  setShowMenu(false);
+                  scrollToDirectory();
+                }}
+              >
+                Recon
+              </MenuMobile.ProductButton>
               <MenuMobile.Products>Community</MenuMobile.Products>
-              <MenuMobile.SocialItem>Discord</MenuMobile.SocialItem>
-              <MenuMobile.SocialItem>Twitter</MenuMobile.SocialItem>
-              <MenuMobile.SocialItem>Lens</MenuMobile.SocialItem>
-              <MenuMobile.SocialItem>Mirror</MenuMobile.SocialItem>
-              <MenuMobile.SocialItem>GitHub</MenuMobile.SocialItem>
+              <MenuMobile.SocialItem
+                as="a"
+                href="https://discord.gg/relaycc"
+                target="_blank"
+                rel="noreferrer"
+              >
+                Discord
+              </MenuMobile.SocialItem>
+              <MenuMobile.SocialItem
+                as="a"
+                href="https://twitter.com/relay_eth"
+                target="_blank"
+                rel="noreferrer"
+              >
+                Twitter
+              </MenuMobile.SocialItem>
+              <MenuMobile.SocialItem
+                as="a"
+                href="https://lenster.xyz/u/relay"
+                target="_blank"
+                rel="noreferrer"
+              >
+                Lens
+              </MenuMobile.SocialItem>
+              <MenuMobile.SocialItem
+                as="a"
+                href="https://mirror.xyz/relaycc.eth"
+                target="_blank"
+                rel="noreferrer"
+              >
+                Mirror
+              </MenuMobile.SocialItem>
+              <MenuMobile.SocialItem
+                as="a"
+                href="https://github.com/relaycc"
+                target="_blank"
+                rel="noreferrer"
+              >
+                GitHub
+              </MenuMobile.SocialItem>
               <MenuMobile.ConnectButton>
                 Connect Wallet
               </MenuMobile.ConnectButton>
@@ -537,8 +615,10 @@ const DirectoryHeaderItem = ({
 
 const ProductsDropdown: FunctionComponent<{
   toggleDropdown: () => void;
+  onClickDirectory: () => unknown;
+  onClickReceiver: () => unknown;
   router: NextRouter;
-}> = ({ toggleDropdown, router }) => {
+}> = ({ toggleDropdown, router, onClickDirectory, onClickReceiver }) => {
   const handleNav = useCallback(
     (url: string) => {
       router.push(url);
@@ -566,18 +646,8 @@ const ProductsDropdown: FunctionComponent<{
         Products <Nav.ChevronDownColored />
       </Nav.NavLinkActive>
       <ProductsCard>
-        <DropdownItem
-          onClick={() => {
-            alert("add link in code");
-          }}>
-          Receiver
-        </DropdownItem>
-        <DropdownItem
-          onClick={() => {
-            alert("add link in code");
-          }}>
-          Directory
-        </DropdownItem>
+        <DropdownItem onClick={onClickReceiver}>Receiver</DropdownItem>
+        <DropdownItem onClick={onClickDirectory}>Recon</DropdownItem>
       </ProductsCard>
     </ProductsRoot>
   );
@@ -613,27 +683,35 @@ const CommunityDropdown: FunctionComponent<{
       </Nav.NavLink>
       <CommunityCard>
         <DropdownItem
-          onClick={() => {
-            alert("add link in code");
-          }}>
+          as="a"
+          href="https://discord.gg/relaycc"
+          target="_blank"
+          rel="noreferrer"
+        >
           Discord
         </DropdownItem>
         <DropdownItem
-          onClick={() => {
-            alert("add link in code");
-          }}>
+          as="a"
+          href="https://twitter.com/relay_eth"
+          target="_blank"
+          rel="noreferrer"
+        >
           Twitter
         </DropdownItem>
         <DropdownItem
-          onClick={() => {
-            alert("add link in code");
-          }}>
+          as="a"
+          href="https://lenster.xyz/u/relay"
+          target="_blank"
+          rel="noreferrer"
+        >
           Lens
         </DropdownItem>
         <DropdownItem
-          onClick={() => {
-            alert("add link in code");
-          }}>
+          as="a"
+          href="https://mirror.xyz/relaycc.eth"
+          target="_blank"
+          rel="noreferrer"
+        >
           Mirror
         </DropdownItem>
       </CommunityCard>
