@@ -363,7 +363,7 @@ export default function Relay({ projects }: { projects: Project[] }) {
               <Showcase.Ellipse />
             </Showcase.InnerWrapper>
           </Showcase.Wrapper>
-          <DirectoryHeader.Root style={{ maxWidth: "100%" }}>
+          <DirectoryHeader.DirectoryRoot>
             <DirectoryHeader.Title
               ref={directoryRef}
               style={{ marginTop: "4rem" }}>
@@ -390,7 +390,7 @@ export default function Relay({ projects }: { projects: Project[] }) {
                 })}
               </DirectoryHeader.Directories>
             </DirectoryHeader.Nav>
-          </DirectoryHeader.Root>
+          </DirectoryHeader.DirectoryRoot>
           <DirectoryHeader.MobileRoot style={{ maxWidth: "100%" }}>
             <DirectoryHeader.Title>Directory</DirectoryHeader.Title>
             <DirectoryHeader.SearchWrapper>
@@ -403,6 +403,14 @@ export default function Relay({ projects }: { projects: Project[] }) {
               />
               <DirectoryHeader.MenuIcon onClick={() => setSidebar(true)} />
             </DirectoryHeader.SearchWrapper>
+            <DirectoryHeader.CategoryWrapper>
+              <DirectoryHeader.CategoryTitle>
+                Category:
+              </DirectoryHeader.CategoryTitle>
+              <DirectoryHeader.ActiveCategoryTitle>
+                {activeCategory}
+              </DirectoryHeader.ActiveCategoryTitle>
+            </DirectoryHeader.CategoryWrapper>
             <DirectoryHeader.Nav>
               <DirectoryHeader.Directories>
                 {CATEGORIES.map((category) => {
