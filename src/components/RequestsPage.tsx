@@ -212,7 +212,7 @@ const RequestedChat: FunctionComponent<{
       <MessagePreview.Wrapper>
         {editing && <Checkbox selected={selected.includes(conversation)} />}
         <MessagePreview.Avatar
-          handle={"peerAddress"}
+          handle={conversation.peerAddress}
           onClick={() => null}
           size="md"
         />
