@@ -1,7 +1,7 @@
 import styled from "styled-components";
-import {receiverTheme} from "@/design/receiverTheme";
+import { receiverTheme } from "@/design/receiverTheme";
 
-export const FooterLink = styled.div`
+export const FooterLink = styled.a`
   font-style: normal;
   font-weight: 700;
   font-size: 16px;
