@@ -5,7 +5,7 @@ export { ChevronDownActive as Chevron } from "@/design/relay/Chevron";
 
 export const Fixed = styled.div`
   position: fixed;
-  bottom: 3rem;
+  bottom: 1rem;
   right: 1rem;
 `;
 
@@ -39,7 +39,7 @@ export const Window = styled(motion.div)`
   position: fixed;
   overflow: hidden;
   right: 1rem;
-  bottom: 8rem;
+  bottom: 6rem;
   padding: 0;
   box-shadow: 0px 4px 32px rgba(16, 24, 40, 0.12);
   border-radius: 14px;
