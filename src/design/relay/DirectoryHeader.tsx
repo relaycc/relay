@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { textXsMedium } from "../typography";
 export * as Search from "./Search";
 import { textXlBlack, textXxlBlack } from "../typography";
 export { MenuIcon } from "./MenuIcon";
@@ -26,12 +27,33 @@ export const Root = styled.div`
   }
 `;
 
+export const DirectoryRoot = styled(Root)`
+  max-width: 100%;
+  display: none;
+
+  @media screen and (min-width: 718px) {
+    display: flex;
+    max-width: 40rem;
+  }
+
+  @media screen and (min-width: 1210px) {
+    display: flex;
+    max-width: 100%;
+  }
+`;
+
 export const MobileRoot = styled(Root)`
   width: 100%;
   display: flex;
   background: ${({ theme }) => theme.colors.gray["200"]};
+  gap: 1rem;
 
   @media screen and (min-width: 400px) {
+    display: flex;
+    background: #fff;
+  }
+
+  @media screen and (min-width: 718px) {
     display: none;
   }
 `;
@@ -43,16 +65,14 @@ export const SearchWrapper = styled.div`
   gap: 1rem;
   width: 100%;
   padding: 0 1rem;
-  margin-bottom: 1rem;
 `;
 
 export const Nav = styled.nav`
   display: none;
   flex-direction: column;
   width: 100%;
-  padding: 0 2rem;
 
-  @media screen and (min-width: 400px) {
+  @media screen and (min-width: 718px) {
     display: flex;
   }
 `;
@@ -60,8 +80,13 @@ export const Nav = styled.nav`
 export const Directories = styled.ul`
   display: flex;
   flex-direction: row;
-  overflow: auto;
-  padding: 0 2rem;
+  flex-wrap: wrap;
+  max-width: 100%;
+  padding: 0;
+
+  @media screen and (min-width: 718px) {
+    justify-content: center;
+  }
 `;
 
 const Directory = styled.button`
@@ -105,4 +130,24 @@ export const MobileInactive = styled(Inactive)`
   background: #f9fafb;
   border-radius: 8px;
   border-color: #f9fafb;
+`;
+
+export const CategoryWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  margin-bottom: 0.5rem;
+  align-self: flex-start;
+  padding: 0 1rem;
+`;
+
+export const CategoryTitle = styled.div`
+  font-weight: 700;
+  color: ${({ theme }) => theme.colors.gray["600"]};
+  ${textXsMedium};
+  margin-right: 0.25rem;
+`;
+
+export const ActiveCategoryTitle = styled(CategoryTitle)`
+  color: ${({ theme }) => theme.colors.primary["300"]};
 `;
