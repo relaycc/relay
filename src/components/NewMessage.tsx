@@ -1,4 +1,4 @@
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import styled from "styled-components";
 import * as MsgBox from "@/design/MsgBox";
 import * as NewMsgInput from "@/design/NewMsgInput";
@@ -6,7 +6,12 @@ import * as NewMessageHeader from "@/design/NewMessageHeader";
 import { textMdSemiBold, textSmallRegular } from "@/design/typography";
 import { receiverTheme } from "@/design/receiverTheme";
 import { motion } from "framer-motion";
-import { EthAddress, isEthAddress, useSendMessage } from "@relaycc/xmtp-hooks";
+import {
+  EthAddress,
+  isEthAddress,
+  useFetchPeerOnNetwork,
+  useSendMessage,
+} from "@relaycc/xmtp-hooks";
 import { isEnsName } from "@/lib/isEnsName";
 import { fetchAddressFromEns } from "@/hooks/useAddressFromEns";
 import { useGoToDm } from "@/hooks/useReceiverWindow";
@@ -114,6 +119,9 @@ type States =
     }
   | {
       id: "address is on network";
+    }
+  | {
+      id: "address not on network";
     };
 
 export const NewMessage = ({
@@ -156,14 +164,28 @@ export const NewMessage = ({
     },
     [send]
   );
-
+  const peerAddress = useMemo(() => {
+    if (isEthAddress(inputValue)) {
+      return inputValue;
+    }
+    const fetchedAddress = fetchAddressFromEns(inputValue);
+    if (isEnsName(inputValue)) {
+    }
+    return fetchedAddress;
+  }, [inputValue]);
+  const addressOnNetwork = useFetchPeerOnNetwork({
+    clientAddress: clientAddress,
+    // @ts-ignore
+    peerAddress: peerAddress || "",
+  });
   return (
     <Root
       key="newMessage"
       initial={{ maxHeight: "0" }}
       animate={{ top: "1rem", maxHeight: "99vh" }}
       exit={{ top: "100%" }}
-      transition={{ duration: 0.3 }}>
+      transition={{ duration: 0.3 }}
+    >
       <HeaderWrapper>
         <NewMessageHeader.Root>
           <NewMessageHeader.Title>New Message</NewMessageHeader.Title>
@@ -188,6 +210,10 @@ export const NewMessage = ({
               if (peerAddress === null) {
                 setState({ id: "input does not have an address" });
                 return;
+              }
+              if (addressOnNetwork.status !== "success") {
+                setState({ id: "address not on network" });
+                return;
               } else {
                 setState({ id: "input has address", peerAddress });
                 if (inputRef.current === null) {
@@ -199,11 +225,13 @@ export const NewMessage = ({
               }
             }
           }
-        }}>
+        }}
+      >
         <NewMsgInput.Root
           isError={state.id === "invalid input"}
           onFocus={() => setInputIsFocused(true)}
-          onBlur={() => setInputIsFocused(false)}>
+          onBlur={() => setInputIsFocused(false)}
+        >
           <NewMsgInput.To>To: </NewMsgInput.To>
 
           <NewMsgInput.TextInput
@@ -217,7 +245,8 @@ export const NewMessage = ({
           />
           <NewMsgInput.IconContainer
             onMouseDown={(e) => e.preventDefault()}
-            onClick={() => null}>
+            onClick={() => null}
+          >
             {(() => {
               if (state.id === "loading") {
                 return <NewMsgInput.LoaderAnimGeneral />;
@@ -240,6 +269,14 @@ export const NewMessage = ({
             </NoResultSubtitle>
           </NoResultText>
         )}
+        {state.id === "address not on network" && (
+          <NoResultText>
+            <NoResultTitle>Address is not on network yet</NoResultTitle>
+            <NoResultSubtitle>
+              Please enter an address on network
+            </NoResultSubtitle>
+          </NoResultText>
+        )}
         {state.id === "input has address" && (
           <PushDown>
             <Avatar size="xxxl" handle={inputValue} onClick={() => null} />
@@ -250,7 +287,8 @@ export const NewMessage = ({
       <MsgBoxWrapper>
         <MsgBox.Root
           onFocus={() => setMessageInputIsFocused(true)}
-          onBlur={() => setMessageInputIsFocused(false)}>
+          onBlur={() => setMessageInputIsFocused(false)}
+        >
           <MsgBox.MessageInput
             disabled={state.id !== "input has address"}
             onKeyDown={handleKeyDown}

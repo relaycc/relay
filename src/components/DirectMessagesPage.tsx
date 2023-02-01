@@ -74,7 +74,6 @@ export const DirectMessagesPage: FunctionComponent<{
     if (messageIsSending && newId !== lastMessageId) {
       setMessageIsSending(false);
     }
-    console.log({ messageIsSending });
     setLastMessageId(newId);
   }, [messages, lastMessageId, messageIsSending]);
 
