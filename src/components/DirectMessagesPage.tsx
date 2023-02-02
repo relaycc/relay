@@ -124,6 +124,9 @@ export const DirectMessagesPage: FunctionComponent<{
   }, [inputIsFocused]);
 
   const handleSend = useCallback(() => {
+    if (msgValue.length === 0 || msgValue.trim().length === 0) {
+      return;
+    }
     setMessageIsSending(true);
     try {
       sendMessage.mutate({
