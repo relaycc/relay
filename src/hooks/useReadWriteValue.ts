@@ -6,9 +6,9 @@ import {
   useWriteValue,
   XmtpContext,
 } from "@relaycc/xmtp-hooks";
-import { useCallback, useContext, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 
-const REQUEST_CONVERSATION_ID = "relay.cc/requests";
+const REQUEST_CONVERSATION_ID = "relay.cc/requests/v1";
 
 export enum RequestEnum {
   accepted = "accepted",
@@ -80,12 +80,7 @@ export const useReadWriteValue = ({
         if (value !== RequestEnum.accepted) {
           return;
         } else {
-          const peerAddress = key.slice(0, 42) as EthAddress;
-          const conversationId = key.slice(42);
-          accepted.push({
-            peerAddress,
-            context: { conversationId, metadata: {} },
-          });
+          accepted.push(getConversationFromKey(key));
         }
       });
       return accepted;
@@ -102,12 +97,7 @@ export const useReadWriteValue = ({
       if (value !== RequestEnum.ignored) {
         return;
       } else {
-        const peerAddress = key.slice(0, 42) as EthAddress;
-        const conversationId = key.slice(42);
-        ignored.push({
-          peerAddress,
-          context: { conversationId, metadata: {} },
-        });
+        ignored.push(getConversationFromKey(key));
       }
     });
     return ignored;
@@ -119,10 +109,7 @@ export const useReadWriteValue = ({
     }
 
     return conversations.filter((convo) => {
-      const requestItem =
-        requestsObject[
-          `${convo.peerAddress}${convo?.context?.conversationId || ""}`
-        ];
+      const requestItem = requestsObject[getKeyFromConversation(convo)];
       return (
         requestItem === undefined &&
         convo.context?.conversationId !== REQUEST_CONVERSATION_ID
@@ -139,8 +126,7 @@ export const useReadWriteValue = ({
       const newKeys = conversations.reduce(
         (acc, convo) => ({
           ...acc,
-          [`${convo.peerAddress}${convo?.context?.conversationId || ""}`]:
-            RequestEnum.accepted,
+          [getKeyFromConversation(convo)]: RequestEnum.accepted,
         }),
         {}
       );
@@ -163,8 +149,7 @@ export const useReadWriteValue = ({
       const newKeys = conversations.reduce(
         (acc, convo) => ({
           ...acc,
-          [`${convo.peerAddress}${convo?.context?.conversationId || ""}`]:
-            RequestEnum.ignored,
+          [getKeyFromConversation(convo)]: RequestEnum.ignored,
         }),
         {}
       );
@@ -186,10 +171,8 @@ export const useReadWriteValue = ({
 
       const newObject = {
         ...requestsObject,
-        [`${conversation.peerAddress}${
-          conversation?.context?.conversationId || ""
-        }`]: RequestEnum.accepted,
       };
+      delete newObject[getKeyFromConversation(conversation)];
       unignore({ content: JSON.stringify(newObject) });
     },
     [requestsObject, unignore]
@@ -208,5 +191,23 @@ export const useReadWriteValue = ({
     acceptedConversations,
     ignoredConversations,
     requestedConversations,
+  };
+};
+
+const getKeyFromConversation = (conversation: Conversation) => {
+  return `${conversation.peerAddress}${
+    conversation?.context?.conversationId || ""
+  }`;
+};
+
+const getConversationFromKey = (key: string) => {
+  const peerAddress = key.slice(0, 42) as EthAddress;
+  const conversationId = key.slice(42);
+  return {
+    peerAddress,
+    context:
+      conversationId.length === 0
+        ? undefined
+        : { conversationId, metadata: {} },
   };
 };
