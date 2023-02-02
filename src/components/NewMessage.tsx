@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import styled from "styled-components";
 import * as MsgBox from "@/design/MsgBox";
 import * as NewMsgInput from "@/design/NewMsgInput";
@@ -6,7 +6,12 @@ import * as NewMessageHeader from "@/design/NewMessageHeader";
 import { textMdSemiBold, textSmallRegular } from "@/design/typography";
 import { receiverTheme } from "@/design/receiverTheme";
 import { motion } from "framer-motion";
-import { EthAddress, isEthAddress, useSendMessage } from "@relaycc/xmtp-hooks";
+import {
+  EthAddress,
+  isEthAddress,
+  useFetchPeerOnNetwork,
+  useSendMessage,
+} from "@relaycc/xmtp-hooks";
 import { isEnsName } from "@/lib/isEnsName";
 import { fetchAddressFromEns } from "@/hooks/useAddressFromEns";
 import { useGoToDm } from "@/hooks/useReceiverWindow";
@@ -108,12 +113,10 @@ type States =
   | {
       id: "input has address";
       peerAddress: string;
+      addressIsOnNetwork: boolean | null;
     }
   | {
       id: "input does not have an address";
-    }
-  | {
-      id: "address is on network";
     };
 
 export const NewMessage = ({
@@ -133,6 +136,35 @@ export const NewMessage = ({
   const [inputMessage, setInputMessage] = useState<string>("");
   const inputRef = useRef<HTMLInputElement>(null);
   const sendMessage = useSendMessage({ clientAddress });
+  // null means that we don't know yet
+
+  const peerOnNetwork = useFetchPeerOnNetwork({
+    clientAddress,
+    peerAddress: (() => {
+      if (state.id === "input has address") {
+        return state.peerAddress as EthAddress;
+      } else {
+        return null;
+      }
+    })(),
+  });
+
+  useEffect(() => {
+    if (peerOnNetwork.data === null || peerOnNetwork.data === undefined) {
+      return;
+    } else {
+      setState((prev) => {
+        if (prev.id !== "input has address") {
+          return prev;
+        } else {
+          return {
+            ...prev,
+            addressIsOnNetwork: peerOnNetwork.data,
+          };
+        }
+      });
+    }
+  }, [peerOnNetwork.data, state.id]);
 
   const send = useCallback(async () => {
     if (state.id !== "input has address") {
@@ -164,8 +196,9 @@ export const NewMessage = ({
         return;
       } else {
         if (isEthAddress(inputValue)) {
-          setState({ id: "input has address", peerAddress: inputValue });
-          return;
+          setState({ id: "input has address", peerAddress: inputValue ,
+          addressIsOnNetwork: null,
+              });return;
         } else {
           setState({ id: "loading" });
           const peerAddress = await fetchAddressFromEns(inputValue);
@@ -173,8 +206,9 @@ export const NewMessage = ({
             setState({ id: "input does not have an address" });
             return;
           } else {
-            setState({ id: "input has address", peerAddress });
-            if (inputRef.current === null) {
+            setState({ id: "input has address", peerAddress ,
+            addressIsOnNetwork: null,
+                });if (inputRef.current === null) {
               console.warn("inputRef.current is null");
             } else {
               inputRef.current.focus();
@@ -208,7 +242,8 @@ export const NewMessage = ({
           </NewMessageHeader.Button>
         </NewMessageHeader.Root>
       </HeaderWrapper>
-      <UnstyledForm onSubmit={handleSubmit}>
+      <UnstyledForm onSubmit={handleSubmit}
+      >
         <NewMsgInput.Root
           isError={state.id === "invalid input"}
           onFocus={() => setInputIsFocused(true)}
@@ -251,6 +286,26 @@ export const NewMessage = ({
             </NoResultSubtitle>
           </NoResultText>
         )}
+        {state.id === "input has address" &&
+          state.addressIsOnNetwork === false && (
+            <NoResultText>
+              <NoResultTitle>
+                {"User hasn't joined the XMTP network."}
+              </NoResultTitle>
+              <NoResultSubtitle>
+                Until they join the network, they cannot receive messages. Learn
+                more{" "}
+                <PurpleLink
+                  href="https://xmtp.org/docs/dev-concepts/account-signatures"
+                  target="_blank"
+                  rel="norefferer"
+                >
+                  here
+                </PurpleLink>
+                .
+              </NoResultSubtitle>
+            </NoResultText>
+          )}
         {state.id === "input has address" && (
           <PushDown>
             <Avatar size="xxxl" handle={inputValue} onClick={() => null} />
@@ -299,3 +354,8 @@ export const NewMessage = ({
     </Root>
   );
 };
+
+const PurpleLink = styled.a`
+  color: ${(props) => props.theme.colors.primary["700"]};
+  font-weight: bold;
+`;

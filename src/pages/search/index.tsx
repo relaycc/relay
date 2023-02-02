@@ -22,6 +22,7 @@ import {
   CATEGORIES,
   ProjectCategory,
   isProjectCategory,
+  categoryToDisplay,
 } from "@/lib/supabase/project";
 import * as MenuMobile from "@/design/relay/MenuMobile";
 import Image from "next/image";
@@ -604,18 +605,18 @@ const DirectoryHeaderItem = ({
 }: {
   isActive: boolean;
   onClick: () => unknown;
-  category: string;
+  category: ProjectCategory;
 }) => {
   if (isActive) {
     return (
       <DirectoryHeader.Active onClick={onClick}>
-        {category}
+        {categoryToDisplay(category)}
       </DirectoryHeader.Active>
     );
   } else {
     return (
       <DirectoryHeader.Inactive onClick={onClick}>
-        {category}
+        {categoryToDisplay(category)}
       </DirectoryHeader.Inactive>
     );
   }
