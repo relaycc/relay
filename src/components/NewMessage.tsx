@@ -156,14 +156,44 @@ export const NewMessage = ({
     },
     [send]
   );
-
+  const handleSubmit = useCallback(
+    async (e: { preventDefault: () => void }) => {
+      e.preventDefault();
+      if (!isEnsName(inputValue) && !isEthAddress(inputValue)) {
+        setState({ id: "invalid input" });
+        return;
+      } else {
+        if (isEthAddress(inputValue)) {
+          setState({ id: "input has address", peerAddress: inputValue });
+          return;
+        } else {
+          setState({ id: "loading" });
+          const peerAddress = await fetchAddressFromEns(inputValue);
+          if (peerAddress === null) {
+            setState({ id: "input does not have an address" });
+            return;
+          } else {
+            setState({ id: "input has address", peerAddress });
+            if (inputRef.current === null) {
+              console.warn("inputRef.current is null");
+            } else {
+              inputRef.current.focus();
+            }
+            return;
+          }
+        }
+      }
+    },
+    [inputValue]
+  );
   return (
     <Root
       key="newMessage"
       initial={{ maxHeight: "0" }}
       animate={{ top: "1rem", maxHeight: "99vh" }}
       exit={{ top: "100%" }}
-      transition={{ duration: 0.3 }}>
+      transition={{ duration: 0.3 }}
+    >
       <HeaderWrapper>
         <NewMessageHeader.Root>
           <NewMessageHeader.Title>New Message</NewMessageHeader.Title>
@@ -172,38 +202,12 @@ export const NewMessage = ({
           </NewMessageHeader.Button>
         </NewMessageHeader.Root>
       </HeaderWrapper>
-      <UnstyledForm
-        onSubmit={async (e) => {
-          e.preventDefault();
-          if (!isEnsName(inputValue) && !isEthAddress(inputValue)) {
-            setState({ id: "invalid input" });
-            return;
-          } else {
-            if (isEthAddress(inputValue)) {
-              setState({ id: "input has address", peerAddress: inputValue });
-              return;
-            } else {
-              setState({ id: "loading" });
-              const peerAddress = await fetchAddressFromEns(inputValue);
-              if (peerAddress === null) {
-                setState({ id: "input does not have an address" });
-                return;
-              } else {
-                setState({ id: "input has address", peerAddress });
-                if (inputRef.current === null) {
-                  console.warn("inputRef.current is null");
-                } else {
-                  inputRef.current.focus();
-                }
-                return;
-              }
-            }
-          }
-        }}>
+      <UnstyledForm onSubmit={handleSubmit}>
         <NewMsgInput.Root
           isError={state.id === "invalid input"}
           onFocus={() => setInputIsFocused(true)}
-          onBlur={() => setInputIsFocused(false)}>
+          onBlur={() => setInputIsFocused(false)}
+        >
           <NewMsgInput.To>To: </NewMsgInput.To>
 
           <NewMsgInput.TextInput
@@ -217,7 +221,8 @@ export const NewMessage = ({
           />
           <NewMsgInput.IconContainer
             onMouseDown={(e) => e.preventDefault()}
-            onClick={() => null}>
+            onClick={handleSubmit}
+          >
             {(() => {
               if (state.id === "loading") {
                 return <NewMsgInput.LoaderAnimGeneral />;
@@ -250,7 +255,8 @@ export const NewMessage = ({
       <MsgBoxWrapper>
         <MsgBox.Root
           onFocus={() => setMessageInputIsFocused(true)}
-          onBlur={() => setMessageInputIsFocused(false)}>
+          onBlur={() => setMessageInputIsFocused(false)}
+        >
           <MsgBox.MessageInput
             disabled={state.id !== "input has address"}
             onKeyDown={handleKeyDown}
