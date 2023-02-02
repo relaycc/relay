@@ -17,6 +17,7 @@ import { fetchAddressFromEns } from "@/hooks/useAddressFromEns";
 import { useGoToDm } from "@/hooks/useReceiverWindow";
 import { Avatar } from "./Avatar";
 import { truncateAddress } from "@/lib/truncateAddress";
+import { useReadWriteValue } from "@/hooks/useReadWriteValue";
 
 const Root = styled(motion.div)`
   display: flex;
@@ -166,6 +167,19 @@ export const NewMessage = ({
     }
   }, [peerOnNetwork.data, state.id]);
 
+  const { acceptConversations, isAccepted } = useReadWriteValue({
+    clientAddress,
+  });
+
+  const accepted = useMemo(() => {
+    if (state.id !== "input has address") {
+      return null;
+    }
+    return isAccepted({
+      conversation: { peerAddress: state.peerAddress as EthAddress },
+    });
+  }, [isAccepted, state.id]);
+
   const send = useCallback(async () => {
     if (state.id !== "input has address") {
       return;
@@ -176,9 +190,14 @@ export const NewMessage = ({
         },
         content: inputMessage,
       });
+
+      !accepted &&
+        acceptConversations({
+          conversations: [{ peerAddress: state.peerAddress as EthAddress }],
+        });
       goToDm({ peerAddress: state.peerAddress as EthAddress });
     }
-  }, [goToDm, inputMessage, sendMessage, state.id]);
+  }, [goToDm, inputMessage, sendMessage, state.id, accepted]);
 
   const handleKeyDown = useCallback(
     (event: React.KeyboardEvent<HTMLDivElement>) => {
@@ -194,8 +213,7 @@ export const NewMessage = ({
       initial={{ maxHeight: "0" }}
       animate={{ top: "1rem", maxHeight: "99vh" }}
       exit={{ top: "100%" }}
-      transition={{ duration: 0.3 }}
-    >
+      transition={{ duration: 0.3 }}>
       <HeaderWrapper>
         <NewMessageHeader.Root>
           <NewMessageHeader.Title>New Message</NewMessageHeader.Title>
@@ -239,13 +257,11 @@ export const NewMessage = ({
               }
             }
           }
-        }}
-      >
+        }}>
         <NewMsgInput.Root
           isError={state.id === "invalid input"}
           onFocus={() => setInputIsFocused(true)}
-          onBlur={() => setInputIsFocused(false)}
-        >
+          onBlur={() => setInputIsFocused(false)}>
           <NewMsgInput.To>To: </NewMsgInput.To>
 
           <NewMsgInput.TextInput
@@ -259,8 +275,7 @@ export const NewMessage = ({
           />
           <NewMsgInput.IconContainer
             onMouseDown={(e) => e.preventDefault()}
-            onClick={() => null}
-          >
+            onClick={() => null}>
             {(() => {
               if (state.id === "loading") {
                 return <NewMsgInput.LoaderAnimGeneral />;
@@ -295,8 +310,7 @@ export const NewMessage = ({
                 <PurpleLink
                   href="https://xmtp.org/docs/dev-concepts/account-signatures"
                   target="_blank"
-                  rel="norefferer"
-                >
+                  rel="norefferer">
                   here
                 </PurpleLink>
                 .
@@ -313,8 +327,7 @@ export const NewMessage = ({
       <MsgBoxWrapper>
         <MsgBox.Root
           onFocus={() => setMessageInputIsFocused(true)}
-          onBlur={() => setMessageInputIsFocused(false)}
-        >
+          onBlur={() => setMessageInputIsFocused(false)}>
           <MsgBox.MessageInput
             disabled={state.id !== "input has address"}
             onKeyDown={handleKeyDown}

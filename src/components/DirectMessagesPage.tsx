@@ -34,6 +34,7 @@ import {
 import { useAccount } from "wagmi";
 import { AuthMenu } from "./AuthMenu";
 import { LoaderAnimGeneral } from "@/design/MsgBox";
+import { useReadWriteValue } from "@/hooks/useReadWriteValue";
 
 export interface MessagesBucketProps {
   bucket: {
@@ -83,6 +84,14 @@ export const DirectMessagesPage: FunctionComponent<{
     setLastMessageId(newId);
   }, [messages, lastMessageId, messageIsSending]);
 
+  const { acceptConversations, isAccepted } = useReadWriteValue({
+    clientAddress: address as EthAddress,
+  });
+
+  const accepted = useMemo(() => {
+    return isAccepted({ conversation: { peerAddress } });
+  }, [isAccepted, peerAddress]);
+
   const relayId = useRelayId({ handle: peerAddress });
   const ensName = useMemo(() => {
     if (isEnsName(relayId.ens.data)) {
@@ -113,6 +122,7 @@ export const DirectMessagesPage: FunctionComponent<{
   const toggleInputIsFocused = useCallback(() => {
     setInputIsFocused(!inputIsFocused);
   }, [inputIsFocused]);
+
   const handleSend = useCallback(() => {
     setMessageIsSending(true);
     try {
@@ -120,13 +130,15 @@ export const DirectMessagesPage: FunctionComponent<{
         content: msgValue,
         conversation: { peerAddress },
       });
+      !accepted && acceptConversations({ conversations: [conversation] });
     } catch (e) {
       toggleFailureToast();
       setMessageIsSending(false);
       return;
     }
     setMsgValue("");
-  }, [msgValue, messages]);
+  }, [msgValue, messages, peerAddress, accepted, conversation]);
+
   const messageCount = useMemo(() => messages.data?.length, [messages]);
   const onEnter: KeyboardEventHandler<HTMLInputElement> = useCallback(
     (event) => {
@@ -185,8 +197,7 @@ export const DirectMessagesPage: FunctionComponent<{
               <PurpleLink
                 href="https://xmtp.org/docs/dev-concepts/account-signatures"
                 target="_blank"
-                rel="norefferer"
-              >
+                rel="norefferer">
                 here
               </PurpleLink>
               .
@@ -251,8 +262,7 @@ export const DirectMessagesPage: FunctionComponent<{
           <Toast.Failure.Card
             initial={{ opacity: 0.2 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 0.2 }}
-          >
+            transition={{ duration: 0.2 }}>
             <Toast.Failure.AlertIcon />
             <Toast.Failure.Column>
               <Toast.Failure.Title>Failed to Send Message</Toast.Failure.Title>
