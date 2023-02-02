@@ -79,16 +79,10 @@ export default function Relay({ projects }: { projects: Project[] }) {
   const [messageInputIsError, setMessageInputIsError] = useState(false);
   const [messageInputIsLoading, setMessageInputIsLoading] = useState(false);
   const [showMenu, setShowMenu] = useState(false);
-  const [showProducts, setShowProducts] = useState(false);
   const [showCommunity, setShowCommunity] = useState(false);
   const [showMobileSearch, setShowMobileSearch] = useState<boolean>(false);
-  const toggleProducts = useCallback(() => {
-    setShowProducts(!showProducts);
-    setShowCommunity(false);
-  }, [showProducts]);
   const toggleCommunity = useCallback(() => {
     setShowCommunity(!showCommunity);
-    setShowProducts(false);
   }, [showCommunity]);
   const toggleMobileSearch = useCallback(() => {
     console.log({ showMobileSearch });
@@ -251,22 +245,15 @@ export default function Relay({ projects }: { projects: Project[] }) {
                 }
               }}
             />
-            {showProducts ? (
-              <ProductsDropdown
-                toggleDropdown={toggleProducts}
-                onClickDirectory={scrollToDirectory}
-                onClickReceiver={goToMessages}
-                router={router}
-              />
-            ) : (
-              <Nav.NavLink
-                style={{ marginLeft: "auto", marginRight: "1.5rem" }}
-                onClick={toggleProducts}
-              >
-                Products
-                <Nav.ChevronDownActive />
-              </Nav.NavLink>
-            )}
+            <Nav.NavLink
+              as="a"
+              href="https://airtable.com/shrD6Xv70iq7WDwoj"
+              target="_blank"
+              rel="noreferrer"
+              style={{ marginLeft: "auto", marginRight: "1.5rem" }}
+            >
+              Waitlist
+            </Nav.NavLink>
             {showCommunity ? (
               <CommunityDropdown
                 toggleDropdown={toggleCommunity}
@@ -367,7 +354,8 @@ export default function Relay({ projects }: { projects: Project[] }) {
                       type: "spring",
                       stiffness: 40,
                     }}
-                    onDragEnd={showcaseDragStop}>
+                    onDragEnd={showcaseDragStop}
+                  >
                     {robotCards.map((robot, i) => (
                       <Card.Card
                         key={robot.peerAddress}
@@ -492,22 +480,14 @@ export default function Relay({ projects }: { projects: Project[] }) {
                   alt="close"
                 />
               </FlexRowSpaceBetween>
-              <MenuMobile.Products>Products</MenuMobile.Products>
+              <MenuMobile.Products>Integrations</MenuMobile.Products>
               <MenuMobile.ProductButton
-                onClick={() => {
-                  setShowMenu(false);
-                  goToMessages();
-                }}
+                as="a"
+                href="https://airtable.com/shrD6Xv70iq7WDwoj"
+                target="_blank"
+                rel="noreferrer"
               >
-                Receiver
-              </MenuMobile.ProductButton>
-              <MenuMobile.ProductButton
-                onClick={() => {
-                  setShowMenu(false);
-                  scrollToDirectory();
-                }}
-              >
-                Recon
+                Join the Waitlist
               </MenuMobile.ProductButton>
               <MenuMobile.Products>Community</MenuMobile.Products>
               <MenuMobile.SocialItem
