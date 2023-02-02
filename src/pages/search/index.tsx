@@ -250,8 +250,7 @@ export default function Relay({ projects }: { projects: Project[] }) {
               href="https://airtable.com/shrD6Xv70iq7WDwoj"
               target="_blank"
               rel="noreferrer"
-              style={{ marginLeft: "auto", marginRight: "1.5rem" }}
-            >
+              style={{ marginLeft: "auto", marginRight: "1.5rem" }}>
               Waitlist
             </Nav.NavLink>
             {showCommunity ? (
@@ -270,8 +269,7 @@ export default function Relay({ projects }: { projects: Project[] }) {
               <a
                 href="https://github.com/relaycc"
                 target="_blank"
-                rel="noreferrer"
-              >
+                rel="noreferrer">
                 <IconGithub
                   style={{ height: "2rem", width: "2rem", margin: "1.5rem" }}
                 />
@@ -335,8 +333,7 @@ export default function Relay({ projects }: { projects: Project[] }) {
           </Nav.RootMobile>
           <DirectoryHeader.Root
             ref={showcaseHeaderRef}
-            style={{ maxWidth: "max-content", marginTop: "3rem" }}
-          >
+            style={{ maxWidth: "max-content", marginTop: "3rem" }}>
             <DirectoryHeader.Title>Try ChatGPT for Web3</DirectoryHeader.Title>
           </DirectoryHeader.Root>
           <Showcase.Wrapper>
@@ -354,8 +351,7 @@ export default function Relay({ projects }: { projects: Project[] }) {
                       type: "spring",
                       stiffness: 40,
                     }}
-                    onDragEnd={showcaseDragStop}
-                  >
+                    onDragEnd={showcaseDragStop}>
                     {robotCards.map((robot, i) => (
                       <Card.Card
                         key={robot.peerAddress}
@@ -382,8 +378,7 @@ export default function Relay({ projects }: { projects: Project[] }) {
           <DirectoryHeader.DirectoryRoot>
             <DirectoryHeader.Title
               ref={directoryRef}
-              style={{ marginTop: "4rem" }}
-            >
+              style={{ marginTop: "4rem" }}>
               Explore Web3 on Relay
             </DirectoryHeader.Title>
             <DirectoryHeader.Search.Search
@@ -485,8 +480,7 @@ export default function Relay({ projects }: { projects: Project[] }) {
                 as="a"
                 href="https://airtable.com/shrD6Xv70iq7WDwoj"
                 target="_blank"
-                rel="noreferrer"
-              >
+                rel="noreferrer">
                 Join the Waitlist
               </MenuMobile.ProductButton>
               <MenuMobile.Products>Community</MenuMobile.Products>
@@ -494,40 +488,35 @@ export default function Relay({ projects }: { projects: Project[] }) {
                 as="a"
                 href="https://discord.gg/relaycc"
                 target="_blank"
-                rel="noreferrer"
-              >
+                rel="noreferrer">
                 Discord
               </MenuMobile.SocialItem>
               <MenuMobile.SocialItem
                 as="a"
                 href="https://twitter.com/relay_eth"
                 target="_blank"
-                rel="noreferrer"
-              >
+                rel="noreferrer">
                 Twitter
               </MenuMobile.SocialItem>
               <MenuMobile.SocialItem
                 as="a"
                 href="https://lenster.xyz/u/relay"
                 target="_blank"
-                rel="noreferrer"
-              >
+                rel="noreferrer">
                 Lens
               </MenuMobile.SocialItem>
               <MenuMobile.SocialItem
                 as="a"
                 href="https://mirror.xyz/relaycc.eth"
                 target="_blank"
-                rel="noreferrer"
-              >
+                rel="noreferrer">
                 Mirror
               </MenuMobile.SocialItem>
               <MenuMobile.SocialItem
                 as="a"
                 href="https://github.com/relaycc"
                 target="_blank"
-                rel="noreferrer"
-              >
+                rel="noreferrer">
                 GitHub
               </MenuMobile.SocialItem>
               <MenuMobile.ConnectButton>
@@ -677,32 +666,28 @@ const CommunityDropdown: FunctionComponent<{
           as="a"
           href="https://discord.gg/relaycc"
           target="_blank"
-          rel="noreferrer"
-        >
+          rel="noreferrer">
           Discord
         </DropdownItem>
         <DropdownItem
           as="a"
           href="https://twitter.com/relay_eth"
           target="_blank"
-          rel="noreferrer"
-        >
+          rel="noreferrer">
           Twitter
         </DropdownItem>
         <DropdownItem
           as="a"
           href="https://lenster.xyz/u/relay"
           target="_blank"
-          rel="noreferrer"
-        >
+          rel="noreferrer">
           Lens
         </DropdownItem>
         <DropdownItem
           as="a"
           href="https://mirror.xyz/relaycc.eth"
           target="_blank"
-          rel="noreferrer"
-        >
+          rel="noreferrer">
           Mirror
         </DropdownItem>
       </CommunityCard>
