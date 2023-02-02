@@ -329,7 +329,7 @@ const ListMessages: FunctionComponent<
             <MsgBundles.RestOfTheMessages key={index}>
               <MsgBundles.HoveredTimeContainer>
                 <MsgBundles.XxsSizedTime>
-                  {getDisplayDate(i.sent)}
+                  {getDisplayDate(i.sent, true)}
                 </MsgBundles.XxsSizedTime>
               </MsgBundles.HoveredTimeContainer>
               {!bucket.messages ? (
@@ -387,7 +387,7 @@ const ListMessages: FunctionComponent<
           <MsgBundles.RestOfTheMessages key={index}>
             <MsgBundles.HoveredTimeContainer>
               <MsgBundles.XxsSizedTime>
-                {getDisplayDate(i.sent)}
+                {getDisplayDate(i.sent, true)}
               </MsgBundles.XxsSizedTime>
             </MsgBundles.HoveredTimeContainer>
             {!bucket.messages ? (
