@@ -363,9 +363,11 @@ export default function Relay({ projects }: { projects: Project[] }) {
                     dragConstraints={{ right: 0, left: -width }}
                     onDragStart={showCaseDragStart}
                     animate={animation}
-                    transition={{ type: "spring", stiffness: 100 }}
-                    onDragEnd={showcaseDragStop}
-                  >
+                    transition={{
+                      type: "spring",
+                      stiffness: 40,
+                    }}
+                    onDragEnd={showcaseDragStop}>
                     {robotCards.map((robot, i) => (
                       <Card.Card
                         key={robot.peerAddress}
