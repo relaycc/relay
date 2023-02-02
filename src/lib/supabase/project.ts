@@ -1,20 +1,42 @@
 export const CATEGORIES = [
-  "General",
-  "New",
-  "Venture",
-  "Lens",
-  "Identity",
-  "Events",
-  "Music",
-  "Impact DAO",
-  "DeFi",
-  "DAO",
-  "ZK",
-  "DAO Tool",
-  "Infrastructure",
+  "general",
+  "new",
+  "venture",
+  "lens",
+  "identity",
+  "events",
+  "music",
+  "impactdao",
+  "defi",
+  "dao",
+  "zk",
+  "daotool",
+  "infrastructure",
 ] as const;
 
 export type ProjectCategory = (typeof CATEGORIES)[number];
+
+export const CATEGORY_DISPLAY = {
+  general: "General",
+  new: "New",
+  venture: "Venture",
+  lens: "Lens",
+  identity: "Identity",
+  events: "Events",
+  music: "Music",
+  impactdao: "Impact DAO",
+  defi: "DeFi",
+  dao: "DAO",
+  zk: "ZK",
+  daotool: "DAO Tool",
+  infrastructure: "Infrastructure",
+} as const;
+
+export const categoryToDisplay = (
+  category: ProjectCategory
+): (typeof CATEGORY_DISPLAY)[ProjectCategory] => {
+  return CATEGORY_DISPLAY[category];
+};
 
 export const isProjectCategory = (obj: unknown): obj is ProjectCategory => {
   if (typeof obj !== "string") {
