@@ -1,4 +1,4 @@
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import * as MsgBox from "@/design/MsgBox";
 import * as NewMsgInput from "@/design/NewMsgInput";
@@ -157,8 +157,8 @@ export const NewMessage = ({
     [send]
   );
   const handleSubmit = useCallback(
-    async (e: { preventDefault: () => void }) => {
-      e.preventDefault();
+    async (e?: { preventDefault: () => void }) => {
+      e && e.preventDefault();
       if (!isEnsName(inputValue) && !isEthAddress(inputValue)) {
         setState({ id: "invalid input" });
         return;
@@ -186,6 +186,12 @@ export const NewMessage = ({
     },
     [inputValue]
   );
+  useEffect(() => {
+    if (inputValue?.slice(inputValue?.length - 4) === ".eth") {
+      handleSubmit();
+    }
+  }, [inputValue, handleSubmit]);
+
   return (
     <Root
       key="newMessage"
