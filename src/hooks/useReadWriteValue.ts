@@ -178,6 +178,24 @@ export const useReadWriteValue = ({
     [requestsObject, unignore]
   );
 
+  const isAccepted = useCallback(
+    ({ conversation }: { conversation: Conversation }) => {
+      if (!requestsObject || !conversation) {
+        return null;
+      }
+
+      const value =
+        requestsObject[
+          `${conversation.peerAddress}${
+            conversation?.context?.conversationId || ""
+          }`
+        ];
+
+      return value === RequestEnum.accepted;
+    },
+    [requestsObject]
+  );
+
   return {
     requestsLoading,
     acceptedLoading: valueIsLoading,
@@ -191,6 +209,7 @@ export const useReadWriteValue = ({
     acceptedConversations,
     ignoredConversations,
     requestedConversations,
+    isAccepted,
   };
 };
 

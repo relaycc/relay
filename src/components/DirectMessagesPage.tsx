@@ -34,6 +34,7 @@ import {
 import { useAccount } from "wagmi";
 import { AuthMenu } from "./AuthMenu";
 import { LoaderAnimGeneral } from "@/design/MsgBox";
+import { useReadWriteValue } from "@/hooks/useReadWriteValue";
 
 export interface MessagesBucketProps {
   bucket: {
@@ -66,7 +67,7 @@ export const DirectMessagesPage: FunctionComponent<{
   const peerAddress = conversation.peerAddress as EthAddress;
   const { messages, sendMessage } = useDirectMessage({
     clientAddress: address as EthAddress,
-    conversation: { peerAddress },
+    conversation,
   });
   const peerOnNetwork = useFetchPeerOnNetwork({
     clientAddress: address as EthAddress,
@@ -82,6 +83,14 @@ export const DirectMessagesPage: FunctionComponent<{
     }
     setLastMessageId(newId);
   }, [messages, lastMessageId, messageIsSending]);
+
+  const { acceptConversations, isAccepted } = useReadWriteValue({
+    clientAddress: address as EthAddress,
+  });
+
+  const accepted = useMemo(() => {
+    return isAccepted({ conversation: { peerAddress } });
+  }, [isAccepted, peerAddress]);
 
   const relayId = useRelayId({ handle: peerAddress });
   const ensName = useMemo(() => {
@@ -113,20 +122,23 @@ export const DirectMessagesPage: FunctionComponent<{
   const toggleInputIsFocused = useCallback(() => {
     setInputIsFocused(!inputIsFocused);
   }, [inputIsFocused]);
+
   const handleSend = useCallback(() => {
     setMessageIsSending(true);
     try {
       sendMessage.mutate({
         content: msgValue,
-        conversation: { peerAddress },
+        conversation,
       });
+      !accepted && acceptConversations({ conversations: [conversation] });
     } catch (e) {
       toggleFailureToast();
       setMessageIsSending(false);
       return;
     }
     setMsgValue("");
-  }, [msgValue, messages]);
+  }, [msgValue, messages, peerAddress, accepted, conversation]);
+
   const messageCount = useMemo(() => messages.data?.length, [messages]);
   const onEnter: KeyboardEventHandler<HTMLInputElement> = useCallback(
     (event) => {
@@ -185,8 +197,7 @@ export const DirectMessagesPage: FunctionComponent<{
               <PurpleLink
                 href="https://xmtp.org/docs/dev-concepts/account-signatures"
                 target="_blank"
-                rel="norefferer"
-              >
+                rel="norefferer">
                 here
               </PurpleLink>
               .
@@ -251,8 +262,7 @@ export const DirectMessagesPage: FunctionComponent<{
           <Toast.Failure.Card
             initial={{ opacity: 0.2 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 0.2 }}
-          >
+            transition={{ duration: 0.2 }}>
             <Toast.Failure.AlertIcon />
             <Toast.Failure.Column>
               <Toast.Failure.Title>Failed to Send Message</Toast.Failure.Title>
@@ -289,13 +299,31 @@ const ListMessages: FunctionComponent<
       return handle;
     }
   }, [handle, relayId]);
-  if (peerAddress === bucket.messages[0].senderAddress) {
+
+  const filteredBucket = useMemo(
+    (): {
+      peerAddress: string;
+      messages: Message[];
+    } => ({
+      peerAddress: bucket.peerAddress,
+      messages: bucket.messages.filter(
+        (mes) => typeof mes.content === "string"
+      ),
+    }),
+    [bucket]
+  );
+
+  if (!filteredBucket.messages.length) {
+    return null;
+  }
+
+  if (peerAddress === filteredBucket.messages[0].senderAddress) {
     return (
       <MsgBundles.Root>
         <MsgBundles.FirstMsgContainer>
           <MsgBundles.StatusIconContainer>
             <Avatar
-              handle={[...bucket.messages].reverse()[0].senderAddress}
+              handle={[...filteredBucket.messages].reverse()[0].senderAddress}
               onClick={() => {}}
               size={"md"}
             />
@@ -305,24 +333,24 @@ const ListMessages: FunctionComponent<
               <ENSName.EnsNameMonofontLg>{ensName}</ENSName.EnsNameMonofontLg>
 
               <MsgBundles.Time.Root>
-                {getDisplayDate([...bucket.messages].reverse()[0].sent)}
+                {getDisplayDate([...filteredBucket.messages].reverse()[0].sent)}
               </MsgBundles.Time.Root>
             </MsgBundles.NameAndDate>
             <MsgBundles.MsgContainer>
-              {!bucket.messages ? (
+              {!filteredBucket.messages ? (
                 <MsgPreview.MsgContainer>
                   <MsgPreview.MsgLoading />
                 </MsgPreview.MsgContainer>
               ) : (
                 <MsgPreview.MsgContainer>
-                  {[...bucket.messages].reverse()[0].content as String}
+                  {[...filteredBucket.messages].reverse()[0].content as String}
                 </MsgPreview.MsgContainer>
               )}
             </MsgBundles.MsgContainer>
           </MsgBundles.UserAndMessage>
         </MsgBundles.FirstMsgContainer>
 
-        {[...bucket.messages]
+        {[...filteredBucket.messages]
           .reverse()
           .slice(1)
           .map((i, index) => (
@@ -332,7 +360,7 @@ const ListMessages: FunctionComponent<
                   {getDisplayDate(i.sent)}
                 </MsgBundles.XxsSizedTime>
               </MsgBundles.HoveredTimeContainer>
-              {!bucket.messages ? (
+              {!filteredBucket.messages ? (
                 <MsgPreview.MsgContainer>
                   <MsgPreview.MsgLoading />
                 </MsgPreview.MsgContainer>
@@ -351,7 +379,7 @@ const ListMessages: FunctionComponent<
       <MsgBundles.FirstMsgContainer>
         <MsgBundles.StatusIconContainer>
           <Avatar
-            handle={[...bucket.messages].reverse()[0].senderAddress}
+            handle={[...filteredBucket.messages].reverse()[0].senderAddress}
             onClick={() => {}}
             size={"md"}
           />
@@ -363,24 +391,24 @@ const ListMessages: FunctionComponent<
             </ENSName.EnsNameMonofontLgColored>
 
             <MsgBundles.Time.Root>
-              {getDisplayDate([...bucket.messages].reverse()[0].sent)}
+              {getDisplayDate([...filteredBucket.messages].reverse()[0].sent)}
             </MsgBundles.Time.Root>
           </MsgBundles.NameAndDate>
           <MsgBundles.MsgContainer>
-            {!bucket.messages ? (
+            {!filteredBucket.messages ? (
               <MsgPreview.MsgContainer>
                 <MsgPreview.MsgLoading />
               </MsgPreview.MsgContainer>
             ) : (
               <MsgPreview.MsgContainer>
-                {[...bucket.messages].reverse()[0].content as String}
+                {[...filteredBucket.messages].reverse()[0].content as String}
               </MsgPreview.MsgContainer>
             )}
           </MsgBundles.MsgContainer>
         </MsgBundles.UserAndMessage>
       </MsgBundles.FirstMsgContainer>
 
-      {[...bucket.messages]
+      {[...filteredBucket.messages]
         .reverse()
         .slice(1)
         .map((i, index) => (
@@ -390,7 +418,7 @@ const ListMessages: FunctionComponent<
                 {getDisplayDate(i.sent)}
               </MsgBundles.XxsSizedTime>
             </MsgBundles.HoveredTimeContainer>
-            {!bucket.messages ? (
+            {!filteredBucket.messages ? (
               <MsgPreview.MsgContainer>
                 <MsgPreview.MsgLoading />
               </MsgPreview.MsgContainer>
