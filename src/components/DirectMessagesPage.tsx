@@ -8,7 +8,6 @@ import React, {
 } from "react";
 import styled from "styled-components";
 import * as ENSName from "@/design/ENSName";
-
 export * as Time from "@/design/Time";
 import * as DMHeader from "@/design/DMHeader";
 import { EthAddress, Message, useDirectMessage } from "@relaycc/xmtp-hooks";
@@ -24,13 +23,16 @@ import { UserDetails } from "@/design/DMHeader";
 import { CloseIcon } from "@/design/CloseIcon";
 import { truncateAddress } from "@/lib/truncateAddress";
 import * as MsgPreview from "@/design/MsgPreview";
-import { textSmallRegular } from "@/design/typography";
+import { textSmallRegular, textMdSemiBold } from "@/design/typography";
 import * as Skeleton from "@/design/Skeleton";
 import { useReceiverWindow } from "@/hooks/useReceiverWindow";
-import { Conversation, useXmtpClient } from "@relaycc/xmtp-hooks";
+import {
+  Conversation,
+  useXmtpClient,
+  useFetchPeerOnNetwork,
+} from "@relaycc/xmtp-hooks";
 import { useAccount } from "wagmi";
 import { AuthMenu } from "./AuthMenu";
-import { LoadingCircle } from "@/design/Skeleton";
 import { LoaderAnimGeneral } from "@/design/MsgBox";
 
 export interface MessagesBucketProps {
@@ -65,6 +67,10 @@ export const DirectMessagesPage: FunctionComponent<{
   const { messages, sendMessage } = useDirectMessage({
     clientAddress: address as EthAddress,
     conversation: { peerAddress },
+  });
+  const peerOnNetwork = useFetchPeerOnNetwork({
+    clientAddress: address as EthAddress,
+    peerAddress: conversation.peerAddress,
   });
   useEffect(() => {
     if (!messages?.data) {
@@ -140,6 +146,7 @@ export const DirectMessagesPage: FunctionComponent<{
   const navigateBack = useCallback(() => {
     setPage({ id: "messages" });
   }, [setPage]);
+
   return (
     <>
       <DMHeader.Root>
@@ -167,15 +174,37 @@ export const DirectMessagesPage: FunctionComponent<{
       </DMHeader.Root>
 
       <ScrollContainer id="chatScroll">
-        {messageCount !== undefined && messageCount < 25 && (
-          <HeadWrapper>
-            <Avatar handle={peerAddress} onClick={() => null} size="xxxl" />
-            <ENSName.EnsNameMd>{ensName}</ENSName.EnsNameMd>
-            <Text>
-              The very beginning of your end-to-end encrypted conversation
-            </Text>
-          </HeadWrapper>
+        {peerOnNetwork.data === false && (
+          <NoResultText>
+            <NoResultTitle>
+              {"User hasn't joined the XMTP network."}
+            </NoResultTitle>
+            <NoResultSubtitle>
+              Until they join the network, they cannot receive messages. Learn
+              more{" "}
+              <PurpleLink
+                href="https://xmtp.org/docs/dev-concepts/account-signatures"
+                target="_blank"
+                rel="norefferer"
+              >
+                here
+              </PurpleLink>
+              .
+            </NoResultSubtitle>
+          </NoResultText>
         )}
+        {peerOnNetwork.data !== null &&
+          peerOnNetwork.data !== undefined &&
+          messageCount !== undefined &&
+          messageCount < 25 && (
+            <HeadWrapper>
+              <Avatar handle={peerAddress} onClick={() => null} size="xxxl" />
+              <ENSName.EnsNameMd>{ensName}</ENSName.EnsNameMd>
+              <Text>
+                The very beginning of your end-to-end encrypted conversation
+              </Text>
+            </HeadWrapper>
+          )}
         <MessagesWrapper>
           {messages.isLoading || !messageBuckets ? (
             <>
@@ -483,4 +512,33 @@ const PinWrapper = styled.div`
   display: flex;
   height: 100%;
   align-items: center;
+`;
+
+const NoResultText = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  row-gap: 4px;
+
+  margin-top: 3.125rem;
+  width: 17.563rem;
+  height: 3rem;
+`;
+
+const NoResultTitle = styled.div`
+  ${textMdSemiBold};
+  color: ${(p) => p.theme.colors.gray["900"]};
+  text-align: center;
+`;
+
+const NoResultSubtitle = styled.div`
+  ${textSmallRegular};
+  color: ${(p) => p.theme.colors.gray["400"]};
+  text-align: center;
+`;
+
+const PurpleLink = styled.a`
+  color: ${(props) => props.theme.colors.primary["700"]};
+  font-weight: bold;
 `;
