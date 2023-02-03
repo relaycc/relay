@@ -179,9 +179,12 @@ export const NewMessage = ({
       conversation: { peerAddress: state.peerAddress as EthAddress },
     });
   }, [isAccepted, state.id]);
+  const inputInvalid = useMemo(() => {
+    return inputMessage.length === 0 || inputMessage.trim().length === 0;
+  }, [inputMessage]);
 
   const send = useCallback(async () => {
-    if (state.id !== "input has address") {
+    if (state.id !== "input has address" || inputInvalid) {
       return;
     } else {
       sendMessage.mutate({
@@ -213,7 +216,8 @@ export const NewMessage = ({
       initial={{ maxHeight: "0" }}
       animate={{ top: "1rem", maxHeight: "99vh" }}
       exit={{ top: "100%" }}
-      transition={{ duration: 0.3 }}>
+      transition={{ duration: 0.3 }}
+    >
       <HeaderWrapper>
         <NewMessageHeader.Root>
           <NewMessageHeader.Title>New Message</NewMessageHeader.Title>
@@ -257,11 +261,13 @@ export const NewMessage = ({
               }
             }
           }
-        }}>
+        }}
+      >
         <NewMsgInput.Root
           isError={state.id === "invalid input"}
           onFocus={() => setInputIsFocused(true)}
-          onBlur={() => setInputIsFocused(false)}>
+          onBlur={() => setInputIsFocused(false)}
+        >
           <NewMsgInput.To>To: </NewMsgInput.To>
 
           <NewMsgInput.TextInput
@@ -275,7 +281,8 @@ export const NewMessage = ({
           />
           <NewMsgInput.IconContainer
             onMouseDown={(e) => e.preventDefault()}
-            onClick={() => null}>
+            onClick={() => null}
+          >
             {(() => {
               if (state.id === "loading") {
                 return <NewMsgInput.LoaderAnimGeneral />;
@@ -310,7 +317,8 @@ export const NewMessage = ({
                 <PurpleLink
                   href="https://xmtp.org/docs/dev-concepts/account-signatures"
                   target="_blank"
-                  rel="norefferer">
+                  rel="norefferer"
+                >
                   here
                 </PurpleLink>
                 .
@@ -327,7 +335,8 @@ export const NewMessage = ({
       <MsgBoxWrapper>
         <MsgBox.Root
           onFocus={() => setMessageInputIsFocused(true)}
-          onBlur={() => setMessageInputIsFocused(false)}>
+          onBlur={() => setMessageInputIsFocused(false)}
+        >
           <MsgBox.MessageInput
             disabled={state.id !== "input has address"}
             onKeyDown={handleKeyDown}
@@ -354,7 +363,9 @@ export const NewMessage = ({
                 return <MsgBox.LoaderAnimGeneral />;
               } else {
                 return (
-                  <MsgBox.ArrowUpCircle isActive={messageInputIsFocused} />
+                  <MsgBox.ArrowUpCircle
+                    isActive={messageInputIsFocused && !inputInvalid}
+                  />
                 );
               }
             })()}

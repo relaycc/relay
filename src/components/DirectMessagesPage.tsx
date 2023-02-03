@@ -8,6 +8,7 @@ import React, {
 } from "react";
 import styled from "styled-components";
 import * as ENSName from "@/design/ENSName";
+
 export * as Time from "@/design/Time";
 import * as DMHeader from "@/design/DMHeader";
 import { EthAddress, Message, useDirectMessage } from "@relaycc/xmtp-hooks";
@@ -122,9 +123,11 @@ export const DirectMessagesPage: FunctionComponent<{
   const toggleInputIsFocused = useCallback(() => {
     setInputIsFocused(!inputIsFocused);
   }, [inputIsFocused]);
-
+  const msgInvalid = useMemo(() => {
+    return msgValue.length === 0 || msgValue.trim().length === 0;
+  }, [msgValue]);
   const handleSend = useCallback(() => {
-    if (msgValue.length === 0 || msgValue.trim().length === 0) {
+    if (msgInvalid) {
       return;
     }
     setMessageIsSending(true);
@@ -200,7 +203,8 @@ export const DirectMessagesPage: FunctionComponent<{
               <PurpleLink
                 href="https://xmtp.org/docs/dev-concepts/account-signatures"
                 target="_blank"
-                rel="norefferer">
+                rel="norefferer"
+              >
                 here
               </PurpleLink>
               .
@@ -253,7 +257,7 @@ export const DirectMessagesPage: FunctionComponent<{
               <LoaderAnimGeneral />
             ) : (
               <MsgBox.ArrowUpCircle
-                isActive={inputIsFocused}
+                isActive={inputIsFocused && !msgInvalid}
                 onClick={handleSend}
               />
             )}
@@ -265,7 +269,8 @@ export const DirectMessagesPage: FunctionComponent<{
           <Toast.Failure.Card
             initial={{ opacity: 0.2 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 0.2 }}>
+            transition={{ duration: 0.2 }}
+          >
             <Toast.Failure.AlertIcon />
             <Toast.Failure.Column>
               <Toast.Failure.Title>Failed to Send Message</Toast.Failure.Title>
