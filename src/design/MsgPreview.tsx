@@ -6,6 +6,7 @@ export const MsgContainer = styled.div`
   ${textMdRegular};
   color: ${receiverTheme.colors.gray["900"]};
   max-width: 19rem;
+  overflow-wrap: anywhere;
 `;
 
 export const MsgLoading = styled.div`
