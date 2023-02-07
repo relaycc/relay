@@ -42,6 +42,12 @@ import { useAnimation } from "framer-motion";
 import { ChatIconBlack } from "@/design/relay/ChatIcon";
 import { CloseIcon } from "@/design/NewMessageHeader";
 import { MobileLogo } from "@/design/MobileLogo";
+import {
+  disableBodyScroll,
+  enableBodyScroll,
+  clearAllBodyScrollLocks,
+} from "body-scroll-lock";
+import MobileMenuComponent from "@/components/MobileMenuComponent";
 
 const translateXForElement = (element: HTMLDivElement) => {
   const transform = element.style.transform;
@@ -75,6 +81,7 @@ export default function Relay({ projects }: { projects: Project[] }) {
   const [width, setWidth] = useState(0);
   const showcaseRef = useRef<HTMLDivElement>(null);
   const showcaseHeaderRef = useRef<HTMLDivElement>(null);
+
   const [searchInput, setSearchInput] = useState<string | null>(null);
   const [messageInputIsError, setMessageInputIsError] = useState(false);
   const [messageInputIsLoading, setMessageInputIsLoading] = useState(false);
@@ -85,9 +92,11 @@ export default function Relay({ projects }: { projects: Project[] }) {
     setShowCommunity(!showCommunity);
   }, [showCommunity]);
   const toggleMobileSearch = useCallback(() => {
-    console.log({ showMobileSearch });
     setShowMobileSearch(!showMobileSearch);
   }, [showMobileSearch]);
+  const toggleShowMenu = useCallback(() => {
+    setShowMenu(!showMenu);
+  }, [showMenu]);
   const [sidebar, setSidebar] = useState<boolean>(false);
   const [showCaseDragging, setShowCaseDragging] = useState<boolean>(false);
   const showcaseDragStop = useCallback(
@@ -279,7 +288,7 @@ export default function Relay({ projects }: { projects: Project[] }) {
               <ConnectButton />
             </Nav.LogoAndNameWrapper>
             <Nav.MobileMenuButtonWrapper>
-              <MenuMobile.MenuIcon onClick={() => setShowMenu(true)} />
+              <MenuMobile.MenuIcon onClick={toggleShowMenu} />
             </Nav.MobileMenuButtonWrapper>
           </Nav.RootDesktop>
           <Nav.RootMobile>
@@ -328,7 +337,7 @@ export default function Relay({ projects }: { projects: Project[] }) {
                 <MobileLogo />
                 <MenuMobile.RightWrapper>
                   <ChatIconBlack onClick={toggleMobileSearch} />
-                  <MenuMobile.MenuIcon onClick={() => setShowMenu(true)} />
+                  <MenuMobile.MenuIcon onClick={toggleShowMenu} />
                 </MenuMobile.RightWrapper>
               </>
             )}
@@ -465,77 +474,7 @@ export default function Relay({ projects }: { projects: Project[] }) {
           onClickRecon={scrollToDirectory}
           onClickRobot={scrollToShowcaseHeader}
         />
-        {showMenu && (
-          <MenuMobile.Overlay>
-            <MenuMobile.Root initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-              <FlexRowSpaceBetween style={{ padding: "0.5rem" }}>
-                <MenuMobile.Logo />
-                <Image
-                  onClick={() => {
-                    setShowMenu(false);
-                  }}
-                  src="/exit.svg"
-                  width={24}
-                  height={24}
-                  alt="close"
-                />
-              </FlexRowSpaceBetween>
-              <MenuMobile.Products>Integrations</MenuMobile.Products>
-              <MenuMobile.ProductButton
-                as="a"
-                href="https://airtable.com/shrD6Xv70iq7WDwoj"
-                target="_blank"
-                rel="noreferrer"
-              >
-                Join the Waitlist
-              </MenuMobile.ProductButton>
-              <MenuMobile.Products>Community</MenuMobile.Products>
-              <MenuMobile.SocialItem
-                as="a"
-                href="https://discord.gg/relaycc"
-                target="_blank"
-                rel="noreferrer"
-              >
-                Discord
-              </MenuMobile.SocialItem>
-              <MenuMobile.SocialItem
-                as="a"
-                href="https://twitter.com/relay_eth"
-                target="_blank"
-                rel="noreferrer"
-              >
-                Twitter
-              </MenuMobile.SocialItem>
-              <MenuMobile.SocialItem
-                as="a"
-                href="https://lenster.xyz/u/relay"
-                target="_blank"
-                rel="noreferrer"
-              >
-                Lens
-              </MenuMobile.SocialItem>
-              <MenuMobile.SocialItem
-                as="a"
-                href="https://mirror.xyz/relaycc.eth"
-                target="_blank"
-                rel="noreferrer"
-              >
-                Mirror
-              </MenuMobile.SocialItem>
-              <MenuMobile.SocialItem
-                as="a"
-                href="https://github.com/relaycc"
-                target="_blank"
-                rel="noreferrer"
-              >
-                GitHub
-              </MenuMobile.SocialItem>
-              <MenuMobile.ConnectButton>
-                Connect Wallet
-              </MenuMobile.ConnectButton>
-            </MenuMobile.Root>
-          </MenuMobile.Overlay>
-        )}
+        {showMenu && <MobileMenuComponent setShowMenu={setShowMenu} />}
         <ReceiverWindow />
         <Sidebar
           {...{ sidebar, setSidebar, activeCategory, setActiveCategory }}
@@ -544,12 +483,6 @@ export default function Relay({ projects }: { projects: Project[] }) {
     </>
   );
 }
-
-const FlexRowSpaceBetween = styled.div`
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-`;
 
 export const getServerSideProps = async (): Promise<{
   props: {

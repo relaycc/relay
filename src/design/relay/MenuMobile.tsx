@@ -24,6 +24,7 @@ export const Root = styled(motion.div)`
   border: 1px solid #d0d5dd;
   border-radius: 8px;
   padding: 1rem;
+  overflow-y: auto;
 `;
 
 export const Products = styled.h6`
