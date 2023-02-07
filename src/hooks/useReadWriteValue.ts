@@ -55,7 +55,8 @@ export const useReadWriteValue = ({
     let counter = 0;
     await new Promise<void>((res, rej) => {
       interval = setInterval(async () => {
-        if (counter++ === 100) {
+        counter += 1;
+        if (counter === 100) {
           clearInterval(interval);
           queue.current = [];
           throw new Error("Event queue error, stuck interval.");
