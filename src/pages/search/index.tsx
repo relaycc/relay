@@ -25,7 +25,6 @@ import {
   categoryToDisplay,
 } from "@/lib/supabase/project";
 import * as MenuMobile from "@/design/relay/MenuMobile";
-import Image from "next/image";
 import { ConnectButton } from "@/components/ConnectButton";
 import { NextRouter, useRouter } from "next/router";
 import { ReceiverWindow } from "@/components/ReceiverWindow";
@@ -42,11 +41,6 @@ import { useAnimation } from "framer-motion";
 import { ChatIconBlack } from "@/design/relay/ChatIcon";
 import { CloseIcon } from "@/design/NewMessageHeader";
 import { MobileLogo } from "@/design/MobileLogo";
-import {
-  disableBodyScroll,
-  enableBodyScroll,
-  clearAllBodyScrollLocks,
-} from "body-scroll-lock";
 import MobileMenuComponent from "@/components/MobileMenuComponent";
 
 const translateXForElement = (element: HTMLDivElement) => {

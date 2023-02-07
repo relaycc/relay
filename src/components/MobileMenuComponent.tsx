@@ -1,25 +1,29 @@
-import { FunctionComponent, useEffect, useRef } from "react";
+import React, { FunctionComponent, Ref, useEffect, useRef } from "react";
 import * as MenuMobile from "@/design/relay/MenuMobile";
 import Image from "next/image";
 import styled from "styled-components";
 import { disableBodyScroll, enableBodyScroll } from "body-scroll-lock";
+import { useVisualViewport } from "@/hooks/useVisualViewport";
 
 const MobileMenuComponent: FunctionComponent<{
   setShowMenu: (value: boolean) => void;
 }> = ({ setShowMenu }) => {
-  const ref = useRef<HTMLDivElement>();
+  const ref = React.useRef<HTMLDivElement>(null);
   useEffect(() => {
-    // @ts-ignore
+    if (ref.current === null) {
+      return;
+    }
+    let refForCleanup = ref.current;
     disableBodyScroll(ref.current);
-
-    // @ts-ignore
-    return enableBodyScroll(ref.current);
+    return () => enableBodyScroll(refForCleanup);
   }, []);
+  const { height } = useVisualViewport();
   return (
     <MenuMobile.Overlay>
       <MenuMobile.Root
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
+        height={height - 15}
         ref={ref}
       >
         <FlexRowSpaceBetween style={{ padding: "0.5rem" }}>
