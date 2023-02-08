@@ -39,22 +39,21 @@ export const RestOfTheMessages = styled(FirstMsgContainer)`
 export const HoveredTimeContainer = styled.div`
   visibility: hidden;
   flex-wrap: nowrap;
-
+  align-items: center;
+  justify-content: center;
   overflow: hidden;
   white-space: nowrap;
-  width: 2.9rem;
+  width: 2.5rem;
 
   ${RestOfTheMessages}:hover & {
     visibility: unset;
     display: flex;
-    align-items: center;
-    justify-content: flex-start;
   }
 `;
 
 export const XxsSizedTime = styled.div`
   ${textXsRegular};
-  font-size: 0.37rem;
+  font-size: 0.5rem;
   color: ${receiverTheme.colors.gray["400"]};
 `;
 

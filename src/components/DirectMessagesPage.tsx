@@ -8,6 +8,7 @@ import React, {
 } from "react";
 import styled from "styled-components";
 import * as ENSName from "@/design/ENSName";
+
 export * as Time from "@/design/Time";
 import * as DMHeader from "@/design/DMHeader";
 import { EthAddress, Message, useDirectMessage } from "@relaycc/xmtp-hooks";
@@ -123,7 +124,14 @@ export const DirectMessagesPage: FunctionComponent<{
     setInputIsFocused(!inputIsFocused);
   }, [inputIsFocused]);
 
+  const msgInvalid = useMemo(() => {
+    return msgValue.length === 0 || msgValue.trim().length === 0;
+  }, [msgValue]);
+  
   const handleSend = useCallback(() => {
+    if (msgInvalid) {
+      return;
+    }
     setMessageIsSending(true);
     try {
       sendMessage.mutate({
@@ -250,7 +258,7 @@ export const DirectMessagesPage: FunctionComponent<{
               <LoaderAnimGeneral />
             ) : (
               <MsgBox.ArrowUpCircle
-                isActive={inputIsFocused}
+                isActive={inputIsFocused && !msgInvalid}
                 onClick={handleSend}
               />
             )}
@@ -357,7 +365,7 @@ const ListMessages: FunctionComponent<
             <MsgBundles.RestOfTheMessages key={index}>
               <MsgBundles.HoveredTimeContainer>
                 <MsgBundles.XxsSizedTime>
-                  {getDisplayDate(i.sent)}
+                  {getDisplayDate(i.sent, true)}
                 </MsgBundles.XxsSizedTime>
               </MsgBundles.HoveredTimeContainer>
               {!filteredBucket.messages ? (
@@ -415,7 +423,7 @@ const ListMessages: FunctionComponent<
           <MsgBundles.RestOfTheMessages key={index}>
             <MsgBundles.HoveredTimeContainer>
               <MsgBundles.XxsSizedTime>
-                {getDisplayDate(i.sent)}
+                {getDisplayDate(i.sent, true)}
               </MsgBundles.XxsSizedTime>
             </MsgBundles.HoveredTimeContainer>
             {!filteredBucket.messages ? (

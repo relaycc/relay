@@ -15,7 +15,7 @@ export const Overlay = styled.div`
   display: flex;
 `;
 
-export const Root = styled(motion.div)`
+export const Root = styled(motion.div)<{ height?: number }>`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -24,6 +24,8 @@ export const Root = styled(motion.div)`
   border: 1px solid #d0d5dd;
   border-radius: 8px;
   padding: 1rem;
+  overflow-y: auto;
+  height: ${(props) => (props.height ? `${props.height}px` : "")};
 `;
 
 export const Products = styled.h6`
