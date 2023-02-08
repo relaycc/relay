@@ -9,7 +9,7 @@ import "@rainbow-me/rainbowkit/styles.css";
 import { XmtpProvider } from "@relaycc/xmtp-hooks";
 import { getDefaultWallets, RainbowKitProvider } from "@rainbow-me/rainbowkit";
 import { PlausibleProvider } from "@/lib/plausible/PlausibleProvider";
-import { LensConfig, staging } from "@lens-protocol/react";
+import { LensConfig, production, staging } from "@lens-protocol/react";
 import { bindings } from "@lens-protocol/wagmi";
 import { localStorage } from "@lens-protocol/react/web";
 import { LensProvider } from "@lens-protocol/react";
@@ -36,16 +36,7 @@ const lensConfig: LensConfig = {
 };
 export default function App({ Component, pageProps }: AppProps) {
   const [worker, setWorker] = useState<Worker | null>(null);
-  // const [lazyImports, setLazyImports] = useState();
-  // const staging = import("@lens-protocol/react").then((lens) => {
-  //   return lens.staging;
-  // });
-  // const bindings = import("@lens-protocol/wagmi").then((wagmi) => {
-  //   return wagmi.bindings;
-  // });
-  // const localStorage = import("@lens-protocol/react/web").then((web) => {
-  //   return web.localStorage;
-  // });
+
   const value = Promise.all([
     import("@lens-protocol/react").then((lens) => {
       return lens.staging;

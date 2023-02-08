@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useMemo, useState } from "react";
+import React, { FunctionComponent, useEffect, useMemo, useState } from "react";
 import { useConnectedWallet } from "@/hooks/useConnectedWallet";
 import { AnimatePresence } from "framer-motion";
 import { EthAddress } from "@relaycc/xmtp-hooks";
@@ -20,7 +20,7 @@ import {
 } from "@/design/typography";
 import { useXmtpClient } from "@relaycc/xmtp-hooks";
 import { InjectedConnector } from "@wagmi/connectors/injected";
-import { useWalletLogin } from "@lens-protocol/react";
+import { useProfile, useWalletLogin } from "@lens-protocol/react";
 
 const SearchWrapper = styled.div`
   padding: 0.5rem 1rem;
@@ -91,6 +91,12 @@ export const MessagesPage: FunctionComponent<IMessagesPageProps> = () => {
       console.log(await login(signer));
     }
   };
+  const { data: profile, loading } = useProfile({
+    handle: "seanb.lens",
+    // profileId: "0x01",
+    // profileId: `${peerAddress}`,
+  });
+  useEffect(() => console.log({ profile, loading }), [profile, loading]);
   const filteredConversations = useMemo(() => {
     if (!searchInput) {
       return acceptedConversations;

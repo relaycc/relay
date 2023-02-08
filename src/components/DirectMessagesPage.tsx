@@ -8,6 +8,7 @@ import React, {
 } from "react";
 import styled from "styled-components";
 import * as ENSName from "@/design/ENSName";
+
 export * as Time from "@/design/Time";
 import * as DMHeader from "@/design/DMHeader";
 import { EthAddress, Message, useDirectMessage } from "@relaycc/xmtp-hooks";
@@ -35,6 +36,7 @@ import { useAccount } from "wagmi";
 import { AuthMenu } from "./AuthMenu";
 import { LoaderAnimGeneral } from "@/design/MsgBox";
 import { useReadWriteValue } from "@/hooks/useReadWriteValue";
+import { useProfile } from "@lens-protocol/react";
 
 export interface MessagesBucketProps {
   bucket: {
@@ -200,7 +202,8 @@ export const DirectMessagesPage: FunctionComponent<{
               <PurpleLink
                 href="https://xmtp.org/docs/dev-concepts/account-signatures"
                 target="_blank"
-                rel="norefferer">
+                rel="norefferer"
+              >
                 here
               </PurpleLink>
               .
@@ -265,7 +268,8 @@ export const DirectMessagesPage: FunctionComponent<{
           <Toast.Failure.Card
             initial={{ opacity: 0.2 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 0.2 }}>
+            transition={{ duration: 0.2 }}
+          >
             <Toast.Failure.AlertIcon />
             <Toast.Failure.Column>
               <Toast.Failure.Title>Failed to Send Message</Toast.Failure.Title>
@@ -302,7 +306,12 @@ const ListMessages: FunctionComponent<
       return handle;
     }
   }, [handle, relayId]);
-
+  const { data: profile, loading } = useProfile({
+    // handle: "digitalax.lens",
+    profileId: "0x016305",
+    // profileId: `${peerAddress}`,
+  });
+  console.log({ profile, loading });
   const filteredBucket = useMemo(
     (): {
       peerAddress: string;
