@@ -94,11 +94,11 @@ export const MessagesPage: FunctionComponent<IMessagesPageProps> = () => {
   }, [acceptedConversations, searchInput]);
   const handleScroll: React.UIEventHandler<HTMLOListElement> = useCallback(
     (e) => {
-      updateScroll(e.target.scrollTop);
+      updateScroll(e.currentTarget.scrollTop);
     },
     []
   );
-  const conversationListRef = useRef<HTMLOListElement>();
+  const conversationListRef = useRef<HTMLOListElement>(null);
   useEffect(() => {
     if (!conversationListRef || !conversationListRef.current) {
       return;

@@ -123,9 +123,11 @@ export const DirectMessagesPage: FunctionComponent<{
   const toggleInputIsFocused = useCallback(() => {
     setInputIsFocused(!inputIsFocused);
   }, [inputIsFocused]);
+
   const msgInvalid = useMemo(() => {
     return msgValue.length === 0 || msgValue.trim().length === 0;
   }, [msgValue]);
+  
   const handleSend = useCallback(() => {
     if (msgInvalid) {
       return;
@@ -203,8 +205,7 @@ export const DirectMessagesPage: FunctionComponent<{
               <PurpleLink
                 href="https://xmtp.org/docs/dev-concepts/account-signatures"
                 target="_blank"
-                rel="norefferer"
-              >
+                rel="norefferer">
                 here
               </PurpleLink>
               .
@@ -269,8 +270,7 @@ export const DirectMessagesPage: FunctionComponent<{
           <Toast.Failure.Card
             initial={{ opacity: 0.2 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 0.2 }}
-          >
+            transition={{ duration: 0.2 }}>
             <Toast.Failure.AlertIcon />
             <Toast.Failure.Column>
               <Toast.Failure.Title>Failed to Send Message</Toast.Failure.Title>

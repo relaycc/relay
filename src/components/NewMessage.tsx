@@ -179,6 +179,7 @@ export const NewMessage = ({
       conversation: { peerAddress: state.peerAddress as EthAddress },
     });
   }, [isAccepted, state.id]);
+
   const inputInvalid = useMemo(() => {
     return inputMessage.length === 0 || inputMessage.trim().length === 0;
   }, [inputMessage]);
