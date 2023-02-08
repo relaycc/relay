@@ -92,4 +92,34 @@ export const ROBOT_CARDS: Record<string, Robot> = {
     animateBgColor: "#E3F2F0",
     initialBgColor: "#55B0A1",
   },
+  optimism: {
+    peerAddress: "0xe633367FfFaE9615430E3A410Ecf362e73c6d98E",
+    icon: Card.Optimism,
+    animateBgColor: "#FFD6DB",
+    initialBgColor: "#FF0420",
+  },
+  polygon: {
+    peerAddress: "0x9B3899e926f05cE1760e9c6370bE792248c86338",
+    icon: Card.Polygon,
+    animateBgColor: "#E7DBFB",
+    initialBgColor: "#8546E8",
+  },
+  arbitrum: {
+    peerAddress: "0x314443a93f427A82A54188aCD376b1c2EBc80677",
+    icon: Card.Arbitrum,
+    animateBgColor: "#E5E9F0",
+    initialBgColor: "#2C374B",
+  },
+  zksync: {
+    peerAddress: "0xEa478BB38be929D5aD0143065AA7990C45B3A655",
+    icon: Card.ZkSync,
+    animateBgColor: "#E4E5F1",
+    initialBgColor: "#1D2039",
+  },
+  aztec: {
+    peerAddress: "0xEf2e90d63Bea22564fA21EB242666a7Ed3c24E05",
+    icon: Card.Aztec,
+    animateBgColor: "#E9E2F3",
+    initialBgColor: "#301F49",
+  },
 };
