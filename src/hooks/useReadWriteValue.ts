@@ -4,15 +4,16 @@ import {
   useConversations,
   useReadValue,
   useWriteValue,
-  XmtpContext,
+  useXmtpClient,
 } from "@relaycc/xmtp-hooks";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 const REQUEST_CONVERSATION_ID = "relay.cc/requests/v1";
 
 export enum RequestEnum {
   accepted = "accepted",
   ignored = "ignored",
+  requested = "requested",
 }
 
 interface UseReadWriteValueProps {
@@ -30,6 +31,61 @@ export const useReadWriteValue = ({
   const { data: conversations, isLoading: requestsLoading } = useConversations({
     clientAddress,
   });
+
+  const { data: xmtpClient } = useXmtpClient({ clientAddress });
+
+  // const a = new XmtpClient();
+  const queue = useRef<Array<{ [key: string]: RequestEnum }>>([]);
+
+  const running = useRef<boolean>(false);
+
+  const processQueue = async () => {
+    running.current = true;
+
+    const [head, ...tail] = queue.current;
+    queue.current = tail;
+
+    const v = await xmtpClient?.readValue(REQUEST_CONVERSATION_ID);
+    const newValue = JSON.stringify({
+      ...JSON.parse(v as string),
+      ...head,
+    });
+    write({ content: newValue });
+    let interval: NodeJS.Timer;
+    let counter = 0;
+    await new Promise<void>((res, rej) => {
+      interval = setInterval(async () => {
+        counter += 1;
+        if (counter === 100) {
+          clearInterval(interval);
+          queue.current = [];
+          throw new Error("Event queue error, stuck interval.");
+        }
+        const value = await xmtpClient?.readValue(REQUEST_CONVERSATION_ID);
+        if (
+          JSON.parse(value as string)[Object.keys(head)[0]] ===
+          Object.values(head)[0]
+        ) {
+          res();
+        }
+      }, 100);
+    });
+    // @ts-ignore
+    interval && clearInterval(interval);
+
+    if (queue.current?.length) {
+      processQueue();
+    } else {
+      running.current = false;
+    }
+  };
+
+  const addToQueue = (item: Array<{ [key: string]: RequestEnum }>) => {
+    queue.current = [...item, ...queue.current];
+    if (!running.current) {
+      processQueue();
+    }
+  };
 
   const {
     data: value,
@@ -111,7 +167,7 @@ export const useReadWriteValue = ({
     return conversations.filter((convo) => {
       const requestItem = requestsObject[getKeyFromConversation(convo)];
       return (
-        requestItem === undefined &&
+        (requestItem === undefined || requestItem === RequestEnum.requested) &&
         convo.context?.conversationId !== REQUEST_CONVERSATION_ID
       );
     });
@@ -123,19 +179,11 @@ export const useReadWriteValue = ({
         return;
       }
 
-      const newKeys = conversations.reduce(
-        (acc, convo) => ({
-          ...acc,
+      addToQueue(
+        conversations.map((convo) => ({
           [getKeyFromConversation(convo)]: RequestEnum.accepted,
-        }),
-        {}
+        }))
       );
-
-      const newObject = {
-        ...requestsObject,
-        ...newKeys,
-      };
-      accept({ content: JSON.stringify(newObject) });
     },
     [requestsObject, accept]
   );
@@ -146,19 +194,11 @@ export const useReadWriteValue = ({
         return;
       }
 
-      const newKeys = conversations.reduce(
-        (acc, convo) => ({
-          ...acc,
+      addToQueue(
+        conversations.map((convo) => ({
           [getKeyFromConversation(convo)]: RequestEnum.ignored,
-        }),
-        {}
+        }))
       );
-
-      const newObject = {
-        ...requestsObject,
-        ...newKeys,
-      };
-      ignore({ content: JSON.stringify(newObject) });
     },
     [requestsObject, ignore]
   );
@@ -169,11 +209,11 @@ export const useReadWriteValue = ({
         return;
       }
 
-      const newObject = {
-        ...requestsObject,
-      };
-      delete newObject[getKeyFromConversation(conversation)];
-      unignore({ content: JSON.stringify(newObject) });
+      addToQueue([
+        {
+          [getKeyFromConversation(conversation)]: RequestEnum.requested,
+        },
+      ]);
     },
     [requestsObject, unignore]
   );

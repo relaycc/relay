@@ -268,7 +268,7 @@ const IgnoredChat: FunctionComponent<{
       return;
     }
     handleUnignore({ conversation });
-  }, [conversation]);
+  }, [conversation, handleUnignore]);
 
   const lastMessage = data?.[0];
 
