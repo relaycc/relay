@@ -2,9 +2,10 @@ const { withPlausibleProxy } = require("next-plausible");
 const { startTransition } = require("react");
 const { validateLocaleAndSetLanguage } = require("typescript");
 
-/** @type {import('next').NextConfig} */
+/** @type {import("next").NextConfig} */
 const nextConfig = withPlausibleProxy()({
   reactStrictMode: true,
+  transpilePackages: ["@lens-protocol"],
   swcMinify: true,
   webpack: (config, { isServer }) => {
     if (!isServer) {

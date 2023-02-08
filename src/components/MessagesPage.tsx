@@ -12,13 +12,15 @@ import { useReadWriteValue } from "@/hooks/useReadWriteValue";
 import { ChatsPreview } from "./ChatsPreview";
 import RequestPreview from "@/components/RequestPreview";
 import { AuthMenu } from "./AuthMenu";
-import { useAccount } from "wagmi";
+import { useAccount, useConnect } from "wagmi";
 import {
   textSmallBold,
   textMdSemiBold,
   textSmallRegular,
 } from "@/design/typography";
 import { useXmtpClient } from "@relaycc/xmtp-hooks";
+import { InjectedConnector } from "@wagmi/connectors/injected";
+import { useWalletLogin } from "@lens-protocol/react";
 
 const SearchWrapper = styled.div`
   padding: 0.5rem 1rem;
@@ -68,7 +70,27 @@ export const MessagesPage: FunctionComponent<IMessagesPageProps> = () => {
   const { acceptedConversations, acceptedLoading } = useReadWriteValue({
     clientAddress: address as EthAddress,
   });
+  const {
+    login,
+    error: loginError,
+    isPending: isLoginPending,
+  } = useWalletLogin();
 
+  const { connectAsync } = useConnect({
+    connector: new InjectedConnector(),
+  });
+  const onLoginClick = async () => {
+    // if (isConnected) {
+    //   await disconnectAsync();
+    // }
+
+    const { connector } = await connectAsync();
+
+    if (connector instanceof InjectedConnector) {
+      const signer = await connector.getSigner();
+      console.log(await login(signer));
+    }
+  };
   const filteredConversations = useMemo(() => {
     if (!searchInput) {
       return acceptedConversations;
@@ -84,7 +106,7 @@ export const MessagesPage: FunctionComponent<IMessagesPageProps> = () => {
   return (
     <>
       <HomeHeader.Root>
-        <HomeHeader.Title>Messages</HomeHeader.Title>
+        <HomeHeader.Title onClick={onLoginClick}>Messages</HomeHeader.Title>
         <HomeHeader.IconContainer>
           <HomeHeader.Avatar
             handle={address as EthAddress}
