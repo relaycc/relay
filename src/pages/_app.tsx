@@ -11,6 +11,8 @@ import { getDefaultWallets, RainbowKitProvider } from "@rainbow-me/rainbowkit";
 import { PlausibleProvider } from "@/lib/plausible/PlausibleProvider";
 import "../styles/baseStyles.css";
 import Head from "next/head";
+import "prosemirror-example-setup/style/style.css";
+import "prosemirror-view/style/prosemirror.css";
 
 export const { chains, provider } = configureChains(
   [mainnet, polygon, optimism, arbitrum],
