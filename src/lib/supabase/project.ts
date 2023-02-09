@@ -1,22 +1,23 @@
 export const CATEGORIES = [
+  "robots",
   "general",
-  "new",
+  "infrastructure",
+  "defi",
+  "dao",
+  "music",
   "venture",
+  "impactdao",
   "lens",
   "identity",
   "events",
-  "music",
-  "impactdao",
-  "defi",
-  "dao",
   "zk",
   "daotool",
-  "infrastructure",
 ] as const;
 
 export type ProjectCategory = (typeof CATEGORIES)[number];
 
 export const CATEGORY_DISPLAY = {
+  robots: "Robots",
   general: "General",
   new: "New",
   venture: "Venture",
@@ -28,7 +29,7 @@ export const CATEGORY_DISPLAY = {
   defi: "DeFi",
   dao: "DAO",
   zk: "ZK",
-  daotool: "DAO Tool",
+  daotool: "DAO Tools",
   infrastructure: "Infrastructure",
 } as const;
 
@@ -60,8 +61,8 @@ export const fromListToByCategory = (
   list: Project[]
 ): Record<Project["category"], Project[]> => {
   const result: Record<Project["category"], Project[]> = {
+    robots: [],
     general: [],
-    new: [],
     venture: [],
     lens: [],
     events: [],
