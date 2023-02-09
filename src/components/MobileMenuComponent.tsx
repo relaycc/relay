@@ -96,7 +96,6 @@ const MobileMenuComponent: FunctionComponent<{
     </MenuMobile.Overlay>
   );
 };
-const ConnectWrapper = styled.div``;
 const FlexRowSpaceBetween = styled.div`
   display: flex;
   justify-content: space-between;
