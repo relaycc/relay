@@ -4,6 +4,7 @@ import Image from "next/image";
 import styled from "styled-components";
 import { disableBodyScroll, enableBodyScroll } from "body-scroll-lock";
 import { useVisualViewport } from "@/hooks/useVisualViewport";
+import { ConnectButton } from "@/components/ConnectButton";
 
 const MobileMenuComponent: FunctionComponent<{
   setShowMenu: (value: boolean) => void;
@@ -88,7 +89,9 @@ const MobileMenuComponent: FunctionComponent<{
         >
           GitHub
         </MenuMobile.SocialItem>
-        <MenuMobile.ConnectButton>Connect Wallet</MenuMobile.ConnectButton>
+        <MenuMobile.ConnectButton>
+          <ConnectButton isMobile={true} />
+        </MenuMobile.ConnectButton>
       </MenuMobile.Root>
     </MenuMobile.Overlay>
   );
