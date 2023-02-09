@@ -128,20 +128,33 @@ export const useReadWriteValue = ({
 
   const acceptedConversations = useMemo(
     function (): Conversation[] {
-      if (valueIsLoading || valueIsError || !requestsObject) {
+      if (valueIsLoading || valueIsError || !requestsObject || !conversations) {
         return [];
       }
-      const accepted: Conversation[] = [];
-      Object.entries(requestsObject).forEach(([key, value]) => {
-        if (value !== RequestEnum.accepted) {
-          return;
-        } else {
-          accepted.push(getConversationFromKey(key));
-        }
-      });
-      return accepted;
+      const sortArray = conversations?.map(
+        (item) => item.peerAddress + item.context?.conversationId
+      );
+      const accepted = Object.entries(requestsObject)
+        .map(([key, value]) => {
+          if (value !== RequestEnum.accepted) {
+            return;
+          } else {
+            return getConversationFromKey(key);
+          }
+        })
+        .filter(Boolean)
+        .sort(
+          (a, b) =>
+            sortArray.indexOf(
+              (a?.peerAddress as EthAddress) + a?.context?.conversationId
+            ) -
+            sortArray.indexOf(
+              (b?.peerAddress as EthAddress) + b?.context?.conversationId
+            )
+        );
+      return accepted as Conversation[];
     },
-    [requestsObject, valueIsLoading, valueIsError]
+    [requestsObject, valueIsLoading, valueIsError, conversations]
   );
 
   const ignoredConversations = useMemo((): Conversation[] => {
