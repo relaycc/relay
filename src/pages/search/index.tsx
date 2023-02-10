@@ -70,7 +70,7 @@ export default function Relay({ projects }: { projects: Project[] }) {
     }
   })();
   const [activeCategory, setActiveCategory] = useState<ProjectCategory>(
-    queryCategory || "general"
+    queryCategory || "robots"
   );
   const [width, setWidth] = useState(0);
   const showcaseRef = useRef<HTMLDivElement>(null);

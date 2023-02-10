@@ -13,6 +13,7 @@ import { EthAddress, isEthAddress } from "@relaycc/xmtp-hooks";
 import { useRelayId } from "@/hooks/useRelayId";
 import { useGoToDm, useReceiverWindow } from "@/hooks/useReceiverWindow";
 import { useInView } from "@/hooks/useInView";
+import { Card } from "./Card";
 
 const Description = styled(motion.p)`
   display: flex;
@@ -70,7 +71,8 @@ const FlexRow = styled.div`
 const Wrapper = styled(FlexRow)`
   margin-top: 0;
   gap: 0.5rem;
-
+  visibility: hidden;
+}
   @media screen and (min-width: 400px) {
     margin-top: auto;
     gap: 1rem;
@@ -83,6 +85,9 @@ const PrimaryButton = styled(ButtonPrimary)`
 
 const SecondaryButton = styled(ButtonSecondary)`
   width: 100%;
+  :hover {
+    background: ${(p) => p.theme.colors.primary["100"]};
+  }
 
   @media screen and (min-width: 400px) {
     width: 91px;
@@ -133,7 +138,6 @@ export const DirectoryCard = ({
             style={{ borderRadius: "4px" }}
           />
         </DescriptionHeader>
-        <Category>{category}</Category>
         <Description>{description}</Description>
         <Wrapper>
           <SecondaryButton as="a" href={url} target="_blank" rel="noreferrer">
@@ -160,10 +164,17 @@ const Root = styled(motion.div)`
   height: 100%;
   padding: 14px;
   background: #ffffff;
-  border: 1px solid ${(props) => props.theme.colors.gray["200"]};
+  border: 2px solid ${(props) => props.theme.colors.gray["200"]};
   box-shadow: 0 1px 3px rgba(16, 24, 40, 0.1), 0 1px 2px rgba(16, 24, 40, 0.06);
   border-radius: 8px;
   position: relative;
+
+  :hover {
+    border: 2px solid ${(p) => p.theme.colors.primary["500"]};
+    ${Wrapper}{
+      visibility: visible;
+    }
+  }
 
   @media screen and (min-width: 400px) {
     width: 252px;
@@ -176,6 +187,8 @@ const DescriptionRoot = styled(motion.div)`
   flex-direction: column;
   height: 100%;
 `;
+
+
 
 const sanitizeLogo = (logo: string) => {
   if (logo.startsWith("/")) {
