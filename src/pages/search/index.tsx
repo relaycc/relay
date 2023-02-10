@@ -80,8 +80,8 @@ export default function Relay({ projects }: { projects: Project[] }) {
   const [messageInputIsError, setMessageInputIsError] = useState(false);
   const [messageInputIsLoading, setMessageInputIsLoading] = useState(false);
   const [showMenu, setShowMenu] = useState(false);
-  const [showCommunity, setShowCommunity] = useState(false);
   const [showMobileSearch, setShowMobileSearch] = useState<boolean>(false);
+  const [showCommunity, setShowCommunity] = useState(false);
   const toggleCommunity = useCallback(() => {
     setShowCommunity(!showCommunity);
   }, [showCommunity]);
@@ -693,16 +693,16 @@ const FlexWrapRow = styled.div`
 const CommunityRoot = styled.div`
   position: relative;
 `;
-const ProductsRoot = styled.div`
-  position: relative;
-  margin-left: auto;
-  margin-right: 1.5rem;
-`;
-
 const CommunityCard = styled(Nav.DropdownCard)`
   position: absolute;
   left: -17px;
   z-index: 1;
+`;
+
+const ProductsRoot = styled.div`
+  position: relative;
+  margin-left: auto;
+  margin-right: 1.5rem;
 `;
 const ProductsCard = styled(Nav.DropdownCard)`
   position: absolute;
