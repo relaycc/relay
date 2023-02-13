@@ -47,7 +47,8 @@ export const Sound = styled((props: ComponentProps<"svg">) => (
     viewBox="0 0 174 174"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
-    {...props}>
+    {...props}
+  >
     <rect width="174" height="174" rx="87" fill="black" />
     <g clipPath="url(#clip0_463_9122)">
       <path
@@ -75,7 +76,8 @@ export const MakerDao = styled((props: ComponentProps<"svg">) => (
     viewBox="0 0 174 174"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
-    {...props}>
+    {...props}
+  >
     <rect width="174" height="174" rx="87" fill="#55B0A1" />
     <g clipPath="url(#clip0_463_9071)">
       <path
@@ -618,7 +620,7 @@ export const Optimism = styled((props: ComponentProps<"svg">) => (
     xmlns="http://www.w3.org/2000/svg"
   >
     <rect width="174" height="174" rx="87" fill="#FF0420" />
-    <g clip-path="url(#clip0_745_15405)">
+    <g clipPath="url(#clip0_745_15405)">
       <path
         fillRule="evenodd"
         clipRule="evenodd"
