@@ -8,7 +8,6 @@ import { mdParser } from "./markdownParser";
 import { Node, Slice } from "prosemirror-model";
 import { linkify } from "./linkify";
 import { imagePlugin } from "prosemirror-image-plugin";
-
 import "prosemirror-image-plugin/dist/styles/common.css";
 
 export const useEditor = (viewRef: MutableRefObject<EditorView | null>) => {
@@ -25,10 +24,7 @@ export const useEditor = (viewRef: MutableRefObject<EditorView | null>) => {
         schema: defaultSchema,
         doc: mdParser.parse(content) as Node,
         plugins: [
-          ...exampleSetup({
-            schema: defaultSchema,
-            menuBar: false,
-          }),
+          ...exampleSetup({ schema: defaultSchema, menuBar: false }),
           imagePlugin(defaultSchema, { ...imageSettings }),
         ],
       }),

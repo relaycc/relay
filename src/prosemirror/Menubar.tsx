@@ -33,7 +33,6 @@ export const Menubar: FunctionComponent<{
       !viewRef.current?.state ||
       !viewRef.current?.dispatch
     ) {
-      console.log("returning");
       return;
     }
     toggleMark(markType)(viewRef.current.state, viewRef.current.dispatch);
@@ -43,7 +42,8 @@ export const Menubar: FunctionComponent<{
     <Root>
       <Button onClick={() => toggle(defaultSchema.marks.strong)}>bold</Button>
       <Button onClick={() => toggle(defaultSchema.marks.em)}>italic</Button>
-      <Button onClick={() => toggle(defaultSchema.marks.del)}>
+      <Button onClick={() => toggle(defaultSchema.marks.code)}>code</Button>
+      <Button onClick={() => toggle(defaultSchema.marks.strikethrough)}>
         striketrough
       </Button>
       <Button onClick={() => toggle(defaultSchema.marks.del)}>link</Button>
