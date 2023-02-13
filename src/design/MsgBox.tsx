@@ -1,21 +1,18 @@
 import styled from "styled-components";
 import { receiverTheme } from "@/design/receiverTheme";
 import { textSmallRegular } from "@/design/typography";
-import { Menubar } from "@/prosemirror/Menubar";
-import { FunctionComponent, RefObject } from "react";
+import { FunctionComponent, RefObject, useMemo } from "react";
 import { EditorView } from "prosemirror-view";
-
+import { Menubar } from "../prosemirror/Menubar";
 export { LoaderAnimGeneral } from "@/design/LoaderAnimGeneral";
 export { ArrowUpCircle } from "@/design/ArrowUpCircle";
+export { AttachmentIcon } from "@/design/AttachmentIcon";
 
 export const Root = styled.div`
   display: flex;
   justify-content: space-evenly;
   align-items: center;
 
-  padding: 0.625rem 1rem;
-  border-radius: 1.5rem;
-  background-color: ${receiverTheme.colors.gray["100"]};
   width: 100%;
 `;
 
@@ -36,11 +33,6 @@ export const MessageInput = styled.input`
   width: 94%;
 `;
 
-const Wrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
-
 export const IconContainer = styled.div`
   display: flex;
   justify-content: center;
@@ -48,20 +40,25 @@ export const IconContainer = styled.div`
   cursor: pointer;
 `;
 
+const Editor = styled.div`
+  width: 20rem;
+  height: 3rem;
+  border: none !important;
+  margin: 0 !important;
+`;
+
+const Wrapper = styled.div`
+  position: relative;
+`;
+
 export const ProsemirrorEditorInput: FunctionComponent<{
   viewRef: RefObject<EditorView | null>;
-}> = ({ viewRef }) => {
+  isEmpty: boolean;
+}> = ({ viewRef, isEmpty }) => {
   return (
     <Wrapper>
-      <Menubar viewRef={viewRef} />
-      <div
-        id="editor"
-        style={{
-          width: "20rem",
-          borderRadius: "4px",
-          border: "1px solid lightgrey",
-        }}
-      />
+      <Menubar viewRef={viewRef} open={!isEmpty} />
+      <Editor id="editor" />
     </Wrapper>
   );
 };

@@ -1,4 +1,4 @@
-import { MutableRefObject, useEffect, useState } from "react";
+import { MutableRefObject, useCallback, useEffect, useState } from "react";
 import { EditorView } from "prosemirror-view";
 import { EditorState } from "prosemirror-state";
 import { defaultSchema, imageSettings } from "./defaultSchema";
@@ -8,10 +8,12 @@ import { mdParser } from "./markdownParser";
 import { Node, Slice } from "prosemirror-model";
 import { linkify } from "./linkify";
 import { imagePlugin } from "prosemirror-image-plugin";
+import { startImageUpload } from "prosemirror-image-plugin";
 import "prosemirror-image-plugin/dist/styles/common.css";
 
 export const useEditor = (viewRef: MutableRefObject<EditorView | null>) => {
   const [content, setContent] = useState<string>("");
+  const [isEmpty, setIsEmpty] = useState<boolean>(true);
 
   useEffect(() => {
     const editor = document.querySelector("#editor");
@@ -35,10 +37,11 @@ export const useEditor = (viewRef: MutableRefObject<EditorView | null>) => {
         const view = viewRef.current;
 
         console.log({ tr });
-        const state = view.state.apply(tr);
-        view.updateState(state);
-        const md = mdSerializer.serialize(state.doc);
-        console.log({ state, md });
+        const newState = view.state.apply(tr);
+        setIsEmpty(newState.selection.empty);
+        view.updateState(newState);
+        const md = mdSerializer.serialize(newState.doc);
+        console.log({ newState, md });
         setContent(md);
       },
       transformPasted: (slice: Slice) => {
@@ -55,5 +58,25 @@ export const useEditor = (viewRef: MutableRefObject<EditorView | null>) => {
     };
   }, []);
 
-  return { content };
+  const handleUploadAttachment = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      if (
+        viewRef.current?.state.selection.$from.parent.inlineContent &&
+        e.target.files?.length
+      ) {
+        const file = e.target.files[0];
+        startImageUpload(
+          viewRef.current,
+          file,
+          file.name,
+          imageSettings,
+          defaultSchema,
+          viewRef.current.state.selection.from
+        );
+      }
+    },
+    []
+  );
+
+  return { content, isEmpty, handleUploadAttachment };
 };

@@ -55,7 +55,7 @@ export const DirectMessagesPage: FunctionComponent<{
   conversation: Conversation;
 }> = ({ conversation }) => {
   const viewRef = useRef<EditorView | null>(null);
-  const { content } = useEditor(viewRef);
+  const { content, isEmpty, handleUploadAttachment } = useEditor(viewRef);
 
   const { address, isConnected } = useAccount();
   const xmtpClient = useXmtpClient({
@@ -193,6 +193,14 @@ export const DirectMessagesPage: FunctionComponent<{
     setPage({ id: "messages" });
   }, [setPage]);
 
+  const fileRef = useRef<HTMLInputElement>(null);
+  const callFileInput = useCallback(() => {
+    if (!fileRef.current) {
+      return;
+    }
+    fileRef.current.click();
+  }, []);
+
   return (
     <>
       <Head>
@@ -273,21 +281,29 @@ export const DirectMessagesPage: FunctionComponent<{
           )}
         </MessagesWrapper>
       </ScrollContainer>
-      <MsgBoxWrapper>
-        <MsgBox.Root>
-          <MsgBox.ProsemirrorEditorInput viewRef={viewRef} />
-          <MsgBox.IconContainer>
-            {messageIsSending ? (
-              <LoaderAnimGeneral />
-            ) : (
-              <MsgBox.ArrowUpCircle
-                isActive={inputIsFocused && !msgInvalid}
-                onClick={handleRichTextSend}
-              />
-            )}
-          </MsgBox.IconContainer>
-        </MsgBox.Root>
-      </MsgBoxWrapper>
+      <MsgBox.Root>
+        <MsgBox.IconContainer>
+          <input
+            type="file"
+            ref={fileRef}
+            style={{ display: "none" }}
+            accept="image/png, image/gif, image/jpeg"
+            onChange={handleUploadAttachment}
+          />
+          <MsgBox.AttachmentIcon onClick={callFileInput} />
+        </MsgBox.IconContainer>
+        <MsgBox.ProsemirrorEditorInput viewRef={viewRef} isEmpty={isEmpty} />
+        <MsgBox.IconContainer>
+          {messageIsSending ? (
+            <LoaderAnimGeneral />
+          ) : (
+            <MsgBox.ArrowUpCircle
+              isActive={inputIsFocused && !msgInvalid}
+              onClick={handleRichTextSend}
+            />
+          )}
+        </MsgBox.IconContainer>
+      </MsgBox.Root>
       {showFailureToast && (
         <ToastPosition>
           <Toast.Failure.Card
@@ -395,6 +411,7 @@ const ListMessages: FunctionComponent<
             .slice(1)
             .map((i, index) => (
               <Messages
+                key={index}
                 i={i}
                 index={index}
                 messages={filteredBucket.messages}
@@ -447,7 +464,12 @@ const ListMessages: FunctionComponent<
           .reverse()
           .slice(1)
           .map((i, index) => (
-            <Messages i={i} index={index} messages={filteredBucket.messages} />
+            <Messages
+              key={index}
+              i={i}
+              index={index}
+              messages={filteredBucket.messages}
+            />
           ))}
       </MsgBundles.Root>
     );

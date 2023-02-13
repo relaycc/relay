@@ -1,9 +1,4 @@
-import React, {
-  FunctionComponent,
-  useCallback,
-  useEffect,
-  useRef,
-} from "react";
+import React, { FunctionComponent, useCallback } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import styled from "styled-components";
 import { CATEGORIES, Project } from "@/lib/supabase/project";

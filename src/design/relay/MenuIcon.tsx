@@ -12,9 +12,9 @@ export const MenuIcon = styled((props: ComponentProps<"svg">) => (
     <path
       d="M6 12H18M3 6H21M9 18H15"
       stroke="#101828"
-      stroke-width="2"
-      stroke-linecap="round"
-      stroke-linejoin="round"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
     />
   </svg>
 ))`

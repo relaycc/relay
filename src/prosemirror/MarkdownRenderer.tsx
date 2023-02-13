@@ -54,10 +54,11 @@ export const MarkdownRenderer: FunctionComponent<{ content: string }> = ({
 
   return (
     <ReactMarkdown
-      children={content}
       remarkPlugins={[remarkGfm, remarkGemoji, [emoji, { emoticon: true }]]}
       components={MarkdownComponents}
-    />
+    >
+      {content}
+    </ReactMarkdown>
   );
 };
 

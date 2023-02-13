@@ -43,7 +43,6 @@ export const Component: FunctionComponent<
         data: { url, title, description, images },
       } = await data.json();
 
-      console.log({ url, title, description, images });
       setPreview({ url, title, description, images });
     });
   }, [href]);

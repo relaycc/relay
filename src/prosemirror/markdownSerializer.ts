@@ -22,18 +22,20 @@ const serializerNodes = {
     // Make sure the front matter fences are longer than any dash sequence within it
     const backticks = node.textContent.match(/`{3,}/gm);
     const fence = backticks ? backticks.sort().slice(-1)[0] + "`" : "```";
-    const [head, ...rest] = node.textContent?.split(" ");
+    const head = node.textContent?.split(" ")?.[0];
+    const rest = node.textContent?.split(" ")?.slice(1).join(" ");
 
     if (
-      head === "ts" ||
-      head === "js" ||
-      head === "tsx" ||
-      head === "json" ||
-      head === "py" ||
-      head === "sh"
+      head &&
+      (head === "ts" ||
+        head === "js" ||
+        head === "tsx" ||
+        head === "json" ||
+        head === "py" ||
+        head === "sh")
     ) {
       state.write(fence + head + (node.attrs.params || "") + "\n");
-      state.text(rest.join(" "), false);
+      state.text(rest, false);
     } else {
       state.write(fence + (node.attrs.params || "") + "\n");
       state.text(node.textContent, false);
