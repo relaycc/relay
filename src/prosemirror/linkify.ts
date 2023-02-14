@@ -1,23 +1,23 @@
 import { Fragment, Node } from "prosemirror-model";
 
-// var url = /\bhttps?:\/\/[\w_\/\.]+/g;
+// const url = /\bhttps?:\/\/[\w_\/\.]+/g;
 export const url =
-  /^(http(s):\/\/.)[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)$/g;
+  /^(http(s):\/\/.)[-a-zA-Z0-9@:%._+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_+.~#?&//=]*)$/g;
 
 // Expand urls in text nodes in a given fragment to linked text
 // (and recursively go through child nodes)
 export const linkify = (fragment: Fragment) => {
-  var linkified: Node[] = [];
+  const linkified: Node[] = [];
   fragment.forEach(function (child) {
     if (child.isText) {
       const text = child.text as string;
-      var pos = 0,
+      let pos = 0,
         match;
 
       while ((match = url.exec(text))) {
-        var start = match.index;
-        var end = start + match[0].length;
-        var link = child.type.schema.marks["link"];
+        const start = match.index;
+        const end = start + match[0].length;
+        const link = child.type.schema.marks["link"];
 
         // simply copy across the text from before the match
         if (start > 0) {

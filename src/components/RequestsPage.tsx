@@ -2,7 +2,6 @@ import React, {
   FunctionComponent,
   useCallback,
   useMemo,
-  useEffect,
   useState,
 } from "react";
 import styled from "styled-components";
@@ -24,7 +23,6 @@ import {
   Conversation,
   EthAddress,
   Message,
-  useConversations,
   useDirectMessage,
 } from "@relaycc/xmtp-hooks";
 import { useReadWriteValue } from "@/hooks/useReadWriteValue";
@@ -36,7 +34,7 @@ import { useGoToMessages } from "@/hooks/useReceiverWindow";
 import { useAccount } from "wagmi";
 import { LoadingText } from "@/design/relay/LoadingText";
 
-export const RequestsPage: FunctionComponent<{}> = () => {
+export const RequestsPage: FunctionComponent = () => {
   const goToMessages = useGoToMessages();
   const { address } = useAccount();
   const [editing, setEditing] = useState(false);
@@ -123,7 +121,8 @@ export const RequestsPage: FunctionComponent<{}> = () => {
             initial={{ maxHeight: "0" }}
             animate={{ top: "1rem", maxHeight: "32rem" }}
             exit={{ top: "100%" }}
-            transition={{ duration: 0.3 }}>
+            transition={{ duration: 0.3 }}
+          >
             {requestsLoading ? (
               <>
                 <Loading />
@@ -168,14 +167,7 @@ const RequestedChat: FunctionComponent<{
   conversation: Conversation;
   editing: boolean;
   handleAccept: () => void;
-}> = ({
-  editing,
-  handleAccept,
-  conversation,
-  address,
-  setSelected,
-  selected,
-}) => {
+}> = ({ editing, conversation, address, setSelected, selected }) => {
   const toggleSelected = useCallback(() => {
     if (selected.includes(conversation)) {
       setSelected(selected.filter((convo) => convo !== conversation));
@@ -324,7 +316,8 @@ const FailToast: FunctionComponent<{
       <Toast.Failure.Card
         initial={{ opacity: 0.2 }}
         animate={{ opacity: 1 }}
-        transition={{ duration: 0.2 }}>
+        transition={{ duration: 0.2 }}
+      >
         <Toast.Failure.AlertIcon />
         <Toast.Failure.Column>
           <Toast.Failure.Title>

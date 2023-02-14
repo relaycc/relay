@@ -54,11 +54,19 @@ const Wrapper = styled.div`
 export const ProsemirrorEditorInput: FunctionComponent<{
   viewRef: RefObject<EditorView | null>;
   isEmpty: boolean;
-}> = ({ viewRef, isEmpty }) => {
+  onBlur: () => void;
+  onFocus: () => void;
+  onEnter: React.KeyboardEventHandler<HTMLDivElement>;
+}> = ({ viewRef, isEmpty, onBlur, onFocus, onEnter }) => {
   return (
     <Wrapper>
       <Menubar viewRef={viewRef} open={!isEmpty} />
-      <Editor id="editor" />
+      <Editor
+        onBlur={onBlur}
+        onFocus={onFocus}
+        id="editor"
+        onKeyDown={onEnter}
+      />
     </Wrapper>
   );
 };

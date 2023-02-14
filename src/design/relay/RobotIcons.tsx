@@ -584,6 +584,7 @@ export const Polygon = styled((props: ComponentProps<"svg">) => (
     viewBox="0 0 174 174"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
+    {...props}
   >
     <rect width="174" height="174" rx="87" fill="#8546E8" />
     <path
@@ -600,6 +601,7 @@ export const Aztec = styled((props: ComponentProps<"svg">) => (
     viewBox="0 0 174 174"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
+    {...props}
   >
     <rect width="174" height="174" rx="87" fill="#301F49" />
     <path
@@ -618,6 +620,7 @@ export const Optimism = styled((props: ComponentProps<"svg">) => (
     viewBox="0 0 174 174"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
+    {...props}
   >
     <rect width="174" height="174" rx="87" fill="#FF0420" />
     <g clipPath="url(#clip0_745_15405)">
@@ -658,6 +661,7 @@ export const ZkSync = styled((props: ComponentProps<"svg">) => (
     viewBox="0 0 174 174"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
+    {...props}
   >
     <rect width="174" height="174" rx="87" fill="#1D2039" />
     <path

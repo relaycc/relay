@@ -28,7 +28,7 @@ export const MarkdownRenderer: FunctionComponent<{ content: string }> = ({
 }) => {
   const MarkdownComponents = {
     a: (props: React.LinkHTMLAttributes<HTMLAnchorElement>) => (
-      <PreviewRenderer {...props} />
+      <PreviewRenderer {...props} href={props.href as string} />
     ),
     p: (props: React.PropsWithChildren) => <div {...props} />,
     strong: (props: React.PropsWithChildren) => <Bold {...props} />,
@@ -37,6 +37,7 @@ export const MarkdownRenderer: FunctionComponent<{ content: string }> = ({
 
       return match ? (
         <SyntaxHighlighter
+          /* eslint-disable @typescript-eslint/ban-ts-comment */
           // @ts-ignore
           style={vs}
           language={match[1]}

@@ -1,15 +1,18 @@
 import styled from "styled-components";
 import { receiverTheme } from "@/design/receiverTheme";
-;
-const Twitter = () => {
+
+export const Twitter = () => {
   return <ListItem>Twitter</ListItem>;
 };
-const Lens = () => {
+
+export const Lens = () => {
   return <ListItem>Lens</ListItem>;
 };
-const Mirror = () => {
+
+export const Mirror = () => {
   return <ListItem>Mirror</ListItem>;
 };
+
 export const Github = () => {
   return <ListItem>Github</ListItem>;
 };
@@ -26,7 +29,7 @@ export const ListItem = styled.li`
   }
 `;
 
-const Discord = styled(ListItem)`
+export const Discord = styled(ListItem)`
   list-style-type: none;
   font-size: 20px;
   font-weight: 700;

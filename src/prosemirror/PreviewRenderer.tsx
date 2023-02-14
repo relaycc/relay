@@ -25,7 +25,7 @@ const Image = styled.img`
 `;
 
 export const Component: FunctionComponent<
-  React.LinkHTMLAttributes<HTMLAnchorElement>
+  React.LinkHTMLAttributes<HTMLAnchorElement> & { href: string }
 > = ({ href }) => {
   const [preview, setPreview] = useState<{
     url: string;
@@ -48,7 +48,7 @@ export const Component: FunctionComponent<
   }, [href]);
 
   if (!preview || !preview?.images?.[0]) {
-    return <div>"Loading..."</div>;
+    return <div>Loading...</div>;
   }
 
   return (

@@ -12,9 +12,9 @@ export function useVisualViewport() {
       : 0
   );
 
-  const handler = (event: any) => {
-    setHeight(event.target.height);
-    setWidth(event.target.width);
+  const handler = (event: Event) => {
+    setHeight((event.target as VisualViewport).height);
+    setWidth((event.target as VisualViewport).width);
     if (typeof window !== "undefined") {
       window.scrollTo(0, 0);
     }

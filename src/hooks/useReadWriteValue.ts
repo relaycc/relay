@@ -53,7 +53,7 @@ export const useReadWriteValue = ({
     write({ content: newValue });
     let interval: NodeJS.Timer;
     let counter = 0;
-    await new Promise<void>((res, rej) => {
+    await new Promise<void>((res) => {
       interval = setInterval(async () => {
         counter += 1;
         if (counter === 100) {
@@ -70,6 +70,7 @@ export const useReadWriteValue = ({
         }
       }, 100);
     });
+    /* eslint-disable @typescript-eslint/ban-ts-comment */
     // @ts-ignore
     interval && clearInterval(interval);
 

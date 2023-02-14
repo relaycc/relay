@@ -58,6 +58,14 @@ export const useEditor = (viewRef: MutableRefObject<EditorView | null>) => {
     };
   }, []);
 
+  const clearEditor = useCallback(() => {
+    if (!viewRef.current) {
+      return;
+    }
+    const view = viewRef.current;
+    view.dispatch(view.state.tr.delete(0, view.state.doc.nodeSize - 2));
+  }, []);
+
   const handleUploadAttachment = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
       if (
@@ -78,5 +86,5 @@ export const useEditor = (viewRef: MutableRefObject<EditorView | null>) => {
     []
   );
 
-  return { content, isEmpty, handleUploadAttachment };
+  return { content, isEmpty, handleUploadAttachment, clearEditor };
 };
