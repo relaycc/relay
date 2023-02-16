@@ -23,7 +23,7 @@ const { connectors } = getDefaultWallets({
 });
 
 const client = createClient({
-  autoConnect: true,
+  autoConnect: false,
   provider,
   connectors,
 });

@@ -42,6 +42,7 @@ import { ChatIconBlack } from "@/design/relay/ChatIcon";
 import { CloseIcon } from "@/design/NewMessageHeader";
 import { MobileLogo } from "@/design/MobileLogo";
 import MobileMenuComponent from "@/components/MobileMenuComponent";
+import ErrorBoundary from "@/components/ErrorBoundary";
 
 const translateXForElement = (element: HTMLDivElement) => {
   const transform = element.style.transform;
@@ -209,211 +210,193 @@ export default function Relay({ projects }: { projects: Project[] }) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <FullWidthPage>
-        <ContentColumn>
-          <Nav.RootDesktop>
-            <Logo />
-            <Nav.Message
-              isError={messageInputIsError}
-              isLoading={messageInputIsLoading}
-              placeholder={"Message ENS, Lens, or 0xAddress"}
-              onChange={(e: any) => {
-                setMessageInputIsError(false);
-              }}
-              onKeyPress={async (e: any) => {
-                if (e.key === "Enter") {
-                  if (
-                    !isEnsName(e.currentTarget.value) &&
-                    !isEthAddress(e.currentTarget.value)
-                  ) {
-                    setMessageInputIsError(true);
-                  } else {
-                    if (isEnsName(e.currentTarget.value)) {
-                      setMessageInputIsLoading(true);
-                      const address = await fetchAddressFromEns(
-                        e.currentTarget.value
-                      );
-                      setMessageInputIsLoading(false);
-                      if (typeof address === "string") {
-                        goToDm({ peerAddress: address as EthAddress });
-                        setMessageInputIsError(false);
-                      } else {
-                        setMessageInputIsError(true);
-                      }
+      <ErrorBoundary>
+        <FullWidthPage>
+          <ContentColumn>
+            <Nav.RootDesktop>
+              <Logo />
+              <Nav.Message
+                isError={messageInputIsError}
+                isLoading={messageInputIsLoading}
+                placeholder={"Message ENS, Lens, or 0xAddress"}
+                onChange={() => {
+                  setMessageInputIsError(false);
+                }}
+                onKeyPress={async (
+                  e: React.KeyboardEvent<HTMLInputElement>
+                ) => {
+                  if (e.key === "Enter") {
+                    if (
+                      !isEnsName(e.currentTarget.value) &&
+                      !isEthAddress(e.currentTarget.value)
+                    ) {
+                      setMessageInputIsError(true);
                     } else {
-                      goToDm({ peerAddress: e.currentTarget.value });
-                      setMessageInputIsError(false);
+                      if (isEnsName(e.currentTarget.value)) {
+                        setMessageInputIsLoading(true);
+                        const address = await fetchAddressFromEns(
+                          e.currentTarget.value
+                        );
+                        setMessageInputIsLoading(false);
+                        if (typeof address === "string") {
+                          goToDm({ peerAddress: address as EthAddress });
+                          setMessageInputIsError(false);
+                        } else {
+                          setMessageInputIsError(true);
+                        }
+                      } else {
+                        goToDm({ peerAddress: e.currentTarget.value });
+                        setMessageInputIsError(false);
+                      }
                     }
                   }
-                }
-              }}
-            />
-            <Nav.NavLink
-              as="a"
-              href="https://airtable.com/shrD6Xv70iq7WDwoj"
-              target="_blank"
-              rel="noreferrer"
-              style={{ marginLeft: "auto", marginRight: "1.5rem" }}
-            >
-              Waitlist
-            </Nav.NavLink>
-            {showCommunity ? (
-              <CommunityDropdown
-                toggleDropdown={toggleCommunity}
-                router={router}
+                }}
               />
-            ) : (
-              <Nav.NavLink onClick={toggleCommunity}>
-                Community
-                <Nav.ChevronDownActive />
-              </Nav.NavLink>
-            )}
-
-            <Nav.LogoAndNameWrapper>
-              <a
-                href="https://github.com/relaycc"
+              <Nav.NavLink
+                as="a"
+                href="https://airtable.com/shrD6Xv70iq7WDwoj"
                 target="_blank"
                 rel="noreferrer"
+                style={{ marginLeft: "auto", marginRight: "1.5rem" }}
               >
-                <IconGithub
-                  style={{ height: "2rem", width: "2rem", margin: "1.5rem" }}
+                Waitlist
+              </Nav.NavLink>
+              {showCommunity ? (
+                <CommunityDropdown
+                  toggleDropdown={toggleCommunity}
+                  router={router}
                 />
-              </a>
-              <ConnectButton />
-            </Nav.LogoAndNameWrapper>
-            <Nav.MobileMenuButtonWrapper>
-              <MenuMobile.MenuIcon onClick={toggleShowMenu} />
-            </Nav.MobileMenuButtonWrapper>
-          </Nav.RootDesktop>
-          <Nav.RootMobile>
-            {showMobileSearch ? (
-              <>
-                <Nav.Message
-                  isError={messageInputIsError}
-                  isLoading={messageInputIsLoading}
-                  placeholder={"Message ENS, Lens, or 0xAddress"}
-                  onChange={(e: any) => {
-                    setMessageInputIsError(false);
-                  }}
-                  style={{ margin: "0" }}
-                  onKeyPress={async (e: any) => {
-                    if (e.key === "Enter") {
-                      if (
-                        !isEnsName(e.currentTarget.value) &&
-                        !isEthAddress(e.currentTarget.value)
-                      ) {
-                        setMessageInputIsError(true);
-                      } else {
-                        if (isEnsName(e.currentTarget.value)) {
-                          setMessageInputIsLoading(true);
-                          const address = await fetchAddressFromEns(
-                            e.currentTarget.value
-                          );
-                          setMessageInputIsLoading(false);
-                          if (typeof address === "string") {
-                            goToDm({ peerAddress: address as EthAddress });
-                            setMessageInputIsError(false);
-                          } else {
-                            setMessageInputIsError(true);
-                          }
+              ) : (
+                <Nav.NavLink onClick={toggleCommunity}>
+                  Community
+                  <Nav.ChevronDownActive />
+                </Nav.NavLink>
+              )}
+
+              <Nav.LogoAndNameWrapper>
+                <a
+                  href="https://github.com/relaycc"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <IconGithub
+                    style={{ height: "2rem", width: "2rem", margin: "1.5rem" }}
+                  />
+                </a>
+                <ConnectButton />
+              </Nav.LogoAndNameWrapper>
+              <Nav.MobileMenuButtonWrapper>
+                <MenuMobile.MenuIcon onClick={toggleShowMenu} />
+              </Nav.MobileMenuButtonWrapper>
+            </Nav.RootDesktop>
+            <Nav.RootMobile>
+              {showMobileSearch ? (
+                <>
+                  <Nav.Message
+                    isError={messageInputIsError}
+                    isLoading={messageInputIsLoading}
+                    placeholder={"Message ENS, Lens, or 0xAddress"}
+                    onChange={() => {
+                      setMessageInputIsError(false);
+                    }}
+                    style={{ margin: "0" }}
+                    onKeyPress={async (
+                      e: React.KeyboardEvent<HTMLInputElement>
+                    ) => {
+                      if (e.key === "Enter") {
+                        if (
+                          !isEnsName(e.currentTarget.value) &&
+                          !isEthAddress(e.currentTarget.value)
+                        ) {
+                          setMessageInputIsError(true);
                         } else {
-                          goToDm({ peerAddress: e.currentTarget.value });
-                          setMessageInputIsError(false);
+                          if (isEnsName(e.currentTarget.value)) {
+                            setMessageInputIsLoading(true);
+                            const address = await fetchAddressFromEns(
+                              e.currentTarget.value
+                            );
+                            setMessageInputIsLoading(false);
+                            if (typeof address === "string") {
+                              goToDm({ peerAddress: address as EthAddress });
+                              setMessageInputIsError(false);
+                            } else {
+                              setMessageInputIsError(true);
+                            }
+                          } else {
+                            goToDm({ peerAddress: e.currentTarget.value });
+                            setMessageInputIsError(false);
+                          }
                         }
                       }
-                    }
-                  }}
-                />
-                <CloseIcon onClick={toggleMobileSearch} />
-              </>
-            ) : (
-              <>
-                <MobileLogo />
-                <MenuMobile.RightWrapper>
-                  <ChatIconBlack onClick={toggleMobileSearch} />
-                  <MenuMobile.MenuIcon onClick={toggleShowMenu} />
-                </MenuMobile.RightWrapper>
-              </>
-            )}
-          </Nav.RootMobile>
-          <DirectoryHeader.Root
-            ref={showcaseHeaderRef}
-            style={{ maxWidth: "max-content", marginTop: "3rem" }}
-          >
-            <DirectoryHeader.Title>Try ChatGPT for Web3</DirectoryHeader.Title>
-          </DirectoryHeader.Root>
-          <Showcase.Wrapper>
-            <Showcase.InnerWrapper>
-              <Showcase.Root>
-                <Chevron.ChevronLeftActive onClick={onLeftClick} />
-                <Showcase.MotionRoot ref={showcaseRef}>
-                  <Showcase.Slides
-                    drag="x"
-                    ref={dragRef}
-                    dragConstraints={{ right: 0, left: -width }}
-                    onDragStart={showCaseDragStart}
-                    animate={animation}
-                    transition={{
-                      type: "spring",
-                      stiffness: 40,
                     }}
-                    onDragEnd={showcaseDragStop}
-                  >
-                    {robotCards.map((robot, i) => (
-                      <Card.Card
-                        key={robot.peerAddress}
-                        handleClick={() => {
-                          if (!showCaseDragging) {
-                            showcaseClick(robot.peerAddress);
-                            goToDm({
-                              peerAddress: robot.peerAddress as EthAddress,
-                            });
-                          }
-                        }}
-                        icon={<robot.icon />}
-                        initialBgColor={robot.initialBgColor}
-                        animateBgColor={robot.animateBgColor}
-                      />
-                    ))}
-                  </Showcase.Slides>
-                </Showcase.MotionRoot>
-                <Chevron.ChevronRightActive onClick={onRightClick} />
-              </Showcase.Root>
-              <Showcase.Ellipse />
-            </Showcase.InnerWrapper>
-          </Showcase.Wrapper>
-          <DirectoryHeader.DirectoryRoot>
-            <DirectoryHeader.Title
-              ref={directoryRef}
-              style={{ marginTop: "4rem" }}
+                  />
+                  <CloseIcon onClick={toggleMobileSearch} />
+                </>
+              ) : (
+                <>
+                  <MobileLogo />
+                  <MenuMobile.RightWrapper>
+                    <ChatIconBlack onClick={toggleMobileSearch} />
+                    <MenuMobile.MenuIcon onClick={toggleShowMenu} />
+                  </MenuMobile.RightWrapper>
+                </>
+              )}
+            </Nav.RootMobile>
+            <DirectoryHeader.Root
+              ref={showcaseHeaderRef}
+              style={{ maxWidth: "max-content", marginTop: "3rem" }}
             >
-              Explore Web3 on Relay
-            </DirectoryHeader.Title>
-            <DirectoryHeader.Search.Search
-              onChange={(e: any) => {
-                setSearchInput(e.target.value);
-              }}
-              value={searchInput || ""}
-              placeholder={"Search for projects..."}
-            />
-            <DirectoryHeader.Nav>
-              <DirectoryHeader.Directories>
-                {CATEGORIES.map((category) => {
-                  return (
-                    <DirectoryHeaderItem
-                      key={category}
-                      category={category}
-                      isActive={category === activeCategory}
-                      onClick={() => setActiveCategory(category)}
-                    />
-                  );
-                })}
-              </DirectoryHeader.Directories>
-            </DirectoryHeader.Nav>
-          </DirectoryHeader.DirectoryRoot>
-          <DirectoryHeader.MobileRoot style={{ maxWidth: "100%" }}>
-            <DirectoryHeader.Title>Directory</DirectoryHeader.Title>
-            <DirectoryHeader.SearchWrapper>
+              <DirectoryHeader.Title>
+                Try ChatGPT for Web3
+              </DirectoryHeader.Title>
+            </DirectoryHeader.Root>
+            <Showcase.Wrapper>
+              <Showcase.InnerWrapper>
+                <Showcase.Root>
+                  <Chevron.ChevronLeftActive onClick={onLeftClick} />
+                  <Showcase.MotionRoot ref={showcaseRef}>
+                    <Showcase.Slides
+                      drag="x"
+                      ref={dragRef}
+                      dragConstraints={{ right: 0, left: -width }}
+                      onDragStart={showCaseDragStart}
+                      animate={animation}
+                      transition={{
+                        type: "spring",
+                        stiffness: 40,
+                      }}
+                      onDragEnd={showcaseDragStop}
+                    >
+                      {robotCards.map((robot, i) => (
+                        <Card.Card
+                          key={robot.peerAddress}
+                          handleClick={() => {
+                            if (!showCaseDragging) {
+                              showcaseClick(robot.peerAddress);
+                              goToDm({
+                                peerAddress: robot.peerAddress as EthAddress,
+                              });
+                            }
+                          }}
+                          icon={<robot.icon />}
+                          initialBgColor={robot.initialBgColor}
+                          animateBgColor={robot.animateBgColor}
+                        />
+                      ))}
+                    </Showcase.Slides>
+                  </Showcase.MotionRoot>
+                  <Chevron.ChevronRightActive onClick={onRightClick} />
+                </Showcase.Root>
+                <Showcase.Ellipse />
+              </Showcase.InnerWrapper>
+            </Showcase.Wrapper>
+            <DirectoryHeader.DirectoryRoot>
+              <DirectoryHeader.Title
+                ref={directoryRef}
+                style={{ marginTop: "4rem" }}
+              >
+                Explore Web3 on Relay
+              </DirectoryHeader.Title>
               <DirectoryHeader.Search.Search
                 onChange={(e: any) => {
                   setSearchInput(e.target.value);
@@ -421,59 +404,85 @@ export default function Relay({ projects }: { projects: Project[] }) {
                 value={searchInput || ""}
                 placeholder={"Search for projects..."}
               />
-              <DirectoryHeader.MenuIcon onClick={() => setSidebar(true)} />
-            </DirectoryHeader.SearchWrapper>
-            <DirectoryHeader.CategoryWrapper>
-              <DirectoryHeader.CategoryTitle>
-                Category:
-              </DirectoryHeader.CategoryTitle>
-              <DirectoryHeader.ActiveCategoryTitle>
-                {activeCategory}
-              </DirectoryHeader.ActiveCategoryTitle>
-            </DirectoryHeader.CategoryWrapper>
-            <DirectoryHeader.Nav>
-              <DirectoryHeader.Directories>
-                {CATEGORIES.map((category) => {
-                  return (
-                    <DirectoryHeaderItem
-                      key={category}
-                      category={category}
-                      isActive={category === activeCategory}
-                      onClick={() => setActiveCategory(category)}
-                    />
-                  );
-                })}
-              </DirectoryHeader.Directories>
-            </DirectoryHeader.Nav>
-          </DirectoryHeader.MobileRoot>
-          <ContentColumnNarrow style={{ minHeight: "100vh" }}>
-            <FlexWrapRow>
-              {filteredProjects.map((project, i) => (
-                <DirectoryCard
-                  url={project.url}
-                  name={project.name}
-                  delay={i * 0.05}
-                  key={project.name + project.category}
-                  logo={project.logo}
-                  description={project.description}
-                  category={activeCategory}
-                  handle={project.handle}
+              <DirectoryHeader.Nav>
+                <DirectoryHeader.Directories>
+                  {CATEGORIES.map((category) => {
+                    return (
+                      <DirectoryHeaderItem
+                        key={category}
+                        category={category}
+                        isActive={category === activeCategory}
+                        onClick={() => setActiveCategory(category)}
+                      />
+                    );
+                  })}
+                </DirectoryHeader.Directories>
+              </DirectoryHeader.Nav>
+            </DirectoryHeader.DirectoryRoot>
+            <DirectoryHeader.MobileRoot style={{ maxWidth: "100%" }}>
+              <DirectoryHeader.Title>Directory</DirectoryHeader.Title>
+              <DirectoryHeader.SearchWrapper>
+                <DirectoryHeader.Search.Search
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                    setSearchInput(e.target.value);
+                  }}
+                  value={searchInput || ""}
+                  placeholder={"Search for projects..."}
                 />
-              ))}
-            </FlexWrapRow>
-          </ContentColumnNarrow>
-        </ContentColumn>
-        <Footer
-          onClickReceiver={goToMessages}
-          onClickRecon={scrollToDirectory}
-          onClickRobot={scrollToShowcaseHeader}
-        />
-        {showMenu && <MobileMenuComponent setShowMenu={setShowMenu} />}
-        <ReceiverWindow />
-        <Sidebar
-          {...{ sidebar, setSidebar, activeCategory, setActiveCategory }}
-        />
-      </FullWidthPage>
+                <DirectoryHeader.MenuIcon onClick={() => setSidebar(true)} />
+              </DirectoryHeader.SearchWrapper>
+              <DirectoryHeader.CategoryWrapper>
+                <DirectoryHeader.CategoryTitle>
+                  Category:
+                </DirectoryHeader.CategoryTitle>
+                <DirectoryHeader.ActiveCategoryTitle>
+                  {activeCategory}
+                </DirectoryHeader.ActiveCategoryTitle>
+              </DirectoryHeader.CategoryWrapper>
+              <DirectoryHeader.Nav>
+                <DirectoryHeader.Directories>
+                  {CATEGORIES.map((category) => {
+                    return (
+                      <DirectoryHeaderItem
+                        key={category}
+                        category={category}
+                        isActive={category === activeCategory}
+                        onClick={() => setActiveCategory(category)}
+                      />
+                    );
+                  })}
+                </DirectoryHeader.Directories>
+              </DirectoryHeader.Nav>
+            </DirectoryHeader.MobileRoot>
+            <ContentColumnNarrow style={{ minHeight: "100vh" }}>
+              <FlexWrapRow>
+                {filteredProjects.map((project, i) => (
+                  <DirectoryCard
+                    url={project.url}
+                    name={project.name}
+                    delay={i * 0.05}
+                    key={project.name + project.category}
+                    logo={project.logo}
+                    description={project.description}
+                    category={activeCategory}
+                    handle={project.handle}
+                  />
+                ))}
+              </FlexWrapRow>
+            </ContentColumnNarrow>
+          </ContentColumn>
+          <Footer
+            onClickReceiver={goToMessages}
+            onClickRecon={scrollToDirectory}
+            onClickRobot={scrollToShowcaseHeader}
+          />
+          {showMenu && <MobileMenuComponent setShowMenu={setShowMenu} />}
+          <ReceiverWindow />
+          <Sidebar
+            {...{ sidebar, setSidebar, activeCategory, setActiveCategory }}
+          />
+        </FullWidthPage>
+      </ErrorBoundary>
     </>
   );
 }

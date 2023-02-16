@@ -36,6 +36,8 @@ import { useAccount } from "wagmi";
 import { AuthMenu } from "./AuthMenu";
 import { LoaderAnimGeneral } from "@/design/MsgBox";
 import { useReadWriteValue } from "@/hooks/useReadWriteValue";
+import Head from "next/head";
+import { useIframeStore } from "@/hooks/useIframeStore";
 
 export interface MessagesBucketProps {
   bucket: {
@@ -49,7 +51,11 @@ type MessageBucket = MessagesBucketProps["bucket"];
 export const DirectMessagesPage: FunctionComponent<{
   conversation: Conversation;
 }> = ({ conversation }) => {
-  const { address, isConnected } = useAccount();
+  const { isConnected, address, signer } = useIframeStore((state) => ({
+    isConnected: state.isConnected,
+    address: state.address,
+    signer: state.signer,
+  }));
   const xmtpClient = useXmtpClient({
     clientAddress: address as EthAddress,
   });
@@ -127,7 +133,7 @@ export const DirectMessagesPage: FunctionComponent<{
   const msgInvalid = useMemo(() => {
     return msgValue.length === 0 || msgValue.trim().length === 0;
   }, [msgValue]);
-  
+
   const handleSend = useCallback(() => {
     if (msgInvalid) {
       return;
@@ -205,7 +211,8 @@ export const DirectMessagesPage: FunctionComponent<{
               <PurpleLink
                 href="https://xmtp.org/docs/dev-concepts/account-signatures"
                 target="_blank"
-                rel="norefferer">
+                rel="norefferer"
+              >
                 here
               </PurpleLink>
               .
@@ -270,7 +277,8 @@ export const DirectMessagesPage: FunctionComponent<{
           <Toast.Failure.Card
             initial={{ opacity: 0.2 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 0.2 }}>
+            transition={{ duration: 0.2 }}
+          >
             <Toast.Failure.AlertIcon />
             <Toast.Failure.Column>
               <Toast.Failure.Title>Failed to Send Message</Toast.Failure.Title>

@@ -34,6 +34,8 @@ export const useReadWriteValue = ({
 
   const { data: xmtpClient } = useXmtpClient({ clientAddress });
 
+  console.log("useReadWriteValue", { xmtpClient, conversations });
+
   // const a = new XmtpClient();
   const queue = useRef<Array<{ [key: string]: RequestEnum }>>([]);
 
@@ -120,6 +122,7 @@ export const useReadWriteValue = ({
       return;
     }
     if (value) {
+      //write({ content: JSON.stringify({}) });
       setRequestsObject(JSON.parse(value as string));
       return;
     }

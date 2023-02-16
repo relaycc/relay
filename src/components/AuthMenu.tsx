@@ -12,19 +12,15 @@ import { useAccount, useSigner } from "wagmi";
 import * as InitializeXmtp from "@/design/InitializeXmtp";
 import { useConnectModal } from "@rainbow-me/rainbowkit";
 import { Signer } from "ethers";
-import { useToggle } from "@/hooks/useReceiverWindow";
+import { useGoToMessages, useToggle } from "@/hooks/useReceiverWindow";
+import { useCallback, useEffect, useState, useRef } from "react";
+import * as Comlink from "comlink";
+import { useIframe } from "@/hooks/useIframe";
+import { useIframeStore } from "@/hooks/useIframeStore";
+import { shallow } from "zustand/shallow";
+import { sign } from "crypto";
 
 const Overlay = styled(motion.div)`
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  backdrop-filter: blur(4px);
-
   @media (max-width: 400px) {
     width: 100vw;
     height: 100vh;
@@ -61,22 +57,31 @@ const FlexRowWide = styled.div`
 `;
 
 export const AuthMenu = ({ doClose }: { doClose: () => unknown }) => {
-  const { data: signer } = useSigner();
-  const { address, isConnected } = useAccount();
+  const { handleConnect, handleXmtp, signIn } = useIframe();
+  const { isConnected, address, signer } = useIframeStore((state) => ({
+    isConnected: state.isConnected,
+    address: state.address,
+    signer: state.signer,
+  }));
+
   const xmtpClient = useXmtpClient({
     clientAddress: address as EthAddress,
   });
   const toggle = useToggle();
-  const isActuallyConnected =
-    isConnected &&
-    signer !== undefined &&
-    signer !== null &&
-    typeof address === "string";
+  const isActuallyConnected = isConnected && typeof address === "string";
   const isSignedIn =
     xmtpClient.data !== null &&
     xmtpClient.data !== undefined &&
     xmtpClient.data.address() === address;
+  console.log({ isActuallyConnected, isSignedIn, xmtpClient });
 
+  /* console.log({
+   *   connected: isConnected,
+   *   address,
+   *   isActuallyConnected,
+   *   isSignedIn,
+   * });
+   */
   return (
     <Overlay>
       <Root
@@ -84,7 +89,8 @@ export const AuthMenu = ({ doClose }: { doClose: () => unknown }) => {
         initial={{ maxHeight: "0" }}
         animate={{ maxHeight: "376px" }}
         exit={{ maxHeight: "0" }}
-        transition={{ duration: 0.2 }}>
+        transition={{ duration: 0.2 }}
+      >
         <FlexRowWide>
           <L />
           <Close
@@ -97,7 +103,7 @@ export const AuthMenu = ({ doClose }: { doClose: () => unknown }) => {
             }}
           />
         </FlexRowWide>
-        {!isActuallyConnected && <NotConnected />}
+        {!isActuallyConnected && <NotConnected handleConnect={handleConnect} />}
         {isActuallyConnected && <ConnectedStatus address={address} />}
         {isActuallyConnected && !isSignedIn && (
           <ActuallyConnected
@@ -115,8 +121,9 @@ export const AuthMenu = ({ doClose }: { doClose: () => unknown }) => {
   );
 };
 
-const NotConnected = () => {
+const NotConnected = ({ handleConnect }) => {
   const { openConnectModal } = useConnectModal();
+
   return (
     <InitializeXmtp.Root>
       <InitializeXmtp.Row>
@@ -129,17 +136,7 @@ const NotConnected = () => {
         </InitializeXmtp.RowItem>
       </InitializeXmtp.Row>
       <InitializeXmtp.ButtonWrapper>
-        <InitializeXmtp.Button
-          onClick={() => {
-            if (openConnectModal === undefined) {
-              // should show a toast
-              console.error(
-                "openConnectModal is undefined even though isConnected is false"
-              );
-            } else {
-              openConnectModal();
-            }
-          }}>
+        <InitializeXmtp.Button onClick={handleConnect}>
           Connect
         </InitializeXmtp.Button>
       </InitializeXmtp.ButtonWrapper>
@@ -185,12 +182,21 @@ const ActuallyConnected = ({
   signer,
   onSignIn,
 }: {
-  signer: Signer;
+  signer: any;
   onSignIn: () => unknown;
 }) => {
   const { mutate: signIn, isLoading: isSigningIn } = useStartClient({
     onSuccess: onSignIn,
   });
+
+  console.log("auth", { signer });
+  const handleClick = useCallback(() => {
+    if (isSigningIn) {
+      return;
+    } else {
+      signIn({ wallet: Comlink.proxy(signer), opts: { env: "production" } });
+    }
+  }, [signIn, isSigningIn, signer]);
   return (
     <>
       <InitializeXmtp.Root>
@@ -204,14 +210,7 @@ const ActuallyConnected = ({
           </InitializeXmtp.RowItem>
         </InitializeXmtp.Row>
         <InitializeXmtp.ButtonWrapper>
-          <InitializeXmtp.Button
-            onClick={() => {
-              if (isSigningIn) {
-                return;
-              } else {
-                signIn({ wallet: signer, opts: { env: "production" } });
-              }
-            }}>
+          <InitializeXmtp.Button onClick={handleClick}>
             {!isSigningIn && "Enable"}
             {isSigningIn && "Signing In..."}
             {isSigningIn && <InitializeXmtp.Spinner />}
@@ -239,7 +238,8 @@ const XmtpEnabled = ({ clientAddress }: { clientAddress: string }) => {
         <InitializeXmtp.Button
           onClick={() =>
             signOut({ clientAddress: clientAddress as EthAddress })
-          }>
+          }
+        >
           Sign Out
         </InitializeXmtp.Button>
       </InitializeXmtp.ButtonWrapper>

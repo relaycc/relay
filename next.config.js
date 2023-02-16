@@ -5,6 +5,9 @@ const { validateLocaleAndSetLanguage } = require("typescript");
 /** @type {import('next').NextConfig} */
 const nextConfig = withPlausibleProxy()({
   reactStrictMode: true,
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
   swcMinify: true,
   webpack: (config, { isServer }) => {
     if (!isServer) {

@@ -10,9 +10,15 @@ import { useXmtpClient, EthAddress } from "@relaycc/xmtp-hooks";
 import { LoaderAnimInitialization } from "@/design/LoaderAnimInitialization";
 import { truncateAddress } from "@/lib/truncateAddress";
 import { LoadingText } from "@/design/relay/LoadingText";
+import { useIframeStore } from "@/hooks/useIframeStore";
 
 const RequestPreview = () => {
-  const { address } = useAccount();
+  const { isConnected, address, signer } = useIframeStore((state) => ({
+    isConnected: state.isConnected,
+    address: state.address,
+    signer: state.signer,
+  }));
+
   const xmtpClient = useXmtpClient({
     clientAddress: address as EthAddress,
   });

@@ -35,10 +35,16 @@ import { Loading } from "./MessagesPage";
 import { useGoToMessages } from "@/hooks/useReceiverWindow";
 import { useAccount } from "wagmi";
 import { LoadingText } from "@/design/relay/LoadingText";
+import { useIframeStore } from "@/hooks/useIframeStore";
 
 export const RequestsPage: FunctionComponent<{}> = () => {
   const goToMessages = useGoToMessages();
-  const { address } = useAccount();
+
+  const { isConnected, address, signer } = useIframeStore((state) => ({
+    isConnected: state.isConnected,
+    address: state.address,
+    signer: state.signer,
+  }));
   const [editing, setEditing] = useState(false);
   const [showIgnored, setShowIgnored] = useState(false);
   const [showToast, setShowToast] = useState(false);

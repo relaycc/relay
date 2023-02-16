@@ -8,7 +8,7 @@ import React, {
 } from "react";
 import { useConnectedWallet } from "@/hooks/useConnectedWallet";
 import { AnimatePresence } from "framer-motion";
-import { EthAddress } from "@relaycc/xmtp-hooks";
+import { EthAddress, useConversations } from "@relaycc/xmtp-hooks";
 import * as HomeHeader from "@/design/HomeHeader";
 import styled from "styled-components";
 import { isEnsName } from "@/lib/isEnsName";
@@ -29,6 +29,7 @@ import { useXmtpClient } from "@relaycc/xmtp-hooks";
 import { useStore } from "zustand";
 import { shallow } from "zustand/shallow";
 import { useZustandStore } from "@/hooks/useZustandStore";
+import { useIframeStore } from "@/hooks/useIframeStore";
 
 const SearchWrapper = styled.div`
   padding: 0.5rem 1rem;
@@ -61,10 +62,12 @@ export const Loading = () => (
   </Skeleton.LoadingRoot>
 );
 
-interface IMessagesPageProps {}
-
-export const MessagesPage: FunctionComponent<IMessagesPageProps> = () => {
-  const { address, isConnected } = useAccount();
+export const MessagesPage: FunctionComponent = () => {
+  const { isConnected, address, signer } = useIframeStore((state) => ({
+    isConnected: state.isConnected,
+    address: state.address,
+    signer: state.signer,
+  }));
   const [searchInput, setSearchInput] = useState<string | null>(null);
   const [showNewMessage, setShowNewMessage] = useState<boolean>(false);
   const xmtpClient = useXmtpClient({
@@ -80,6 +83,16 @@ export const MessagesPage: FunctionComponent<IMessagesPageProps> = () => {
   });
   const messageScroll = useZustandStore((state) => state.messageScroll);
   const updateScroll = useZustandStore((state) => state.updateMessageScroll);
+
+  useEffect(() => {
+    console.log("render MessagesPage", {
+      address,
+      isConnected,
+      isSignedIn,
+      acceptedConversations,
+      xmtpClient,
+    });
+  }, [address, isConnected, isSignedIn, acceptedConversations, xmtpClient]);
 
   const filteredConversations = useMemo(() => {
     if (!searchInput) {
