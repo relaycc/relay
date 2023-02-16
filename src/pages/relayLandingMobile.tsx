@@ -2,7 +2,6 @@ import { FunctionComponent } from "preact/compat";
 import Head from "next/head";
 import styled from "styled-components";
 import * as Nav from "@/design/relay/Nav";
-import { ConnectButton } from "@/components/ConnectButton";
 import { NextRouter, useRouter } from "next/router";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { DropdownItem } from "@/design/relay/DropdownItem";
@@ -15,8 +14,9 @@ import {
   ButtonPrimaryMd,
   ButtonSecondaryMd,
 } from "@/design/robot/RobotButtonView";
-import { RobotHead } from "@/design/robot/robotHead";
-import { Ellipse } from "@/design/robot/Ellipse";
+import * as MenuMobile from "@/design/relay/MenuMobile";
+import { RobotHeadMobile } from "@/design/robot/RobotHeadMobile";
+import { ArrowDownWhite } from "@/design/robot/ArrowDownWhite";
 
 const RelayLanding: FunctionComponent = () => {
   const router = useRouter();
@@ -25,10 +25,11 @@ const RelayLanding: FunctionComponent = () => {
     setShowCommunity(!showCommunity);
   }, [showCommunity]);
   const [showMenu, setShowMenu] = useState(false);
+  const [showMore, setShowMore] = useState(false);
   const toggleShowMenu = useCallback(() => {
     setShowMenu(!showMenu);
   }, [showMenu]);
-  const robotCards = usePriorityRobotCards();
+  const robotCards = usePriorityRobotCards(true);
 
   return (
     <>
@@ -40,25 +41,30 @@ const RelayLanding: FunctionComponent = () => {
       </Head>
       <FullWidthPage>
         <ContentColumn>
-          <Nav.RootDesktop>
+          {/*<Nav.RootDesktop>*/}
+          {/*  <RobotLogo />*/}
+          {/*  <RobotTitleLogo />*/}
+          {/*  {showCommunity ? (*/}
+          {/*    <CommunityDropdown*/}
+          {/*      toggleDropdown={toggleCommunity}*/}
+          {/*      router={router}*/}
+          {/*    />*/}
+          {/*  ) : (*/}
+          {/*    <Nav.NavLink onClick={toggleCommunity}>*/}
+          {/*      Community*/}
+          {/*      <Nav.ChevronDownActive />*/}
+          {/*    </Nav.NavLink>*/}
+          {/*  )}*/}
+
+          {/*  <Nav.LogoAndNameWrapper>*/}
+          {/*    <ConnectButton />*/}
+          {/*  </Nav.LogoAndNameWrapper>*/}
+          {/*</Nav.RootDesktop>*/}
+          <Nav.RootMobile>
             <RobotLogo />
             <RobotTitleLogo />
-            {showCommunity ? (
-              <CommunityDropdown
-                toggleDropdown={toggleCommunity}
-                router={router}
-              />
-            ) : (
-              <Nav.NavLink onClick={toggleCommunity}>
-                Community
-                <Nav.ChevronDownActive />
-              </Nav.NavLink>
-            )}
-
-            <Nav.LogoAndNameWrapper>
-              <ConnectButton />
-            </Nav.LogoAndNameWrapper>
-          </Nav.RootDesktop>
+            <MenuMobile.MenuIcon onClick={toggleShowMenu} stroke={"#FFFFFF"} />
+          </Nav.RootMobile>
 
           <MobileTitelWrapper>
             <TitleWhite>Web3 Agent for</TitleWhite>
@@ -73,9 +79,17 @@ const RelayLanding: FunctionComponent = () => {
                 <ButtonPrimaryMd>Try Robot</ButtonPrimaryMd>
               </ButtonWrapper>
             </ButtonsWrapper>
-            <RobotHead />
+            <ImageWrapper>
+              <RobotHeadMobile />
+            </ImageWrapper>
+            <RobotTitle>Click your favorite dApp to try Robot!</RobotTitle>
             {/*<Ellipse />*/}
           </MobileTitelWrapper>
+          <ShowMoreButton>
+            Show More
+            <ArrowDownWhite />
+          </ShowMoreButton>
+
           <CardGrid>
             {robotCards.map((robot, i) => (
               <Card.Card
@@ -86,6 +100,7 @@ const RelayLanding: FunctionComponent = () => {
                 icon={<robot.icon />}
                 initialBgColor={robot.initialBgColor}
                 animateBgColor={robot.animateBgColor}
+                isMobile={true}
               />
             ))}
           </CardGrid>
@@ -196,23 +211,35 @@ const CardGrid = styled.div`
   grid-auto-flow: row;
   justify-content: center;
   width: 100%;
-  max-width: 1344px;
+  max-width: 600px;
   height: auto;
   padding: 0 1rem;
-  grid-template-columns: initial;
-  grid-gap: 0.5rem;
-
-  @media screen and (min-width: 400px) {
-    grid-gap: 1rem;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 250px));
-    padding: 0 2rem;
-  }
-
-  @media screen and (min-width: 1400px) {
-    padding: 0;
-  }
+  grid-gap: 1rem;
+  grid-template-columns: repeat(2, 160px);
+  max-height: 15rem;
+  overflow: hidden;
+  background: radial-gradient(
+    100% 100% at 50% 0%,
+    rgba(12, 6, 60, 0) 0%,
+    #0c063c 100%
+  );
 `;
-
+const ShowMoreButton = styled.div`
+  position: relative;
+  display: flex;
+  top: 16rem;
+  height: 40px;
+  width: 136px;
+  left: 0px;
+  border-radius: 8px;
+  padding: 10px 16px 10px 16px;
+  z-index: 99;
+  border: 1px solid #4236c7;
+  background: #4236c7;
+  align-items: center;
+  justify-content: space-between;
+  color: white;
+`;
 const MobileTitelWrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -224,16 +251,15 @@ const TitleWhite = styled.div`
   font-family: "Satoshi";
   font-style: normal;
   font-weight: 900;
-  font-size: 72px;
+  font-size: 34px;
   color: #ffffff;
 `;
 const TitleGradient = styled.div`
   font-family: "Satoshi";
   font-style: normal;
   font-weight: 900;
-  font-size: 72px;
+  font-size: 34px;
   padding: 0rem 1.5rem;
-
   background-image: linear-gradient(
     89.58deg,
     #a979e9 2.36%,
@@ -249,8 +275,14 @@ const TitleGradient = styled.div`
 const SubTitle = styled.div`
   font-style: normal;
   font-weight: 500;
-  font-size: 21px;
+  font-size: 14px;
   color: #dad8f6;
+`;
+const RobotTitle = styled.div`
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  color: #ffffff;
 `;
 
 const ButtonsWrapper = styled.div`
@@ -266,7 +298,8 @@ const ButtonWrapper = styled.div`
 `;
 
 const ImageWrapper = styled.div`
-  display: block;
+  width: 300px;
+  height: 285px;
 `;
 
 export default RelayLanding;

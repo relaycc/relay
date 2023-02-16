@@ -99,5 +99,5 @@ export const MenuIcon = styled((props: ComponentProps<"svg">) => (
     />
   </svg>
 ))`
-  stroke: ${(p) => p.theme.colors.gray[900]};
+  stroke: ${(p) => (p.stroke ? p.stroke : p.theme.colors.gray[900])};
 `;

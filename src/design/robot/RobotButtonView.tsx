@@ -3,21 +3,23 @@ import { textMdSemiBold } from "@/design/typography";
 
 const primary = css`
   color: #ffffff;
-  background-color: ${(p) => p.theme.colors.primary["500"]};
+  background: linear-gradient(83.91deg, #4236c7 0%, #9747ff 100%);
 
   :hover {
-    background-color: ${(p) => p.theme.colors.primary["700"]};
+    // background-color: ${(p) => p.theme.colors.primary["700"]};
   }
 
   :active {
-    background-color: ${(p) => p.theme.colors.primary["500"]};
+    // background-color: ${(p) => p.theme.colors.primary["500"]};
   }
 `;
 
 const secondary = css`
-  color: ${(p) => p.theme.colors.primary["700"]};
-  background-color: #ffffff;
-
+  //color: #ffffff;
+  //background-color: #ffffff;
+  padding: 1rem;
+  //border: 5px solid;
+  //border-image: linear-gradient(83.91deg, #4236c7 0%, #9747ff 100%);
   :hover {
     background-color: #efeefb;
   }
@@ -71,9 +73,9 @@ const button = css`
   cursor: pointer;
   width: 100%;
   gap: 0.5rem;
-  border: 2px solid #4236c7;
+  border: unset;
   border-radius: ${(props) => props.theme.radius.m};
-  box-shadow: 0 1px 2px rgba(16, 24, 40, 0.05);
+  box-shadow: unset;
 
   :disabled {
     opacity: 0.2;
