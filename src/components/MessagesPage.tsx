@@ -6,28 +6,23 @@ import React, {
   useRef,
   useState,
 } from "react";
-import { useConnectedWallet } from "@/hooks/useConnectedWallet";
 import { AnimatePresence } from "framer-motion";
-import { EthAddress, useConversations } from "@relaycc/xmtp-hooks";
+import { EthAddress } from "@relaycc/xmtp-hooks";
 import * as HomeHeader from "@/design/HomeHeader";
 import styled from "styled-components";
-import { isEnsName } from "@/lib/isEnsName";
 import { Search } from "@/design/Search";
 import { NewMessage } from "./NewMessage";
 import * as Skeleton from "@/design/Skeleton";
 import { useReadWriteValue } from "@/hooks/useReadWriteValue";
 import { ChatsPreview } from "./ChatsPreview";
 import RequestPreview from "@/components/RequestPreview";
-import { AuthMenu } from "./AuthMenu";
-import { useAccount } from "wagmi";
+import { AuthMenu, ReceiverAuthMenu } from "./AuthMenu";
 import {
   textSmallBold,
   textMdSemiBold,
   textSmallRegular,
 } from "@/design/typography";
 import { useXmtpClient } from "@relaycc/xmtp-hooks";
-import { useStore } from "zustand";
-import { shallow } from "zustand/shallow";
 import { useZustandStore } from "@/hooks/useZustandStore";
 import { useIframeStore } from "@/hooks/useIframeStore";
 
@@ -62,11 +57,15 @@ export const Loading = () => (
   </Skeleton.LoadingRoot>
 );
 
-export const MessagesPage: FunctionComponent = () => {
-  const { isConnected, address, signer } = useIframeStore((state) => ({
+export const MessagesPage: FunctionComponent<{
+  handleConnect?: () => void;
+  setOpen?: (isOpen: boolean) => void;
+}> = ({ handleConnect, setOpen }) => {
+  const { isConnected, address, isIframe } = useIframeStore((state) => ({
     isConnected: state.isConnected,
     address: state.address,
     signer: state.signer,
+    isIframe: state.isIframe,
   }));
   const [searchInput, setSearchInput] = useState<string | null>(null);
   const [showNewMessage, setShowNewMessage] = useState<boolean>(false);
@@ -105,6 +104,7 @@ export const MessagesPage: FunctionComponent = () => {
       });
     }
   }, [acceptedConversations, searchInput]);
+
   const handleScroll: React.UIEventHandler<HTMLOListElement> = useCallback(
     (e) => {
       updateScroll(e.currentTarget.scrollTop);
@@ -207,7 +207,17 @@ export const MessagesPage: FunctionComponent = () => {
           />
         )}
       </AnimatePresence>
-      {showAuthMenu && <AuthMenu doClose={() => setShowAuthMenu(false)} />}
+
+      {showAuthMenu &&
+        (isIframe ? (
+          <ReceiverAuthMenu
+            handleConnect={handleConnect}
+            doClose={() => setShowAuthMenu(false)}
+            setOpen={setOpen}
+          />
+        ) : (
+          <AuthMenu doClose={() => setShowAuthMenu(false)} />
+        ))}
     </>
   );
 };

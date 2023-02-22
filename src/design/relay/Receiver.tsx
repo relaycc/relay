@@ -7,6 +7,7 @@ export const Fixed = styled.div`
   position: fixed;
   bottom: 1rem;
   right: 1rem;
+  pointer-events: auto;
 `;
 
 export const Fader = styled(motion.div)``;

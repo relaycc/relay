@@ -11,14 +11,10 @@ import { useStopClient, useXmtpClient } from "@relaycc/xmtp-hooks";
 import { useAccount, useSigner } from "wagmi";
 import * as InitializeXmtp from "@/design/InitializeXmtp";
 import { useConnectModal } from "@rainbow-me/rainbowkit";
-import { Signer } from "ethers";
-import { useGoToMessages, useToggle } from "@/hooks/useReceiverWindow";
-import { useCallback, useEffect, useState, useRef } from "react";
+import { useToggle } from "@/hooks/useReceiverWindow";
+import { useCallback, useEffect } from "react";
 import * as Comlink from "comlink";
-import { useIframe } from "@/hooks/useIframe";
 import { useIframeStore } from "@/hooks/useIframeStore";
-import { shallow } from "zustand/shallow";
-import { sign } from "crypto";
 
 const Overlay = styled(motion.div)`
   @media (max-width: 400px) {
@@ -56,8 +52,15 @@ const FlexRowWide = styled.div`
   margin-bottom: auto;
 `;
 
-export const AuthMenu = ({ doClose }: { doClose: () => unknown }) => {
-  const { handleConnect, handleXmtp, signIn } = useIframe();
+export const ReceiverAuthMenu = ({
+  doClose,
+  handleConnect,
+  setOpen,
+}: {
+  doClose: () => unknown;
+  handleConnect?: () => void;
+  setOpen?: (open: boolean) => void;
+}) => {
   const { isConnected, address, signer } = useIframeStore((state) => ({
     isConnected: state.isConnected,
     address: state.address,
@@ -73,15 +76,7 @@ export const AuthMenu = ({ doClose }: { doClose: () => unknown }) => {
     xmtpClient.data !== null &&
     xmtpClient.data !== undefined &&
     xmtpClient.data.address() === address;
-  console.log({ isActuallyConnected, isSignedIn, xmtpClient });
 
-  /* console.log({
-   *   connected: isConnected,
-   *   address,
-   *   isActuallyConnected,
-   *   isSignedIn,
-   * });
-   */
   return (
     <Overlay>
       <Root
@@ -97,6 +92,7 @@ export const AuthMenu = ({ doClose }: { doClose: () => unknown }) => {
             onClick={() => {
               if (!isSignedIn) {
                 toggle(null);
+                setOpen && setOpen(false);
               } else {
                 doClose();
               }
@@ -121,9 +117,82 @@ export const AuthMenu = ({ doClose }: { doClose: () => unknown }) => {
   );
 };
 
-const NotConnected = ({ handleConnect }) => {
+export const AuthMenu = ({ doClose }: { doClose: () => unknown }) => {
   const { openConnectModal } = useConnectModal();
+  const { data: signer } = useSigner();
+  const { address, isConnected } = useAccount();
 
+  const { updateIsConnected, updateAddress, updateSigner } = useIframeStore(
+    (state) => ({
+      updateIsConnected: state.updateIsConnected,
+      updateAddress: state.updateAddress,
+      updateSigner: state.updateSigner,
+      signer: state.signer,
+    })
+  );
+
+  useEffect(() => {
+    updateIsConnected(isConnected);
+    updateAddress(address as string);
+    updateSigner(signer);
+  }, [isConnected, address, signer]);
+
+  const xmtpClient = useXmtpClient({
+    clientAddress: address as EthAddress,
+  });
+  const toggle = useToggle();
+  const isActuallyConnected =
+    isConnected &&
+    signer !== undefined &&
+    signer !== null &&
+    typeof address === "string";
+  const isSignedIn =
+    xmtpClient.data !== null &&
+    xmtpClient.data !== undefined &&
+    xmtpClient.data.address() === address;
+
+  return (
+    <Overlay>
+      <Root
+        key="newMessage"
+        initial={{ maxHeight: "0" }}
+        animate={{ maxHeight: "376px" }}
+        exit={{ maxHeight: "0" }}
+        transition={{ duration: 0.2 }}
+      >
+        <FlexRowWide>
+          <L />
+          <Close
+            onClick={() => {
+              if (!isSignedIn) {
+                toggle(null);
+              } else {
+                doClose();
+              }
+            }}
+          />
+        </FlexRowWide>
+        {!isActuallyConnected && (
+          <NotConnected handleConnect={openConnectModal} />
+        )}
+        {isActuallyConnected && <ConnectedStatus address={address} />}
+        {isActuallyConnected && !isSignedIn && (
+          <ActuallyConnected
+            onSignIn={() => {
+              doClose();
+            }}
+            signer={signer}
+          />
+        )}
+        {isActuallyConnected && isSignedIn && (
+          <XmtpEnabled clientAddress={address as EthAddress} />
+        )}
+      </Root>
+    </Overlay>
+  );
+};
+
+const NotConnected = ({ handleConnect }: { handleConnect?: () => void }) => {
   return (
     <InitializeXmtp.Root>
       <InitializeXmtp.Row>
@@ -189,7 +258,6 @@ const ActuallyConnected = ({
     onSuccess: onSignIn,
   });
 
-  console.log("auth", { signer });
   const handleClick = useCallback(() => {
     if (isSigningIn) {
       return;

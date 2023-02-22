@@ -1,4 +1,5 @@
 export const getDisplayDate = (date: Date, onlyClockTime?: boolean): string => {
+  if (!date) return "";
   const time = date.getTime();
   const midnight = new Date().setHours(0, 0, 0);
   if (time > midnight || onlyClockTime) {

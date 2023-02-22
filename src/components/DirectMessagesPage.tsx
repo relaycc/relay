@@ -32,11 +32,9 @@ import {
   useXmtpClient,
   useFetchPeerOnNetwork,
 } from "@relaycc/xmtp-hooks";
-import { useAccount } from "wagmi";
-import { AuthMenu } from "./AuthMenu";
+import { AuthMenu, ReceiverAuthMenu } from "./AuthMenu";
 import { LoaderAnimGeneral } from "@/design/MsgBox";
 import { useReadWriteValue } from "@/hooks/useReadWriteValue";
-import Head from "next/head";
 import { useIframeStore } from "@/hooks/useIframeStore";
 
 export interface MessagesBucketProps {
@@ -50,11 +48,12 @@ type MessageBucket = MessagesBucketProps["bucket"];
 
 export const DirectMessagesPage: FunctionComponent<{
   conversation: Conversation;
-}> = ({ conversation }) => {
-  const { isConnected, address, signer } = useIframeStore((state) => ({
-    isConnected: state.isConnected,
+  handleConnect?: () => void;
+  setOpen?: (open: boolean) => void;
+}> = ({ conversation, handleConnect, setOpen }) => {
+  const { address, isIframe } = useIframeStore((state) => ({
     address: state.address,
-    signer: state.signer,
+    isIframe: state.isIframe,
   }));
   const xmtpClient = useXmtpClient({
     clientAddress: address as EthAddress,
@@ -76,10 +75,12 @@ export const DirectMessagesPage: FunctionComponent<{
     clientAddress: address as EthAddress,
     conversation,
   });
+
   const peerOnNetwork = useFetchPeerOnNetwork({
     clientAddress: address as EthAddress,
     peerAddress: conversation.peerAddress,
   });
+
   useEffect(() => {
     if (!messages?.data) {
       return;
@@ -154,6 +155,7 @@ export const DirectMessagesPage: FunctionComponent<{
   }, [msgValue, messages, peerAddress, accepted, conversation]);
 
   const messageCount = useMemo(() => messages.data?.length, [messages]);
+
   const onEnter: KeyboardEventHandler<HTMLInputElement> = useCallback(
     (event) => {
       if (event.key === "Enter") {
@@ -162,6 +164,7 @@ export const DirectMessagesPage: FunctionComponent<{
     },
     [handleSend]
   );
+
   useEffect(() => {
     const chat = document.getElementById("chatScroll");
     if (!chat) {
@@ -169,6 +172,7 @@ export const DirectMessagesPage: FunctionComponent<{
     }
     chat.scrollTop = chat.scrollHeight;
   }, [messages]);
+
   const navigateBack = useCallback(() => {
     setPage({ id: "messages" });
   }, [setPage]);
@@ -195,7 +199,12 @@ export const DirectMessagesPage: FunctionComponent<{
           </UserDetails>
         </DMHeader.LeftSide>
         <DMHeader.RightSide>
-          <CloseIcon onClick={() => setPage(null)} />
+          <CloseIcon
+            onClick={() => {
+              setPage(null);
+              setOpen && setOpen(false);
+            }}
+          />
         </DMHeader.RightSide>
       </DMHeader.Root>
 
@@ -290,7 +299,16 @@ export const DirectMessagesPage: FunctionComponent<{
           </Toast.Failure.Card>
         </ToastPosition>
       )}
-      {showAuthMenu && <AuthMenu doClose={() => setShowAuthMenu(false)} />}
+      {showAuthMenu &&
+        (isIframe ? (
+          <ReceiverAuthMenu
+            handleConnect={handleConnect}
+            doClose={() => setShowAuthMenu(false)}
+            setOpen={setOpen}
+          />
+        ) : (
+          <AuthMenu doClose={() => setShowAuthMenu(false)} />
+        ))}
     </>
   );
 };

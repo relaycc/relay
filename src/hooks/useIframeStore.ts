@@ -7,6 +7,8 @@ interface StoreState {
   updateAddress: (address: string) => void;
   signer: any;
   updateSigner: (signer: any) => void;
+  isIframe: boolean;
+  updateIsIframe: (isIframe: boolean) => void;
 }
 
 export const useIframeStore = create<StoreState>((set) => ({
@@ -16,4 +18,6 @@ export const useIframeStore = create<StoreState>((set) => ({
   updateAddress: (address: string) => set({ address }),
   signer: null,
   updateSigner: (signer: any) => set({ signer }),
+  isIframe: false,
+  updateIsIframe: (isIframe: boolean) => set({ isIframe }),
 }));
