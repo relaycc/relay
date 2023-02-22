@@ -1,6 +1,7 @@
 import { useEffect, useCallback, useState } from "react";
 import * as Comlink from "comlink";
 import { useIframeStore } from "./useIframeStore";
+import { Conversation } from "@relaycc/xmtp-hooks";
 
 interface IRemoteActions {
   connect: () => unknown;
@@ -12,6 +13,7 @@ let init2 = false;
 
 export const useIframe = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [convo, setConvo] = useState<Conversation | null>(null);
   const { updateIsConnected, updateAddress, updateSigner } = useIframeStore(
     (state) => ({
       updateIsConnected: state.updateIsConnected,
@@ -48,6 +50,9 @@ export const useIframe = () => {
             updateAddress(address);
             updateSigner(signer);
           },
+          setConversation: (convo: Conversation) => {
+            setConvo(convo);
+          },
           setOpen: (isOpen: boolean) => {
             setIsOpen(isOpen);
           },
@@ -68,5 +73,6 @@ export const useIframe = () => {
     handleConnect,
     isOpen,
     setOpen: actions?.setOpen,
+    conversation: convo,
   };
 };

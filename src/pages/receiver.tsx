@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { AnimatePresence } from "framer-motion";
 import styled from "styled-components";
 
@@ -17,8 +17,9 @@ const Window = styled(Receiver.Window)`
 `;
 
 const Component = () => {
-  const { handleConnect, isOpen, setOpen } = useIframe();
+  const { handleConnect, isOpen, setOpen, conversation } = useIframe();
   const updateIsIframe = useIframeStore((state) => state.updateIsIframe);
+  const [init, setInit] = useState<boolean>(true);
 
   const { page } = useReceiverWindow();
   const toggle = useToggle();
@@ -28,11 +29,17 @@ const Component = () => {
 
   useEffect(() => {
     if (isOpen) {
-      toggle({ id: "messages" });
-    } else {
-      toggle(null);
+      return toggle({ id: "messages" });
     }
+    toggle(null);
   }, [isOpen]);
+
+  useEffect(() => {
+    if (init && conversation) {
+      setInit(false);
+      toggle({ id: "dm", conversation });
+    }
+  }, [conversation, init]);
 
   return (
     <AnimatePresence>
