@@ -1,26 +1,17 @@
 import { useEffect, useCallback, useState } from "react";
 import * as Comlink from "comlink";
-import { shallow } from "zustand/shallow";
 import { useIframeStore } from "./useIframeStore";
-import { Signer } from "ethers";
 
 interface IRemoteActions {
   connect: () => unknown;
-  isConnected: (
-    callback: (isConnected: boolean) => unknown
-  ) => Promise<boolean>;
-  sign: (
-    message: string,
-    callback: (sig: string) => unknown
-  ) => Promise<string>;
-  xmtp: (cb: (wallet: Signer) => unknown) => Promise<any>;
-  fSigner: (cb: (signer: Signer) => unknown) => Promise<any>;
+  setOpen: (isOpen: boolean) => void;
 }
 
 let init = false;
 let init2 = false;
 
 export const useIframe = () => {
+  const [isOpen, setIsOpen] = useState<boolean>(false);
   const { updateIsConnected, updateAddress, updateSigner } = useIframeStore(
     (state) => ({
       updateIsConnected: state.updateIsConnected,
@@ -31,7 +22,6 @@ export const useIframe = () => {
   );
 
   const [actions, setActions] = useState<IRemoteActions | null>(null);
-  const [sig, setSig] = useState<string | null>(null);
 
   useEffect(() => {
     if (init) {
@@ -58,6 +48,9 @@ export const useIframe = () => {
             updateAddress(address);
             updateSigner(signer);
           },
+          setOpen: (isOpen: boolean) => {
+            setIsOpen(isOpen);
+          },
         },
         Comlink.windowEndpoint(window)
       );
@@ -71,43 +64,9 @@ export const useIframe = () => {
     actions.connect();
   }, [actions]);
 
-  // const handleXmtp = useCallback(
-  //   (
-  //     signIn: ({
-  //       wallet,
-  //       opts,
-  //     }: {
-  //       wallet: Signer;
-  //       opts: { env: string };
-  //     }) => void
-  //   ) => {
-  //     console.log("enabling xmtp", { actions, signIn });
-  //     if (!actions) {
-  //       return;
-  //     }
-  //     actions.xmtp(
-  //       Comlink.proxy((wallet: Signer) => {
-  //         console.log("signing in");
-  //         signIn({ wallet, opts: { env: "production" } });
-  //       })
-  //     );
-  //   },
-  //   [actions]
-  // );
-
-  // const handleSignMessage = useCallback(
-  //   (message: string) => {
-  //     if (!actions) {
-  //       return;
-  //     }
-  //     actions.sign(message, (sig) => {
-  //       setSig(sig);
-  //     });
-  //   },
-  //   [actions]
-  // );
-
   return {
     handleConnect,
+    isOpen,
+    setOpen: actions?.setOpen,
   };
 };
