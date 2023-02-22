@@ -1,15 +1,20 @@
-import styled, { css } from 'styled-components';
+import styled, { css, keyframes } from "styled-components";
+
+const animation = keyframes`  {
+    to {
+      background-position-x: -200%;
+    }
+  }`;
 
 export const loadingGradient = css`
-  background: linear-gradient(
-    90deg,
-    #f1efef -24.18%,
-    #f9f8f8 50.26%,
-    #e7e5e5 114.84%
-  );
+  background: linear-gradient(90deg, #f1efef 8%, #f9f8f8 18%, #f1efef 33%);
+
   border-radius: 6px;
+  background-size: 200% 100%;
   height: 100%;
   width: 100%;
+
+  animation: ${animation} 2s linear infinite;
 `;
 
 export const LoadingCircle = styled.div`
