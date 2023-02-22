@@ -1,7 +1,7 @@
 import {
   Conversation,
   EthAddress,
-  useConversations,
+  useFetchConversations,
   useReadValue,
   useWriteValue,
   useXmtpClient,
@@ -28,9 +28,10 @@ export const useReadWriteValue = ({
     RequestEnum
   > | null>(null);
 
-  const { data: conversations, isLoading: requestsLoading } = useConversations({
-    clientAddress,
-  });
+  const { data: conversations, isLoading: requestsLoading } =
+    useFetchConversations({
+      clientAddress,
+    });
 
   const { data: xmtpClient } = useXmtpClient({ clientAddress });
 

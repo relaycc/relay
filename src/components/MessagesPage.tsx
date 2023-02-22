@@ -80,18 +80,12 @@ export const MessagesPage: FunctionComponent<{
   const { acceptedConversations, acceptedLoading } = useReadWriteValue({
     clientAddress: address as EthAddress,
   });
-  const messageScroll = useZustandStore((state) => state.messageScroll);
+  const [init, setInit] = useState(false);
+  const messageScroll = useZustandStore(
+    (state) => state.messageScroll,
+    () => init
+  );
   const updateScroll = useZustandStore((state) => state.updateMessageScroll);
-
-  useEffect(() => {
-    console.log("render MessagesPage", {
-      address,
-      isConnected,
-      isSignedIn,
-      acceptedConversations,
-      xmtpClient,
-    });
-  }, [address, isConnected, isSignedIn, acceptedConversations, xmtpClient]);
 
   const filteredConversations = useMemo(() => {
     if (!searchInput) {
@@ -113,14 +107,18 @@ export const MessagesPage: FunctionComponent<{
   );
   const conversationListRef = useRef<HTMLOListElement>(null);
   useEffect(() => {
-    if (!conversationListRef || !conversationListRef.current) {
+    if (!conversationListRef?.current) {
       return;
     }
-    conversationListRef &&
-      conversationListRef.current.scrollTo({
+
+    setTimeout(() => {
+      conversationListRef.current?.scrollTo({
         top: messageScroll,
       });
+      setInit(true);
+    }, 0);
   }, []);
+
   return (
     <>
       <HomeHeader.Root>

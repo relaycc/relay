@@ -89,7 +89,9 @@ export const DirectMessagesPage: FunctionComponent<{
     if (messageIsSending && newId !== lastMessageId) {
       setMessageIsSending(false);
     }
-    setLastMessageId(newId);
+    if (newId !== lastMessageId) {
+      setLastMessageId(newId);
+    }
   }, [messages, lastMessageId, messageIsSending]);
 
   const { acceptConversations, isAccepted } = useReadWriteValue({
