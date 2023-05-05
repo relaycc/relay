@@ -36,6 +36,9 @@ import { useAccount } from "wagmi";
 import { AuthMenu } from "./AuthMenu";
 import { LoaderAnimGeneral } from "@/design/MsgBox";
 import { useReadWriteValue } from "@/hooks/useReadWriteValue";
+import {SwapWidget, SwapWidgetProps} from '@uniswap/widgets'
+import '@uniswap/widgets/fonts.css'
+import {RegistrationWidget} from "ens-widgets";
 
 export interface MessagesBucketProps {
   bucket: {
@@ -287,6 +290,31 @@ export const DirectMessagesPage: FunctionComponent<{
   );
 };
 
+const MessageRenderer: FunctionComponent<{content: Message}> = ({content}) => {
+  //const provider: Provider = useProvider()
+  try{
+    const widgetProps = JSON.parse(content.content as string) as object
+    if("defaultInputTokenAddress" in widgetProps) {
+      return <SwapWidget {...(widgetProps as SwapWidgetProps)} width={"100%"}/>
+    } else if ("ensName" in widgetProps && typeof widgetProps.ensName === "string"){
+      return <RegistrationWidget name={widgetProps.ensName}  connectAction={() => {}}/>
+    } else if ("parts" in widgetProps) {
+      return <>
+        {
+          //@ts-ignore
+          widgetProps?.parts[0]?.content
+        }
+        <RegistrationWidget name={
+          //@ts-ignore
+          widgetProps?.parts[1].content.ensName
+        }  connectAction={() => {}}/>
+      </>
+    }
+  } catch {
+  }
+  return <>{content.content as string}</>
+}
+
 const ListMessages: FunctionComponent<
   MessagesBucketProps & { peerAddress: string } & {}
 > = ({ bucket, peerAddress }) => {
@@ -351,7 +379,7 @@ const ListMessages: FunctionComponent<
                 </MsgPreview.MsgContainer>
               ) : (
                 <MsgPreview.MsgContainer>
-                  {[...filteredBucket.messages].reverse()[0].content as String}
+                  <MessageRenderer content={[...filteredBucket.messages].reverse()[0]}/>
                 </MsgPreview.MsgContainer>
               )}
             </MsgBundles.MsgContainer>
@@ -374,7 +402,7 @@ const ListMessages: FunctionComponent<
                 </MsgPreview.MsgContainer>
               ) : (
                 <MsgPreview.MsgContainer>
-                  {i.content as String}
+                  <MessageRenderer content={i}/>
                 </MsgPreview.MsgContainer>
               )}
             </MsgBundles.RestOfTheMessages>
@@ -409,7 +437,7 @@ const ListMessages: FunctionComponent<
               </MsgPreview.MsgContainer>
             ) : (
               <MsgPreview.MsgContainer>
-                {[...filteredBucket.messages].reverse()[0].content as String}
+                <MessageRenderer content={[...filteredBucket.messages].reverse()[0]}/>
               </MsgPreview.MsgContainer>
             )}
           </MsgBundles.MsgContainer>
@@ -432,7 +460,7 @@ const ListMessages: FunctionComponent<
               </MsgPreview.MsgContainer>
             ) : (
               <MsgPreview.MsgContainer>
-                {i.content as String}
+                <MessageRenderer content={i}/>
               </MsgPreview.MsgContainer>
             )}
           </MsgBundles.RestOfTheMessages>
