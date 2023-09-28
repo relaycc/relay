@@ -70,7 +70,7 @@ export default function Relay({ projects }: { projects: Project[] }) {
     }
   })();
   const [activeCategory, setActiveCategory] = useState<ProjectCategory>(
-    queryCategory || "robots"
+    queryCategory || "general"
   );
   const [width, setWidth] = useState(0);
   const showcaseRef = useRef<HTMLDivElement>(null);
@@ -340,54 +340,13 @@ export default function Relay({ projects }: { projects: Project[] }) {
             ref={showcaseHeaderRef}
             style={{ maxWidth: "max-content", marginTop: "3rem" }}
           >
-            <DirectoryHeader.Title>Try ChatGPT for Web3</DirectoryHeader.Title>
+            <DirectoryHeader.Title>Explore Web3 on Relay</DirectoryHeader.Title>
           </DirectoryHeader.Root>
-          <Showcase.Wrapper>
-            <Showcase.InnerWrapper>
-              <Showcase.Root>
-                <Chevron.ChevronLeftActive onClick={onLeftClick} />
-                <Showcase.MotionRoot ref={showcaseRef}>
-                  <Showcase.Slides
-                    drag="x"
-                    ref={dragRef}
-                    dragConstraints={{ right: 0, left: -width }}
-                    onDragStart={showCaseDragStart}
-                    animate={animation}
-                    transition={{
-                      type: "spring",
-                      stiffness: 40,
-                    }}
-                    onDragEnd={showcaseDragStop}
-                  >
-                    {robotCards.map((robot, i) => (
-                      <Card.Card
-                        key={robot.peerAddress}
-                        handleClick={() => {
-                          if (!showCaseDragging) {
-                            showcaseClick(robot.peerAddress);
-                            goToDm({
-                              peerAddress: robot.peerAddress as EthAddress,
-                            });
-                          }
-                        }}
-                        icon={<robot.icon />}
-                        initialBgColor={robot.initialBgColor}
-                        animateBgColor={robot.animateBgColor}
-                      />
-                    ))}
-                  </Showcase.Slides>
-                </Showcase.MotionRoot>
-                <Chevron.ChevronRightActive onClick={onRightClick} />
-              </Showcase.Root>
-              <Showcase.Ellipse />
-            </Showcase.InnerWrapper>
-          </Showcase.Wrapper>
           <DirectoryHeader.DirectoryRoot>
             <DirectoryHeader.Title
               ref={directoryRef}
               style={{ marginTop: "4rem" }}
             >
-              Explore Web3 on Relay
             </DirectoryHeader.Title>
             <DirectoryHeader.Search.Search
               onChange={(e: any) => {

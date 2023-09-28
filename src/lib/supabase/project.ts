@@ -1,5 +1,4 @@
 export const CATEGORIES = [
-  "robots",
   "general",
   "infrastructure",
   "defi",
@@ -17,7 +16,6 @@ export const CATEGORIES = [
 export type ProjectCategory = (typeof CATEGORIES)[number];
 
 export const CATEGORY_DISPLAY = {
-  robots: "Robots",
   general: "General",
   new: "New",
   venture: "Venture",
@@ -61,7 +59,6 @@ export const fromListToByCategory = (
   list: Project[]
 ): Record<Project["category"], Project[]> => {
   const result: Record<Project["category"], Project[]> = {
-    robots: [],
     general: [],
     venture: [],
     lens: [],
