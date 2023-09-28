@@ -23,7 +23,7 @@ export const CATEGORY_DISPLAY = {
   identity: "Identity",
   events: "Events",
   music: "Music",
-  impactdao: "Impact DAO",
+  impactdao: "Impact DAOs",
   defi: "DeFi",
   dao: "DAO",
   zk: "ZK",
