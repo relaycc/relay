@@ -1,4 +1,4 @@
-import { useMemo, useRef } from "react";
+import { useRef } from "react";
 import { motion } from "framer-motion";
 import styled from "styled-components";
 import { ButtonPrimary } from "./ButtonPrimary";
@@ -7,13 +7,9 @@ import { ChatIcon } from "./ChatIcon";
 import { ExternalLinkIcon } from "./ExternalLinkIcon";
 import Image from "next/image";
 import { textXsMedium, textSmallRegular } from "../typography";
-import { type } from "os";
-import { isEnsName } from "@/lib/isEnsName";
-import { EthAddress, isEthAddress } from "@relaycc/xmtp-hooks";
+import { EthAddress } from "@relaycc/xmtp-hooks";
 import { useRelayId } from "@/hooks/useRelayId";
-import { useGoToDm, useReceiverWindow } from "@/hooks/useReceiverWindow";
-import { useInView } from "@/hooks/useInView";
-import { Card } from "./Card";
+import { useGoToDm } from "@/hooks/useReceiverWindow";
 
 const Description = styled(motion.p)`
   display: flex;
@@ -171,7 +167,7 @@ const Root = styled(motion.div)`
 
   :hover {
     border: 2px solid ${(p) => p.theme.colors.primary["500"]};
-    ${Wrapper}{
+    ${Wrapper} {
       visibility: visible;
     }
   }
@@ -187,8 +183,6 @@ const DescriptionRoot = styled(motion.div)`
   flex-direction: column;
   height: 100%;
 `;
-
-
 
 const sanitizeLogo = (logo: string) => {
   if (logo.startsWith("/")) {

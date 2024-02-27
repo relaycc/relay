@@ -5,7 +5,7 @@ export const useOnClickOutside = (
   handler: () => unknown
 ) => {
   useEffect(() => {
-    const listener = (event: any) => {
+    const listener = (event: Event) => {
       if (!ref.current || ref.current.contains(event.target)) {
         return;
       }

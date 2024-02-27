@@ -4,6 +4,7 @@ import React, {
   useCallback,
   useEffect,
   useMemo,
+  useRef,
   useState,
 } from "react";
 import styled from "styled-components";
@@ -36,6 +37,10 @@ import { useAccount } from "wagmi";
 import { AuthMenu } from "./AuthMenu";
 import { LoaderAnimGeneral } from "@/design/MsgBox";
 import { useReadWriteValue } from "@/hooks/useReadWriteValue";
+import Head from "next/head";
+import { useEditor } from "../prosemirror/useEditor";
+import { EditorView } from "prosemirror-view";
+import { MarkdownRenderer } from "@/prosemirror/MarkdownRenderer";
 
 export interface MessagesBucketProps {
   bucket: {
@@ -49,7 +54,11 @@ type MessageBucket = MessagesBucketProps["bucket"];
 export const DirectMessagesPage: FunctionComponent<{
   conversation: Conversation;
 }> = ({ conversation }) => {
-  const { address, isConnected } = useAccount();
+  const viewRef = useRef<EditorView | null>(null);
+  const { content, isEmpty, handleUploadAttachment, clearEditor } =
+    useEditor(viewRef);
+
+  const { address } = useAccount();
   const xmtpClient = useXmtpClient({
     clientAddress: address as EthAddress,
   });
@@ -63,7 +72,6 @@ export const DirectMessagesPage: FunctionComponent<{
   const [messageIsSending, setMessageIsSending] = useState(false);
   const [lastMessageId, setLastMessageId] = useState("");
 
-  const [msgValue, setMsgValue] = useState<string>("");
   const { page, setPage } = useReceiverWindow();
   const peerAddress = conversation.peerAddress as EthAddress;
   const { messages, sendMessage } = useDirectMessage({
@@ -111,12 +119,6 @@ export const DirectMessagesPage: FunctionComponent<{
     return getMessageBuckets(messages.data);
   }, [messages]);
 
-  const handleChange = useCallback(
-    (event: React.ChangeEvent<HTMLInputElement>) => {
-      setMsgValue(event.target.value);
-    },
-    []
-  );
   const toggleFailureToast = useCallback(() => {
     setShowFailureToast(!showFailureToast);
   }, [showFailureToast]);
@@ -125,36 +127,36 @@ export const DirectMessagesPage: FunctionComponent<{
   }, [inputIsFocused]);
 
   const msgInvalid = useMemo(() => {
-    return msgValue.length === 0 || msgValue.trim().length === 0;
-  }, [msgValue]);
-  
-  const handleSend = useCallback(() => {
-    if (msgInvalid) {
+    return content.length === 0 || content.trim().length === 0;
+  }, [content]);
+
+  const handleRichTextSend = useCallback(() => {
+    if (content.length === 0 || content.trim().length === 0) {
       return;
     }
     setMessageIsSending(true);
     try {
       sendMessage.mutate({
-        content: msgValue,
+        content,
         conversation,
       });
       !accepted && acceptConversations({ conversations: [conversation] });
+      clearEditor();
     } catch (e) {
       toggleFailureToast();
       setMessageIsSending(false);
       return;
     }
-    setMsgValue("");
-  }, [msgValue, messages, peerAddress, accepted, conversation]);
+  }, [content, messages, peerAddress, accepted, conversation]);
 
   const messageCount = useMemo(() => messages.data?.length, [messages]);
-  const onEnter: KeyboardEventHandler<HTMLInputElement> = useCallback(
+  const onEnter: KeyboardEventHandler<HTMLDivElement> = useCallback(
     (event) => {
-      if (event.key === "Enter") {
-        handleSend();
+      if (event.key === "Enter" && !event.shiftKey) {
+        handleRichTextSend();
       }
     },
-    [handleSend]
+    [handleRichTextSend]
   );
   useEffect(() => {
     const chat = document.getElementById("chatScroll");
@@ -167,8 +169,19 @@ export const DirectMessagesPage: FunctionComponent<{
     setPage({ id: "messages" });
   }, [setPage]);
 
+  const fileRef = useRef<HTMLInputElement>(null);
+  const callFileInput = useCallback(() => {
+    if (!fileRef.current) {
+      return;
+    }
+    fileRef.current.click();
+  }, []);
+
   return (
     <>
+      <Head>
+        <link rel="stylesheet" href="https://prosemirror.net/css/editor.css" />
+      </Head>
       <DMHeader.Root>
         <DMHeader.LeftSide>
           <BackIcon onClick={navigateBack} />
@@ -205,7 +218,8 @@ export const DirectMessagesPage: FunctionComponent<{
               <PurpleLink
                 href="https://xmtp.org/docs/dev-concepts/account-signatures"
                 target="_blank"
-                rel="norefferer">
+                rel="norefferer"
+              >
                 here
               </PurpleLink>
               .
@@ -243,34 +257,42 @@ export const DirectMessagesPage: FunctionComponent<{
           )}
         </MessagesWrapper>
       </ScrollContainer>
-      <MsgBoxWrapper>
-        <MsgBox.Root>
-          <MsgBox.MessageInput
-            onChange={handleChange}
-            value={msgValue}
-            placeholder={"Type a Message"}
-            onKeyDown={onEnter}
-            onFocus={toggleInputIsFocused}
-            onBlur={toggleInputIsFocused}
+      <MsgBox.Root>
+        <MsgBox.IconContainer>
+          <input
+            type="file"
+            ref={fileRef}
+            style={{ display: "none" }}
+            accept="image/png, image/gif, image/jpeg"
+            onChange={handleUploadAttachment}
           />
-          <MsgBox.IconContainer>
-            {messageIsSending ? (
-              <LoaderAnimGeneral />
-            ) : (
-              <MsgBox.ArrowUpCircle
-                isActive={inputIsFocused && !msgInvalid}
-                onClick={handleSend}
-              />
-            )}
-          </MsgBox.IconContainer>
-        </MsgBox.Root>
-      </MsgBoxWrapper>
+          <MsgBox.AttachmentIcon onClick={callFileInput} />
+        </MsgBox.IconContainer>
+        <MsgBox.ProsemirrorEditorInput
+          onBlur={toggleInputIsFocused}
+          onFocus={toggleInputIsFocused}
+          viewRef={viewRef}
+          isEmpty={isEmpty}
+          onEnter={onEnter}
+        />
+        <MsgBox.IconContainer>
+          {messageIsSending ? (
+            <LoaderAnimGeneral />
+          ) : (
+            <MsgBox.ArrowUpCircle
+              isActive={inputIsFocused && !msgInvalid}
+              onClick={handleRichTextSend}
+            />
+          )}
+        </MsgBox.IconContainer>
+      </MsgBox.Root>
       {showFailureToast && (
         <ToastPosition>
           <Toast.Failure.Card
             initial={{ opacity: 0.2 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 0.2 }}>
+            transition={{ duration: 0.2 }}
+          >
             <Toast.Failure.AlertIcon />
             <Toast.Failure.Column>
               <Toast.Failure.Title>Failed to Send Message</Toast.Failure.Title>
@@ -287,8 +309,8 @@ export const DirectMessagesPage: FunctionComponent<{
   );
 };
 
-const ListMessages: FunctionComponent<
-  MessagesBucketProps & { peerAddress: string } & {}
+const ListMessagesComponent: FunctionComponent<
+  MessagesBucketProps & { peerAddress: string }
 > = ({ bucket, peerAddress }) => {
   const handle = useMemo(() => {
     if (!bucket || !bucket.messages.length) {
@@ -332,7 +354,7 @@ const ListMessages: FunctionComponent<
           <MsgBundles.StatusIconContainer>
             <Avatar
               handle={[...filteredBucket.messages].reverse()[0].senderAddress}
-              onClick={() => {}}
+              onClick={() => console.log}
               size={"md"}
             />
           </MsgBundles.StatusIconContainer>
@@ -351,7 +373,12 @@ const ListMessages: FunctionComponent<
                 </MsgPreview.MsgContainer>
               ) : (
                 <MsgPreview.MsgContainer>
-                  {[...filteredBucket.messages].reverse()[0].content as String}
+                  <MarkdownRenderer
+                    content={
+                      [...filteredBucket.messages].reverse()[0]
+                        .content as string
+                    }
+                  />
                 </MsgPreview.MsgContainer>
               )}
             </MsgBundles.MsgContainer>
@@ -362,33 +389,24 @@ const ListMessages: FunctionComponent<
           .reverse()
           .slice(1)
           .map((i, index) => (
-            <MsgBundles.RestOfTheMessages key={index}>
-              <MsgBundles.HoveredTimeContainer>
-                <MsgBundles.XxsSizedTime>
-                  {getDisplayDate(i.sent, true)}
-                </MsgBundles.XxsSizedTime>
-              </MsgBundles.HoveredTimeContainer>
-              {!filteredBucket.messages ? (
-                <MsgPreview.MsgContainer>
-                  <MsgPreview.MsgLoading />
-                </MsgPreview.MsgContainer>
-              ) : (
-                <MsgPreview.MsgContainer>
-                  {i.content as String}
-                </MsgPreview.MsgContainer>
-              )}
-            </MsgBundles.RestOfTheMessages>
+            <Messages
+              key={index}
+              i={i}
+              index={index}
+              messages={filteredBucket.messages}
+            />
           ))}
       </MsgBundles.Root>
     );
   }
+
   return (
     <MsgBundles.Root>
       <MsgBundles.FirstMsgContainer>
         <MsgBundles.StatusIconContainer>
           <Avatar
             handle={[...filteredBucket.messages].reverse()[0].senderAddress}
-            onClick={() => {}}
+            onClick={() => console.log}
             size={"md"}
           />
         </MsgBundles.StatusIconContainer>
@@ -409,7 +427,11 @@ const ListMessages: FunctionComponent<
               </MsgPreview.MsgContainer>
             ) : (
               <MsgPreview.MsgContainer>
-                {[...filteredBucket.messages].reverse()[0].content as String}
+                <MarkdownRenderer
+                  content={
+                    [...filteredBucket.messages].reverse()[0].content as string
+                  }
+                />
               </MsgPreview.MsgContainer>
             )}
           </MsgBundles.MsgContainer>
@@ -420,26 +442,47 @@ const ListMessages: FunctionComponent<
         .reverse()
         .slice(1)
         .map((i, index) => (
-          <MsgBundles.RestOfTheMessages key={index}>
-            <MsgBundles.HoveredTimeContainer>
-              <MsgBundles.XxsSizedTime>
-                {getDisplayDate(i.sent, true)}
-              </MsgBundles.XxsSizedTime>
-            </MsgBundles.HoveredTimeContainer>
-            {!filteredBucket.messages ? (
-              <MsgPreview.MsgContainer>
-                <MsgPreview.MsgLoading />
-              </MsgPreview.MsgContainer>
-            ) : (
-              <MsgPreview.MsgContainer>
-                {i.content as String}
-              </MsgPreview.MsgContainer>
-            )}
-          </MsgBundles.RestOfTheMessages>
+          <Messages
+            key={index}
+            i={i}
+            index={index}
+            messages={filteredBucket.messages}
+          />
         ))}
     </MsgBundles.Root>
   );
 };
+
+const ListMessages = React.memo(ListMessagesComponent, (prev, next) => {
+  return prev.bucket.messages.length === next.bucket.messages.length;
+});
+
+const MessagesComponent: FunctionComponent<{
+  messages: Message[];
+  i: Message;
+  index: number;
+}> = ({ messages, i, index }) => (
+  <MsgBundles.RestOfTheMessages key={index}>
+    <MsgBundles.HoveredTimeContainer>
+      <MsgBundles.XxsSizedTime>
+        {getDisplayDate(i.sent, true)}
+      </MsgBundles.XxsSizedTime>
+    </MsgBundles.HoveredTimeContainer>
+    {!messages ? (
+      <MsgPreview.MsgContainer>
+        <MsgPreview.MsgLoading />
+      </MsgPreview.MsgContainer>
+    ) : (
+      <MsgPreview.MsgContainer>
+        <MarkdownRenderer content={i.content as string} />
+      </MsgPreview.MsgContainer>
+    )}
+  </MsgBundles.RestOfTheMessages>
+);
+
+const Messages = React.memo(MessagesComponent, (prev, next) => {
+  return prev.i.content === next.i.content;
+});
 
 const isFiveMinuteDifference = (a: Date, b: Date): boolean => {
   return Math.abs(a.getTime() - b.getTime()) > 300000;
@@ -497,10 +540,6 @@ const MessagesWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-self: flex-start;
-`;
-
-const MsgBoxWrapper = styled.div`
-  padding: 0.5rem 1rem;
 `;
 
 const HeadWrapper = styled.div`

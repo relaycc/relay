@@ -6,12 +6,10 @@ import React, {
   useRef,
   useState,
 } from "react";
-import { useConnectedWallet } from "@/hooks/useConnectedWallet";
 import { AnimatePresence } from "framer-motion";
 import { EthAddress } from "@relaycc/xmtp-hooks";
 import * as HomeHeader from "@/design/HomeHeader";
 import styled from "styled-components";
-import { isEnsName } from "@/lib/isEnsName";
 import { Search } from "@/design/Search";
 import { NewMessage } from "./NewMessage";
 import * as Skeleton from "@/design/Skeleton";
@@ -26,8 +24,6 @@ import {
   textSmallRegular,
 } from "@/design/typography";
 import { useXmtpClient } from "@relaycc/xmtp-hooks";
-import { useStore } from "zustand";
-import { shallow } from "zustand/shallow";
 import { useZustandStore } from "@/hooks/useZustandStore";
 
 const SearchWrapper = styled.div`
@@ -61,9 +57,7 @@ export const Loading = () => (
   </Skeleton.LoadingRoot>
 );
 
-interface IMessagesPageProps {}
-
-export const MessagesPage: FunctionComponent<IMessagesPageProps> = () => {
+export const MessagesPage: FunctionComponent = () => {
   const { address, isConnected } = useAccount();
   const [searchInput, setSearchInput] = useState<string | null>(null);
   const [showNewMessage, setShowNewMessage] = useState<boolean>(false);
@@ -130,7 +124,7 @@ export const MessagesPage: FunctionComponent<IMessagesPageProps> = () => {
       <SearchWrapper>
         <Search
           placeholder={"Search for an ETH address"}
-          onChange={(e: any) => {
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
             // TODO: Not sure why isn't getting the type inference here.
             setSearchInput(e.target.value);
           }}

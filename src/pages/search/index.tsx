@@ -188,19 +188,6 @@ export default function Relay({ projects }: { projects: Project[] }) {
     [window]
   );
 
-  const scrollRight = useCallback(() => {
-    showcaseRef?.current?.scrollBy({
-      left: scrollAmount(),
-      behavior: "smooth",
-    });
-  }, []);
-  const scrollLeft = useCallback(() => {
-    showcaseRef?.current?.scrollBy({
-      left: scrollAmount(true),
-      behavior: "smooth",
-    });
-  }, []);
-
   return (
     <>
       <Head>
@@ -217,10 +204,10 @@ export default function Relay({ projects }: { projects: Project[] }) {
               isError={messageInputIsError}
               isLoading={messageInputIsLoading}
               placeholder={"Message ENS, Lens, or 0xAddress"}
-              onChange={(e: any) => {
+              onChange={() => {
                 setMessageInputIsError(false);
               }}
-              onKeyPress={async (e: any) => {
+              onKeyPress={async (e: React.KeyboardEvent<HTMLInputElement>) => {
                 if (e.key === "Enter") {
                   if (
                     !isEnsName(e.currentTarget.value) &&
@@ -292,11 +279,13 @@ export default function Relay({ projects }: { projects: Project[] }) {
                   isError={messageInputIsError}
                   isLoading={messageInputIsLoading}
                   placeholder={"Message ENS, Lens, or 0xAddress"}
-                  onChange={(e: any) => {
+                  onChange={() => {
                     setMessageInputIsError(false);
                   }}
                   style={{ margin: "0" }}
-                  onKeyPress={async (e: any) => {
+                  onKeyPress={async (
+                    e: React.KeyboardEvent<HTMLInputElement>
+                  ) => {
                     if (e.key === "Enter") {
                       if (
                         !isEnsName(e.currentTarget.value) &&
@@ -349,7 +338,7 @@ export default function Relay({ projects }: { projects: Project[] }) {
             >
             </DirectoryHeader.Title>
             <DirectoryHeader.Search.Search
-              onChange={(e: any) => {
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                 setSearchInput(e.target.value);
               }}
               value={searchInput || ""}
@@ -374,7 +363,7 @@ export default function Relay({ projects }: { projects: Project[] }) {
             <DirectoryHeader.Title>Directory</DirectoryHeader.Title>
             <DirectoryHeader.SearchWrapper>
               <DirectoryHeader.Search.Search
-                onChange={(e: any) => {
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                   setSearchInput(e.target.value);
                 }}
                 value={searchInput || ""}
